@@ -10,10 +10,6 @@ const distRoot = resolve(packageRoot, 'dist');
 const checkOnly = process.argv.includes('--check');
 const hexPattern = /^#[0-9a-f]{6}$/iu;
 
-async function readJson(path) {
-  return JSON.parse(await readFile(path, 'utf8'));
-}
-
 function assertHex(value, context) {
   if (typeof value !== 'string' || !hexPattern.test(value)) {
     throw new Error(`${context} must be a six-digit hexadecimal color`);
