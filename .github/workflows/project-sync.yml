@@ -19,6 +19,10 @@ concurrency:
   group: project-sync-${{ github.event.issue.number || github.run_id }}
   cancel-in-progress: false
 
+env:
+  PROJECT_NUMBER: "5"
+  PROJECT_OWNER: ciprian-rus
+
 jobs:
   add-current-issue:
     if: github.event_name == 'issues'
@@ -33,14 +37,37 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
 
-      - name: Add issue to Sistem Digital Roadmap
+      - name: Add issue when missing
         env:
           GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
           ISSUE_URL: ${{ github.event.issue.html_url }}
         run: |
-          gh project item-add 5 \
-            --owner ciprian-rus \
-            --url "${ISSUE_URL}"
+          set -euo pipefail
+
+          if gh project item-list "${PROJECT_NUMBER}" \
+            --owner "${PROJECT_OWNER}" \
+            --limit 500 \
+            --format json \
+            --jq '.items[].content.url' | grep -Fxq "${ISSUE_URL}"; then
+            echo "Issue is already present in the project."
+          else
+            gh project item-add "${PROJECT_NUMBER}" \
+              --owner "${PROJECT_OWNER}" \
+              --url "${ISSUE_URL}"
+          fi
+
+      - name: Verify issue membership
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          set -euo pipefail
+
+          gh project item-list "${PROJECT_NUMBER}" \
+            --owner "${PROJECT_OWNER}" \
+            --limit 500 \
+            --format json \
+            --jq '.items[].content.url' | grep -Fxq "${ISSUE_URL}"
 
   import-existing-issues:
     if: github.event_name == 'workflow_dispatch' && inputs.import_existing
@@ -55,19 +82,75 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
 
-      - name: Add all open issues to Sistem Digital Roadmap
+      - name: Add all missing open issues
         env:
           GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
           REPOSITORY: ${{ github.repository }}
         run: |
+          set -euo pipefail
+
+          expected_file="$(mktemp)"
+          current_file="$(mktemp)"
+
           gh issue list \
             --repo "${REPOSITORY}" \
             --state open \
             --limit 200 \
             --json url \
-            --jq '.[].url' | while read -r issue_url; do
-              echo "Adding ${issue_url}"
-              gh project item-add 5 \
-                --owner ciprian-rus \
-                --url "${issue_url}" || true
-            done
+            --jq '.[].url' | sort -u > "${expected_file}"
+
+          gh project item-list "${PROJECT_NUMBER}" \
+            --owner "${PROJECT_OWNER}" \
+            --limit 500 \
+            --format json \
+            --jq '.items[].content.url' | sort -u > "${current_file}"
+
+          while read -r issue_url; do
+            [ -n "${issue_url}" ] || continue
+
+            if grep -Fxq "${issue_url}" "${current_file}"; then
+              echo "Already present: ${issue_url}"
+            else
+              echo "Adding: ${issue_url}"
+              gh project item-add "${PROJECT_NUMBER}" \
+                --owner "${PROJECT_OWNER}" \
+                --url "${issue_url}"
+            fi
+          done < "${expected_file}"
+
+      - name: Verify all open issues were imported
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          expected_file="$(mktemp)"
+          actual_file="$(mktemp)"
+          missing_file="$(mktemp)"
+
+          gh issue list \
+            --repo "${REPOSITORY}" \
+            --state open \
+            --limit 200 \
+            --json url \
+            --jq '.[].url' | sort -u > "${expected_file}"
+
+          gh project item-list "${PROJECT_NUMBER}" \
+            --owner "${PROJECT_OWNER}" \
+            --limit 500 \
+            --format json \
+            --jq '.items[].content.url' | sort -u > "${actual_file}"
+
+          comm -23 "${expected_file}" "${actual_file}" > "${missing_file}"
+
+          if [ -s "${missing_file}" ]; then
+            echo "The following open issues are missing from Project #${PROJECT_NUMBER}:" >&2
+            cat "${missing_file}" >&2
+            exit 1
+          fi
+
+          issue_count="$(wc -l < "${expected_file}" | tr -d ' ')"
+          echo "Verified ${issue_count} open issues in Project #${PROJECT_NUMBER}."
+          echo "### Project synchronization" >> "${GITHUB_STEP_SUMMARY}"
+          echo "Verified **${issue_count}** open issues in Project #${PROJECT_NUMBER}." >> "${GITHUB_STEP_SUMMARY}"
