@@ -42,28 +42,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Propagate semantic accent text role
-        shell: bash
-        run: |
-          set -euo pipefail
-          sed -i 's/color: var(--sd-color-brand);/color: var(--sd-color-text-accent);/' apps/website/src/app/globals.css
-          sed -i '/--sd-color-text-muted: CanvasText;/a\    --sd-color-text-accent: LinkText;' packages/tokens/scripts/build-themes.mjs
-          sed -i 's/requiredRoleCount).toBe(38)/requiredRoleCount).toBe(39)/' packages/tokens/src/index.test.ts
-          sed -i 's/contrastPairCount).toBe(18)/contrastPairCount).toBe(20)/' packages/tokens/src/index.test.ts
-          sed -i 's/new Set(\[38\])/new Set([39])/' packages/tokens/src/index.test.ts
-          sed -i 's/contract de 38 de roluri/contract de 39 de roluri/' packages/tokens/README.md
-          sed -i 's/text: implicit, secundar, invers și disabled/text: implicit, secundar, accent, invers și disabled/' docs/product/theme-policy.md
-          python - <<'PY'
-          from pathlib import Path
-          path = Path('docs/product/theme-policy.md')
-          text = path.read_text()
-          marker = '- text secundar și disabled pe suprafața paginii: 4,5:1;\n'
-          addition = marker + '- text de accent pe suprafața paginii și pe suprafața subtilă: 4,5:1;\n'
-          if 'text de accent pe suprafața paginii' not in text:
-              text = text.replace(marker, addition)
-          path.write_text(text)
-          PY
-
       - name: Format canonical source files
         run: pnpm format
 
@@ -87,5 +65,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add --all
-          git commit -m "feat: add validated semantic accent text role"
+          git commit -m "chore: synchronize generated artifacts"
           git push origin "HEAD:${TARGET_BRANCH}"
