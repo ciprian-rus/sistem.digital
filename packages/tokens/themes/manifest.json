@@ -39,6 +39,7 @@
     "brand.subtle",
     "text.default",
     "text.muted",
+    "text.accent",
     "text.inverse",
     "text.disabled",
     "surface.page",
@@ -76,6 +77,8 @@
   "contrastPairs": [
     { "foreground": "text.default", "background": "surface.page", "minimum": 7 },
     { "foreground": "text.muted", "background": "surface.page", "minimum": 4.5 },
+    { "foreground": "text.accent", "background": "surface.page", "minimum": 4.5 },
+    { "foreground": "text.accent", "background": "surface.subtle", "minimum": 4.5 },
     { "foreground": "text.disabled", "background": "surface.page", "minimum": 4.5 },
     { "foreground": "text.inverse", "background": "surface.strong", "minimum": 4.5 },
     { "foreground": "link.default", "background": "surface.page", "minimum": 4.5 },
