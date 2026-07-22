@@ -48,6 +48,8 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
+Build scripts pentru dependențe sunt blocate implicit și aprobate explicit în `pnpm-workspace.yaml`.
+
 Verificarea completă rulează prin:
 
 ```bash
