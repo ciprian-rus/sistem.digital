@@ -5,17 +5,30 @@
     "button": {
       "minHeight": { "$type": "dimension", "$value": "{semantic.target.minimum}" },
       "paddingInline": { "$type": "dimension", "$value": "{semantic.space.6}" },
+      "paddingBlock": { "$type": "dimension", "$value": "{semantic.space.3}" },
+      "gap": { "$type": "dimension", "$value": "{semantic.space.2}" },
       "radius": { "$type": "dimension", "$value": "{semantic.radius.control}" },
-      "borderWidth": { "$type": "dimension", "$value": "{core.dimension.stroke.medium}" }
+      "borderWidth": { "$type": "dimension", "$value": "{core.dimension.stroke.medium}" },
+      "fontWeight": { "$type": "number", "$value": "{semantic.font.weight.semibold}" },
+      "lineHeight": { "$type": "number", "$value": "{semantic.font.lineHeight.control}" }
     },
     "input": {
       "minHeight": { "$type": "dimension", "$value": "{semantic.target.minimum}" },
+      "paddingInline": { "$type": "dimension", "$value": "{semantic.space.3}" },
+      "paddingBlock": { "$type": "dimension", "$value": "{semantic.space.3}" },
       "radius": { "$type": "dimension", "$value": "{semantic.radius.control}" },
-      "borderWidth": { "$type": "dimension", "$value": "{core.dimension.stroke.medium}" }
+      "borderWidth": { "$type": "dimension", "$value": "{core.dimension.stroke.medium}" },
+      "lineHeight": { "$type": "number", "$value": "{semantic.font.lineHeight.control}" }
     },
     "panel": {
       "radius": { "$type": "dimension", "$value": "{semantic.radius.panel}" },
-      "padding": { "$type": "dimension", "$value": "{semantic.space.6}" }
+      "padding": { "$type": "dimension", "$value": "{semantic.space.6}" },
+      "gap": { "$type": "dimension", "$value": "{semantic.space.4}" },
+      "elevation": { "$type": "string", "$value": "{semantic.elevation.low}" }
+    },
+    "container": {
+      "maxWidth": { "$type": "dimension", "$value": "{semantic.layout.content}" },
+      "gutter": { "$type": "string", "$value": "{semantic.layout.gutter.default}" }
     }
   }
 }
