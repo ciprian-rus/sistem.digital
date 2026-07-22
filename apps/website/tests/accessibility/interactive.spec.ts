@@ -101,6 +101,7 @@ test.describe('interactive components', () => {
   test('announces, lists and removes selected files', async ({ page }) => {
     await page.goto('/componente/interactive');
     const input = page.getByLabel('Documente justificative');
+    const fileList = page.locator('[data-sd-file-list]');
 
     await input.setInputFiles({
       name: 'cerere.pdf',
@@ -108,10 +109,10 @@ test.describe('interactive components', () => {
       buffer: Buffer.from('document demonstrativ'),
     });
 
-    await expect(page.getByText(/cerere\.pdf/u)).toBeVisible();
+    await expect(fileList.getByText(/cerere\.pdf —/u)).toBeVisible();
     await expect(page.locator('[data-sd-file-status]')).toHaveText('1 fișier selectat.');
     await page.getByRole('button', { name: 'Elimină cerere.pdf' }).click();
-    await expect(page.getByText(/cerere\.pdf/u)).toHaveCount(0);
+    await expect(fileList.getByText(/cerere\.pdf —/u)).toHaveCount(0);
     await expect(page.locator('[data-sd-file-status]')).toHaveText('0 fișiere selectate.');
   });
 
@@ -127,7 +128,10 @@ test.describe('interactive components', () => {
       await expect(page.locator('[data-sd-tab-panel]')).toHaveCount(3);
       for (const panel of await page.locator('[data-sd-tab-panel]').all())
         await expect(panel).toBeVisible();
-      await expect(page.getByLabel('Instituție')).toHaveAttribute('list', 'institution-options');
+      await expect(page.locator('#institution-search')).toHaveAttribute(
+        'list',
+        'institution-options',
+      );
       await expect(page.getByLabel('Documente justificative')).toBeVisible();
     } finally {
       await page.close();
