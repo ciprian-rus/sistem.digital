@@ -1,0 +1,4 @@
+@layer sd-base, sd-components;
+
+@import './globals.css' layer(sd-base);
+@import './foundations.css' layer(sd-base);
