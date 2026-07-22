@@ -1,0 +1,73 @@
+name: Sync issues to GitHub Project
+
+on:
+  issues:
+    types: [opened, reopened]
+  workflow_dispatch:
+    inputs:
+      import_existing:
+        description: Add all existing open issues to the project
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: project-sync-${{ github.event.issue.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  add-current-issue:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Projects token
+        run: |
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "Missing repository secret PROJECTS_TOKEN" >&2
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+
+      - name: Add issue to Sistem Digital Roadmap
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          gh project item-add 5 \
+            --owner ciprian-rus \
+            --url "${ISSUE_URL}"
+
+  import-existing-issues:
+    if: github.event_name == 'workflow_dispatch' && inputs.import_existing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Projects token
+        run: |
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "Missing repository secret PROJECTS_TOKEN" >&2
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+
+      - name: Add all open issues to Sistem Digital Roadmap
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh issue list \
+            --repo "${REPOSITORY}" \
+            --state open \
+            --limit 200 \
+            --json url \
+            --jq '.[].url' | while read -r issue_url; do
+              echo "Adding ${issue_url}"
+              gh project item-add 5 \
+                --owner ciprian-rus \
+                --url "${issue_url}" || true
+            done
