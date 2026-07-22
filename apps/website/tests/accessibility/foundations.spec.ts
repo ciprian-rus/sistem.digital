@@ -98,10 +98,9 @@ test.describe('responsive structural foundations', () => {
 
   test('shows the common focus treatment on strong and light surfaces', async ({ page }) => {
     await page.goto('/');
-    await page.keyboard.press('Tab');
-    await page.keyboard.press('Tab');
 
     const brand = page.getByRole('link', { name: 'Sistem Digital — pagina principală' });
+    await tabUntilFocused(page, brand);
     await expect(brand).toBeFocused();
     await expectVisibleFocus(brand);
 
@@ -133,7 +132,7 @@ test.describe('responsive structural foundations', () => {
       true,
     );
 
-    const button = page.getByRole('link', { name: 'Vezi codul sursă' });
+    const button = page.getByRole('link', { name: 'Explorează formularele' });
     await button.hover();
     await expect(button).toHaveCSS('transform', 'none');
   });
@@ -142,8 +141,8 @@ test.describe('responsive structural foundations', () => {
     await page.emulateMedia({ media: 'print' });
     await page.goto('/');
 
-    await expect(page.locator('.header-actions')).toBeHidden();
-    await expect(page.locator('.site-footer')).toBeHidden();
+    await expect(page.locator('.sd-header')).toBeHidden();
+    await expect(page.locator('.sd-footer')).toBeHidden();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     await expect(page.locator('body')).toHaveCSS('color', 'rgb(0, 0, 0)');

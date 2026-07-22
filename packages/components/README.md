@@ -2,7 +2,7 @@
 
 Componente HTML/CSS/JavaScript accesibile, independente de framework, pentru servicii digitale publice.
 
-Pachetul se află în stadiu alpha. Prima livrare acoperă formularele, validarea și mesajele de eroare.
+Pachetul se află în stadiu alpha. Sunt disponibile formularele și shell-ul instituțional de navigație.
 
 ## Instalare
 
@@ -14,11 +14,14 @@ pnpm add @sistem-digital/tokens @sistem-digital/components
 @import '@sistem-digital/tokens/css';
 @import '@sistem-digital/tokens/themes.css';
 @import '@sistem-digital/components/forms.css';
+@import '@sistem-digital/components/navigation.css';
 ```
 
 Pachetul de componente consumă exclusiv rolurile publice din `@sistem-digital/tokens`. Nu include React și nu cere JavaScript pentru funcționarea de bază.
 
-## Inventar formulare
+## Module publice
+
+### Formulare
 
 - label și hint;
 - fieldset și legend;
@@ -27,6 +30,21 @@ Pachetul de componente consumă exclusiv rolurile publice din `@sistem-digital/t
 - error message și error summary;
 - button și button group;
 - file upload de bază.
+
+### Navigație și structură
+
+- banner de autenticitate și alertă majoră;
+- identitate instituțională și numele serviciului;
+- navigație desktop și disclosure mobil nativ;
+- breadcrumb și service navigation;
+- formular de căutare GET;
+- footer standard și skip link.
+
+Inventarele sunt disponibile programatic:
+
+```ts
+import { formComponentNames, navigationComponentNames } from '@sistem-digital/components';
+```
 
 ## Exemplu valid
 
@@ -124,6 +142,47 @@ const cleanup = summary ? enhanceErrorSummaryLinks(summary) : () => {};
 
 Se folosesc controale HTML native. Nu se reconstruiesc checkbox-uri și radio-uri cu roluri ARIA.
 
+## Header și meniu mobil
+
+```html
+<header class="sd-header">
+  <div class="container sd-header__identity-row">
+    <a class="sd-identity" href="/">
+      <span class="sd-identity__mark" aria-hidden="true">IN</span>
+      <span class="sd-identity__text">
+        <span class="sd-identity__name">Instituția Națională</span>
+        <span class="sd-identity__service">Solicită un document</span>
+        <span class="sd-identity__domain">institutie.gov.ro</span>
+      </span>
+    </a>
+  </div>
+
+  <details class="sd-mobile-navigation">
+    <summary class="container">Meniu</summary>
+    <nav class="container" aria-label="Navigație principală mobilă">
+      <ul class="sd-mobile-navigation__list">
+        <li><a href="/servicii">Servicii</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+  </details>
+</header>
+```
+
+Disclosure-ul mobil funcționează cu tastatura și fără JavaScript. Varianta desktop folosește aceleași linkuri și aceeași ordine.
+
+## Căutare
+
+```html
+<form class="sd-search" action="/cautare" method="get" role="search">
+  <label class="sd-search__label" for="site-search">Caută în site</label>
+  <input class="sd-search__input" id="site-search" name="q" type="search" />
+  <button class="sd-search__button" type="submit">Caută</button>
+</form>
+```
+
+Metoda GET produce rezultate cu URL stabil și distribuibil.
+
 ## Disabled și readonly
 
 - `disabled` indică un control indisponibil și nu este transmis cu formularul;
@@ -141,15 +200,21 @@ Mesajele de eroare:
 - evită „valoare invalidă”, „eroare 42” sau formulări culpabilizante;
 - nu includ punct la final când sunt fragmente scurte.
 
+Navigația:
+
+- folosește denumiri orientate spre utilizator;
+- indică pagina curentă prin `aria-current="page"`;
+- păstrează identitatea și domeniul vizibile;
+- nu depinde de iconuri fără text;
+- nu ascunde informațiile critice în footer.
+
 ## Accesibilitate
 
 Fiecare exemplu trebuie verificat pentru:
 
-- asociere label–control;
-- hint și eroare prin `aria-describedby`;
-- `aria-invalid="true"` numai după validare;
-- `autocomplete` adecvat datelor personale;
+- asociere programatică și landmark-uri corecte;
 - ordine de focus și operare exclusiv cu tastatura;
+- meniu mobil cu JavaScript dezactivat;
 - target de minimum 44 CSS px;
 - reflow la 320 CSS px;
 - toate temele și forced colors;

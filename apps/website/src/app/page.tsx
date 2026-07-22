@@ -1,4 +1,4 @@
-import { ThemeControls } from '../components/theme-controls';
+import { PublicFooter, PublicHeader } from '../components/public-shell';
 
 const principles = [
   {
@@ -46,43 +46,7 @@ const feedbackExamples = [
 export default function HomePage() {
   return (
     <>
-      <a className="skip-link" href="#continut">
-        Sari la conținut
-      </a>
-
-      <header className="site-header">
-        <div className="container header-inner">
-          <a className="brand" href="/" aria-label="Sistem Digital — pagina principală">
-            <span className="brand-mark" aria-hidden="true">
-              SD
-            </span>
-            <span>Sistem Digital</span>
-          </a>
-
-          <div className="header-actions">
-            <nav aria-label="Navigație principală">
-              <ul className="nav-list">
-                <li>
-                  <a href="#principii">Principii</a>
-                </li>
-                <li>
-                  <a href="#teme">Teme</a>
-                </li>
-                <li>
-                  <a href="/componente/formulare">Formulare</a>
-                </li>
-                <li>
-                  <a href="#fundatie">Fundație</a>
-                </li>
-                <li>
-                  <a href="https://github.com/users/ciprian-rus/projects/5">Roadmap</a>
-                </li>
-              </ul>
-            </nav>
-            <ThemeControls />
-          </div>
-        </div>
-      </header>
+      <PublicHeader currentPath="/" showMajorAlert />
 
       <main id="continut">
         <section className="hero">
@@ -98,11 +62,8 @@ export default function HomePage() {
                 <a className="button button-primary" href="/componente/formulare">
                   Explorează formularele
                 </a>
-                <a
-                  className="button button-secondary"
-                  href="https://github.com/ciprian-rus/sistem.digital"
-                >
-                  Vezi codul sursă
+                <a className="button button-secondary" href="/componente/navigatie">
+                  Explorează navigația
                 </a>
               </div>
             </div>
@@ -190,22 +151,14 @@ export default function HomePage() {
 
 import '@sistem-digital/tokens/css';
 import '@sistem-digital/tokens/themes.css';
-import '@sistem-digital/components/forms.css';`}</code>
+import '@sistem-digital/components/forms.css';
+import '@sistem-digital/components/navigation.css';`}</code>
             </pre>
           </div>
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="container footer-inner">
-          <p>
-            <strong>Sistem Digital</strong> — infrastructură publică open-source.
-          </p>
-          <a href="https://github.com/ciprian-rus/sistem.digital/blob/main/CONTRIBUTING.md">
-            Contribuie
-          </a>
-        </div>
-      </footer>
+      <PublicFooter />
     </>
   );
 }
