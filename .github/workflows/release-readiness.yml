@@ -52,7 +52,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          pnpm sbom --format cyclonedx > release-artifacts/sbom.cdx.json
+          pnpm sbom \
+            --sbom-format cyclonedx \
+            --sbom-type application \
+            --lockfile-only \
+            --out release-artifacts/sbom.cdx.json
           node -e "const sbom = require('./release-artifacts/sbom.cdx.json'); if (sbom.bomFormat !== 'CycloneDX') process.exit(1)"
 
       - name: Generate and verify hashes
