@@ -6,7 +6,4 @@ export {
   type FormComponentName,
 } from './forms.js';
 
-export {
-  navigationComponentNames,
-  type NavigationComponentName,
-} from './navigation.js';
+export { navigationComponentNames, type NavigationComponentName } from './navigation.js';

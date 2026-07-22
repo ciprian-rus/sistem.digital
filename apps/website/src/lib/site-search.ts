@@ -82,6 +82,9 @@ export function searchSite(query: string, entries = searchEntries): SearchEntry[
       return { entry, score };
     })
     .filter((result): result is { entry: SearchEntry; score: number } => result !== null)
-    .sort((left, right) => right.score - left.score || left.entry.title.localeCompare(right.entry.title))
+    .sort(
+      (left, right) =>
+        right.score - left.score || left.entry.title.localeCompare(right.entry.title),
+    )
     .map(({ entry }) => entry);
 }

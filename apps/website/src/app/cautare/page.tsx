@@ -15,7 +15,7 @@ interface SearchPageProps {
 
 export default async function SearchPage({ searchParams }: Readonly<SearchPageProps>) {
   const parameters = await searchParams;
-  const query = Array.isArray(parameters.q) ? parameters.q[0] ?? '' : parameters.q ?? '';
+  const query = Array.isArray(parameters.q) ? (parameters.q[0] ?? '') : (parameters.q ?? '');
   const trimmedQuery = query.trim();
   const results = searchSite(trimmedQuery);
   const hasQuery = trimmedQuery.length >= 2;
@@ -60,7 +60,8 @@ export default async function SearchPage({ searchParams }: Readonly<SearchPagePr
         {hasQuery && results.length > 0 ? (
           <section aria-labelledby="results-title">
             <h2 className={styles.summary} id="results-title">
-              {results.length} {results.length === 1 ? 'rezultat' : 'rezultate'} pentru „{trimmedQuery}”
+              {results.length} {results.length === 1 ? 'rezultat' : 'rezultate'} pentru „
+              {trimmedQuery}”
             </h2>
             <ol className={styles.results}>
               {results.map((result) => (

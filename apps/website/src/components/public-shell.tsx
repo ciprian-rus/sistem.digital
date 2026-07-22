@@ -63,7 +63,9 @@ export function PublicHeader({
             </span>
             <div className="sd-major-alert__content">
               <strong id="major-alert-title">Versiune alpha</strong>
-              <p>Componentele sunt publice pentru testare și nu reprezintă încă un standard oficial.</p>
+              <p>
+                Componentele sunt publice pentru testare și nu reprezintă încă un standard oficial.
+              </p>
             </div>
           </div>
         </section>

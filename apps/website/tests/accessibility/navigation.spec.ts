@@ -46,9 +46,9 @@ test.describe('navigation and institutional shell', () => {
   test('exposes the authenticity banner, identity and canonical domain', async ({ page }) => {
     await page.goto('/componente/navigatie');
 
-    await expect(page.getByRole('region', { name: 'Informație despre autenticitate' })).toContainText(
-      'Domeniul oficial este sistem.digital',
-    );
+    await expect(
+      page.getByRole('region', { name: 'Informație despre autenticitate' }),
+    ).toContainText('Domeniul oficial este sistem.digital');
     await expect(page.getByRole('banner')).toContainText('Sistem Digital');
     await expect(page.getByRole('banner')).toContainText('Biblioteca de componente');
     await expect(page.getByRole('banner')).toContainText('sistem.digital');
@@ -60,10 +60,9 @@ test.describe('navigation and institutional shell', () => {
     await expect(page.getByRole('navigation', { name: 'Navigație principală' })).toBeVisible();
     await expect(page.getByRole('main')).toHaveAttribute('id', 'continut');
     await expect(page.getByRole('contentinfo')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Navigație', exact: true }).first()).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    await expect(
+      page.getByRole('link', { name: 'Navigație', exact: true }).first(),
+    ).toHaveAttribute('aria-current', 'page');
 
     const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumb' });
     await expect(breadcrumb).toContainText('Acasă');
@@ -99,7 +98,9 @@ test.describe('navigation and institutional shell', () => {
     }
   });
 
-  test('keeps a logical keyboard order through identity search theme and navigation', async ({ page }) => {
+  test('keeps a logical keyboard order through identity search theme and navigation', async ({
+    page,
+  }) => {
     await page.goto('/componente/navigatie');
 
     const expectedTargets = [
@@ -127,7 +128,9 @@ test.describe('navigation and institutional shell', () => {
     ).toHaveAttribute('href', '/componente/navigatie');
   });
 
-  test('reflows the shell at 320 CSS pixels without horizontal page scrolling', async ({ page }) => {
+  test('reflows the shell at 320 CSS pixels without horizontal page scrolling', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 320, height: 900 });
     await page.goto('/componente/navigatie');
 

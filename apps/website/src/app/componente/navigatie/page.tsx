@@ -71,9 +71,9 @@ export default function NavigationReferencePage() {
                 <p className="section-kicker">Identitate și autenticitate</p>
                 <h2 id="identity-title">Numele serviciului nu ascunde instituția și domeniul.</h2>
                 <p>
-                  Header-ul diferențiază identitatea proiectului sau instituției de numele serviciului
-                  tranzacțional. Bannerul de autenticitate explică statutul și indică domeniul oficial
-                  ca text, nu doar prin logo.
+                  Header-ul diferențiază identitatea proiectului sau instituției de numele
+                  serviciului tranzacțional. Bannerul de autenticitate explică statutul și indică
+                  domeniul oficial ca text, nu doar prin logo.
                 </p>
               </div>
 
@@ -102,11 +102,13 @@ export default function NavigationReferencePage() {
             <section className={styles.section} id="responsive" aria-labelledby="responsive-title">
               <div>
                 <p className="section-kicker">Navigație responsive</p>
-                <h2 id="responsive-title">Desktop și mobil folosesc aceeași ordine informațională.</h2>
+                <h2 id="responsive-title">
+                  Desktop și mobil folosesc aceeași ordine informațională.
+                </h2>
                 <p>
                   La lățimi mari, linkurile sunt vizibile direct. Sub 48rem, navigația desktop este
-                  înlocuită de un element <code>details</code> cu <code>summary</code>. Utilizatorul îl
-                  poate deschide cu Enter sau Space, iar starea este expusă nativ cititoarelor de
+                  înlocuită de un element <code>details</code> cu <code>summary</code>. Utilizatorul
+                  îl poate deschide cu Enter sau Space, iar starea este expusă nativ cititoarelor de
                   ecran.
                 </p>
               </div>
@@ -130,8 +132,8 @@ export default function NavigationReferencePage() {
                 <article className={styles.ruleCard}>
                   <h3>Pagina curentă este explicită</h3>
                   <p>
-                    Linkul activ folosește <code>aria-current=&quot;page&quot;</code>, nu doar o culoare
-                    distinctă.
+                    Linkul activ folosește <code>aria-current=&quot;page&quot;</code>, nu doar o
+                    culoare distinctă.
                   </p>
                 </article>
               </div>
@@ -142,9 +144,9 @@ export default function NavigationReferencePage() {
                 <p className="section-kicker">Căutare</p>
                 <h2 id="search-title">O cerere GET poate fi copiată, salvată și distribuită.</h2>
                 <p>
-                  Formularul de căutare folosește landmark-ul <code>role=&quot;search&quot;</code>, label
-                  programatic și parametrul <code>q</code>. Rezultatele au un URL stabil și nu depind
-                  de JavaScript.
+                  Formularul de căutare folosește landmark-ul <code>role=&quot;search&quot;</code>,
+                  label programatic și parametrul <code>q</code>. Rezultatele au un URL stabil și nu
+                  depind de JavaScript.
                 </p>
               </div>
 
@@ -168,7 +170,9 @@ export default function NavigationReferencePage() {
             <section className={styles.section} id="breadcrumb" aria-labelledby="breadcrumb-title">
               <div>
                 <p className="section-kicker">Breadcrumb și service navigation</p>
-                <h2 id="breadcrumb-title">Poziția globală și poziția în serviciu sunt două lucruri.</h2>
+                <h2 id="breadcrumb-title">
+                  Poziția globală și poziția în serviciu sunt două lucruri.
+                </h2>
                 <p>
                   Breadcrumb-ul arată ierarhia paginii în site. Service navigation arată pașii sau
                   secțiunile unui serviciu. Nu se înlocuiesc reciproc și au etichete de navigație
@@ -202,7 +206,9 @@ export default function NavigationReferencePage() {
             <section className={styles.section} id="footer" aria-labelledby="footer-title">
               <div>
                 <p className="section-kicker">Footer și alerte</p>
-                <h2 id="footer-title">Informația critică apare înaintea conținutului, nu în footer.</h2>
+                <h2 id="footer-title">
+                  Informația critică apare înaintea conținutului, nu în footer.
+                </h2>
               </div>
 
               <ul className={styles.checklist}>
