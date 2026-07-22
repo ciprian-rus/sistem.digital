@@ -29,12 +29,7 @@ pnpm add @sistem-digital/tokens
 ## TypeScript
 
 ```ts
-import {
-  flatTokens,
-  semanticTokens,
-  tokenMetadata,
-  tokens,
-} from '@sistem-digital/tokens';
+import { flatTokens, semanticTokens, tokenMetadata, tokens } from '@sistem-digital/tokens';
 
 const pageBackground = tokens.semantic.color.surface.page;
 const buttonHeight = tokens.component.button.minHeight;

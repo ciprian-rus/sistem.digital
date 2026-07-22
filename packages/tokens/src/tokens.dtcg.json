@@ -1,0 +1,576 @@
+{
+  "$description": "Sursa canonică DTCG agregată pentru distribuție.",
+  "$extensions": {
+    "ro.sistem-digital": {
+      "format": "DTCG 2025.10",
+      "sourceHash": "65ee0a0fa629b2717d94cceaf0702af31fe0a8081e8df56d6952f8371f9c5d4e",
+      "tokenCount": 86,
+      "aliasCount": 49,
+      "layers": [
+        "core",
+        "semantic",
+        "component"
+      ],
+      "sources": [
+        "core.tokens.json",
+        "semantic.tokens.json",
+        "component.tokens.json"
+      ]
+    }
+  },
+  "core": {
+    "$description": "Valori primitive. Nu se consumă direct în componentele de produs.",
+    "color": {
+      "$type": "color",
+      "blue": {
+        "100": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.909804,
+              0.94902,
+              0.980392
+            ],
+            "hex": "#e8f2fa"
+          }
+        },
+        "600": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.113725,
+              0.47451,
+              0.74902
+            ],
+            "hex": "#1d79bf"
+          }
+        },
+        "700": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0.294118,
+              0.509804
+            ],
+            "hex": "#004b82"
+          }
+        },
+        "900": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0.164706,
+              0.34902
+            ],
+            "hex": "#002a59"
+          }
+        }
+      },
+      "neutral": {
+        "0": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              1,
+              1,
+              1
+            ],
+            "hex": "#ffffff"
+          }
+        },
+        "100": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.960784,
+              0.968627,
+              0.980392
+            ],
+            "hex": "#f5f7fa"
+          }
+        },
+        "300": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.780392,
+              0.803922,
+              0.831373
+            ],
+            "hex": "#c7cdd4"
+          }
+        },
+        "500": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.419608,
+              0.447059,
+              0.501961
+            ],
+            "hex": "#6b7280"
+          }
+        },
+        "700": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.294118,
+              0.333333,
+              0.388235
+            ],
+            "hex": "#4b5563"
+          }
+        },
+        "1000": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.090196,
+              0.12549,
+              0.164706
+            ],
+            "hex": "#17202a"
+          }
+        }
+      },
+      "cyan": {
+        "700": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0.368627,
+              0.658824
+            ],
+            "hex": "#005ea8"
+          }
+        }
+      },
+      "green": {
+        "700": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0.439216,
+              0.235294
+            ],
+            "hex": "#00703c"
+          }
+        }
+      },
+      "yellow": {
+        "400": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              1,
+              0.74902,
+              0.278431
+            ],
+            "hex": "#ffbf47"
+          }
+        },
+        "500": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.952941,
+              0.713725,
+              0.121569
+            ],
+            "hex": "#f3b61f"
+          }
+        }
+      },
+      "red": {
+        "700": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.831373,
+              0.207843,
+              0.109804
+            ],
+            "hex": "#d4351c"
+          }
+        }
+      }
+    },
+    "dimension": {
+      "$type": "dimension",
+      "space": {
+        "1": {
+          "$value": {
+            "value": 0.25,
+            "unit": "rem"
+          }
+        },
+        "2": {
+          "$value": {
+            "value": 0.5,
+            "unit": "rem"
+          }
+        },
+        "3": {
+          "$value": {
+            "value": 0.75,
+            "unit": "rem"
+          }
+        },
+        "4": {
+          "$value": {
+            "value": 1,
+            "unit": "rem"
+          }
+        },
+        "6": {
+          "$value": {
+            "value": 1.5,
+            "unit": "rem"
+          }
+        },
+        "8": {
+          "$value": {
+            "value": 2,
+            "unit": "rem"
+          }
+        },
+        "12": {
+          "$value": {
+            "value": 3,
+            "unit": "rem"
+          }
+        },
+        "16": {
+          "$value": {
+            "value": 4,
+            "unit": "rem"
+          }
+        }
+      },
+      "radius": {
+        "control": {
+          "$value": {
+            "value": 0.25,
+            "unit": "rem"
+          }
+        },
+        "panel": {
+          "$value": {
+            "value": 0.5,
+            "unit": "rem"
+          }
+        }
+      },
+      "layout": {
+        "content": {
+          "$value": {
+            "value": 75,
+            "unit": "rem"
+          }
+        },
+        "reading": {
+          "$value": {
+            "value": 46,
+            "unit": "rem"
+          }
+        }
+      },
+      "stroke": {
+        "thin": {
+          "$value": {
+            "value": 1,
+            "unit": "px"
+          }
+        },
+        "medium": {
+          "$value": {
+            "value": 2,
+            "unit": "px"
+          }
+        },
+        "focus": {
+          "$value": {
+            "value": 0.25,
+            "unit": "rem"
+          }
+        }
+      },
+      "target": {
+        "minimum": {
+          "$value": {
+            "value": 2.75,
+            "unit": "rem"
+          }
+        }
+      }
+    },
+    "font": {
+      "family": {
+        "$type": "fontFamily",
+        "sans": {
+          "$value": [
+            "Inter",
+            "ui-sans-serif",
+            "system-ui",
+            "-apple-system",
+            "BlinkMacSystemFont",
+            "Segoe UI",
+            "sans-serif"
+          ]
+        },
+        "mono": {
+          "$value": [
+            "ui-monospace",
+            "SFMono-Regular",
+            "Menlo",
+            "Monaco",
+            "Consolas",
+            "monospace"
+          ]
+        }
+      }
+    },
+    "duration": {
+      "$type": "duration",
+      "fast": {
+        "$value": {
+          "value": 100,
+          "unit": "ms"
+        }
+      },
+      "moderate": {
+        "$value": {
+          "value": 200,
+          "unit": "ms"
+        }
+      },
+      "slow": {
+        "$value": {
+          "value": 350,
+          "unit": "ms"
+        }
+      }
+    }
+  },
+  "semantic": {
+    "$description": "Roluri stabile folosite de produse și teme.",
+    "color": {
+      "$type": "color",
+      "brand": {
+        "100": {
+          "$value": "{core.color.blue.100}"
+        },
+        "600": {
+          "$value": "{core.color.blue.600}"
+        },
+        "700": {
+          "$value": "{core.color.blue.700}"
+        },
+        "900": {
+          "$value": "{core.color.blue.900}"
+        },
+        "strong": {
+          "$value": "{core.color.blue.900}"
+        },
+        "default": {
+          "$value": "{core.color.blue.600}"
+        },
+        "subtle": {
+          "$value": "{core.color.blue.100}"
+        }
+      },
+      "text": {
+        "default": {
+          "$value": "{core.color.neutral.1000}"
+        },
+        "muted": {
+          "$value": "{core.color.neutral.700}"
+        },
+        "inverse": {
+          "$value": "{core.color.neutral.0}"
+        }
+      },
+      "link": {
+        "default": {
+          "$value": "{core.color.cyan.700}"
+        }
+      },
+      "surface": {
+        "page": {
+          "$value": "{core.color.neutral.0}"
+        },
+        "subtle": {
+          "$value": "{core.color.neutral.100}"
+        },
+        "strong": {
+          "$value": "{core.color.blue.900}"
+        }
+      },
+      "border": {
+        "default": {
+          "$value": "{core.color.neutral.300}"
+        },
+        "strong": {
+          "$value": "{core.color.neutral.500}"
+        }
+      },
+      "feedback": {
+        "info": {
+          "$value": "{core.color.cyan.700}"
+        },
+        "success": {
+          "$value": "{core.color.green.700}"
+        },
+        "warning": {
+          "$value": "{core.color.yellow.500}"
+        },
+        "danger": {
+          "$value": "{core.color.red.700}"
+        }
+      },
+      "focus": {
+        "ring": {
+          "$value": "{core.color.yellow.400}"
+        }
+      }
+    },
+    "font": {
+      "family": {
+        "$type": "fontFamily",
+        "sans": {
+          "$value": "{core.font.family.sans}"
+        },
+        "mono": {
+          "$value": "{core.font.family.mono}"
+        }
+      }
+    },
+    "space": {
+      "1": {
+        "$value": "{core.dimension.space.1}"
+      },
+      "2": {
+        "$value": "{core.dimension.space.2}"
+      },
+      "3": {
+        "$value": "{core.dimension.space.3}"
+      },
+      "4": {
+        "$value": "{core.dimension.space.4}"
+      },
+      "6": {
+        "$value": "{core.dimension.space.6}"
+      },
+      "8": {
+        "$value": "{core.dimension.space.8}"
+      },
+      "12": {
+        "$value": "{core.dimension.space.12}"
+      },
+      "16": {
+        "$value": "{core.dimension.space.16}"
+      },
+      "$type": "dimension"
+    },
+    "radius": {
+      "$type": "dimension",
+      "control": {
+        "$value": "{core.dimension.radius.control}"
+      },
+      "panel": {
+        "$value": "{core.dimension.radius.panel}"
+      }
+    },
+    "layout": {
+      "$type": "dimension",
+      "content": {
+        "$value": "{core.dimension.layout.content}"
+      },
+      "reading": {
+        "$value": "{core.dimension.layout.reading}"
+      }
+    },
+    "focus": {
+      "$type": "dimension",
+      "width": {
+        "$value": "{core.dimension.stroke.focus}"
+      },
+      "offset": {
+        "$value": {
+          "value": 0.2,
+          "unit": "rem"
+        }
+      }
+    },
+    "target": {
+      "$type": "dimension",
+      "minimum": {
+        "$value": "{core.dimension.target.minimum}"
+      }
+    },
+    "motion": {
+      "duration": {
+        "$type": "duration",
+        "fast": {
+          "$value": "{core.duration.fast}"
+        },
+        "moderate": {
+          "$value": "{core.duration.moderate}"
+        },
+        "slow": {
+          "$value": "{core.duration.slow}"
+        }
+      }
+    }
+  },
+  "component": {
+    "$description": "Decizii locale de componentă, construite numai din roluri semantice sau primitive aprobate.",
+    "button": {
+      "minHeight": {
+        "$type": "dimension",
+        "$value": "{semantic.target.minimum}"
+      },
+      "paddingInline": {
+        "$type": "dimension",
+        "$value": "{semantic.space.6}"
+      },
+      "radius": {
+        "$type": "dimension",
+        "$value": "{semantic.radius.control}"
+      },
+      "borderWidth": {
+        "$type": "dimension",
+        "$value": "{core.dimension.stroke.medium}"
+      }
+    },
+    "input": {
+      "minHeight": {
+        "$type": "dimension",
+        "$value": "{semantic.target.minimum}"
+      },
+      "radius": {
+        "$type": "dimension",
+        "$value": "{semantic.radius.control}"
+      },
+      "borderWidth": {
+        "$type": "dimension",
+        "$value": "{core.dimension.stroke.medium}"
+      }
+    },
+    "panel": {
+      "radius": {
+        "$type": "dimension",
+        "$value": "{semantic.radius.panel}"
+      },
+      "padding": {
+        "$type": "dimension",
+        "$value": "{semantic.space.6}"
+      }
+    }
+  }
+}

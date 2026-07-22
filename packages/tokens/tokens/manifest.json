@@ -1,15 +1,7 @@
 {
   "format": "DTCG 2025.10",
-  "sources": [
-    "core.tokens.json",
-    "semantic.tokens.json",
-    "component.tokens.json"
-  ],
-  "layers": [
-    "core",
-    "semantic",
-    "component"
-  ],
+  "sources": ["core.tokens.json", "semantic.tokens.json", "component.tokens.json"],
+  "layers": ["core", "semantic", "component"],
   "contrastPairs": [
     {
       "foreground": "semantic.color.text.default",

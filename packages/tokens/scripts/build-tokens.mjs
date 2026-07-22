@@ -114,7 +114,10 @@ function validateColor(value, path) {
       throw new Error(`Color '${path}' contains an invalid sRGB component`);
     }
   }
-  if (value.alpha !== undefined && (typeof value.alpha !== 'number' || value.alpha < 0 || value.alpha > 1)) {
+  if (
+    value.alpha !== undefined &&
+    (typeof value.alpha !== 'number' || value.alpha < 0 || value.alpha > 1)
+  ) {
     throw new Error(`Color '${path}' contains an invalid alpha value`);
   }
   if (value.hex !== undefined && !/^#[0-9a-f]{6}$/iu.test(value.hex)) {
@@ -141,11 +144,15 @@ function validateValue(type, value, path) {
   if (type === 'dimension') validateDimension(value, path);
   if (type === 'duration') validateDuration(value, path);
   if (type === 'fontFamily') {
-    const valid = typeof value === 'string' || (Array.isArray(value) && value.length > 0 && value.every((item) => typeof item === 'string'));
+    const valid =
+      typeof value === 'string' ||
+      (Array.isArray(value) && value.length > 0 && value.every((item) => typeof item === 'string'));
     if (!valid) throw new Error(`Font family '${path}' must be a string or non-empty string array`);
   }
-  if (type === 'number' && typeof value !== 'number') throw new Error(`Number '${path}' must be numeric`);
-  if (type === 'string' && typeof value !== 'string') throw new Error(`String '${path}' must be text`);
+  if (type === 'number' && typeof value !== 'number')
+    throw new Error(`Number '${path}' must be numeric`);
+  if (type === 'string' && typeof value !== 'string')
+    throw new Error(`String '${path}' must be text`);
 }
 
 function resolveTokens(document, tokenDefinitions) {
@@ -167,7 +174,9 @@ function resolveTokens(document, tokenDefinitions) {
       if (Object.keys(value).length === 1 && typeof value.$ref === 'string') {
         return jsonPointer(document, value.$ref);
       }
-      return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, resolveComposite(item)]));
+      return Object.fromEntries(
+        Object.entries(value).map(([key, item]) => [key, resolveComposite(item)]),
+      );
     }
     return value;
   }
@@ -219,7 +228,8 @@ function resolveTokens(document, tokenDefinitions) {
 function platformValue(token) {
   const { type, value } = token;
   if (type === 'color') {
-    if (value.hex && (value.alpha === undefined || value.alpha === 1)) return value.hex.toLowerCase();
+    if (value.hex && (value.alpha === undefined || value.alpha === 1))
+      return value.hex.toLowerCase();
     const [red, green, blue] = value.components.map((component) => Math.round(component * 255));
     return `rgb(${red} ${green} ${blue} / ${value.alpha ?? 1})`;
   }
@@ -238,7 +248,10 @@ function setNested(target, path, value) {
 }
 
 function kebab(value) {
-  return value.replace(/([a-z0-9])([A-Z])/gu, '$1-$2').replaceAll('_', '-').toLowerCase();
+  return value
+    .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
+    .replaceAll('_', '-')
+    .toLowerCase();
 }
 
 function cssName(path) {
@@ -247,7 +260,8 @@ function cssName(path) {
   if (parts[0] === 'semantic') {
     parts = parts.slice(1);
     if (parts[0] === 'color' && parts[1] === 'feedback') parts = ['color', parts[2]];
-    else if (parts[0] === 'color' && parts[1] === 'focus' && parts[2] === 'ring') parts = ['color', 'focus'];
+    else if (parts[0] === 'color' && parts[1] === 'focus' && parts[2] === 'ring')
+      parts = ['color', 'focus'];
     else if (parts[0] === 'font' && parts[1] === 'family') parts = ['font', parts[2]];
     else if (parts.at(-1) === 'default') parts = parts.slice(0, -1);
   } else {
@@ -267,7 +281,9 @@ function cssValue(token) {
 
 function relativeLuminance(colorValue) {
   return colorValue.components
-    .map((component) => (component <= 0.04045 ? component / 12.92 : ((component + 0.055) / 1.055) ** 2.4))
+    .map((component) =>
+      component <= 0.04045 ? component / 12.92 : ((component + 0.055) / 1.055) ** 2.4,
+    )
     .reduce((sum, component, index) => sum + component * [0.2126, 0.7152, 0.0722][index], 0);
 }
 
@@ -284,10 +300,13 @@ function validateContrastPairs(pairs, resolved) {
     const foreground = resolved.get(pair.foreground);
     const background = resolved.get(pair.background);
     if (!foreground || !background) throw new Error(`Contrast pair references a missing token`);
-    if (foreground.type !== 'color' || background.type !== 'color') throw new Error(`Contrast pairs must reference color tokens`);
+    if (foreground.type !== 'color' || background.type !== 'color')
+      throw new Error(`Contrast pairs must reference color tokens`);
     const ratio = contrastRatio(foreground.value, background.value);
     if (ratio + Number.EPSILON < pair.minimum) {
-      throw new Error(`${pair.foreground} on ${pair.background} has contrast ${ratio.toFixed(2)}; required ${pair.minimum}`);
+      throw new Error(
+        `${pair.foreground} on ${pair.background} has contrast ${ratio.toFixed(2)}; required ${pair.minimum}`,
+      );
     }
   }
 }
@@ -298,7 +317,8 @@ function renderCss(tokens) {
     .map((token) => `  ${cssName(token.path)}: ${cssValue(token)};`);
 
   const duplicates = declarations.map((line) => line.split(':', 1)[0]);
-  if (new Set(duplicates).size !== duplicates.length) throw new Error('CSS variable naming produced a collision');
+  if (new Set(duplicates).size !== duplicates.length)
+    throw new Error('CSS variable naming produced a collision');
 
   return `/* Generated from DTCG sources. Do not edit manually. */\n:root {\n${declarations.join('\n')}\n}\n`;
 }
@@ -329,7 +349,12 @@ const sourceFiles = [];
 
 for (const sourceName of manifest.sources) {
   const path = resolve(tokensRoot, sourceName);
-  sourceFiles.push({ name: sourceName, path, text: await readFile(path, 'utf8'), document: await readJson(path) });
+  sourceFiles.push({
+    name: sourceName,
+    path,
+    text: await readFile(path, 'utf8'),
+    document: await readJson(path),
+  });
 }
 
 const document = mergeSources(sourceFiles);
@@ -340,7 +365,9 @@ validateContrastPairs(manifest.contrastPairs, resolved);
 const packageManifest = await readJson(resolve(packageRoot, 'package.json'));
 const nested = {};
 const flat = {};
-for (const token of [...resolved.values()].sort((left, right) => left.path.localeCompare(right.path))) {
+for (const token of [...resolved.values()].sort((left, right) =>
+  left.path.localeCompare(right.path),
+)) {
   const value = platformValue(token);
   setNested(nested, token.path, value);
   flat[token.path] = value;
@@ -368,7 +395,13 @@ const resolvedJson = `${JSON.stringify({ version: packageManifest.version, forma
 const combinedJson = `${JSON.stringify(combinedDtcg, null, 2)}\n`;
 const metadataJson = `${JSON.stringify(metadata, null, 2)}\n`;
 const css = renderCss(resolved);
-const typescript = renderTypescript(packageManifest.version, manifest.format, nested, flat, metadata);
+const typescript = renderTypescript(
+  packageManifest.version,
+  manifest.format,
+  nested,
+  flat,
+  metadata,
+);
 
 const checkedOutputs = [
   [resolve(generatedRoot, 'tokens.ts'), typescript],
@@ -381,9 +414,13 @@ for (const [path, content] of checkedOutputs) await writeOrCheck(path, content, 
 
 if (checkOnly) {
   if (stale.length > 0) {
-    throw new Error(`Generated token artifacts are stale:\n- ${stale.join('\n- ')}\nRun pnpm --filter @sistem-digital/tokens tokens:generate.`);
+    throw new Error(
+      `Generated token artifacts are stale:\n- ${stale.join('\n- ')}\nRun pnpm --filter @sistem-digital/tokens tokens:generate.`,
+    );
   }
-  console.log(`Validated ${resolved.size} tokens, ${aliasCount} aliases and ${manifest.contrastPairs.length} contrast pairs.`);
+  console.log(
+    `Validated ${resolved.size} tokens, ${aliasCount} aliases and ${manifest.contrastPairs.length} contrast pairs.`,
+  );
 } else {
   await mkdir(distRoot, { recursive: true });
   await writeFile(resolve(distRoot, 'tokens.css'), css);
