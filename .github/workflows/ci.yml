@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Quality gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        id: install
+        shell: bash
+        run: |
+          set +e
+          pnpm install --frozen-lockfile > pnpm-install.log 2>&1
+          status=$?
+          cat pnpm-install.log
+          echo "status=${status}" >> "${GITHUB_OUTPUT}"
+          exit 0
+
+      - name: Report installation failure
+        if: steps.install.outputs.status != '0' && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: bash
+        run: |
+          {
+            echo "### CI dependency installation failed"
+            echo
+            echo '```text'
+            tail -n 60 pnpm-install.log
+            echo '```'
+          } > /tmp/ci-comment.md
+
+          gh pr comment "${PR_NUMBER}" --body-file /tmp/ci-comment.md
+          exit 1
+
+      - name: Stop after installation failure
+        if: steps.install.outputs.status != '0' && github.event_name != 'pull_request'
+        run: exit 1
+
+      - name: Run quality gates
+        id: quality
+        if: steps.install.outputs.status == '0'
+        shell: bash
+        run: |
+          set +e
+          pnpm check > pnpm-check.log 2>&1
+          status=$?
+          cat pnpm-check.log
+          echo "status=${status}" >> "${GITHUB_OUTPUT}"
+          exit 0
+
+      - name: Report quality gate failure
+        if: steps.install.outputs.status == '0' && steps.quality.outputs.status != '0' && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: bash
+        run: |
+          {
+            echo "### CI quality gates failed"
+            echo
+            echo '```text'
+            tail -n 100 pnpm-check.log
+            echo '```'
+          } > /tmp/ci-comment.md
+
+          gh pr comment "${PR_NUMBER}" --body-file /tmp/ci-comment.md
+          exit 1
+
+      - name: Stop after quality gate failure
+        if: steps.install.outputs.status == '0' && steps.quality.outputs.status != '0' && github.event_name != 'pull_request'
+        run: exit 1

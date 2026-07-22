@@ -1,0 +1,44 @@
+:root {
+  color-scheme: light;
+
+  --sd-color-brand-900: #002a59;
+  --sd-color-brand-700: #004b82;
+  --sd-color-brand-600: #1d79bf;
+  --sd-color-brand-100: #e8f2fa;
+
+  --sd-color-text: #17202a;
+  --sd-color-text-muted: #4b5563;
+  --sd-color-text-inverse: #ffffff;
+  --sd-color-link: #005ea8;
+
+  --sd-color-surface-page: #ffffff;
+  --sd-color-surface-subtle: #f5f7fa;
+  --sd-color-surface-strong: #002a59;
+
+  --sd-color-border: #c7cdd4;
+  --sd-color-border-strong: #6b7280;
+
+  --sd-color-info: #005ea8;
+  --sd-color-success: #00703c;
+  --sd-color-warning: #f3b61f;
+  --sd-color-danger: #d4351c;
+  --sd-color-focus: #ffbf47;
+
+  --sd-font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --sd-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --sd-space-1: 0.25rem;
+  --sd-space-2: 0.5rem;
+  --sd-space-3: 0.75rem;
+  --sd-space-4: 1rem;
+  --sd-space-6: 1.5rem;
+  --sd-space-8: 2rem;
+  --sd-space-12: 3rem;
+  --sd-space-16: 4rem;
+
+  --sd-radius-control: 0.25rem;
+  --sd-radius-panel: 0.5rem;
+  --sd-layout-content: 75rem;
+  --sd-layout-reading: 46rem;
+}

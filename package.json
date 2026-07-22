@@ -1,0 +1,42 @@
+{
+  "name": "sistem-digital",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Sistem deschis de design pentru servicii digitale clare, accesibile și coerente în România.",
+  "homepage": "https://sistem.digital",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ciprian-rus/sistem.digital.git"
+  },
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@11.15.1",
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": ">=11 <12"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write apps packages docs/architecture/adr package.json pnpm-workspace.yaml turbo.json tsconfig.base.json eslint.config.mjs",
+    "format:check": "prettier --check apps packages docs/architecture/adr package.json pnpm-workspace.yaml turbo.json tsconfig.base.json eslint.config.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@changesets/cli": "catalog:",
+    "@eslint/js": "catalog:",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "globals": "catalog:",
+    "prettier": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vitest": "catalog:"
+  }
+}
