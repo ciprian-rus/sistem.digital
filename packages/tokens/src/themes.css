@@ -6,6 +6,7 @@
   --sd-color-brand-subtle: #e8f2fa;
   --sd-color-text: #17202a;
   --sd-color-text-muted: #4b5563;
+  --sd-color-text-accent: #005ea8;
   --sd-color-text-inverse: #ffffff;
   --sd-color-text-disabled: #6b7280;
   --sd-color-surface-page: #ffffff;
@@ -48,6 +49,7 @@
   --sd-color-brand-subtle: #1f2937;
   --sd-color-text: #f8fafc;
   --sd-color-text-muted: #cbd5e1;
+  --sd-color-text-accent: #8bd0ff;
   --sd-color-text-inverse: #ffffff;
   --sd-color-text-disabled: #cbd5e1;
   --sd-color-surface-page: #0b1220;
@@ -90,6 +92,7 @@
   --sd-color-brand-subtle: #ffffff;
   --sd-color-text: #000000;
   --sd-color-text-muted: #000000;
+  --sd-color-text-accent: #0000ee;
   --sd-color-text-inverse: #ffffff;
   --sd-color-text-disabled: #000000;
   --sd-color-surface-page: #ffffff;
@@ -132,6 +135,7 @@
   --sd-color-brand-subtle: #000000;
   --sd-color-text: #ffffff;
   --sd-color-text-muted: #ffffff;
+  --sd-color-text-accent: #00ffff;
   --sd-color-text-inverse: #ffffff;
   --sd-color-text-disabled: #ffffff;
   --sd-color-surface-page: #000000;
@@ -175,6 +179,7 @@
   --sd-color-brand-subtle: #1f2937;
   --sd-color-text: #f8fafc;
   --sd-color-text-muted: #cbd5e1;
+  --sd-color-text-accent: #8bd0ff;
   --sd-color-text-inverse: #ffffff;
   --sd-color-text-disabled: #cbd5e1;
   --sd-color-surface-page: #0b1220;

@@ -1,11 +1,11 @@
 {
   "metadata": {
     "format": "Sistem Digital Themes 1.0",
-    "sourceHash": "c1e1549ff8941af21fd562d4e1f8fcd07826f9334eddebd1799df0a4cfe4049c",
+    "sourceHash": "81cab0f0357cc92a2c68e8e14928619c75e173f868d033fbf2f15503b1469c82",
     "themeCount": 4,
     "accentCount": 4,
-    "requiredRoleCount": 38,
-    "contrastPairCount": 18
+    "requiredRoleCount": 39,
+    "contrastPairCount": 20
   },
   "themes": [
     {
@@ -20,6 +20,7 @@
         "brand.subtle": "#e8f2fa",
         "text.default": "#17202a",
         "text.muted": "#4b5563",
+        "text.accent": "#005ea8",
         "text.inverse": "#ffffff",
         "text.disabled": "#6b7280",
         "surface.page": "#ffffff",
@@ -67,6 +68,7 @@
         "brand.subtle": "#1f2937",
         "text.default": "#f8fafc",
         "text.muted": "#cbd5e1",
+        "text.accent": "#8bd0ff",
         "text.inverse": "#ffffff",
         "text.disabled": "#cbd5e1",
         "surface.page": "#0b1220",
@@ -114,6 +116,7 @@
         "brand.subtle": "#ffffff",
         "text.default": "#000000",
         "text.muted": "#000000",
+        "text.accent": "#0000ee",
         "text.inverse": "#ffffff",
         "text.disabled": "#000000",
         "surface.page": "#ffffff",
@@ -161,6 +164,7 @@
         "brand.subtle": "#000000",
         "text.default": "#ffffff",
         "text.muted": "#ffffff",
+        "text.accent": "#00ffff",
         "text.inverse": "#ffffff",
         "text.disabled": "#ffffff",
         "surface.page": "#000000",
