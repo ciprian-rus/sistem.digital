@@ -4,6 +4,7 @@ packages:
   - starters/*
 
 catalog:
+  '@changesets/cli': 2.31.0
   '@eslint/js': 10.0.1
   '@types/node': 24.13.3
   '@types/react': 19.2.17
