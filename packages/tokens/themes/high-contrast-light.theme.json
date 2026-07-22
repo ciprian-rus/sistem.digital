@@ -7,6 +7,7 @@
     "brand.subtle": "#ffffff",
     "text.default": "#000000",
     "text.muted": "#000000",
+    "text.accent": "#0000ee",
     "text.inverse": "#ffffff",
     "text.disabled": "#000000",
     "surface.page": "#ffffff",
