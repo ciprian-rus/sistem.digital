@@ -54,7 +54,8 @@ export default function FormsReferencePage() {
           <h1 id="page-title">Formulare care explică problema și calea de rezolvare.</h1>
           <p className={styles.lead}>
             Markup semantic, controale native și mesaje clare. Fluxul de bază funcționează fără
-            JavaScript; helperul opțional mută focusul în rezumatul erorilor după validarea pe server.
+            JavaScript; helperul opțional mută focusul în rezumatul erorilor după validarea pe
+            server.
           </p>
           <div className={styles.meta} aria-label="Caracteristici">
             <span className={styles.badge}>HTML semantic</span>
@@ -67,10 +68,13 @@ export default function FormsReferencePage() {
         <section className={styles.section} aria-labelledby="invalid-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Exemplu invalid</p>
-            <h2 id="invalid-title">Răspunsul serverului păstrează datele și explică fiecare eroare.</h2>
+            <h2 id="invalid-title">
+              Răspunsul serverului păstrează datele și explică fiecare eroare.
+            </h2>
             <p>
               Rezumatul apare înaintea formularului, conține linkuri către câmpuri și primește focus
-              numai prin enhancement. Fără JavaScript, linkurile și toate controalele rămân utilizabile.
+              numai prin enhancement. Fără JavaScript, linkurile și toate controalele rămân
+              utilizabile.
             </p>
           </div>
 
@@ -177,7 +181,9 @@ export default function FormsReferencePage() {
                   />
                   <span className="sd-choice__label">
                     Ridicare de la ghișeu
-                    <span className="sd-choice__hint">Primești o notificare când este pregătit.</span>
+                    <span className="sd-choice__hint">
+                      Primești o notificare când este pregătit.
+                    </span>
                   </span>
                 </label>
               </div>
@@ -347,9 +353,9 @@ export default function FormsReferencePage() {
           </div>
 
           <p className={styles.note}>
-            <strong>Regulă:</strong> nu folosi disabled pentru informații pe care utilizatorul trebuie
-            să le poată selecta, copia sau înțelege. În aceste cazuri, readonly ori textul simplu sunt
-            opțiuni mai potrivite.
+            <strong>Regulă:</strong> nu folosi disabled pentru informații pe care utilizatorul
+            trebuie să le poată selecta, copia sau înțelege. În aceste cazuri, readonly ori textul
+            simplu sunt opțiuni mai potrivite.
           </p>
         </section>
 

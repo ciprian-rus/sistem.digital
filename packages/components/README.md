@@ -76,9 +76,7 @@ Mesajul explică remedierea și este asociat prin `aria-describedby`. Culoarea �
   aria-labelledby="error-summary-title"
   tabindex="-1"
 >
-  <h2 class="sd-error-summary__title" id="error-summary-title">
-    Sunt două probleme de rezolvat
-  </h2>
+  <h2 class="sd-error-summary__title" id="error-summary-title">Sunt două probleme de rezolvat</h2>
   <ul class="sd-error-summary__list">
     <li><a href="#email">Introdu adresa de e-mail</a></li>
     <li><a href="#service-type">Alege tipul serviciului</a></li>

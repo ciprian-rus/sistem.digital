@@ -40,9 +40,7 @@ export function focusErrorSummary(options: ErrorSummaryFocusOptions = {}): boole
   const root = options.root ?? documentRoot();
   if (!root) return false;
 
-  const summary = root.querySelector<HTMLElement>(
-    options.selector ?? defaultErrorSummarySelector,
-  );
+  const summary = root.querySelector<HTMLElement>(options.selector ?? defaultErrorSummarySelector);
   if (!summary) return false;
 
   const requireErrorLinks = options.requireErrorLinks ?? true;

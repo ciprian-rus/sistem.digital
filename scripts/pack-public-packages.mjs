@@ -33,7 +33,9 @@ for (const manifest of publicPackages) {
   );
 
   if (result.status !== 0) {
-    throw new Error(`Packing ${manifest.name} failed with exit code ${result.status ?? 'unknown'}.`);
+    throw new Error(
+      `Packing ${manifest.name} failed with exit code ${result.status ?? 'unknown'}.`,
+    );
   }
 }
 
