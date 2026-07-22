@@ -35,7 +35,28 @@ Proiectul nu este doar o bibliotecă vizuală. El va reuni:
 - Cercetare, testare și decizii documentate public.
 - Reutilizare înainte de reinventare.
 
-## Arhitectură propusă
+## Dezvoltare
+
+Cerințe:
+
+- Node.js 24 LTS;
+- pnpm 11.
+
+```bash
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Verificarea completă rulează prin:
+
+```bash
+pnpm check
+```
+
+Platforma locală este disponibilă implicit la `http://localhost:3000`.
+
+## Arhitectură
 
 ```text
 apps/
@@ -64,7 +85,7 @@ docs/
 
 ## Stadiu și planificare
 
-Proiectul se află în etapa de fundație.
+Proiectul se află în **M0 — Fundația proiectului**.
 
 - [Roadmap public — GitHub Project](https://github.com/users/ciprian-rus/projects/5)
 - [Backlog — GitHub Issues](https://github.com/ciprian-rus/sistem.digital/issues)
