@@ -33,6 +33,8 @@ Fișierele din `src/__generated__` și artefactele CSS/JSON sunt generate. Nu se
 pnpm add @sistem-digital/tokens
 ```
 
+Pachetul publică entry points ESM și CommonJS, plus declarații TypeScript. Poate fi consumat în aplicații moderne, test runners Node și infrastructuri legacy.
+
 ## TypeScript
 
 ```ts
@@ -85,7 +87,7 @@ Token-urile primitive și cele de componentă sunt publicate cu prefixele `core`
 
 ## Teme oficiale
 
-Pachetul publică patru teme cu același contract de 39 de roluri:
+Pachetul publică patru teme cu același contract de 38 de roluri:
 
 - `light`;
 - `dark`;
