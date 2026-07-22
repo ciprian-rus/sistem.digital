@@ -32,7 +32,7 @@ describe('content and data components', () => {
     expect(css).toContain('.sd-summary-list__row');
     expect(css).toContain('grid-template-columns: minmax(10rem, 0.8fr)');
     expect(css).toContain('.sd-details summary');
-    expect(css).toContain('.sd-pagination [aria-current=\'page\']');
+    expect(css).toContain(".sd-pagination [aria-current='page']");
     expect(css).toContain('@media (forced-colors: active)');
     expect(css).toContain('@media print');
   });

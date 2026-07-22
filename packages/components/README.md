@@ -52,9 +52,7 @@ Modul: `@sistem-digital/components/forms.css`
 <div class="sd-form-group sd-form-group--error">
   <label class="sd-label" for="email">Adresa de e-mail</label>
   <p class="sd-hint" id="email-hint">Vom trimite confirmarea aici.</p>
-  <p class="sd-error-message" id="email-error">
-    Introdu o adresă în formatul nume@exemplu.ro
-  </p>
+  <p class="sd-error-message" id="email-error">Introdu o adresă în formatul nume@exemplu.ro</p>
   <input
     class="sd-input"
     id="email"
@@ -117,7 +115,9 @@ Modul: `@sistem-digital/components/content.css`
   tabindex="0"
 >
   <table class="sd-table">
-    <caption>Situația plăților — trimestrul II 2026</caption>
+    <caption>
+      Situația plăților — trimestrul II 2026
+    </caption>
     <thead>
       <tr>
         <th scope="col">Instituție</th>
@@ -144,9 +144,7 @@ Overflow-ul este local și regiunea devine focusabilă numai când tabelul trebu
     <dt class="sd-summary-list__key">Cod fiscal</dt>
     <dd class="sd-summary-list__value">12345678</dd>
     <dd class="sd-summary-list__actions">
-      <a href="/modifica">
-        Modifică <span class="sd-visually-hidden">codul fiscal</span>
-      </a>
+      <a href="/modifica"> Modifică <span class="sd-visually-hidden">codul fiscal</span> </a>
     </dd>
   </div>
 </dl>

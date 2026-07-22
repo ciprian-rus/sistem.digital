@@ -48,10 +48,14 @@ test.describe('content and data components', () => {
 
     await expect(page.getByText('Activ', { exact: true })).toBeVisible();
     await expect(page.getByText('Necesită verificare', { exact: true })).toBeVisible();
-    await expect(page.getByRole('link', { name: /repository-ul GitHub.*site extern/iu })).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: /repository-ul GitHub.*site extern/iu }),
+    ).toBeVisible();
   });
 
-  test('uses a semantic table with caption, scoped headers and local overflow', async ({ page }) => {
+  test('uses a semantic table with caption, scoped headers and local overflow', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 320, height: 900 });
     await page.goto('/componente/continut-date');
 

@@ -25,7 +25,10 @@ const tableRows = [
 export default function ContentDataReferencePage() {
   return (
     <>
-      <PublicHeader currentPath="/componente/continut-date" serviceName="Biblioteca de componente" />
+      <PublicHeader
+        currentPath="/componente/continut-date"
+        serviceName="Biblioteca de componente"
+      />
 
       <main className={`container ${styles.main}`} id="continut">
         <Breadcrumbs
@@ -40,9 +43,9 @@ export default function ContentDataReferencePage() {
           <p className="section-kicker">Componente · M2</p>
           <h1 id="page-title">Conținut clar și date care își păstrează sensul.</h1>
           <p className={styles.lead}>
-            Componentele pornesc de la HTML semantic. Aspectul ajută citirea, dar titlurile, listele,
-            statusurile, relațiile dintre date și ordinea informației rămân inteligibile fără CSS sau
-            JavaScript.
+            Componentele pornesc de la HTML semantic. Aspectul ajută citirea, dar titlurile,
+            listele, statusurile, relațiile dintre date și ordinea informației rămân inteligibile
+            fără CSS sau JavaScript.
           </p>
           <ul className="sd-metadata" aria-label="Caracteristici">
             <li className="sd-metadata__item">
@@ -65,8 +68,9 @@ export default function ContentDataReferencePage() {
             <p className="section-kicker">Linkuri și mesaje</p>
             <h2 id="links-title">Destinația și consecința sunt explicite.</h2>
             <p>
-              Un link descrie destinația. Linkurile externe includ un semnal vizual și un text pentru
-              tehnologii asistive; notificările folosesc titlu, text și simbol, nu doar culoare.
+              Un link descrie destinația. Linkurile externe includ un semnal vizual și un text
+              pentru tehnologii asistive; notificările folosesc titlu, text și simbol, nu doar
+              culoare.
             </p>
           </div>
 
@@ -79,7 +83,10 @@ export default function ContentDataReferencePage() {
                   componentele pentru formulare
                 </a>{' '}
                 sau deschide{' '}
-                <a className="sd-link sd-link--external" href="https://github.com/ciprian-rus/sistem.digital">
+                <a
+                  className="sd-link sd-link--external"
+                  href="https://github.com/ciprian-rus/sistem.digital"
+                >
                   repository-ul GitHub
                   <span className="sd-visually-hidden"> (site extern)</span>
                 </a>
@@ -129,8 +136,8 @@ export default function ContentDataReferencePage() {
             <p className="section-kicker">Carduri și statusuri</p>
             <h2 id="cards-title">Cardul grupează conținutul, nu ascunde mai multe acțiuni.</h2>
             <p>
-              Când întregul card este clicabil, există o singură destinație principală. Pentru mai multe
-              acțiuni se folosește varianta explicită, fără overlay peste card.
+              Când întregul card este clicabil, există o singură destinație principală. Pentru mai
+              multe acțiuni se folosește varianta explicită, fără overlay peste card.
             </p>
           </div>
 
@@ -176,8 +183,8 @@ export default function ContentDataReferencePage() {
             <p className="section-kicker">Tabel responsive</p>
             <h2 id="table-title">Relațiile dintre coloane rămân explicite.</h2>
             <p>
-              Tabelul este folosit doar pentru date tabulare. La ecrane înguste, overflow-ul este local,
-              iar regiunea poate primi focus pentru derulare cu tastatura.
+              Tabelul este folosit doar pentru date tabulare. La ecrane înguste, overflow-ul este
+              local, iar regiunea poate primi focus pentru derulare cu tastatura.
             </p>
           </div>
 
@@ -190,7 +197,9 @@ export default function ContentDataReferencePage() {
             <table className="sd-table sd-table--numeric">
               <caption>
                 Situația cererilor digitale — trimestrul II 2026
-                <span className="sd-table__caption-note">Exemplu demonstrativ, nu date oficiale.</span>
+                <span className="sd-table__caption-note">
+                  Exemplu demonstrativ, nu date oficiale.
+                </span>
               </caption>
               <thead>
                 <tr>
@@ -226,7 +235,9 @@ export default function ContentDataReferencePage() {
         <section className={styles.section} aria-labelledby="summary-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Summary list și metadate</p>
-            <h2 id="summary-title">O relație cheie–valoare este reprezentată prin description list.</h2>
+            <h2 id="summary-title">
+              O relație cheie–valoare este reprezentată prin description list.
+            </h2>
           </div>
 
           <dl className="sd-summary-list">
@@ -250,7 +261,9 @@ export default function ContentDataReferencePage() {
             </div>
             <div className="sd-summary-list__row">
               <dt className="sd-summary-list__key">Adresă oficială</dt>
-              <dd className="sd-summary-list__value">Strada Memorandumului 1, Cluj-Napoca, 400114</dd>
+              <dd className="sd-summary-list__value">
+                Strada Memorandumului 1, Cluj-Napoca, 400114
+              </dd>
               <dd className="sd-summary-list__actions">
                 <a href="#cards-title">
                   Modifică<span className="sd-visually-hidden"> adresa oficială</span>
@@ -301,8 +314,8 @@ export default function ContentDataReferencePage() {
               <div className="sd-details__content">
                 <p>
                   Nu folosim tabel pentru layout, pentru o listă simplă de carduri sau când fiecare
-                  element are atribute diferite. În aceste situații sunt mai potrivite lista, cardul ori
-                  summary list.
+                  element are atribute diferite. În aceste situații sunt mai potrivite lista, cardul
+                  ori summary list.
                 </p>
               </div>
             </details>
@@ -312,14 +325,14 @@ export default function ContentDataReferencePage() {
             <h3>Exemplu de conținut lung</h3>
             <p>
               Un serviciu public trebuie să explice scopul operațiunii înainte de a solicita date.
-              Informația esențială apare prima, este scrisă în propoziții scurte și folosește termenii
-              cunoscuți de utilizator. Detaliile juridice sau tehnice pot urma, dar nu înlocuiesc
-              explicația practică.
+              Informația esențială apare prima, este scrisă în propoziții scurte și folosește
+              termenii cunoscuți de utilizator. Detaliile juridice sau tehnice pot urma, dar nu
+              înlocuiesc explicația practică.
             </p>
             <p>
-              Paragrafele lungi sunt limitate la o măsură de lectură confortabilă. Listele sunt folosite
-              numai când elementele sunt cu adevărat paralele. Titlurile descriu conținutul secțiunii și
-              păstrează o ierarhie logică, fără niveluri alese pentru aspect.
+              Paragrafele lungi sunt limitate la o măsură de lectură confortabilă. Listele sunt
+              folosite numai când elementele sunt cu adevărat paralele. Titlurile descriu conținutul
+              secțiunii și păstrează o ierarhie logică, fără niveluri alese pentru aspect.
             </p>
           </article>
         </section>
@@ -327,7 +340,9 @@ export default function ContentDataReferencePage() {
         <section className={styles.section} aria-labelledby="pagination-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Pagination</p>
-            <h2 id="pagination-title">Fiecare pagină are un URL stabil și pagina curentă este textuală.</h2>
+            <h2 id="pagination-title">
+              Fiecare pagină are un URL stabil și pagina curentă este textuală.
+            </h2>
           </div>
 
           <nav className="sd-pagination" aria-label="Paginarea rezultatelor">
@@ -364,7 +379,9 @@ export default function ContentDataReferencePage() {
         <section className={styles.section} aria-labelledby="markup-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Markup de referință</p>
-            <h2 id="markup-title">Semantica este contractul, clasele oferă prezentarea oficială.</h2>
+            <h2 id="markup-title">
+              Semantica este contractul, clasele oferă prezentarea oficială.
+            </h2>
           </div>
           <pre className={styles.code} tabIndex={0} aria-label="Exemplu HTML pentru summary list">
             <code>{`<dl class="sd-summary-list">
