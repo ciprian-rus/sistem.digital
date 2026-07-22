@@ -7,6 +7,7 @@ import '@sistem-digital/tokens/themes.css';
 import './base.css';
 import '@sistem-digital/components/forms.css';
 import '@sistem-digital/components/navigation.css';
+import '@sistem-digital/components/content.css';
 
 export const metadata: Metadata = {
   title: {

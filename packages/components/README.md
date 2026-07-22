@@ -2,7 +2,11 @@
 
 Componente HTML/CSS/JavaScript accesibile, independente de framework, pentru servicii digitale publice.
 
-Pachetul se află în stadiu alpha. Sunt disponibile formularele și shell-ul instituțional de navigație.
+Pachetul este în stadiu alpha și livrează trei module publice:
+
+- formulare și validare;
+- navigație și structură instituțională;
+- conținut și afișare a datelor.
 
 ## Instalare
 
@@ -15,13 +19,26 @@ pnpm add @sistem-digital/tokens @sistem-digital/components
 @import '@sistem-digital/tokens/themes.css';
 @import '@sistem-digital/components/forms.css';
 @import '@sistem-digital/components/navigation.css';
+@import '@sistem-digital/components/content.css';
 ```
 
-Pachetul de componente consumă exclusiv rolurile publice din `@sistem-digital/tokens`. Nu include React și nu cere JavaScript pentru funcționarea de bază.
+Pachetul consumă exclusiv rolurile publice din `@sistem-digital/tokens`. Nu include React și nu cere JavaScript pentru funcționarea de bază.
 
-## Module publice
+## Inventare programatice
 
-### Formulare
+```ts
+import {
+  contentComponentNames,
+  formComponentNames,
+  navigationComponentNames,
+} from '@sistem-digital/components';
+```
+
+Inventarele sunt utile pentru documentație, validatoare și instrumente de adopție. Markup-ul HTML și clasele CSS rămân contractul de implementare.
+
+## Formulare
+
+Modul: `@sistem-digital/components/forms.css`
 
 - label și hint;
 - fieldset și legend;
@@ -31,45 +48,11 @@ Pachetul de componente consumă exclusiv rolurile publice din `@sistem-digital/t
 - button și button group;
 - file upload de bază.
 
-### Navigație și structură
-
-- banner de autenticitate și alertă majoră;
-- identitate instituțională și numele serviciului;
-- navigație desktop și disclosure mobil nativ;
-- breadcrumb și service navigation;
-- formular de căutare GET;
-- footer standard și skip link.
-
-Inventarele sunt disponibile programatic:
-
-```ts
-import { formComponentNames, navigationComponentNames } from '@sistem-digital/components';
-```
-
-## Exemplu valid
-
-```html
-<div class="sd-form-group">
-  <label class="sd-label" for="email">Adresa de e-mail</label>
-  <p class="sd-hint" id="email-hint">Vom trimite confirmarea cererii la această adresă.</p>
-  <input
-    class="sd-input"
-    id="email"
-    name="email"
-    type="email"
-    autocomplete="email"
-    aria-describedby="email-hint"
-  />
-</div>
-```
-
-## Exemplu invalid
-
 ```html
 <div class="sd-form-group sd-form-group--error">
   <label class="sd-label" for="email">Adresa de e-mail</label>
-  <p class="sd-hint" id="email-hint">Vom trimite confirmarea cererii la această adresă.</p>
-  <p class="sd-error-message" id="email-error">Introdu o adresă în formatul nume@exemplu.ro.</p>
+  <p class="sd-hint" id="email-hint">Vom trimite confirmarea aici.</p>
+  <p class="sd-error-message" id="email-error">Introdu o adresă în formatul nume@exemplu.ro</p>
   <input
     class="sd-input"
     id="email"
@@ -82,146 +65,119 @@ import { formComponentNames, navigationComponentNames } from '@sistem-digital/co
 </div>
 ```
 
-Mesajul explică remedierea și este asociat prin `aria-describedby`. Culoarea și bordura sunt suplimentare; prefixul textual „Eroare:” este generat de componentă.
+Validarea canonică rămâne pe server. Helper-ele `focusErrorSummary()` și `enhanceErrorSummaryLinks()` sunt progressive enhancements opționale.
 
-## Error summary
+## Navigație și structură
+
+Modul: `@sistem-digital/components/navigation.css`
+
+- banner de autenticitate și alertă majoră;
+- identitate instituțională și numele serviciului;
+- navigație desktop și disclosure mobil nativ;
+- breadcrumb și service navigation;
+- formular de căutare GET;
+- footer standard și skip link.
+
+```html
+<details class="sd-mobile-navigation">
+  <summary class="container">Meniu</summary>
+  <nav class="container" aria-label="Navigație principală mobilă">
+    <ul class="sd-mobile-navigation__list">
+      <li><a href="/servicii">Servicii</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+</details>
+```
+
+Disclosure-ul funcționează cu tastatura și fără JavaScript. Varianta desktop păstrează aceeași ordine informațională.
+
+## Conținut și date
+
+Modul: `@sistem-digital/components/content.css`
+
+- link și link extern;
+- alertă, notification banner și inset text;
+- card și status tag;
+- tabel responsive;
+- summary list;
+- details;
+- pagination;
+- metadata și data ultimei actualizări.
+
+### Tabel responsive
 
 ```html
 <div
-  class="sd-error-summary"
-  data-sd-error-summary
-  role="alert"
-  aria-labelledby="error-summary-title"
-  tabindex="-1"
+  class="sd-table-container"
+  role="region"
+  aria-label="Situația plăților; tabel derulabil orizontal"
+  tabindex="0"
 >
-  <h2 class="sd-error-summary__title" id="error-summary-title">Sunt două probleme de rezolvat</h2>
-  <ul class="sd-error-summary__list">
-    <li><a href="#email">Introdu adresa de e-mail</a></li>
-    <li><a href="#service-type">Alege tipul serviciului</a></li>
-  </ul>
+  <table class="sd-table">
+    <caption>
+      Situația plăților — trimestrul II 2026
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Instituție</th>
+        <th scope="col">Plăți</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Instituția A</th>
+        <td>1.248</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 ```
 
-Serverul trebuie să redea rezumatul la începutul formularului după validare. Linkurile native funcționează fără JavaScript.
+Overflow-ul este local și regiunea devine focusabilă numai când tabelul trebuie derulat. Tabelele nu se folosesc pentru layout.
 
-Pentru mutarea opțională a focusului după randarea răspunsului invalid:
-
-```ts
-import { focusErrorSummary } from '@sistem-digital/components';
-
-focusErrorSummary();
-```
-
-Pentru ca linkurile din rezumat să mute focusul pe câmpul țintă:
-
-```ts
-import { enhanceErrorSummaryLinks } from '@sistem-digital/components';
-
-const summary = document.querySelector<HTMLElement>('[data-sd-error-summary]');
-const cleanup = summary ? enhanceErrorSummaryLinks(summary) : () => {};
-```
-
-## Fieldset și alegeri
+### Summary list
 
 ```html
-<fieldset class="sd-fieldset">
-  <legend class="sd-legend sd-legend--large">Cum dorești să primești documentul?</legend>
-  <p class="sd-hint" id="delivery-hint">Alege o singură opțiune.</p>
-  <div class="sd-choice-list" aria-describedby="delivery-hint">
-    <label class="sd-choice">
-      <input class="sd-choice__control" type="radio" name="delivery" value="digital" />
-      <span class="sd-choice__label">În format digital</span>
-    </label>
-    <label class="sd-choice">
-      <input class="sd-choice__control" type="radio" name="delivery" value="counter" />
-      <span class="sd-choice__label">Ridicare de la ghișeu</span>
-    </label>
+<dl class="sd-summary-list">
+  <div class="sd-summary-list__row">
+    <dt class="sd-summary-list__key">Cod fiscal</dt>
+    <dd class="sd-summary-list__value">12345678</dd>
+    <dd class="sd-summary-list__actions">
+      <a href="/modifica"> Modifică <span class="sd-visually-hidden">codul fiscal</span> </a>
+    </dd>
   </div>
-</fieldset>
+</dl>
 ```
 
-Se folosesc controale HTML native. Nu se reconstruiesc checkbox-uri și radio-uri cu roluri ARIA.
+Summary list reprezintă perechi cheie–valoare. Pentru comparații între mai multe entități se folosește tabelul.
 
-## Header și meniu mobil
+### Details și pagination
 
-```html
-<header class="sd-header">
-  <div class="container sd-header__identity-row">
-    <a class="sd-identity" href="/">
-      <span class="sd-identity__mark" aria-hidden="true">IN</span>
-      <span class="sd-identity__text">
-        <span class="sd-identity__name">Instituția Națională</span>
-        <span class="sd-identity__service">Solicită un document</span>
-        <span class="sd-identity__domain">institutie.gov.ro</span>
-      </span>
-    </a>
-  </div>
+Componentele folosesc elementele native `details`, `summary` și `nav`. Pagination produce URL-uri stabile și indică pagina curentă prin `aria-current="page"`.
 
-  <details class="sd-mobile-navigation">
-    <summary class="container">Meniu</summary>
-    <nav class="container" aria-label="Navigație principală mobilă">
-      <ul class="sd-mobile-navigation__list">
-        <li><a href="/servicii">Servicii</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </nav>
-  </details>
-</header>
-```
+## Reguli comune
 
-Disclosure-ul mobil funcționează cu tastatura și fără JavaScript. Varianta desktop folosește aceleași linkuri și aceeași ordine.
+- HTML-ul semantic primează;
+- statusurile includ text și nu depind de culoare;
+- cardurile cu overlay au o singură destinație;
+- controalele native nu sunt reconstruite cu ARIA;
+- numerele, monedele și datele folosesc formate locale coerente;
+- fiecare target interactiv are minimum 44 CSS px când criteriul se aplică;
+- pagina face reflow la 320 CSS px fără scroll orizontal global;
+- forced colors și print sunt tratate explicit;
+- clasele publice sunt prefixate cu `sd-`.
 
-## Căutare
+## Documentație completă
 
-```html
-<form class="sd-search" action="/cautare" method="get" role="search">
-  <label class="sd-search__label" for="site-search">Caută în site</label>
-  <input class="sd-search__input" id="site-search" name="q" type="search" />
-  <button class="sd-search__button" type="submit">Caută</button>
-</form>
-```
+- formulare: `docs/components/forms.md`;
+- navigație: `docs/components/navigation.md`;
+- conținut și date: `docs/components/content-data.md`.
 
-Metoda GET produce rezultate cu URL stabil și distribuibil.
+Implementările publice sunt disponibile la:
 
-## Disabled și readonly
-
-- `disabled` indică un control indisponibil și nu este transmis cu formularul;
-- `readonly` indică o valoare vizibilă și transmisă, dar nemodificabilă;
-- cele două stări au tratamente vizuale distincte;
-- nu se folosește `aria-disabled` pe un control nativ în locul atributului `disabled`.
-
-## Conținut
-
-Mesajele de eroare:
-
-- spun ce este greșit;
-- explică ce trebuie făcut;
-- folosesc denumirea câmpului sau formatul așteptat;
-- evită „valoare invalidă”, „eroare 42” sau formulări culpabilizante;
-- nu includ punct la final când sunt fragmente scurte.
-
-Navigația:
-
-- folosește denumiri orientate spre utilizator;
-- indică pagina curentă prin `aria-current="page"`;
-- păstrează identitatea și domeniul vizibile;
-- nu depinde de iconuri fără text;
-- nu ascunde informațiile critice în footer.
-
-## Accesibilitate
-
-Fiecare exemplu trebuie verificat pentru:
-
-- asociere programatică și landmark-uri corecte;
-- ordine de focus și operare exclusiv cu tastatura;
-- meniu mobil cu JavaScript dezactivat;
-- target de minimum 44 CSS px;
-- reflow la 320 CSS px;
-- toate temele și forced colors;
-- zoom și tehnologii asistive conform matricei Sistem Digital.
-
-## API CSS
-
-Toate clasele sunt prefixate cu `sd-`. O aplicație poate folosi markup semantic fără clase suplimentare, dar aspectul oficial necesită clasele documentate.
+- `/componente/formulare`;
+- `/componente/navigatie`;
+- `/componente/continut-date`.
 
 Eliminarea sau redenumirea unei clase publice, schimbarea semanticii markup-ului ori a comportamentului helperelor reprezintă breaking change.

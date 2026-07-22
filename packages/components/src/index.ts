@@ -7,3 +7,5 @@ export {
 } from './forms.js';
 
 export { navigationComponentNames, type NavigationComponentName } from './navigation.js';
+
+export { contentComponentNames, type ContentComponentName } from './content.js';

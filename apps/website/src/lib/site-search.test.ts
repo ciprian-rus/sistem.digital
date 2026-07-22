@@ -11,6 +11,11 @@ describe('site search', () => {
     expect(searchSite('navigatie')[0]?.href).toBe('/componente/navigatie');
   });
 
+  it('finds content and data components by their public concepts', () => {
+    expect(searchSite('tabel status')[0]?.href).toBe('/componente/continut-date');
+    expect(searchSite('conținut')[0]?.href).toBe('/componente/continut-date');
+  });
+
   it('requires all query terms', () => {
     expect(searchSite('formular eroare')[0]?.href).toBe('/componente/formulare');
     expect(searchSite('formular roadmap')).toEqual([]);
