@@ -1,0 +1,127 @@
+name: Release packages
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+  artifact-metadata: write
+
+concurrency:
+  group: release-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build attest and publish
+    if: github.event.release.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: npm
+
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+
+      - name: Ensure release commit belongs to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --depth=1
+          git merge-base --is-ancestor "${GITHUB_SHA}" origin/main
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js and npm registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: false
+
+      - name: Verify npm supports trusted publishing
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --version
+          npm --version
+          npm_version="$(npm --version)"
+          node -e "const [major, minor] = process.argv[1].split('.').map(Number); if (major < 11 || (major === 11 && minor < 5)) process.exit(1)" "${npm_version}"
+
+      - name: Install exact dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate tag and release channel
+        id: release
+        env:
+          GITHUB_REF_NAME: ${{ github.event.release.tag_name }}
+        run: node scripts/check-release-tag.mjs
+
+      - name: Run release quality gates
+        run: |
+          pnpm check
+          pnpm docs:check
+          pnpm secrets:check
+          pnpm audit:ci
+
+      - name: Build publishable packages
+        run: pnpm --filter @sistem-digital/tokens build
+
+      - name: Create release artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release-artifacts
+          pnpm --filter @sistem-digital/tokens pack --pack-destination "${GITHUB_WORKSPACE}/release-artifacts"
+          pnpm sbom --format cyclonedx > release-artifacts/sbom.cdx.json
+          (
+            cd release-artifacts
+            sha256sum ./*.tgz ./sbom.cdx.json > SHA256SUMS
+          )
+
+      - name: Attest release artifact provenance
+        uses: actions/attest@v4
+        with:
+          subject-checksums: release-artifacts/SHA256SUMS
+
+      - name: Attest release SBOM
+        uses: actions/attest@v4
+        with:
+          subject-path: release-artifacts/*.tgz
+          sbom-path: release-artifacts/sbom.cdx.json
+
+      - name: Publish exact tarball to npm
+        env:
+          NPM_CONFIG_PROVENANCE: 'true'
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
+          DIST_TAG: ${{ steps.release.outputs.dist_tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tarball="$(find release-artifacts -maxdepth 1 -name '*.tgz' -print -quit)"
+          test -n "${tarball}"
+          npm publish "${tarball}" --access public --tag "${DIST_TAG}"
+
+      - name: Attach artifacts to GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "${RELEASE_TAG}" release-artifacts/* --clobber
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ github.event.release.tag_name }}
+          path: release-artifacts
+          if-no-files-found: error
+          retention-days: 90
