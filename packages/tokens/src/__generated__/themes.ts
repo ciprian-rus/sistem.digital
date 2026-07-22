@@ -223,7 +223,7 @@ export const accentNames = [
 ] as const;
 export const themeMetadata = {
   "format": "Sistem Digital Themes 1.0",
-  "sourceHash": "f9a97ff1b648ed6fc697bd53279c7f73e94cf16e1de58724d8e1abf06b18ebc2",
+  "sourceHash": "c1e1549ff8941af21fd562d4e1f8fcd07826f9334eddebd1799df0a4cfe4049c",
   "themeCount": 4,
   "accentCount": 4,
   "requiredRoleCount": 38,
