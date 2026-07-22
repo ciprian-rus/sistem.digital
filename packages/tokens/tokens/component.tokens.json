@@ -1,0 +1,21 @@
+{
+  "$description": "Decizii locale de componentă, construite numai din roluri semantice sau primitive aprobate.",
+  "component": {
+    "$description": "Decizii locale de componentă, construite numai din roluri semantice sau primitive aprobate.",
+    "button": {
+      "minHeight": { "$type": "dimension", "$value": "{semantic.target.minimum}" },
+      "paddingInline": { "$type": "dimension", "$value": "{semantic.space.6}" },
+      "radius": { "$type": "dimension", "$value": "{semantic.radius.control}" },
+      "borderWidth": { "$type": "dimension", "$value": "{core.dimension.stroke.medium}" }
+    },
+    "input": {
+      "minHeight": { "$type": "dimension", "$value": "{semantic.target.minimum}" },
+      "radius": { "$type": "dimension", "$value": "{semantic.radius.control}" },
+      "borderWidth": { "$type": "dimension", "$value": "{core.dimension.stroke.medium}" }
+    },
+    "panel": {
+      "radius": { "$type": "dimension", "$value": "{semantic.radius.panel}" },
+      "padding": { "$type": "dimension", "$value": "{semantic.space.6}" }
+    }
+  }
+}
