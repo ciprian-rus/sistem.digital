@@ -62,17 +62,28 @@ Verificările suplimentare pot fi rulate separat:
 pnpm docs:check
 pnpm secrets:check
 pnpm audit:ci
+pnpm --filter @sistem-digital/website test:a11y
 ```
 
 Platforma locală este disponibilă implicit la `http://localhost:3000`.
 
+## Accesibilitate
+
+Ținta tehnică este WCAG 2.2 nivel A și AA, completată de cerințele aplicabile din EN 301 549 pentru implementările din sectorul public.
+
+- [Standardul de accesibilitate](docs/accessibility/standard.md)
+- [Matricea browser–tehnologie asistivă](docs/accessibility/test-matrix.md)
+- [Checklist-ul componentelor](docs/accessibility/component-checklist.md)
+- [Politica pentru excepții](docs/accessibility/exceptions.md)
+
 ## Integrare continuă
 
-Fiecare pull request trebuie să treacă trei status checks stabile:
+Fiecare pull request trebuie să treacă patru status checks stabile:
 
 - **Quality gates** — format, lint, typecheck, teste și build;
 - **Documentation** — verificarea linkurilor locale din documentație;
-- **Supply-chain security** — scanare de secrete și audit al dependențelor.
+- **Supply-chain security** — scanare de secrete și audit al dependențelor;
+- **Accessibility** — axe-core și teste de tastatură în Chromium.
 
 Regulile recomandate pentru branch-ul principal sunt documentate în [Protecția branch-ului `main`](docs/governance/branch-protection.md).
 
