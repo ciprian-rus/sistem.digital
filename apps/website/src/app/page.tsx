@@ -29,6 +29,7 @@ export default function HomePage() {
             </span>
             <span>Sistem Digital</span>
           </a>
+
           <nav aria-label="Navigație principală">
             <ul className="nav-list">
               <li>
@@ -70,9 +71,10 @@ export default function HomePage() {
                 </a>
               </div>
             </div>
-            <aside className="status-card" aria-labelledby="status-title">
+
+            <aside className="status-card" aria-labelledby="milestone-title">
               <p className="status-label">Etapa curentă</p>
-              <h2 id="status-title">M0 — Fundația proiectului</h2>
+              <h2 id="milestone-title">M0 — Fundația proiectului</h2>
               <ul>
                 <li>Monorepo și convenții tehnice</li>
                 <li>Design tokens canonice</li>
@@ -108,7 +110,7 @@ export default function HomePage() {
                 pachete, iar site-urile legacy vor putea folosi fișiere versionate și self-hosted.
               </p>
             </div>
-            <pre className="code-block" aria-label="Exemplu de instalare">
+            <pre className="code-block" aria-label="Exemplu de instalare" tabIndex={0}>
               <code>{`pnpm add @sistem-digital/tokens\n\nimport '@sistem-digital/tokens/css';`}</code>
             </pre>
           </div>
