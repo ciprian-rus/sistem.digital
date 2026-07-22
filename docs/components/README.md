@@ -4,7 +4,7 @@ Biblioteca oficială este bazată pe HTML semantic, CSS modular și progressive 
 
 ## Componente disponibile
 
-- [Formulare, validare și mesaje de eroare](forms.md)
+- [Formulare, validare și mesaje de eroare](forms.md) — implementare publică la `/componente/formulare` pe sistem.digital.
 
 ## Standard per componentă
 
