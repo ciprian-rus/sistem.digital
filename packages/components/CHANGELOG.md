@@ -5,5 +5,8 @@
 - pachet public inițial;
 - componente de formulare, validare și mesaje de eroare;
 - helper opțional pentru focusul error summary;
+- banner de autenticitate, alertă majoră și identitate instituțională;
+- navigație desktop, disclosure mobil nativ, breadcrumb și service navigation;
+- căutare GET și footer standard;
 - distribuție ESM, CommonJS și CSS independent de framework;
 - versiune coordonată cu celelalte pachete oficiale Sistem Digital.
