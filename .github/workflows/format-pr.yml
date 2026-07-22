@@ -42,13 +42,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Format canonical source files
+        run: pnpm format
+
       - name: Generate derived token artifacts
         run: |
           pnpm --filter @sistem-digital/tokens tokens:generate
           pnpm --filter @sistem-digital/tokens themes:generate
-
-      - name: Format repository files
-        run: pnpm format
 
       - name: Commit generated and formatted files when changed
         env:
