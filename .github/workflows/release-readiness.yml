@@ -1,0 +1,82 @@
+name: Release readiness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Release readiness
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install exact dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build publishable packages
+        run: pnpm --filter @sistem-digital/tokens build
+
+      - name: Pack release candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release-artifacts
+          pnpm --filter @sistem-digital/tokens pack --pack-destination "${GITHUB_WORKSPACE}/release-artifacts"
+
+      - name: Generate CycloneDX SBOM
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm sbom --format cyclonedx > release-artifacts/sbom.cdx.json
+          node -e "const sbom = require('./release-artifacts/sbom.cdx.json'); if (sbom.bomFormat !== 'CycloneDX') process.exit(1)"
+
+      - name: Generate and verify hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          (
+            cd release-artifacts
+            sha256sum ./*.tgz ./sbom.cdx.json > SHA256SUMS
+            sha256sum --check SHA256SUMS
+          )
+
+      - name: Inspect package contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          tarball="$(find release-artifacts -maxdepth 1 -name '*.tgz' -print -quit)"
+          test -n "${tarball}"
+          tar -tzf "${tarball}" | sort
+
+      - name: Upload release candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate
+          path: release-artifacts
+          if-no-files-found: error
+          retention-days: 14
