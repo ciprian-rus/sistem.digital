@@ -18,6 +18,7 @@ Creează un repository ruleset numit `Protect main` cu target `main` și următo
 
 ## Status checks obligatorii
 
+- `Lockfile consistency`
 - `Quality gates`
 - `Documentation`
 - `Supply-chain security`
