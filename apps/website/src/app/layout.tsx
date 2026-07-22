@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
+import { themeInitScript } from '@sistem-digital/tokens';
 import '@sistem-digital/tokens/css';
+import '@sistem-digital/tokens/themes.css';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,7 +17,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="ro">
+    <html lang="ro" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>{children}</body>
     </html>
   );
