@@ -39,7 +39,9 @@ test.describe('responsive structural foundations', () => {
     { label: '200 percent zoom equivalent', width: 640 },
     { label: '400 percent zoom equivalent', width: 320 },
   ]) {
-    test(`reflows without page-level horizontal scrolling at ${scenario.label}`, async ({ page }) => {
+    test(`reflows without page-level horizontal scrolling at ${scenario.label}`, async ({
+      page,
+    }) => {
       await page.setViewportSize({ width: scenario.width, height: 900 });
       await page.goto('/');
 
@@ -60,18 +62,21 @@ test.describe('responsive structural foundations', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
 
-    const measure = await page.locator('.body-copy').first().evaluate((element) => {
-      const probe = document.createElement('span');
-      const style = getComputedStyle(element);
-      probe.textContent = '0';
-      probe.style.position = 'absolute';
-      probe.style.visibility = 'hidden';
-      probe.style.font = style.font;
-      document.body.append(probe);
-      const chWidth = probe.getBoundingClientRect().width;
-      probe.remove();
-      return element.getBoundingClientRect().width / chWidth;
-    });
+    const measure = await page
+      .locator('.body-copy')
+      .first()
+      .evaluate((element) => {
+        const probe = document.createElement('span');
+        const style = getComputedStyle(element);
+        probe.textContent = '0';
+        probe.style.position = 'absolute';
+        probe.style.visibility = 'hidden';
+        probe.style.font = style.font;
+        document.body.append(probe);
+        const chWidth = probe.getBoundingClientRect().width;
+        probe.remove();
+        return element.getBoundingClientRect().width / chWidth;
+      });
 
     expect(measure).toBeGreaterThanOrEqual(40);
     expect(measure).toBeLessThanOrEqual(70);
@@ -121,7 +126,9 @@ test.describe('responsive structural foundations', () => {
     });
 
     expect(styles.scrollBehavior).toBe('auto');
-    expect(durationInSeconds(styles.bodyDurations).every((duration) => duration <= 0.00001)).toBe(true);
+    expect(durationInSeconds(styles.bodyDurations).every((duration) => duration <= 0.00001)).toBe(
+      true,
+    );
     expect(durationInSeconds(styles.buttonDurations).every((duration) => duration <= 0.00001)).toBe(
       true,
     );
