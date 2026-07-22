@@ -141,14 +141,41 @@ test.describe('interactive components', () => {
   test('reflows at 320 CSS pixels without global horizontal scrolling', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 900 });
     await page.goto('/componente/interactive');
-    const geometry = await page.evaluate(() => ({
-      viewport: document.documentElement.clientWidth,
-      document: document.documentElement.scrollWidth,
-      body: document.body.scrollWidth,
-    }));
+    const geometry = await page.evaluate(() => {
+      const viewport = document.documentElement.clientWidth;
+      const offenders = [...document.querySelectorAll<HTMLElement>('body *')]
+        .map((element) => {
+          const rect = element.getBoundingClientRect();
+          return {
+            element: `${element.tagName.toLowerCase()}${element.id ? `#${element.id}` : ''}${
+              element.className && typeof element.className === 'string'
+                ? `.${element.className.trim().replace(/\s+/gu, '.')}`
+                : ''
+            }`,
+            left: Math.round(rect.left * 100) / 100,
+            right: Math.round(rect.right * 100) / 100,
+            width: Math.round(rect.width * 100) / 100,
+          };
+        })
+        .filter(({ left, right }) => left < -1 || right > viewport + 1)
+        .slice(0, 20);
 
-    expect(geometry.document).toBeLessThanOrEqual(geometry.viewport + 1);
-    expect(geometry.body).toBeLessThanOrEqual(geometry.viewport + 1);
+      return {
+        viewport,
+        document: document.documentElement.scrollWidth,
+        body: document.body.scrollWidth,
+        offenders,
+      };
+    });
+
+    expect(
+      geometry.document,
+      `Elemente care depășesc viewport-ul: ${JSON.stringify(geometry.offenders, null, 2)}`,
+    ).toBeLessThanOrEqual(geometry.viewport + 1);
+    expect(
+      geometry.body,
+      `Elemente care depășesc viewport-ul: ${JSON.stringify(geometry.offenders, null, 2)}`,
+    ).toBeLessThanOrEqual(geometry.viewport + 1);
     await expect(page.getByRole('navigation', { name: 'Progresul cererii' })).toBeVisible();
   });
 });
