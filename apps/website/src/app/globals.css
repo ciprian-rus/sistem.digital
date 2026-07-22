@@ -304,7 +304,7 @@ h3 {
 }
 
 .section-kicker {
-  color: var(--sd-color-brand-strong);
+  color: var(--sd-color-brand);
 }
 
 .principles-grid {
@@ -494,6 +494,10 @@ h3 {
 @media (forced-colors: active) {
   .hero {
     background: Canvas;
+    color: CanvasText;
+  }
+
+  .eyebrow {
     color: CanvasText;
   }
 
