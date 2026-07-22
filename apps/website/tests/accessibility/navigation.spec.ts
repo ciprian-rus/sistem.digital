@@ -64,7 +64,7 @@ test.describe('navigation and institutional shell', () => {
       page.getByRole('link', { name: 'Navigație', exact: true }).first(),
     ).toHaveAttribute('aria-current', 'page');
 
-    const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumb' });
+    const breadcrumb = page.locator('#continut > .sd-breadcrumb');
     await expect(breadcrumb).toContainText('Acasă');
     await expect(breadcrumb.locator('[aria-current="page"]')).toHaveText('Navigație');
   });
@@ -86,7 +86,7 @@ test.describe('navigation and institutional shell', () => {
       await expect(disclosure).toHaveAttribute('open', '');
       await expect(
         page.getByRole('navigation', { name: 'Navigație principală mobilă' }).getByRole('link', {
-          name: 'Formulare',
+          name: 'Componente',
         }),
       ).toBeVisible();
 
