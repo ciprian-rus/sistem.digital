@@ -50,6 +50,7 @@ Se captează pagina de referință pentru componente interactive după stabiliza
 
 ## Praguri și review
 
+- status check-ul public se numește `Visual regression`;
 - diferențele de pixeli nu sunt aprobate automat;
 - orice actualizare de baseline trebuie să fie intenționată și explicată în PR;
 - schimbările de conținut dinamic sunt eliminate sau stabilizate înainte de captură;
