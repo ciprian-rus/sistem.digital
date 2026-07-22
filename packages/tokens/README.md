@@ -87,7 +87,7 @@ Token-urile primitive și cele de componentă sunt publicate cu prefixele `core`
 
 ## Teme oficiale
 
-Pachetul publică patru teme cu același contract de 38 de roluri:
+Pachetul publică patru teme cu același contract de 39 de roluri:
 
 - `light`;
 - `dark`;

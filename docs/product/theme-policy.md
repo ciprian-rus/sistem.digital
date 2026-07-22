@@ -24,7 +24,7 @@ Toate temele implementează același contract. O componentă nu are voie să cun
 Contractul temei include următoarele categorii:
 
 - brand: implicit, puternic și subtil;
-- text: implicit, secundar, invers și disabled;
+- text: implicit, secundar, accent, invers și disabled;
 - suprafețe: pagină, subtilă, ridicată și puternică;
 - borduri: implicită, puternică și disabled;
 - link: implicit, hover, active și visited;
@@ -40,6 +40,7 @@ Compilatorul validează automat minimum:
 
 - text principal pe suprafața paginii: 7:1;
 - text secundar și disabled pe suprafața paginii: 4,5:1;
+- text de accent pe suprafața paginii și pe suprafața subtilă: 4,5:1;
 - text invers pe suprafață puternică: 4,5:1;
 - toate stările linkului pe suprafața paginii: 4,5:1;
 - textul acțiunii pe stările implicit, hover și active: 4,5:1;

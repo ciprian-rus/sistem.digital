@@ -157,6 +157,7 @@ function renderThemesCss(manifest, themes, accents) {
     --sd-color-brand-subtle: Canvas;
     --sd-color-text: CanvasText;
     --sd-color-text-muted: CanvasText;
+    --sd-color-text-accent: LinkText;
     --sd-color-text-inverse: Canvas;
     --sd-color-text-disabled: GrayText;
     --sd-color-surface-page: Canvas;

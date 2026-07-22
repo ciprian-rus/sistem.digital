@@ -49,12 +49,12 @@ describe('official themes', () => {
   it('publishes four themes with an identical semantic role contract', () => {
     expect(themeNames).toEqual(['light', 'dark', 'high-contrast-light', 'high-contrast-dark']);
     expect(themeMetadata.themeCount).toBe(4);
-    expect(themeMetadata.requiredRoleCount).toBe(38);
-    expect(themeMetadata.contrastPairCount).toBe(18);
+    expect(themeMetadata.requiredRoleCount).toBe(39);
+    expect(themeMetadata.contrastPairCount).toBe(20);
     expect(themeMetadata.sourceHash).toMatch(/^[0-9a-f]{64}$/);
 
     const roleCounts = themeNames.map((name) => Object.keys(themes[name].roles).length);
-    expect(new Set(roleCounts)).toEqual(new Set([38]));
+    expect(new Set(roleCounts)).toEqual(new Set([39]));
     expect(themes.dark.colorScheme).toBe('dark');
     expect(themes['high-contrast-light'].roles['text.default']).toBe('#000000');
   });
