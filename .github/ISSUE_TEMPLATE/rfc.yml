@@ -1,0 +1,39 @@
+name: RFC
+description: Propune o schimbare arhitecturală, de guvernanță sau incompatibilă
+title: "[RFC]: "
+labels: []
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Care este problema și de ce trebuie rezolvată acum?
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Propunerea
+      description: Descrie decizia propusă și aria afectată.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative analizate
+    validations:
+      required: true
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Consecințe și compromisuri
+    validations:
+      required: true
+  - type: textarea
+    id: migration
+    attributes:
+      label: Compatibilitate și migrare
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Dovezi, prototipuri sau cercetare
