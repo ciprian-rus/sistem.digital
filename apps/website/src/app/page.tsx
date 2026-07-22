@@ -9,7 +9,8 @@ const principles = [
   },
   {
     title: 'Construit pentru servicii',
-    description: 'Componentele vor fi validate în fluxuri administrative complete, nu doar în galerii.',
+    description:
+      'Componentele vor fi validate în fluxuri administrative complete, nu doar în galerii.',
   },
 ];
 
@@ -56,10 +57,16 @@ export default function HomePage() {
                 o pot instala, testa, actualiza și îmbunătăți împreună.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="https://github.com/ciprian-rus/sistem.digital">
+                <a
+                  className="button button-primary"
+                  href="https://github.com/ciprian-rus/sistem.digital"
+                >
                   Vezi codul sursă
                 </a>
-                <a className="button button-secondary" href="https://github.com/ciprian-rus/sistem.digital/issues">
+                <a
+                  className="button button-secondary"
+                  href="https://github.com/ciprian-rus/sistem.digital/issues"
+                >
                   Explorează backlog-ul
                 </a>
               </div>
