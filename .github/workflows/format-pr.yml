@@ -42,6 +42,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Align accessibility build with workspace dependencies
+        run: >-
+          sed -i
+          's|run: pnpm --filter @sistem-digital/website build|run: pnpm --filter @sistem-digital/tokens build \&\& pnpm --filter @sistem-digital/website build|'
+          .github/workflows/ci.yml
+
       - name: Format canonical source files
         run: pnpm format
 
