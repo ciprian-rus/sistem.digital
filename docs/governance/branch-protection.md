@@ -23,6 +23,7 @@ Creează un repository ruleset numit `Protect main` cu target `main` și următo
 - `Documentation`
 - `Supply-chain security`
 - `Accessibility`
+- `Release readiness`
 
 Nu este necesară încă aprobarea unui reviewer, deoarece proiectul se află în etapa inițială și are un singur maintainer. După formarea echipei de maintainers se va solicita minimum o aprobare din partea unei alte persoane.
 

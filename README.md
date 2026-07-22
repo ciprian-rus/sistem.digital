@@ -77,15 +77,25 @@ Platforma locală este disponibilă implicit la `http://localhost:3000`.
 - [Șablonul de documentare a componentelor](docs/accessibility/component-template.md)
 - [Politica pentru excepții](docs/accessibility/exceptions.md)
 
+## Release și securitatea lanțului de furnizare
+
+Pachetele sunt construite și publicate exclusiv din GitHub Actions. Fiecare release produce tarball-ul npm, SBOM CycloneDX, hash-uri SHA-256 și attestations verificabile.
+
+- [Politica de release, LTS și rollback](docs/governance/release-policy.md)
+- [npm Trusted Publishing și provenance](docs/security/trusted-publishing.md)
+- [Răspunsul la vulnerabilități](docs/security/vulnerability-response.md)
+- [Politica generală de securitate](SECURITY.md)
+
 ## Integrare continuă
 
-Fiecare pull request trebuie să treacă cinci status checks stabile:
+Fiecare pull request trebuie să treacă șase status checks stabile:
 
 - **Lockfile consistency** — sincronizarea reproductibilă a manifestelor și lockfile-ului;
 - **Quality gates** — format, lint, typecheck, teste și build;
 - **Documentation** — verificarea linkurilor locale din documentație;
 - **Supply-chain security** — scanare de secrete și audit al dependențelor;
-- **Accessibility** — axe-core și teste de tastatură în Chromium.
+- **Accessibility** — axe-core și teste de tastatură în Chromium;
+- **Release readiness** — tarball, SBOM, hash-uri și conținut publicabil.
 
 Regulile recomandate pentru branch-ul principal sunt documentate în [Protecția branch-ului `main`](docs/governance/branch-protection.md).
 
@@ -113,6 +123,7 @@ docs/
   architecture/
   governance/
   accessibility/
+  security/
   contribution/
 ```
 
