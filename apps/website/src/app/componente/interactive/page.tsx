@@ -27,8 +27,9 @@ export default function InteractiveComponentsPage() {
           <p className="section-kicker">Componente · M2</p>
           <h1 id="page-title">Interacțiuni complexe, cu fallback simplu și verificabil.</h1>
           <p className={styles.lead}>
-            HTML-ul server-rendered rămâne utilizabil fără JavaScript. Enhancement-urile adaugă focus
-            management, navigare cu săgeți, filtrare și feedback dinamic numai acolo unde aduc valoare.
+            HTML-ul server-rendered rămâne utilizabil fără JavaScript. Enhancement-urile adaugă
+            focus management, navigare cu săgeți, filtrare și feedback dinamic numai acolo unde aduc
+            valoare.
           </p>
           <ul className="sd-metadata" aria-label="Caracteristici">
             <li className="sd-metadata__item">
@@ -49,30 +50,40 @@ export default function InteractiveComponentsPage() {
         <section className={styles.section} aria-labelledby="accordion-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Accordion</p>
-            <h2 id="accordion-title">Disclosure nativ, grupat numai când exclusivitatea este necesară.</h2>
+            <h2 id="accordion-title">
+              Disclosure nativ, grupat numai când exclusivitatea este necesară.
+            </h2>
             <p>
-              Fiecare secțiune folosește <code>details</code> și <code>summary</code>. Fără JavaScript pot
-              rămâne deschise mai multe secțiuni; enhancement-ul opțional închide automat elementele
-              vecine.
+              Fiecare secțiune folosește <code>details</code> și <code>summary</code>. Fără
+              JavaScript pot rămâne deschise mai multe secțiuni; enhancement-ul opțional închide
+              automat elementele vecine.
             </p>
           </div>
           <div className="sd-accordion" data-sd-accordion="single">
             <details open>
               <summary>Cine poate depune cererea?</summary>
               <div className="sd-accordion__content">
-                <p>Persoana vizată, reprezentantul legal sau un împuternicit cu mandat verificabil.</p>
+                <p>
+                  Persoana vizată, reprezentantul legal sau un împuternicit cu mandat verificabil.
+                </p>
               </div>
             </details>
             <details>
               <summary>Ce documente sunt necesare?</summary>
               <div className="sd-accordion__content">
-                <p>Serviciul verifică identitatea și situația fiscală la sursă. Nu solicită copii după acte.</p>
+                <p>
+                  Serviciul verifică identitatea și situația fiscală la sursă. Nu solicită copii
+                  după acte.
+                </p>
               </div>
             </details>
             <details>
               <summary>Cât durează soluționarea?</summary>
               <div className="sd-accordion__content">
-                <p>Termenul estimat este de două zile lucrătoare, iar stadiul poate fi urmărit online.</p>
+                <p>
+                  Termenul estimat este de două zile lucrătoare, iar stadiul poate fi urmărit
+                  online.
+                </p>
               </div>
             </details>
           </div>
@@ -83,8 +94,8 @@ export default function InteractiveComponentsPage() {
             <p className="section-kicker">Dialog</p>
             <h2 id="dialog-title">Dialogul nativ păstrează focusul și oferă un fallback inline.</h2>
             <p>
-              Linkul de declanșare indică secțiunea prin fragment. Cu JavaScript, aceeași secțiune devine
-              modală; la închidere, focusul revine pe elementul care a deschis-o.
+              Linkul de declanșare indică secțiunea prin fragment. Cu JavaScript, aceeași secțiune
+              devine modală; la închidere, focusul revine pe elementul care a deschis-o.
             </p>
           </div>
           <div className={styles.actions}>
@@ -97,7 +108,12 @@ export default function InteractiveComponentsPage() {
               Revizuiește trimiterea
             </a>
           </div>
-          <dialog className="sd-dialog" id="confirm-dialog" data-sd-dialog aria-labelledby="confirm-dialog-title">
+          <dialog
+            className="sd-dialog"
+            id="confirm-dialog"
+            data-sd-dialog
+            aria-labelledby="confirm-dialog-title"
+          >
             <div className="sd-dialog__header">
               <h3 className="sd-dialog__title" id="confirm-dialog-title">
                 Trimite cererea către instituție?
@@ -124,15 +140,23 @@ export default function InteractiveComponentsPage() {
         <section className={styles.section} aria-labelledby="tabs-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Tabs</p>
-            <h2 id="tabs-title">Tabs sunt folosite numai pentru variante paralele ale aceluiași conținut.</h2>
+            <h2 id="tabs-title">
+              Tabs sunt folosite numai pentru variante paralele ale aceluiași conținut.
+            </h2>
             <p>
-              Fără JavaScript, toate secțiunile sunt afișate succesiv. Cu enhancement, săgețile stânga și
-              dreapta, Home și End mută selecția conform pattern-ului ARIA.
+              Fără JavaScript, toate secțiunile sunt afișate succesiv. Cu enhancement, săgețile
+              stânga și dreapta, Home și End mută selecția conform pattern-ului ARIA.
             </p>
           </div>
           <div className="sd-tabs" data-sd-tabs>
             <div data-sd-tab-list hidden aria-label="Modalități de primire">
-              <button id="tab-digital" type="button" data-sd-tab aria-controls="panel-digital" aria-selected="true">
+              <button
+                id="tab-digital"
+                type="button"
+                data-sd-tab
+                aria-controls="panel-digital"
+                aria-selected="true"
+              >
                 Digital
               </button>
               <button id="tab-counter" type="button" data-sd-tab aria-controls="panel-counter">
@@ -151,7 +175,10 @@ export default function InteractiveComponentsPage() {
             <section id="panel-counter" data-sd-tab-panel>
               <div className={styles.tabsContent}>
                 <h3>Ridicare de la ghișeu</h3>
-                <p>Primești o notificare când documentul este pregătit și îl ridici cu actul de identitate.</p>
+                <p>
+                  Primești o notificare când documentul este pregătit și îl ridici cu actul de
+                  identitate.
+                </p>
               </div>
             </section>
             <section id="panel-post" data-sd-tab-panel>
@@ -171,19 +198,27 @@ export default function InteractiveComponentsPage() {
           <nav className="sd-step-indicator" aria-label="Progresul cererii">
             <ol className="sd-step-indicator__list">
               <li className="sd-step-indicator__item sd-step-indicator__item--complete">
-                <span className="sd-step-indicator__marker" aria-hidden="true">✓</span>
+                <span className="sd-step-indicator__marker" aria-hidden="true">
+                  ✓
+                </span>
                 <span className="sd-step-indicator__label">Date personale</span>
               </li>
               <li className="sd-step-indicator__item sd-step-indicator__item--complete">
-                <span className="sd-step-indicator__marker" aria-hidden="true">✓</span>
+                <span className="sd-step-indicator__marker" aria-hidden="true">
+                  ✓
+                </span>
                 <span className="sd-step-indicator__label">Detalii cerere</span>
               </li>
               <li className="sd-step-indicator__item" aria-current="step">
-                <span className="sd-step-indicator__marker" aria-hidden="true">3</span>
+                <span className="sd-step-indicator__marker" aria-hidden="true">
+                  3
+                </span>
                 <span className="sd-step-indicator__label">Verificare</span>
               </li>
               <li className="sd-step-indicator__item">
-                <span className="sd-step-indicator__marker" aria-hidden="true">4</span>
+                <span className="sd-step-indicator__marker" aria-hidden="true">
+                  4
+                </span>
                 <span className="sd-step-indicator__label">Confirmare</span>
               </li>
             </ol>
@@ -193,7 +228,9 @@ export default function InteractiveComponentsPage() {
         <section className={styles.section} aria-labelledby="inputs-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Date și autocomplete</p>
-            <h2 id="inputs-title">Controalele native sunt baseline-ul; listbox-ul este enhancement.</h2>
+            <h2 id="inputs-title">
+              Controalele native sunt baseline-ul; listbox-ul este enhancement.
+            </h2>
           </div>
           <div className={styles.demoGrid}>
             <article className={styles.panel}>
@@ -201,27 +238,59 @@ export default function InteractiveComponentsPage() {
               <div className="sd-date-input" role="group" aria-describedby="event-date-hint">
                 <div className="sd-date-input__part sd-date-input__part--day">
                   <label htmlFor="event-day">Zi</label>
-                  <input id="event-day" name="event-day" inputMode="numeric" autoComplete="bday-day" maxLength={2} />
+                  <input
+                    id="event-day"
+                    name="event-day"
+                    inputMode="numeric"
+                    autoComplete="bday-day"
+                    maxLength={2}
+                  />
                 </div>
                 <div className="sd-date-input__part sd-date-input__part--month">
                   <label htmlFor="event-month">Lună</label>
-                  <input id="event-month" name="event-month" inputMode="numeric" autoComplete="bday-month" maxLength={2} />
+                  <input
+                    id="event-month"
+                    name="event-month"
+                    inputMode="numeric"
+                    autoComplete="bday-month"
+                    maxLength={2}
+                  />
                 </div>
                 <div className="sd-date-input__part sd-date-input__part--year">
                   <label htmlFor="event-year">An</label>
-                  <input id="event-year" name="event-year" inputMode="numeric" autoComplete="bday-year" maxLength={4} />
+                  <input
+                    id="event-year"
+                    name="event-year"
+                    inputMode="numeric"
+                    autoComplete="bday-year"
+                    maxLength={4}
+                  />
                 </div>
               </div>
-              <p className="sd-hint" id="event-date-hint">De exemplu, 31 08 2026.</p>
-              <label className="sd-label" htmlFor="native-date">Sau folosește selectorul nativ</label>
-              <input className="sd-date-picker" id="native-date" name="native-date" type="date" min="2026-01-01" />
+              <p className="sd-hint" id="event-date-hint">
+                De exemplu, 31 08 2026.
+              </p>
+              <label className="sd-label" htmlFor="native-date">
+                Sau folosește selectorul nativ
+              </label>
+              <input
+                className="sd-date-picker"
+                id="native-date"
+                name="native-date"
+                type="date"
+                min="2026-01-01"
+              />
             </article>
 
             <article className={styles.panel}>
               <h3>Alege instituția</h3>
               <div className="sd-autocomplete" data-sd-autocomplete>
-                <label className="sd-label" htmlFor="institution-search">Instituție</label>
-                <p className="sd-hint" id="institution-hint">Scrie cel puțin două caractere.</p>
+                <label className="sd-label" htmlFor="institution-search">
+                  Instituție
+                </label>
+                <p className="sd-hint" id="institution-hint">
+                  Scrie cel puțin două caractere.
+                </p>
                 <input
                   className="sd-input"
                   id="institution-search"
@@ -240,7 +309,12 @@ export default function InteractiveComponentsPage() {
                   <option value="Direcția de Evidență a Persoanelor Cluj" />
                 </datalist>
                 <div data-sd-autocomplete-menu hidden />
-                <p className="sd-visually-hidden" id="institution-status" aria-live="polite" data-sd-autocomplete-status />
+                <p
+                  className="sd-visually-hidden"
+                  id="institution-status"
+                  aria-live="polite"
+                  data-sd-autocomplete-status
+                />
               </div>
             </article>
           </div>
@@ -250,12 +324,18 @@ export default function InteractiveComponentsPage() {
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Upload avansat</p>
             <h2 id="upload-title">Inputul nativ rămâne disponibil, inclusiv fără drag-and-drop.</h2>
-            <p>Lista fișierelor și eliminarea individuală sunt enhancement-uri. Serverul validează din nou tipul și dimensiunea.</p>
+            <p>
+              Lista fișierelor și eliminarea individuală sunt enhancement-uri. Serverul validează
+              din nou tipul și dimensiunea.
+            </p>
           </div>
           <div className="sd-file-upload-advanced" data-sd-file-upload data-sd-file-dropzone>
-            <label className="sd-label" htmlFor="supporting-files">Documente justificative</label>
+            <label className="sd-label" htmlFor="supporting-files">
+              Documente justificative
+            </label>
             <p className="sd-file-upload-advanced__instructions" id="supporting-files-hint">
-              Selectează fișiere sau trage-le în această zonă. PDF, JPG sau PNG, maximum 10 MB fiecare.
+              Selectează fișiere sau trage-le în această zonă. PDF, JPG sau PNG, maximum 10 MB
+              fiecare.
             </p>
             <input
               className="sd-file-upload"
@@ -267,7 +347,12 @@ export default function InteractiveComponentsPage() {
               aria-describedby="supporting-files-hint supporting-files-status"
             />
             <ul className="sd-file-upload__list" data-sd-file-list />
-            <p className="sd-visually-hidden" id="supporting-files-status" aria-live="polite" data-sd-file-status />
+            <p
+              className="sd-visually-hidden"
+              id="supporting-files-status"
+              aria-live="polite"
+              data-sd-file-status
+            />
           </div>
         </section>
 
@@ -278,10 +363,21 @@ export default function InteractiveComponentsPage() {
           </div>
           <ul className={styles.knownIssues}>
             <li>Dialogul necesită testare manuală suplimentară cu VoiceOver pe iOS și macOS.</li>
-            <li>Autocomplete-ul nu înlocuiește o căutare server-side pentru liste foarte mari sau sensibile.</li>
-            <li>Selectorul nativ de dată diferă între browsere; formatul și erorile trebuie explicate textual.</li>
-            <li>Drag-and-drop este opțional și nu poate fi singura cale pentru încărcarea fișierelor.</li>
-            <li>Baseline-urile vizuale detectează schimbări, dar nu decid dacă o schimbare este corectă.</li>
+            <li>
+              Autocomplete-ul nu înlocuiește o căutare server-side pentru liste foarte mari sau
+              sensibile.
+            </li>
+            <li>
+              Selectorul nativ de dată diferă între browsere; formatul și erorile trebuie explicate
+              textual.
+            </li>
+            <li>
+              Drag-and-drop este opțional și nu poate fi singura cale pentru încărcarea fișierelor.
+            </li>
+            <li>
+              Baseline-urile vizuale detectează schimbări, dar nu decid dacă o schimbare este
+              corectă.
+            </li>
           </ul>
           <pre className={styles.code} tabIndex={0} aria-label="Exemplu inițializare JavaScript">
             <code>{`import { enhanceInteractiveComponents } from '@sistem-digital/components';
@@ -293,7 +389,9 @@ const cleanup = enhanceInteractiveComponents();
       </main>
 
       <PublicFooter>
-        <p>Componentele interactive sunt alpha și necesită audit manual înainte de utilizare critică.</p>
+        <p>
+          Componentele interactive sunt alpha și necesită audit manual înainte de utilizare critică.
+        </p>
       </PublicFooter>
     </>
   );

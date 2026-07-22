@@ -27,7 +27,9 @@ async function expectNoAxeViolations(page: Page, testInfo: TestInfo, attachmentN
 
 test.describe('interactive components', () => {
   for (const theme of themeNames) {
-    test(`has no automatically detectable WCAG violations in ${theme}`, async ({ page }, testInfo) => {
+    test(`has no automatically detectable WCAG violations in ${theme}`, async ({
+      page,
+    }, testInfo) => {
       await page.addInitScript(({ key, value }) => window.localStorage.setItem(key, value), {
         key: themeStorageKey,
         value: theme,
@@ -114,13 +116,17 @@ test.describe('interactive components', () => {
   });
 
   test('keeps a complete fallback when JavaScript is disabled', async ({ browser }) => {
-    const page = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 800, height: 900 } });
+    const page = await browser.newPage({
+      javaScriptEnabled: false,
+      viewport: { width: 800, height: 900 },
+    });
     try {
       await page.goto('/componente/interactive');
       await expect(page.getByText('Trimite cererea către instituție?')).toBeVisible();
       await expect(page.locator('[data-sd-tab-list]')).toBeHidden();
       await expect(page.locator('[data-sd-tab-panel]')).toHaveCount(3);
-      for (const panel of await page.locator('[data-sd-tab-panel]').all()) await expect(panel).toBeVisible();
+      for (const panel of await page.locator('[data-sd-tab-panel]').all())
+        await expect(panel).toBeVisible();
       await expect(page.getByLabel('Instituție')).toHaveAttribute('list', 'institution-options');
       await expect(page.getByLabel('Documente justificative')).toBeVisible();
     } finally {

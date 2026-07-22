@@ -31,7 +31,9 @@ export function enhanceAccordions({ root }: EnhancementOptions = {}): Cleanup {
   if (!resolvedRoot) return () => {};
 
   const cleanups: Cleanup[] = [];
-  for (const accordion of resolvedRoot.querySelectorAll<HTMLElement>('[data-sd-accordion="single"]')) {
+  for (const accordion of resolvedRoot.querySelectorAll<HTMLElement>(
+    '[data-sd-accordion="single"]',
+  )) {
     const details = [...accordion.querySelectorAll<HTMLDetailsElement>(':scope > details')];
     const listeners = details.map((item) => {
       const onToggle = () => {
@@ -60,7 +62,11 @@ export function enhanceDialogs({ root }: EnhancementOptions = {}): Cleanup {
   for (const dialog of resolvedRoot.querySelectorAll<HTMLDialogElement>('[data-sd-dialog]')) {
     if (!dialog.id) continue;
 
-    const triggers = [...resolvedRoot.querySelectorAll<HTMLElement>(`[data-sd-dialog-trigger][aria-controls="${dialog.id}"]`)];
+    const triggers = [
+      ...resolvedRoot.querySelectorAll<HTMLElement>(
+        `[data-sd-dialog-trigger][aria-controls="${dialog.id}"]`,
+      ),
+    ];
     const closeButtons = [...dialog.querySelectorAll<HTMLElement>('[data-sd-dialog-close]')];
     let returnFocus: HTMLElement | null = null;
 
@@ -131,7 +137,10 @@ export function enhanceTabs({ root }: EnhancementOptions = {}): Cleanup {
       if (moveFocus) tabs[index]?.focus();
     };
 
-    const initial = Math.max(0, tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true'));
+    const initial = Math.max(
+      0,
+      tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true'),
+    );
     activate(initial);
 
     const listeners = tabs.map((tab, index) => {
@@ -234,7 +243,11 @@ export function enhanceAutocompletes({ root }: EnhancementOptions = {}): Cleanup
     const render = () => {
       const query = input.value.trim().toLocaleLowerCase('ro-RO');
       visible = options
-        .filter((option) => option.label.toLocaleLowerCase('ro-RO').includes(query) || option.value.toLocaleLowerCase('ro-RO').includes(query))
+        .filter(
+          (option) =>
+            option.label.toLocaleLowerCase('ro-RO').includes(query) ||
+            option.value.toLocaleLowerCase('ro-RO').includes(query),
+        )
         .slice(0, 8);
       menu.replaceChildren();
       activeIndex = -1;
@@ -252,7 +265,11 @@ export function enhanceAutocompletes({ root }: EnhancementOptions = {}): Cleanup
 
       menu.hidden = visible.length === 0;
       input.setAttribute('aria-expanded', String(visible.length > 0));
-      if (status) status.textContent = visible.length === 1 ? '1 sugestie disponibilă.' : `${visible.length} sugestii disponibile.`;
+      if (status)
+        status.textContent =
+          visible.length === 1
+            ? '1 sugestie disponibilă.'
+            : `${visible.length} sugestii disponibile.`;
     };
 
     const onInput = () => render();
@@ -307,7 +324,8 @@ export function enhanceAutocompletes({ root }: EnhancementOptions = {}): Cleanup
 export function formatFileSize(bytes: number): string {
   if (!Number.isFinite(bytes) || bytes < 0) return '0 B';
   if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 ** 2) return `${new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(bytes / 1024)} KB`;
+  if (bytes < 1024 ** 2)
+    return `${new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(bytes / 1024)} KB`;
   return `${new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(bytes / 1024 ** 2)} MB`;
 }
 
@@ -352,7 +370,9 @@ export function enhanceFileUploads({ root }: EnhancementOptions = {}): Cleanup {
         item.append(label, remove);
         list.append(item);
       });
-      if (status) status.textContent = files.length === 1 ? '1 fișier selectat.' : `${files.length} fișiere selectate.`;
+      if (status)
+        status.textContent =
+          files.length === 1 ? '1 fișier selectat.' : `${files.length} fișiere selectate.`;
     };
 
     const onChange = () => {
@@ -369,7 +389,9 @@ export function enhanceFileUploads({ root }: EnhancementOptions = {}): Cleanup {
       delete dropzone.dataset.sdDragActive;
       const dropped = [...(event.dataTransfer?.files ?? [])];
       if (dropped.length === 0) return;
-      files = input.multiple ? [...files, ...dropped] : [dropped[0]].filter((file): file is File => Boolean(file));
+      files = input.multiple
+        ? [...files, ...dropped]
+        : [dropped[0]].filter((file): file is File => Boolean(file));
       writeFiles();
       render();
     };
