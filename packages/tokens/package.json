@@ -62,12 +62,14 @@
     "tokens:check": "node scripts/build-tokens.mjs --check",
     "themes:generate": "node scripts/build-themes.mjs",
     "themes:check": "node scripts/build-themes.mjs --check",
+    "artifacts:generate": "pnpm tokens:generate && pnpm themes:generate",
+    "artifacts:check": "pnpm tokens:check && pnpm themes:check",
     "build:esm": "tsc -p tsconfig.json",
     "build:cjs": "tsc -p tsconfig.cjs.json && node -e \"require('node:fs').writeFileSync('dist-cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}\\n')\"",
-    "build": "pnpm tokens:generate && pnpm themes:generate && pnpm build:esm && pnpm build:cjs",
-    "lint": "pnpm tokens:check && pnpm themes:check && eslint src scripts --ignore-pattern src/theme-init.js",
-    "typecheck": "pnpm tokens:check && pnpm themes:check && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",
-    "test": "pnpm tokens:check && pnpm themes:check && vitest run",
+    "build": "pnpm artifacts:check && pnpm build:esm && pnpm build:cjs",
+    "lint": "pnpm artifacts:check && eslint src scripts --ignore-pattern src/theme-init.js",
+    "typecheck": "pnpm artifacts:check && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",
+    "test": "pnpm artifacts:check && vitest run",
     "prepack": "pnpm build"
   }
 }
