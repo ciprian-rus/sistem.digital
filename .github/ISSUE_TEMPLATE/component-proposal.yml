@@ -1,0 +1,41 @@
+name: Propunere componentă sau pattern
+description: Propune o nevoie reutilizabilă pentru sistem
+title: "[Propunere]: "
+labels: []
+body:
+  - type: textarea
+    id: user-need
+    attributes:
+      label: Nevoia utilizatorului
+      description: Ce încearcă utilizatorul să realizeze?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Dovezi și exemple
+      description: Cercetare, servicii existente sau situații repetate care demonstrează nevoia.
+    validations:
+      required: true
+  - type: textarea
+    id: current-solutions
+    attributes:
+      label: Soluții existente
+      description: De ce componentele sau pattern-urile existente nu sunt suficiente?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Propunere
+      description: Descrie comportamentul, nu doar aspectul vizual.
+    validations:
+      required: true
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Considerații de accesibilitate
+  - type: textarea
+    id: adoption
+    attributes:
+      label: Unde ar putea fi reutilizată?
