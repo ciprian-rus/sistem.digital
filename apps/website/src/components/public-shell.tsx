@@ -7,6 +7,7 @@ const navigationItems = [
   { href: '/componente/formulare', label: 'Componente' },
   { href: '/componente/navigatie', label: 'Navigație' },
   { href: '/componente/continut-date', label: 'Conținut și date' },
+  { href: '/componente/interactive', label: 'Interactive' },
   { href: '/cautare', label: 'Căutare' },
 ] as const;
 
@@ -211,6 +212,9 @@ export function PublicFooter({ children }: Readonly<{ children?: ReactNode }>) {
             </li>
             <li>
               <a href="/componente/continut-date">Conținut și date</a>
+            </li>
+            <li>
+              <a href="/componente/interactive">Interactive</a>
             </li>
             <li>
               <a href="https://github.com/ciprian-rus/sistem.digital">Cod sursă</a>
