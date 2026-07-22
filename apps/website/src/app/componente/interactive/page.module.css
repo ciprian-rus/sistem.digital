@@ -13,9 +13,17 @@
 
 .section {
   display: grid;
+  min-width: 0;
   gap: var(--sd-space-6);
   padding-block: var(--sd-space-9);
   border-block-start: 1px solid var(--sd-color-border);
+}
+
+.section > *,
+.sectionHeader,
+.section :global(.sd-tabs) {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .sectionHeader {
@@ -30,6 +38,7 @@
 }
 
 .panel {
+  min-width: 0;
   padding: var(--sd-space-6);
   border: 1px solid var(--sd-color-border);
   border-radius: var(--sd-radius-panel);
@@ -58,6 +67,7 @@
 }
 
 .code {
+  max-width: 100%;
   overflow-x: auto;
   margin: 0;
   padding: var(--sd-space-6);
