@@ -20,11 +20,15 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "prettier --write apps packages docs/architecture/adr .github/workflows package.json pnpm-workspace.yaml turbo.json tsconfig.base.json eslint.config.mjs",
+    "format:check": "prettier --check apps packages docs/architecture/adr .github/workflows package.json pnpm-workspace.yaml turbo.json tsconfig.base.json eslint.config.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
+    "@changesets/cli": "catalog:",
     "@eslint/js": "catalog:",
     "@types/node": "catalog:",
     "eslint": "catalog:",
