@@ -47,7 +47,6 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
-          cache: false
 
       - name: Verify npm supports trusted publishing
         shell: bash
@@ -83,10 +82,15 @@ jobs:
           set -euo pipefail
           mkdir -p release-artifacts
           pnpm --filter @sistem-digital/tokens pack --pack-destination "${GITHUB_WORKSPACE}/release-artifacts"
-          pnpm sbom --format cyclonedx > release-artifacts/sbom.cdx.json
+          pnpm sbom \
+            --sbom-format cyclonedx \
+            --sbom-type application \
+            --lockfile-only \
+            --out release-artifacts/sbom.cdx.json
           (
             cd release-artifacts
             sha256sum ./*.tgz ./sbom.cdx.json > SHA256SUMS
+            sha256sum --check SHA256SUMS
           )
 
       - name: Attest release artifact provenance
