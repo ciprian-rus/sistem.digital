@@ -20,3 +20,8 @@ catalog:
   typescript: 5.9.3
   typescript-eslint: 8.65.0
   vitest: 4.1.10
+
+# pnpm 11 blocks dependency build scripts unless they are explicitly approved.
+# sharp is required by Next.js for production image processing.
+onlyBuiltDependencies:
+  - sharp
