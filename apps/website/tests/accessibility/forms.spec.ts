@@ -60,10 +60,8 @@ test.describe('form components', () => {
 
     const message = page.locator('#email-error');
     await expect(message).toContainText('Introdu o adresă');
-    await expect(message, 'The error must include a textual prefix, not color alone').toHaveCSS(
-      'display',
-      'flex',
-    );
+    const prefix = await message.evaluate((element) => getComputedStyle(element, '::before').content);
+    expect(prefix).toContain('Eroare:');
   });
 
   test('moves focus from the error summary link to the invalid field', async ({ page }) => {
@@ -106,18 +104,23 @@ test.describe('form components', () => {
     await expect(page.getByRole('button', { name: 'Trimite din nou' })).toBeVisible();
   });
 
-  test('keeps form controls at least 44 CSS pixels high', async ({ page }) => {
+  test('keeps interactive targets at least 44 CSS pixels high', async ({ page }) => {
     await page.goto('/componente/formulare');
 
-    for (const control of [
+    const digitalRadio = page.getByRole('radio', { name: /În format digital/u });
+    const confirmation = page.getByRole('checkbox', {
+      name: 'Confirm că informațiile introduse sunt corecte',
+    });
+
+    for (const target of [
       page.locator('#email'),
       page.locator('#service-type'),
       page.locator('#attachment'),
-      page.getByRole('radio', { name: /În format digital/u }),
-      page.getByRole('checkbox', { name: 'Confirm că informațiile introduse sunt corecte' }),
+      digitalRadio.locator('..'),
+      confirmation.locator('..'),
       page.getByRole('button', { name: 'Trimite din nou' }),
     ]) {
-      const box = await control.boundingBox();
+      const box = await target.boundingBox();
       expect(box).not.toBeNull();
       expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
     }
