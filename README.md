@@ -74,12 +74,14 @@ Platforma locală este disponibilă implicit la `http://localhost:3000`.
 - [Standardul de accesibilitate](docs/accessibility/standard.md)
 - [Matricea browser–tehnologie asistivă](docs/accessibility/test-matrix.md)
 - [Checklist-ul componentelor](docs/accessibility/component-checklist.md)
+- [Șablonul de documentare a componentelor](docs/accessibility/component-template.md)
 - [Politica pentru excepții](docs/accessibility/exceptions.md)
 
 ## Integrare continuă
 
-Fiecare pull request trebuie să treacă patru status checks stabile:
+Fiecare pull request trebuie să treacă cinci status checks stabile:
 
+- **Lockfile consistency** — sincronizarea reproductibilă a manifestelor și lockfile-ului;
 - **Quality gates** — format, lint, typecheck, teste și build;
 - **Documentation** — verificarea linkurilor locale din documentație;
 - **Supply-chain security** — scanare de secrete și audit al dependențelor;
