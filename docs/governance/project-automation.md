@@ -64,6 +64,31 @@ Repository
 
 Workflow-ul adaugă toate issues-urile deschise în Project #5. Operația este idempotentă: itemii deja existenți nu trebuie duplicați.
 
+## Automation Console
+
+Workflow-ul `.github/workflows/automation-console.yml` permite executarea unor operațiuni controlate prin comentarii introduse în issues de proprietarul repository-ului.
+
+Regenerarea lockfile-ului pentru un branch se solicită prin:
+
+```text
+/automation regenerate-lockfile numele-branch-ului
+```
+
+Exemplu:
+
+```text
+/automation regenerate-lockfile agent/m0-ci-hardening
+```
+
+Workflow-ul:
+
+1. validează autorul și numele branch-ului;
+2. regenerează `pnpm-lock.yaml` cu versiunea pnpm aprobată;
+3. comite numai lockfile-ul modificat;
+4. publică rezultatul în issue.
+
+Comanda nu acceptă spații în numele branch-ului și nu poate fi executată de utilizatori fără drepturi asupra repository-ului.
+
 ## Automatizare ulterioară
 
-Noile issues și issues-urile redeschise sunt adăugate automat în Project. Statusurile și câmpurile custom vor fi administrate prin automatizările interne ale GitHub Project și, ulterior, prin workflows dedicate.
+Noile issues și issues-urile redeschise sunt adăugate automat în Project. Statusurile și câmpurile custom vor fi administrate prin automatizările interne ale GitHub Project și prin workflows dedicate.
