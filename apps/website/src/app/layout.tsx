@@ -5,6 +5,7 @@ import { themeInitScript } from '@sistem-digital/tokens';
 import '@sistem-digital/tokens/css';
 import '@sistem-digital/tokens/themes.css';
 import './globals.css';
+import './foundations.css';
 
 export const metadata: Metadata = {
   title: {
