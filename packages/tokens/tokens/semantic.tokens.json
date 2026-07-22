@@ -45,18 +45,72 @@
         "$type": "fontFamily",
         "sans": { "$value": "{core.font.family.sans}" },
         "mono": { "$value": "{core.font.family.mono}" }
+      },
+      "size": {
+        "caption": { "$type": "dimension", "$value": "{core.font.size.87}" },
+        "bodySmall": { "$type": "dimension", "$value": "{core.font.size.87}" },
+        "body": {
+          "$type": "string",
+          "$value": "clamp(1rem, 0.975rem + 0.125vw, 1.0625rem)"
+        },
+        "bodyLarge": {
+          "$type": "string",
+          "$value": "clamp(1.125rem, 1.075rem + 0.25vw, 1.25rem)"
+        },
+        "headingSmall": {
+          "$type": "string",
+          "$value": "clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem)"
+        },
+        "headingMedium": {
+          "$type": "string",
+          "$value": "clamp(1.5rem, 1.3rem + 1vw, 2rem)"
+        },
+        "headingLarge": {
+          "$type": "string",
+          "$value": "clamp(2rem, 1.6rem + 2vw, 3rem)"
+        },
+        "display": {
+          "$type": "string",
+          "$value": "clamp(2.5rem, 1.9rem + 3vw, 4rem)"
+        }
+      },
+      "weight": {
+        "$type": "number",
+        "regular": { "$value": "{core.font.weight.regular}" },
+        "medium": { "$value": "{core.font.weight.medium}" },
+        "semibold": { "$value": "{core.font.weight.semibold}" },
+        "bold": { "$value": "{core.font.weight.bold}" },
+        "extraBold": { "$value": "{core.font.weight.extraBold}" }
+      },
+      "lineHeight": {
+        "$type": "number",
+        "display": { "$value": "{core.font.lineHeight.compact}" },
+        "heading": { "$value": "{core.font.lineHeight.heading}" },
+        "body": { "$value": "{core.font.lineHeight.body}" },
+        "control": { "$value": "{core.font.lineHeight.control}" }
+      },
+      "letterSpacing": {
+        "$type": "dimension",
+        "heading": { "$value": "{core.font.letterSpacing.tight}" },
+        "body": { "$value": "{core.font.letterSpacing.normal}" },
+        "label": { "$value": "{core.font.letterSpacing.wide}" }
       }
     },
     "space": {
       "$type": "dimension",
+      "0": { "$value": "{core.dimension.space.0}" },
       "1": { "$value": "{core.dimension.space.1}" },
       "2": { "$value": "{core.dimension.space.2}" },
       "3": { "$value": "{core.dimension.space.3}" },
       "4": { "$value": "{core.dimension.space.4}" },
+      "5": { "$value": "{core.dimension.space.5}" },
       "6": { "$value": "{core.dimension.space.6}" },
       "8": { "$value": "{core.dimension.space.8}" },
+      "10": { "$value": "{core.dimension.space.10}" },
       "12": { "$value": "{core.dimension.space.12}" },
-      "16": { "$value": "{core.dimension.space.16}" }
+      "16": { "$value": "{core.dimension.space.16}" },
+      "20": { "$value": "{core.dimension.space.20}" },
+      "24": { "$value": "{core.dimension.space.24}" }
     },
     "radius": {
       "$type": "dimension",
@@ -64,14 +118,40 @@
       "panel": { "$value": "{core.dimension.radius.panel}" }
     },
     "layout": {
+      "content": { "$type": "dimension", "$value": "{core.dimension.layout.content}" },
+      "wide": { "$type": "dimension", "$value": "{core.dimension.layout.wide}" },
+      "reading": { "$type": "dimension", "$value": "{core.dimension.layout.reading}" },
+      "measure": {
+        "narrow": { "$type": "string", "$value": "45ch" },
+        "default": { "$type": "string", "$value": "66ch" },
+        "wide": { "$type": "string", "$value": "80ch" }
+      },
+      "gutter": {
+        "default": { "$type": "string", "$value": "clamp(1rem, 3vw, 2rem)" },
+        "compact": { "$type": "dimension", "$value": "{semantic.space.4}" }
+      }
+    },
+    "breakpoint": {
       "$type": "dimension",
-      "content": { "$value": "{core.dimension.layout.content}" },
-      "reading": { "$value": "{core.dimension.layout.reading}" }
+      "compact": { "$value": "{core.dimension.breakpoint.compact}" },
+      "medium": { "$value": "{core.dimension.breakpoint.medium}" },
+      "wide": { "$value": "{core.dimension.breakpoint.wide}" },
+      "maximum": { "$value": "{core.dimension.breakpoint.maximum}" }
+    },
+    "grid": {
+      "columns": {
+        "$type": "number",
+        "compact": { "$value": 4 },
+        "medium": { "$value": 8 },
+        "wide": { "$value": 12 }
+      },
+      "gap": { "$type": "dimension", "$value": "{semantic.space.6}" }
     },
     "focus": {
       "$type": "dimension",
       "width": { "$value": "{core.dimension.stroke.focus}" },
-      "offset": { "$value": { "value": 0.2, "unit": "rem" } }
+      "offset": { "$value": { "value": 0.1875, "unit": "rem" } },
+      "halo": { "$value": "{core.dimension.stroke.focusHalo}" }
     },
     "target": {
       "$type": "dimension",
@@ -80,10 +160,38 @@
     "motion": {
       "duration": {
         "$type": "duration",
+        "instant": { "$value": "{core.duration.instant}" },
         "fast": { "$value": "{core.duration.fast}" },
         "moderate": { "$value": "{core.duration.moderate}" },
         "slow": { "$value": "{core.duration.slow}" }
+      },
+      "easing": {
+        "$type": "string",
+        "standard": { "$value": "{core.easing.standard}" },
+        "emphasis": { "$value": "{core.easing.emphasis}" },
+        "linear": { "$value": "{core.easing.linear}" }
+      },
+      "distance": {
+        "$type": "dimension",
+        "subtle": { "$value": "{core.dimension.motion.subtle}" },
+        "standard": { "$value": "{core.dimension.motion.standard}" }
       }
+    },
+    "elevation": {
+      "$type": "string",
+      "low": { "$value": "{core.shadow.low}" },
+      "medium": { "$value": "{core.shadow.medium}" },
+      "high": { "$value": "{core.shadow.high}" }
+    },
+    "zIndex": {
+      "$type": "number",
+      "base": { "$value": "{core.zIndex.base}" },
+      "raised": { "$value": "{core.zIndex.raised}" },
+      "sticky": { "$value": "{core.zIndex.sticky}" },
+      "overlay": { "$value": "{core.zIndex.overlay}" },
+      "modal": { "$value": "{core.zIndex.modal}" },
+      "toast": { "$value": "{core.zIndex.toast}" },
+      "skipLink": { "$value": "{core.zIndex.skipLink}" }
     }
   }
 }
