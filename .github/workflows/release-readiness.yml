@@ -38,15 +38,11 @@ jobs:
       - name: Install exact dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build publishable packages
-        run: pnpm --filter @sistem-digital/tokens build
+      - name: Build public packages
+        run: pnpm --filter "./packages/*" --if-present build
 
-      - name: Pack release candidate
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p release-artifacts
-          pnpm --filter @sistem-digital/tokens pack --pack-destination "${GITHUB_WORKSPACE}/release-artifacts"
+      - name: Pack release candidates
+        run: node scripts/pack-public-packages.mjs release-artifacts
 
       - name: Generate CycloneDX SBOM
         shell: bash
@@ -65,6 +61,8 @@ jobs:
           set -euo pipefail
           (
             cd release-artifacts
+            tarballs=(./*.tgz)
+            test -e "${tarballs[0]}"
             sha256sum ./*.tgz ./sbom.cdx.json > SHA256SUMS
             sha256sum --check SHA256SUMS
           )
@@ -73,11 +71,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          tarball="$(find release-artifacts -maxdepth 1 -name '*.tgz' -print -quit)"
-          test -n "${tarball}"
-          tar -tzf "${tarball}" | sort
+          shopt -s nullglob
+          tarballs=(release-artifacts/*.tgz)
+          test "${#tarballs[@]}" -gt 0
+          for tarball in "${tarballs[@]}"; do
+            echo "## ${tarball}"
+            tar -tzf "${tarball}" | sort
+          done
 
-      - name: Upload release candidate
+      - name: Upload release candidates
         uses: actions/upload-artifact@v4
         with:
           name: release-candidate
