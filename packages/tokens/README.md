@@ -78,12 +78,52 @@ Variabilele semantice includ:
 --sd-color-feedback-danger-background
 --sd-color-focus
 --sd-font-sans
+--sd-font-size-body
+--sd-font-size-display
+--sd-font-line-height-body
 --sd-space-4
 --sd-radius-control
 --sd-layout-content
+--sd-layout-measure
+--sd-layout-gutter
+--sd-focus-width
+--sd-motion-duration-fast
+--sd-motion-easing-standard
+--sd-elevation-low
+--sd-z-index-modal
 ```
 
 Token-urile primitive și cele de componentă sunt publicate cu prefixele `core` și `component`.
+
+## Fundamente structurale
+
+Pachetul include contractul pentru:
+
+- scară tipografică fluidă prin `clamp()`;
+- măsuri de lectură `45ch`, `66ch` și `80ch`;
+- containere standard, wide și reading;
+- breakpoints în `rem` și grid conceptual 4/8/12;
+- target minim de `2.75rem` — 44 CSS px;
+- focus în trei straturi: outline, offset și halo;
+- motion cu durate, easing și distanțe semantice;
+- elevation low/medium/high;
+- z-index base, raised, sticky, overlay, modal, toast și skip link.
+
+```css
+.service-intro {
+  max-width: var(--sd-layout-measure);
+  font-size: var(--sd-font-size-body-large);
+  line-height: var(--sd-font-line-height-body);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--sd-grid-gap);
+}
+```
+
+CSS custom properties nu pot fi folosite direct în condiția unui media query. Valorile publicate pentru breakpoints sunt contractul documentat; stylesheet-urile folosesc aceleași valori în `rem` și sunt verificate prin review și teste de reflow.
 
 ## Teme oficiale
 
