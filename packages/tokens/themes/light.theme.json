@@ -7,6 +7,7 @@
     "brand.subtle": "#e8f2fa",
     "text.default": "#17202a",
     "text.muted": "#4b5563",
+    "text.accent": "#005ea8",
     "text.inverse": "#ffffff",
     "text.disabled": "#6b7280",
     "surface.page": "#ffffff",
