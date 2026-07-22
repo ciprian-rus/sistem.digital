@@ -8,5 +8,6 @@
 - banner de autenticitate, alertă majoră și identitate instituțională;
 - navigație desktop, disclosure mobil nativ, breadcrumb și service navigation;
 - căutare GET și footer standard;
+- shell verificat cu tastatura, reflow și JavaScript dezactivat;
 - distribuție ESM, CommonJS și CSS independent de framework;
 - versiune coordonată cu celelalte pachete oficiale Sistem Digital.
