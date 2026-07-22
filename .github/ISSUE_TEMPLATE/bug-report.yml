@@ -1,0 +1,48 @@
+name: Raportare problemă
+description: Raportează un defect reproductibil
+title: "[Bug]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: Mulțumim. Nu publica vulnerabilități de securitate aici.
+  - type: textarea
+    id: description
+    attributes:
+      label: Problema
+      description: Ce nu funcționează și care este impactul?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Pași de reproducere
+      placeholder: "1. Deschide...\n2. Selectează...\n3. Observă..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportament așteptat
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Pachet și versiune
+      placeholder: "@sistem-digital/components 0.1.0"
+  - type: dropdown
+    id: accessibility
+    attributes:
+      label: Afectează accesibilitatea?
+      options:
+        - Da
+        - Nu
+        - Nu știu
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Mediu
+      description: Browser, sistem de operare, framework și alte detalii relevante.
