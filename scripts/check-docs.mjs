@@ -22,7 +22,10 @@ function removeFencedCode(markdown) {
 }
 
 function normalizeLinkTarget(rawTarget) {
-  const withoutTitle = rawTarget.trim().replace(/^<|>$/g, '').split(/\s+["']/u, 1)[0];
+  const withoutTitle = rawTarget
+    .trim()
+    .replace(/^<|>$/g, '')
+    .split(/\s+["']/u, 1)[0];
   const withoutFragment = withoutTitle.split('#', 1)[0].split('?', 1)[0];
 
   try {
