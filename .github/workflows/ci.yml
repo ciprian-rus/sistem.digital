@@ -269,8 +269,8 @@ jobs:
       - name: Install Chromium
         run: pnpm --filter @sistem-digital/website exec playwright install --with-deps chromium
 
-      - name: Build website
-        run: pnpm --filter @sistem-digital/website build
+      - name: Build website and workspace dependency
+        run: pnpm --filter @sistem-digital/tokens build && pnpm --filter @sistem-digital/website build
 
       - name: Run axe and keyboard tests
         run: pnpm --filter @sistem-digital/website test:a11y

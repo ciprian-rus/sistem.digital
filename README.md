@@ -41,7 +41,8 @@ Sistem Digital este inițial un proiect open-source independent. El poate deveni
 
 - [Viziunea, publicurile, limitele și definiția MVP](docs/product/product-vision.md)
 - [Principiile de design](docs/product/design-principles.md)
-- [Politica de personalizare instituțională](docs/product/customization-policy.md)
+- [Teme, culoare semantică și personalizare](docs/product/theme-policy.md)
+- [Politica generală de personalizare instituțională](docs/product/customization-policy.md)
 - [Terminologia canonică a proiectului](docs/product/terminology.md)
 
 ## Cercetare
@@ -80,6 +81,8 @@ Verificările suplimentare pot fi rulate separat:
 pnpm docs:check
 pnpm secrets:check
 pnpm audit:ci
+pnpm --filter @sistem-digital/tokens tokens:check
+pnpm --filter @sistem-digital/tokens themes:check
 pnpm --filter @sistem-digital/website test:a11y
 ```
 

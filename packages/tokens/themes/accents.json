@@ -1,0 +1,30 @@
+{
+  "description": "Accente instituționale aprobate. Nu modifică linkurile, feedback-ul, focusul sau semantica stărilor.",
+  "textColor": "#ffffff",
+  "presets": {
+    "blue": {
+      "label": "Albastru instituțional",
+      "default": "#1d79bf",
+      "hover": "#004b82",
+      "active": "#002a59"
+    },
+    "teal": {
+      "label": "Verde-albăstrui",
+      "default": "#00695c",
+      "hover": "#00574c",
+      "active": "#004d40"
+    },
+    "burgundy": {
+      "label": "Burgund",
+      "default": "#8e1b3a",
+      "hover": "#781630",
+      "active": "#681127"
+    },
+    "purple": {
+      "label": "Violet",
+      "default": "#6d28d9",
+      "hover": "#5b21b6",
+      "active": "#4c1d95"
+    }
+  }
+}

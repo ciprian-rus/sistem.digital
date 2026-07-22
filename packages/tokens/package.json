@@ -21,33 +21,55 @@
   ],
   "files": [
     "dist",
+    "dist-cjs",
     "src/tokens.css",
     "src/tokens.json",
     "src/tokens.dtcg.json",
+    "src/themes.css",
+    "src/themes.json",
+    "src/theme-init.js",
     "tokens",
+    "themes",
     "README.md",
     "CHANGELOG.md"
   ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist-cjs/index.js",
+      "default": "./dist/index.js"
     },
     "./css": "./src/tokens.css",
+    "./themes.css": "./src/themes.css",
+    "./theme-init.js": "./src/theme-init.js",
     "./tokens.json": "./src/tokens.json",
     "./tokens.dtcg.json": "./src/tokens.dtcg.json",
+    "./themes.json": "./src/themes.json",
     "./source/manifest.json": "./tokens/manifest.json",
     "./source/core.tokens.json": "./tokens/core.tokens.json",
     "./source/semantic.tokens.json": "./tokens/semantic.tokens.json",
-    "./source/component.tokens.json": "./tokens/component.tokens.json"
+    "./source/component.tokens.json": "./tokens/component.tokens.json",
+    "./source/themes/manifest.json": "./themes/manifest.json",
+    "./source/themes/light.theme.json": "./themes/light.theme.json",
+    "./source/themes/dark.theme.json": "./themes/dark.theme.json",
+    "./source/themes/high-contrast-light.theme.json": "./themes/high-contrast-light.theme.json",
+    "./source/themes/high-contrast-dark.theme.json": "./themes/high-contrast-dark.theme.json",
+    "./source/themes/accents.json": "./themes/accents.json"
   },
   "scripts": {
     "tokens:generate": "node scripts/build-tokens.mjs",
     "tokens:check": "node scripts/build-tokens.mjs --check",
-    "build": "pnpm tokens:generate && tsc -p tsconfig.json",
-    "lint": "pnpm tokens:check && eslint src scripts",
-    "typecheck": "pnpm tokens:check && tsc -p tsconfig.json --noEmit",
-    "test": "pnpm tokens:check && vitest run",
+    "themes:generate": "node scripts/build-themes.mjs",
+    "themes:check": "node scripts/build-themes.mjs --check",
+    "artifacts:generate": "pnpm tokens:generate && pnpm themes:generate",
+    "artifacts:check": "pnpm tokens:check && pnpm themes:check",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && node -e \"require('node:fs').writeFileSync('dist-cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}\\n')\"",
+    "build": "pnpm artifacts:check && pnpm build:esm && pnpm build:cjs",
+    "lint": "pnpm artifacts:check && eslint src scripts --ignore-pattern src/theme-init.js",
+    "typecheck": "pnpm artifacts:check && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",
+    "test": "pnpm artifacts:check && vitest run",
     "prepack": "pnpm build"
   }
 }
