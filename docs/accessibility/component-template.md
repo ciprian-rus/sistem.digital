@@ -77,7 +77,8 @@ Documentați:
 - stările componentei acoperite;
 - teste de tastatură;
 - alte reguli automate;
-- link către teste și artefacte.
+- link către teste și artefacte;
+- perioada de retenție și modul de accesare a artefactelor de test.
 
 ## Testare manuală
 
