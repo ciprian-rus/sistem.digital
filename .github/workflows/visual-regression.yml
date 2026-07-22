@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: visual-${{ github.workflow }}-${{ github.ref }}
@@ -19,10 +19,8 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - name: Checkout source branch
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -45,26 +43,6 @@ jobs:
 
       - name: Build website and workspace dependencies
         run: pnpm --filter @sistem-digital/website... build
-
-      - name: Bootstrap initial screenshots on the internal pull request
-        if: >-
-          github.event_name == 'pull_request' &&
-          github.event.pull_request.head.repo.full_name == github.repository
-        run: |
-          set -euo pipefail
-          snapshot_dir="apps/website/tests/visual/__snapshots__"
-          if find "$snapshot_dir" -type f -name '*.png' -print -quit 2>/dev/null | grep -q .; then
-            exit 0
-          fi
-
-          pnpm --filter @sistem-digital/website test:visual:update
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$snapshot_dir"
-          git commit -m "test(visual): add initial interactive baselines"
-          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
-          echo "Baseline-urile inițiale au fost create. Verificarea se va relansa pe commitul următor."
-          exit 1
 
       - name: Compare versioned screenshots
         run: pnpm --filter @sistem-digital/website test:visual
