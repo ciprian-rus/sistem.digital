@@ -74,7 +74,7 @@ Sistem Digital adoptă câteva ținte mai stricte decât minimul normativ:
 
 Un rezultat verde de la axe, ACT sau orice alt instrument automat nu reprezintă certificare de conformitate. Verificările automate pot detecta numai o parte dintre probleme și nu pot valida integral calitatea textelor alternative, ordinea logică, claritatea conținutului, experiența cu cititoare de ecran sau utilizarea reală a unui serviciu.
 
-Orice componentă stabilă trebuie să îndeplinească [checklist-ul de acceptare](component-checklist.md) și să fie testată conform [matricei de suport](test-matrix.md).
+Orice componentă stabilă trebuie să îndeplinească [checklist-ul de acceptare](component-checklist.md), să fie testată conform [matricei de suport](test-matrix.md) și să folosească [șablonul de documentare](component-template.md). Orice abatere temporară urmează [politica pentru excepții și probleme cunoscute](exceptions.md).
 
 ## Conformitate și declarații publice
 
