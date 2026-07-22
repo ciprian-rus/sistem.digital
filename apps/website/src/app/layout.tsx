@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 import '@sistem-digital/components/forms.css';
+import '@sistem-digital/components/navigation.css';
 import { themeInitScript } from '@sistem-digital/tokens';
 import '@sistem-digital/tokens/css';
 import '@sistem-digital/tokens/themes.css';
