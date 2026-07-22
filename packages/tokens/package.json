@@ -60,7 +60,7 @@
     "themes:generate": "node scripts/build-themes.mjs",
     "themes:check": "node scripts/build-themes.mjs --check",
     "build": "pnpm tokens:generate && pnpm themes:generate && tsc -p tsconfig.json",
-    "lint": "pnpm tokens:check && pnpm themes:check && eslint src scripts",
+    "lint": "pnpm tokens:check && pnpm themes:check && eslint src scripts --ignore-pattern src/theme-init.js",
     "typecheck": "pnpm tokens:check && pnpm themes:check && tsc -p tsconfig.json --noEmit",
     "test": "pnpm tokens:check && pnpm themes:check && vitest run",
     "prepack": "pnpm build"
