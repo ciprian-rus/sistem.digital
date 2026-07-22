@@ -16,7 +16,6 @@ updates:
           - minor
           - patch
     labels:
-      - dependencies
       - area:security
 
   - package-ecosystem: github-actions
@@ -28,5 +27,4 @@ updates:
       timezone: Europe/Bucharest
     open-pull-requests-limit: 5
     labels:
-      - dependencies
       - area:ci
