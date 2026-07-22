@@ -21,21 +21,30 @@ concurrency:
 
 env:
   PROJECT_NUMBER: "5"
-  PROJECT_OWNER: ciprian-rus
+  # Project #5 is owned by the same personal account that created PROJECTS_TOKEN.
+  # GitHub CLI recommends @me for projects owned by the authenticated user.
+  PROJECT_OWNER: "@me"
 
 jobs:
   add-current-issue:
     if: github.event_name == 'issues'
     runs-on: ubuntu-latest
     steps:
-      - name: Validate Projects token
+      - name: Validate Projects token and project access
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
         run: |
+          set -euo pipefail
+
           if [ -z "${GH_TOKEN}" ]; then
             echo "Missing repository secret PROJECTS_TOKEN" >&2
             exit 1
           fi
-        env:
-          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+
+          gh project view "${PROJECT_NUMBER}" \
+            --owner "${PROJECT_OWNER}" \
+            --format json \
+            --jq '.number' | grep -Fxq "${PROJECT_NUMBER}"
 
       - name: Add issue when missing
         env:
@@ -73,14 +82,21 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && inputs.import_existing
     runs-on: ubuntu-latest
     steps:
-      - name: Validate Projects token
+      - name: Validate Projects token and project access
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
         run: |
+          set -euo pipefail
+
           if [ -z "${GH_TOKEN}" ]; then
             echo "Missing repository secret PROJECTS_TOKEN" >&2
             exit 1
           fi
-        env:
-          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+
+          gh project view "${PROJECT_NUMBER}" \
+            --owner "${PROJECT_OWNER}" \
+            --format json \
+            --jq '.number' | grep -Fxq "${PROJECT_NUMBER}"
 
       - name: Add all missing open issues
         env:
