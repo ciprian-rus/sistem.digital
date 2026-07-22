@@ -35,6 +35,13 @@ Proiectul nu este doar o bibliotecă vizuală. El va reuni:
 - Cercetare, testare și decizii documentate public.
 - Reutilizare înainte de reinventare.
 
+## Direcția de produs
+
+Sistem Digital este inițial un proiect open-source independent. El poate deveni baza unui standard oficial numai printr-un mandat public clar, guvernanță transparentă, finanțare permanentă și păstrarea licenței deschise.
+
+- [Viziunea, publicurile, limitele și definiția MVP](docs/product/product-vision.md)
+- [Terminologia canonică a proiectului](docs/product/terminology.md)
+
 ## Dezvoltare
 
 Cerințe:
@@ -120,6 +127,7 @@ starters/
   nextjs/
   wordpress/
 docs/
+  product/
   architecture/
   governance/
   accessibility/
@@ -129,7 +137,7 @@ docs/
 
 ## Stadiu și planificare
 
-Proiectul se află în **M0 — Fundația proiectului**.
+Proiectul finalizează **M0 — Fundația proiectului**.
 
 - [Roadmap public — GitHub Project](https://github.com/users/ciprian-rus/projects/5)
 - [Backlog — GitHub Issues](https://github.com/ciprian-rus/sistem.digital/issues)
