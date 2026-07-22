@@ -51,7 +51,6 @@ export default async function SearchPage({ searchParams }: Readonly<SearchPagePr
             name="q"
             type="search"
             defaultValue={trimmedQuery}
-            autoFocus={hasQuery}
           />
           <button className="sd-search__button" type="submit">
             Caută
