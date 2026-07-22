@@ -16,6 +16,11 @@ describe('site search', () => {
     expect(searchSite('conținut')[0]?.href).toBe('/componente/continut-date');
   });
 
+  it('finds interactive components by ARIA pattern names', () => {
+    expect(searchSite('dialog tabs')[0]?.href).toBe('/componente/interactive');
+    expect(searchSite('autocomplete')[0]?.href).toBe('/componente/interactive');
+  });
+
   it('requires all query terms', () => {
     expect(searchSite('formular eroare')[0]?.href).toBe('/componente/formulare');
     expect(searchSite('formular roadmap')).toEqual([]);
