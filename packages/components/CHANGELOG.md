@@ -5,4 +5,5 @@
 - pachet public inițial;
 - componente de formulare, validare și mesaje de eroare;
 - helper opțional pentru focusul error summary;
-- distribuție ESM, CommonJS și CSS independent de framework.
+- distribuție ESM, CommonJS și CSS independent de framework;
+- versiune coordonată cu celelalte pachete oficiale Sistem Digital.
