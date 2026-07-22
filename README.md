@@ -40,7 +40,18 @@ Proiectul nu este doar o bibliotecă vizuală. El va reuni:
 Sistem Digital este inițial un proiect open-source independent. El poate deveni baza unui standard oficial numai printr-un mandat public clar, guvernanță transparentă, finanțare permanentă și păstrarea licenței deschise.
 
 - [Viziunea, publicurile, limitele și definiția MVP](docs/product/product-vision.md)
+- [Principiile de design](docs/product/design-principles.md)
+- [Politica de personalizare instituțională](docs/product/customization-policy.md)
 - [Terminologia canonică a proiectului](docs/product/terminology.md)
+
+## Cercetare
+
+M1 pornește de la dovezi comparabile și ipoteze locale explicite. Cercetarea de birou este publică, iar cercetarea cu cetățeni, persoane cu dizabilități, funcționari și furnizori va fi adăugată etapizat.
+
+- [Indexul cercetării](docs/research/README.md)
+- [Audit comparativ al sistemelor mature](docs/research/comparative-audit.md)
+- [Audit de birou al contextului românesc](docs/research/romania-desk-audit.md)
+- [Planul cercetării de teren](docs/research/field-research-plan.md)
 
 ## Dezvoltare
 
@@ -128,6 +139,7 @@ starters/
   wordpress/
 docs/
   product/
+  research/
   architecture/
   governance/
   accessibility/
@@ -137,7 +149,7 @@ docs/
 
 ## Stadiu și planificare
 
-Proiectul finalizează **M0 — Fundația proiectului**.
+**M0 — Fundația proiectului** este finalizat. Proiectul se află în **M1 — Fundamente vizuale și design tokens**.
 
 - [Roadmap public — GitHub Project](https://github.com/users/ciprian-rus/projects/5)
 - [Backlog — GitHub Issues](https://github.com/ciprian-rus/sistem.digital/issues)
