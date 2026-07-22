@@ -61,8 +61,16 @@ test.describe('responsive structural foundations', () => {
     await page.goto('/');
 
     const measure = await page.locator('.body-copy').first().evaluate((element) => {
+      const probe = document.createElement('span');
       const style = getComputedStyle(element);
-      return element.getBoundingClientRect().width / Number.parseFloat(style.fontSize);
+      probe.textContent = '0';
+      probe.style.position = 'absolute';
+      probe.style.visibility = 'hidden';
+      probe.style.font = style.font;
+      document.body.append(probe);
+      const chWidth = probe.getBoundingClientRect().width;
+      probe.remove();
+      return element.getBoundingClientRect().width / chWidth;
     });
 
     expect(measure).toBeGreaterThanOrEqual(40);
