@@ -91,7 +91,8 @@ Se folosesc controale native:
 
 - radio pentru o singură alegere;
 - checkbox pentru zero, una sau mai multe alegeri;
-- fiecare target are minimum 44 CSS px;
+- fiecare target activ are minimum 44 CSS px;
+- target-ul activ include întregul label clicabil, nu doar cercul sau pătratul nativ;
 - textul opțiunii este inclus în label;
 - hint-ul opțiunii poate fi în același label;
 - opțiunile nu sunt selectate implicit când alegerea are consecințe juridice sau financiare.
