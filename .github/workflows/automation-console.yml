@@ -11,8 +11,8 @@ permissions:
 jobs:
   regenerate-lockfile:
     if: >-
-      !github.event.issue.pull_request &&
-      github.event.comment.user.login == github.repository_owner &&
+      github.event.issue.pull_request == null &&
+      github.event.comment.user.login == 'ciprian-rus' &&
       startsWith(github.event.comment.body, '/automation regenerate-lockfile ')
     runs-on: ubuntu-latest
     timeout-minutes: 10
