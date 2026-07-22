@@ -29,10 +29,28 @@ describe('design tokens', () => {
 
   it('publishes deterministic metadata and flat token paths', () => {
     expect(tokenMetadata.layers).toEqual(['core', 'semantic', 'component']);
-    expect(tokenMetadata.tokenCount).toBeGreaterThan(40);
-    expect(tokenMetadata.aliasCount).toBeGreaterThan(20);
+    expect(tokenMetadata.tokenCount).toBeGreaterThan(120);
+    expect(tokenMetadata.aliasCount).toBeGreaterThan(70);
     expect(tokenMetadata.sourceHash).toMatch(/^[0-9a-f]{64}$/);
     expect(flatTokens['semantic.color.focus.ring']).toBe('#ffbf47');
+  });
+
+  it('publishes responsive typography and reading measures', () => {
+    expect(tokens.semantic.font.size.body).toContain('clamp(');
+    expect(tokens.semantic.font.size.display).toContain('clamp(');
+    expect(tokens.semantic.font.lineHeight.body).toBe(1.6);
+    expect(tokens.semantic.layout.measure.default).toBe('66ch');
+    expect(tokens.semantic.layout.gutter.default).toContain('clamp(');
+    expect(tokens.semantic.breakpoint.medium).toBe('48rem');
+  });
+
+  it('publishes focus motion elevation and layering roles', () => {
+    expect(tokens.semantic.focus.width).toBe('0.25rem');
+    expect(tokens.semantic.focus.halo).toBe('0.125rem');
+    expect(tokens.semantic.motion.duration.instant).toBe('0ms');
+    expect(tokens.semantic.motion.easing.standard).toContain('cubic-bezier(');
+    expect(tokens.semantic.elevation.medium).toContain('rgb(');
+    expect(tokens.semantic.zIndex.modal).toBe(1100);
   });
 
   it('preserves the public CSS variables used by framework-free consumers', async () => {
@@ -41,6 +59,10 @@ describe('design tokens', () => {
     expect(css).toContain('--sd-color-text: #17202a;');
     expect(css).toContain('--sd-color-focus: #ffbf47;');
     expect(css).toContain('--sd-font-sans:');
+    expect(css).toContain('--sd-font-size-display: clamp(');
+    expect(css).toContain('--sd-layout-measure: 66ch;');
+    expect(css).toContain('--sd-motion-easing-standard: cubic-bezier(');
+    expect(css).toContain('--sd-z-index-skip-link: 1300;');
     expect(css).toContain('--sd-component-button-min-height: 2.75rem;');
   });
 });

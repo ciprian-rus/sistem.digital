@@ -3,9 +3,9 @@
   "$extensions": {
     "ro.sistem-digital": {
       "format": "DTCG 2025.10",
-      "sourceHash": "6dadcf82776c4633778ae68b1c5e8eea0159a60df224cc98b5fcfe7a25d646ae",
-      "tokenCount": 86,
-      "aliasCount": 49,
+      "sourceHash": "0de41f8e60b72d53b1027c3493f889d806d2fc02fdf923ff5a9979c3a97be808",
+      "tokenCount": 202,
+      "aliasCount": 103,
       "layers": [
         "core",
         "semantic",
@@ -203,6 +203,12 @@
     "dimension": {
       "$type": "dimension",
       "space": {
+        "0": {
+          "$value": {
+            "value": 0,
+            "unit": "rem"
+          }
+        },
         "1": {
           "$value": {
             "value": 0.25,
@@ -227,6 +233,12 @@
             "unit": "rem"
           }
         },
+        "5": {
+          "$value": {
+            "value": 1.25,
+            "unit": "rem"
+          }
+        },
         "6": {
           "$value": {
             "value": 1.5,
@@ -239,6 +251,12 @@
             "unit": "rem"
           }
         },
+        "10": {
+          "$value": {
+            "value": 2.5,
+            "unit": "rem"
+          }
+        },
         "12": {
           "$value": {
             "value": 3,
@@ -248,6 +266,18 @@
         "16": {
           "$value": {
             "value": 4,
+            "unit": "rem"
+          }
+        },
+        "20": {
+          "$value": {
+            "value": 5,
+            "unit": "rem"
+          }
+        },
+        "24": {
+          "$value": {
+            "value": 6,
             "unit": "rem"
           }
         }
@@ -273,9 +303,41 @@
             "unit": "rem"
           }
         },
+        "wide": {
+          "$value": {
+            "value": 90,
+            "unit": "rem"
+          }
+        },
         "reading": {
           "$value": {
             "value": 46,
+            "unit": "rem"
+          }
+        }
+      },
+      "breakpoint": {
+        "compact": {
+          "$value": {
+            "value": 30,
+            "unit": "rem"
+          }
+        },
+        "medium": {
+          "$value": {
+            "value": 48,
+            "unit": "rem"
+          }
+        },
+        "wide": {
+          "$value": {
+            "value": 64,
+            "unit": "rem"
+          }
+        },
+        "maximum": {
+          "$value": {
+            "value": 80,
             "unit": "rem"
           }
         }
@@ -298,12 +360,32 @@
             "value": 0.25,
             "unit": "rem"
           }
+        },
+        "focusHalo": {
+          "$value": {
+            "value": 0.125,
+            "unit": "rem"
+          }
         }
       },
       "target": {
         "minimum": {
           "$value": {
             "value": 2.75,
+            "unit": "rem"
+          }
+        }
+      },
+      "motion": {
+        "subtle": {
+          "$value": {
+            "value": 0.25,
+            "unit": "rem"
+          }
+        },
+        "standard": {
+          "$value": {
+            "value": 0.5,
             "unit": "rem"
           }
         }
@@ -314,12 +396,12 @@
         "$type": "fontFamily",
         "sans": {
           "$value": [
-            "Inter",
-            "ui-sans-serif",
-            "system-ui",
-            "-apple-system",
-            "BlinkMacSystemFont",
+            "Fira Sans",
+            "Noto Sans",
             "Segoe UI",
+            "Roboto",
+            "Helvetica Neue",
+            "Arial",
             "sans-serif"
           ]
         },
@@ -333,10 +415,133 @@
             "monospace"
           ]
         }
+      },
+      "size": {
+        "75": {
+          "$value": {
+            "value": 0.75,
+            "unit": "rem"
+          }
+        },
+        "87": {
+          "$value": {
+            "value": 0.875,
+            "unit": "rem"
+          }
+        },
+        "100": {
+          "$value": {
+            "value": 1,
+            "unit": "rem"
+          }
+        },
+        "112": {
+          "$value": {
+            "value": 1.125,
+            "unit": "rem"
+          }
+        },
+        "125": {
+          "$value": {
+            "value": 1.25,
+            "unit": "rem"
+          }
+        },
+        "150": {
+          "$value": {
+            "value": 1.5,
+            "unit": "rem"
+          }
+        },
+        "200": {
+          "$value": {
+            "value": 2,
+            "unit": "rem"
+          }
+        },
+        "250": {
+          "$value": {
+            "value": 2.5,
+            "unit": "rem"
+          }
+        },
+        "300": {
+          "$value": {
+            "value": 3,
+            "unit": "rem"
+          }
+        },
+        "400": {
+          "$value": {
+            "value": 4,
+            "unit": "rem"
+          }
+        },
+        "$type": "dimension"
+      },
+      "weight": {
+        "$type": "number",
+        "regular": {
+          "$value": 400
+        },
+        "medium": {
+          "$value": 500
+        },
+        "semibold": {
+          "$value": 600
+        },
+        "bold": {
+          "$value": 700
+        },
+        "extraBold": {
+          "$value": 800
+        }
+      },
+      "lineHeight": {
+        "$type": "number",
+        "compact": {
+          "$value": 1.05
+        },
+        "heading": {
+          "$value": 1.2
+        },
+        "body": {
+          "$value": 1.6
+        },
+        "control": {
+          "$value": 1.25
+        }
+      },
+      "letterSpacing": {
+        "$type": "dimension",
+        "tight": {
+          "$value": {
+            "value": -0.025,
+            "unit": "rem"
+          }
+        },
+        "normal": {
+          "$value": {
+            "value": 0,
+            "unit": "rem"
+          }
+        },
+        "wide": {
+          "$value": {
+            "value": 0.08,
+            "unit": "rem"
+          }
+        }
       }
     },
     "duration": {
       "$type": "duration",
+      "instant": {
+        "$value": {
+          "value": 0,
+          "unit": "ms"
+        }
+      },
       "fast": {
         "$value": {
           "value": 100,
@@ -354,6 +559,54 @@
           "value": 350,
           "unit": "ms"
         }
+      }
+    },
+    "easing": {
+      "$type": "string",
+      "standard": {
+        "$value": "cubic-bezier(0.2, 0, 0, 1)"
+      },
+      "emphasis": {
+        "$value": "cubic-bezier(0.2, 0, 0, 1.4)"
+      },
+      "linear": {
+        "$value": "linear"
+      }
+    },
+    "shadow": {
+      "$type": "string",
+      "low": {
+        "$value": "0 1px 2px rgb(0 42 89 / 0.12)"
+      },
+      "medium": {
+        "$value": "0 4px 12px rgb(0 42 89 / 0.16)"
+      },
+      "high": {
+        "$value": "0 12px 32px rgb(0 42 89 / 0.22)"
+      }
+    },
+    "zIndex": {
+      "$type": "number",
+      "base": {
+        "$value": 0
+      },
+      "raised": {
+        "$value": 10
+      },
+      "sticky": {
+        "$value": 100
+      },
+      "overlay": {
+        "$value": 1000
+      },
+      "modal": {
+        "$value": 1100
+      },
+      "toast": {
+        "$value": 1200
+      },
+      "skipLink": {
+        "$value": 1300
       }
     }
   },
@@ -448,9 +701,91 @@
         "mono": {
           "$value": "{core.font.family.mono}"
         }
+      },
+      "size": {
+        "caption": {
+          "$type": "dimension",
+          "$value": "{core.font.size.87}"
+        },
+        "bodySmall": {
+          "$type": "dimension",
+          "$value": "{core.font.size.87}"
+        },
+        "body": {
+          "$type": "string",
+          "$value": "clamp(1rem, 0.975rem + 0.125vw, 1.0625rem)"
+        },
+        "bodyLarge": {
+          "$type": "string",
+          "$value": "clamp(1.125rem, 1.075rem + 0.25vw, 1.25rem)"
+        },
+        "headingSmall": {
+          "$type": "string",
+          "$value": "clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem)"
+        },
+        "headingMedium": {
+          "$type": "string",
+          "$value": "clamp(1.5rem, 1.3rem + 1vw, 2rem)"
+        },
+        "headingLarge": {
+          "$type": "string",
+          "$value": "clamp(2rem, 1.6rem + 2vw, 3rem)"
+        },
+        "display": {
+          "$type": "string",
+          "$value": "clamp(2.5rem, 1.9rem + 3vw, 4rem)"
+        }
+      },
+      "weight": {
+        "$type": "number",
+        "regular": {
+          "$value": "{core.font.weight.regular}"
+        },
+        "medium": {
+          "$value": "{core.font.weight.medium}"
+        },
+        "semibold": {
+          "$value": "{core.font.weight.semibold}"
+        },
+        "bold": {
+          "$value": "{core.font.weight.bold}"
+        },
+        "extraBold": {
+          "$value": "{core.font.weight.extraBold}"
+        }
+      },
+      "lineHeight": {
+        "$type": "number",
+        "display": {
+          "$value": "{core.font.lineHeight.compact}"
+        },
+        "heading": {
+          "$value": "{core.font.lineHeight.heading}"
+        },
+        "body": {
+          "$value": "{core.font.lineHeight.body}"
+        },
+        "control": {
+          "$value": "{core.font.lineHeight.control}"
+        }
+      },
+      "letterSpacing": {
+        "$type": "dimension",
+        "heading": {
+          "$value": "{core.font.letterSpacing.tight}"
+        },
+        "body": {
+          "$value": "{core.font.letterSpacing.normal}"
+        },
+        "label": {
+          "$value": "{core.font.letterSpacing.wide}"
+        }
       }
     },
     "space": {
+      "0": {
+        "$value": "{core.dimension.space.0}"
+      },
       "1": {
         "$value": "{core.dimension.space.1}"
       },
@@ -463,17 +798,29 @@
       "4": {
         "$value": "{core.dimension.space.4}"
       },
+      "5": {
+        "$value": "{core.dimension.space.5}"
+      },
       "6": {
         "$value": "{core.dimension.space.6}"
       },
       "8": {
         "$value": "{core.dimension.space.8}"
       },
+      "10": {
+        "$value": "{core.dimension.space.10}"
+      },
       "12": {
         "$value": "{core.dimension.space.12}"
       },
       "16": {
         "$value": "{core.dimension.space.16}"
+      },
+      "20": {
+        "$value": "{core.dimension.space.20}"
+      },
+      "24": {
+        "$value": "{core.dimension.space.24}"
       },
       "$type": "dimension"
     },
@@ -487,12 +834,74 @@
       }
     },
     "layout": {
-      "$type": "dimension",
       "content": {
+        "$type": "dimension",
         "$value": "{core.dimension.layout.content}"
       },
+      "wide": {
+        "$type": "dimension",
+        "$value": "{core.dimension.layout.wide}"
+      },
       "reading": {
+        "$type": "dimension",
         "$value": "{core.dimension.layout.reading}"
+      },
+      "measure": {
+        "narrow": {
+          "$type": "string",
+          "$value": "45ch"
+        },
+        "default": {
+          "$type": "string",
+          "$value": "66ch"
+        },
+        "wide": {
+          "$type": "string",
+          "$value": "80ch"
+        }
+      },
+      "gutter": {
+        "default": {
+          "$type": "string",
+          "$value": "clamp(1rem, 3vw, 2rem)"
+        },
+        "compact": {
+          "$type": "dimension",
+          "$value": "{semantic.space.4}"
+        }
+      }
+    },
+    "breakpoint": {
+      "$type": "dimension",
+      "compact": {
+        "$value": "{core.dimension.breakpoint.compact}"
+      },
+      "medium": {
+        "$value": "{core.dimension.breakpoint.medium}"
+      },
+      "wide": {
+        "$value": "{core.dimension.breakpoint.wide}"
+      },
+      "maximum": {
+        "$value": "{core.dimension.breakpoint.maximum}"
+      }
+    },
+    "grid": {
+      "columns": {
+        "$type": "number",
+        "compact": {
+          "$value": 4
+        },
+        "medium": {
+          "$value": 8
+        },
+        "wide": {
+          "$value": 12
+        }
+      },
+      "gap": {
+        "$type": "dimension",
+        "$value": "{semantic.space.6}"
       }
     },
     "focus": {
@@ -502,9 +911,12 @@
       },
       "offset": {
         "$value": {
-          "value": 0.2,
+          "value": 0.1875,
           "unit": "rem"
         }
+      },
+      "halo": {
+        "$value": "{core.dimension.stroke.focusHalo}"
       }
     },
     "target": {
@@ -516,6 +928,9 @@
     "motion": {
       "duration": {
         "$type": "duration",
+        "instant": {
+          "$value": "{core.duration.instant}"
+        },
         "fast": {
           "$value": "{core.duration.fast}"
         },
@@ -525,6 +940,63 @@
         "slow": {
           "$value": "{core.duration.slow}"
         }
+      },
+      "easing": {
+        "$type": "string",
+        "standard": {
+          "$value": "{core.easing.standard}"
+        },
+        "emphasis": {
+          "$value": "{core.easing.emphasis}"
+        },
+        "linear": {
+          "$value": "{core.easing.linear}"
+        }
+      },
+      "distance": {
+        "$type": "dimension",
+        "subtle": {
+          "$value": "{core.dimension.motion.subtle}"
+        },
+        "standard": {
+          "$value": "{core.dimension.motion.standard}"
+        }
+      }
+    },
+    "elevation": {
+      "$type": "string",
+      "low": {
+        "$value": "{core.shadow.low}"
+      },
+      "medium": {
+        "$value": "{core.shadow.medium}"
+      },
+      "high": {
+        "$value": "{core.shadow.high}"
+      }
+    },
+    "zIndex": {
+      "$type": "number",
+      "base": {
+        "$value": "{core.zIndex.base}"
+      },
+      "raised": {
+        "$value": "{core.zIndex.raised}"
+      },
+      "sticky": {
+        "$value": "{core.zIndex.sticky}"
+      },
+      "overlay": {
+        "$value": "{core.zIndex.overlay}"
+      },
+      "modal": {
+        "$value": "{core.zIndex.modal}"
+      },
+      "toast": {
+        "$value": "{core.zIndex.toast}"
+      },
+      "skipLink": {
+        "$value": "{core.zIndex.skipLink}"
       }
     }
   },
@@ -539,6 +1011,14 @@
         "$type": "dimension",
         "$value": "{semantic.space.6}"
       },
+      "paddingBlock": {
+        "$type": "dimension",
+        "$value": "{semantic.space.3}"
+      },
+      "gap": {
+        "$type": "dimension",
+        "$value": "{semantic.space.2}"
+      },
       "radius": {
         "$type": "dimension",
         "$value": "{semantic.radius.control}"
@@ -546,6 +1026,14 @@
       "borderWidth": {
         "$type": "dimension",
         "$value": "{core.dimension.stroke.medium}"
+      },
+      "fontWeight": {
+        "$type": "number",
+        "$value": "{semantic.font.weight.semibold}"
+      },
+      "lineHeight": {
+        "$type": "number",
+        "$value": "{semantic.font.lineHeight.control}"
       }
     },
     "input": {
@@ -553,6 +1041,14 @@
         "$type": "dimension",
         "$value": "{semantic.target.minimum}"
       },
+      "paddingInline": {
+        "$type": "dimension",
+        "$value": "{semantic.space.3}"
+      },
+      "paddingBlock": {
+        "$type": "dimension",
+        "$value": "{semantic.space.3}"
+      },
       "radius": {
         "$type": "dimension",
         "$value": "{semantic.radius.control}"
@@ -560,6 +1056,10 @@
       "borderWidth": {
         "$type": "dimension",
         "$value": "{core.dimension.stroke.medium}"
+      },
+      "lineHeight": {
+        "$type": "number",
+        "$value": "{semantic.font.lineHeight.control}"
       }
     },
     "panel": {
@@ -570,6 +1070,24 @@
       "padding": {
         "$type": "dimension",
         "$value": "{semantic.space.6}"
+      },
+      "gap": {
+        "$type": "dimension",
+        "$value": "{semantic.space.4}"
+      },
+      "elevation": {
+        "$type": "string",
+        "$value": "{semantic.elevation.low}"
+      }
+    },
+    "container": {
+      "maxWidth": {
+        "$type": "dimension",
+        "$value": "{semantic.layout.content}"
+      },
+      "gutter": {
+        "$type": "string",
+        "$value": "{semantic.layout.gutter.default}"
       }
     }
   }

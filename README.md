@@ -42,6 +42,7 @@ Sistem Digital este inițial un proiect open-source independent. El poate deveni
 - [Viziunea, publicurile, limitele și definiția MVP](docs/product/product-vision.md)
 - [Principiile de design](docs/product/design-principles.md)
 - [Teme, culoare semantică și personalizare](docs/product/theme-policy.md)
+- [Tipografie, spațiere, layout, focus și motion](docs/product/typography-layout-motion.md)
 - [Politica generală de personalizare instituțională](docs/product/customization-policy.md)
 - [Terminologia canonică a proiectului](docs/product/terminology.md)
 
