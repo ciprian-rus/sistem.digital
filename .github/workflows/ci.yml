@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 concurrency:
@@ -14,8 +14,61 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lockfile:
+    name: Lockfile consistency
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout source branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref }}
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Regenerate lockfile in memory
+        run: pnpm install --lockfile-only --no-frozen-lockfile
+
+      - name: Commit changed lockfile on same-repository pull requests
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          TARGET_BRANCH: ${{ github.event.pull_request.head.ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- pnpm-lock.yaml; then
+            echo "pnpm-lock.yaml is current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml
+          git commit -m "chore: synchronize pnpm lockfile"
+          git push origin "HEAD:${TARGET_BRANCH}"
+
+          echo "pnpm-lock.yaml was updated on ${TARGET_BRANCH}. A new CI run is required." >&2
+          exit 1
+
+      - name: Reject stale lockfile on other events
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+        run: git diff --exit-code -- pnpm-lock.yaml
+
   quality:
     name: Quality gates
+    needs: lockfile
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -107,6 +160,7 @@ jobs:
 
   documentation:
     name: Documentation
+    needs: lockfile
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -124,6 +178,7 @@ jobs:
 
   security:
     name: Supply-chain security
+    needs: lockfile
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -187,6 +242,7 @@ jobs:
 
   accessibility:
     name: Accessibility
+    needs: lockfile
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
