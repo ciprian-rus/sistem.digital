@@ -8,6 +8,9 @@ import './base.css';
 import '@sistem-digital/components/forms.css';
 import '@sistem-digital/components/navigation.css';
 import '@sistem-digital/components/content.css';
+import '@sistem-digital/components/interactive.css';
+
+import { InteractiveEnhancements } from '../components/interactive-enhancements';
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +27,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <InteractiveEnhancements />
+      </body>
     </html>
   );
 }

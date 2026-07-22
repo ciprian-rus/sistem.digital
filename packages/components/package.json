@@ -25,6 +25,7 @@
     "src/forms.css",
     "src/navigation.css",
     "src/content.css",
+    "src/interactive.css",
     "README.md",
     "CHANGELOG.md"
   ],
@@ -37,7 +38,8 @@
     },
     "./forms.css": "./src/forms.css",
     "./navigation.css": "./src/navigation.css",
-    "./content.css": "./src/content.css"
+    "./content.css": "./src/content.css",
+    "./interactive.css": "./src/interactive.css"
   },
   "peerDependencies": {
     "@sistem-digital/tokens": ">=0.1.0-alpha.0 <1.0.0"

@@ -2,11 +2,12 @@
 
 Componente HTML/CSS/JavaScript accesibile, independente de framework, pentru servicii digitale publice.
 
-Pachetul este în stadiu alpha și livrează trei module publice:
+Pachetul este în stadiu alpha și livrează patru module publice:
 
 - formulare și validare;
 - navigație și structură instituțională;
-- conținut și afișare a datelor.
+- conținut și afișare a datelor;
+- componente interactive și progressive enhancement.
 
 ## Instalare
 
@@ -20,6 +21,7 @@ pnpm add @sistem-digital/tokens @sistem-digital/components
 @import '@sistem-digital/components/forms.css';
 @import '@sistem-digital/components/navigation.css';
 @import '@sistem-digital/components/content.css';
+@import '@sistem-digital/components/interactive.css';
 ```
 
 Pachetul consumă exclusiv rolurile publice din `@sistem-digital/tokens`. Nu include React și nu cere JavaScript pentru funcționarea de bază.
@@ -30,6 +32,7 @@ Pachetul consumă exclusiv rolurile publice din `@sistem-digital/tokens`. Nu inc
 import {
   contentComponentNames,
   formComponentNames,
+  interactiveComponentNames,
   navigationComponentNames,
 } from '@sistem-digital/components';
 ```
@@ -156,28 +159,64 @@ Summary list reprezintă perechi cheie–valoare. Pentru comparații între mai 
 
 Componentele folosesc elementele native `details`, `summary` și `nav`. Pagination produce URL-uri stabile și indică pagina curentă prin `aria-current="page"`.
 
+## Componente interactive
+
+Modul: `@sistem-digital/components/interactive.css`
+
+- accordion;
+- dialog nativ cu fallback inline;
+- tabs cu fallback complet;
+- step indicator;
+- date input și selector nativ de dată;
+- autocomplete cu baseline `datalist`;
+- file upload avansat.
+
+```html
+<div class="sd-tabs" data-sd-tabs>
+  <div data-sd-tab-list hidden aria-label="Modalități de primire">
+    <button id="tab-digital" data-sd-tab aria-controls="panel-digital" aria-selected="true">
+      Digital
+    </button>
+  </div>
+  <section id="panel-digital" data-sd-tab-panel>...</section>
+</div>
+```
+
+Fără JavaScript, toate panourile rămân vizibile. Pentru enhancement:
+
+```ts
+import { enhanceInteractiveComponents } from '@sistem-digital/components';
+
+const cleanup = enhanceInteractiveComponents();
+```
+
+Helper-ele individuale sunt exportate separat și acceptă opțional un `root: ParentNode`. Fiecare returnează o funcție de cleanup.
+
 ## Reguli comune
 
 - HTML-ul semantic primează;
 - statusurile includ text și nu depind de culoare;
 - cardurile cu overlay au o singură destinație;
-- controalele native nu sunt reconstruite cu ARIA;
+- controalele native nu sunt reconstruite inutil cu ARIA;
+- JavaScript-ul adaugă enhancement, nu conținut esențial;
 - numerele, monedele și datele folosesc formate locale coerente;
 - fiecare target interactiv are minimum 44 CSS px când criteriul se aplică;
 - pagina face reflow la 320 CSS px fără scroll orizontal global;
-- forced colors și print sunt tratate explicit;
+- forced colors, reduced motion și print sunt tratate explicit;
 - clasele publice sunt prefixate cu `sd-`.
 
 ## Documentație completă
 
 - formulare: `docs/components/forms.md`;
 - navigație: `docs/components/navigation.md`;
-- conținut și date: `docs/components/content-data.md`.
+- conținut și date: `docs/components/content-data.md`;
+- interactive: `docs/components/interactive.md`.
 
 Implementările publice sunt disponibile la:
 
 - `/componente/formulare`;
 - `/componente/navigatie`;
-- `/componente/continut-date`.
+- `/componente/continut-date`;
+- `/componente/interactive`.
 
 Eliminarea sau redenumirea unei clase publice, schimbarea semanticii markup-ului ori a comportamentului helperelor reprezintă breaking change.

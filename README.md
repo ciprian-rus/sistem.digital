@@ -85,6 +85,7 @@ pnpm audit:ci
 pnpm --filter @sistem-digital/tokens tokens:check
 pnpm --filter @sistem-digital/tokens themes:check
 pnpm --filter @sistem-digital/website test:a11y
+pnpm --filter @sistem-digital/website test:visual
 ```
 
 Platforma locală este disponibilă implicit la `http://localhost:3000`.
@@ -110,13 +111,14 @@ Pachetele sunt construite și publicate exclusiv din GitHub Actions. Fiecare rel
 
 ## Integrare continuă
 
-Fiecare pull request trebuie să treacă șase status checks stabile:
+Fiecare pull request trebuie să treacă șapte status checks stabile:
 
 - **Lockfile consistency** — sincronizarea reproductibilă a manifestelor și lockfile-ului;
 - **Quality gates** — format, lint, typecheck, teste și build;
 - **Documentation** — verificarea linkurilor locale din documentație;
 - **Supply-chain security** — scanare de secrete și audit al dependențelor;
 - **Accessibility** — axe-core și teste de tastatură în Chromium;
+- **Visual regression** — comparație Playwright cu baseline-uri desktop și mobil versionate;
 - **Release readiness** — tarball, SBOM, hash-uri și conținut publicabil.
 
 Regulile recomandate pentru branch-ul principal sunt documentate în [Protecția branch-ului `main`](docs/governance/branch-protection.md).
@@ -153,7 +155,7 @@ docs/
 
 ## Stadiu și planificare
 
-**M0 — Fundația proiectului** este finalizat. Proiectul se află în **M1 — Fundamente vizuale și design tokens**.
+**M0 — Fundația proiectului** este finalizat. Proiectul se află în **M2 — Biblioteca de componente MVP accesibile**.
 
 - [Roadmap public — GitHub Project](https://github.com/users/ciprian-rus/projects/5)
 - [Backlog — GitHub Issues](https://github.com/ciprian-rus/sistem.digital/issues)
@@ -161,7 +163,7 @@ docs/
 
 ## Domeniu
 
-Platforma publică va fi disponibilă la **sistem.digital**.
+Platforma publică este disponibilă la **sistem.digital**.
 
 ## Licență
 

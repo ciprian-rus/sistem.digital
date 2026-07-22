@@ -6,7 +6,8 @@ Biblioteca oficială este bazată pe HTML semantic, CSS modular și progressive 
 
 - [Formulare, validare și mesaje de eroare](forms.md) — implementare publică la `/componente/formulare` pe sistem.digital;
 - [Header, footer, navigație, breadcrumb și căutare](navigation.md) — implementare publică la `/componente/navigatie` și `/cautare`;
-- [Conținut și afișare a datelor](content-data.md) — implementare publică la `/componente/continut-date`.
+- [Conținut și afișare a datelor](content-data.md) — implementare publică la `/componente/continut-date`;
+- [Componente interactive](interactive.md) — implementare publică la `/componente/interactive`.
 
 ## Standard per componentă
 
@@ -21,5 +22,7 @@ Fiecare componentă documentată trebuie să includă:
 - accesibilitate și tehnologii asistive;
 - exemple complete;
 - probleme cunoscute și changelog.
+
+Schimbările vizuale trebuie să treacă status check-ul `Visual regression`, iar actualizarea imaginilor de referință se face explicit și este revizuită în același pull request.
 
 Componentele nu intră în categoria stabilă înainte de audit manual de accesibilitate și testare în cel puțin un flux administrativ complet.

@@ -1,0 +1,59 @@
+name: Visual regression
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: visual-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    name: Visual regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm --filter @sistem-digital/website exec playwright install --with-deps chromium
+
+      - name: Build website and workspace dependencies
+        run: pnpm --filter @sistem-digital/website... build
+
+      - name: Compare versioned screenshots
+        run: pnpm --filter @sistem-digital/website test:visual
+
+      - name: Upload expected, actual and diff images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-report
+          path: |
+            apps/website/playwright-visual-report
+            apps/website/test-results-visual
+          if-no-files-found: ignore
+          retention-days: 14
