@@ -24,5 +24,7 @@ console.log(`npm dist-tag: ${distTag}`);
 
 if (process.env.GITHUB_OUTPUT) {
   const output = `version=${packageJson.version}\ndist_tag=${distTag}\n`;
-  await import('node:fs/promises').then(({ appendFile }) => appendFile(process.env.GITHUB_OUTPUT, output));
+  await import('node:fs/promises').then(({ appendFile }) =>
+    appendFile(process.env.GITHUB_OUTPUT, output),
+  );
 }
