@@ -21,6 +21,7 @@
   ],
   "files": [
     "dist",
+    "dist-cjs",
     "src/tokens.css",
     "src/tokens.json",
     "src/tokens.dtcg.json",
@@ -35,7 +36,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist-cjs/index.js",
+      "default": "./dist/index.js"
     },
     "./css": "./src/tokens.css",
     "./themes.css": "./src/themes.css",
@@ -59,9 +62,11 @@
     "tokens:check": "node scripts/build-tokens.mjs --check",
     "themes:generate": "node scripts/build-themes.mjs",
     "themes:check": "node scripts/build-themes.mjs --check",
-    "build": "pnpm tokens:generate && pnpm themes:generate && tsc -p tsconfig.json",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && node -e \"require('node:fs').writeFileSync('dist-cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}\\n')\"",
+    "build": "pnpm tokens:generate && pnpm themes:generate && pnpm build:esm && pnpm build:cjs",
     "lint": "pnpm tokens:check && pnpm themes:check && eslint src scripts --ignore-pattern src/theme-init.js",
-    "typecheck": "pnpm tokens:check && pnpm themes:check && tsc -p tsconfig.json --noEmit",
+    "typecheck": "pnpm tokens:check && pnpm themes:check && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",
     "test": "pnpm tokens:check && pnpm themes:check && vitest run",
     "prepack": "pnpm build"
   }
