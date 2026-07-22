@@ -42,9 +42,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Remove obsolete theme compiler helper
-        run: sed -i '/^async function readJson/,/^}$/d' packages/tokens/scripts/build-themes.mjs
-
       - name: Format canonical source files
         run: pnpm format
 
