@@ -4,8 +4,14 @@
   "description": "Design tokens canonice pentru Sistem Digital.",
   "license": "Apache-2.0",
   "type": "module",
-  "sideEffects": ["**/*.css"],
-  "files": ["dist", "src/tokens.css", "src/tokens.json"],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "src/tokens.css",
+    "src/tokens.json"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

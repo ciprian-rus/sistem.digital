@@ -9,7 +9,8 @@ const principles = [
   },
   {
     title: 'Construit pentru servicii',
-    description: 'Componentele vor fi validate în fluxuri administrative complete, nu doar în galerii.',
+    description:
+      'Componentele vor fi validate în fluxuri administrative complete, nu doar în galerii.',
   },
 ];
 
@@ -103,8 +104,8 @@ export default function HomePage() {
               <p className="section-kicker">Prima piesă reutilizabilă</p>
               <h2>Token-uri distribuite ca pachet, CSS și JSON.</h2>
               <p className="body-copy">
-                Sursa canonică este neutră față de framework. Proiectele moderne vor instala pachete,
-                iar site-urile legacy vor putea folosi fișiere versionate și self-hosted.
+                Sursa canonică este neutră față de framework. Proiectele moderne vor instala
+                pachete, iar site-urile legacy vor putea folosi fișiere versionate și self-hosted.
               </p>
             </div>
             <pre className="code-block" aria-label="Exemplu de instalare">
