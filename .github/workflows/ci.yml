@@ -153,4 +153,34 @@ jobs:
         run: pnpm secrets:check
 
       - name: Audit dependencies
-        run: pnpm audit:ci
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          pnpm audit:ci > pnpm-audit.log 2>&1
+          status=$?
+          cat pnpm-audit.log
+          echo "status=${status}" >> "${GITHUB_OUTPUT}"
+          exit 0
+
+      - name: Report dependency audit failure
+        if: steps.audit.outputs.status != '0' && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: bash
+        run: |
+          {
+            echo "### Dependency audit failed"
+            echo
+            echo '```text'
+            tail -n 100 pnpm-audit.log
+            echo '```'
+          } > /tmp/audit-comment.md
+
+          gh pr comment "${PR_NUMBER}" --body-file /tmp/audit-comment.md
+          exit 1
+
+      - name: Stop after dependency audit failure
+        if: steps.audit.outputs.status != '0' && github.event_name != 'pull_request'
+        run: exit 1
