@@ -9,8 +9,7 @@ const principles = [
   },
   {
     title: 'Construit pentru servicii',
-    description:
-      'Componentele vor fi validate în fluxuri administrative complete, nu doar în galerii.',
+    description: 'Componentele vor fi validate în fluxuri administrative complete, nu doar în galerii.',
   },
 ];
 
@@ -29,8 +28,9 @@ export default function HomePage() {
             </span>
             <span>Sistem Digital</span>
           </a>
+
           <nav aria-label="Navigație principală">
-            <ul className="nav-list">
+            <ul className="navigation-list">
               <li>
                 <a href="#principii">Principii</a>
               </li>
@@ -55,24 +55,19 @@ export default function HomePage() {
                 Construim infrastructura de design pe care instituțiile, furnizorii și comunitățile
                 o pot instala, testa, actualiza și îmbunătăți împreună.
               </p>
-              <div className="actions">
-                <a
-                  className="button button-primary"
-                  href="https://github.com/ciprian-rus/sistem.digital"
-                >
+              <div className="hero-actions">
+                <a className="button button-primary" href="https://github.com/ciprian-rus/sistem.digital">
                   Vezi codul sursă
                 </a>
-                <a
-                  className="button button-secondary"
-                  href="https://github.com/ciprian-rus/sistem.digital/issues"
-                >
+                <a className="button button-secondary" href="https://github.com/ciprian-rus/sistem.digital/issues">
                   Explorează backlog-ul
                 </a>
               </div>
             </div>
-            <aside className="status-card" aria-labelledby="status-title">
-              <p className="status-label">Etapa curentă</p>
-              <h2 id="status-title">M0 — Fundația proiectului</h2>
+
+            <aside className="milestone-card" aria-labelledby="milestone-title">
+              <p className="milestone-kicker">Etapa curentă</p>
+              <h2 id="milestone-title">M0 — Fundația proiectului</h2>
               <ul>
                 <li>Monorepo și convenții tehnice</li>
                 <li>Design tokens canonice</li>
@@ -108,7 +103,7 @@ export default function HomePage() {
                 pachete, iar site-urile legacy vor putea folosi fișiere versionate și self-hosted.
               </p>
             </div>
-            <pre className="code-block" aria-label="Exemplu de instalare">
+            <pre className="code-block" aria-label="Exemplu de instalare" tabIndex={0}>
               <code>{`pnpm add @sistem-digital/tokens\n\nimport '@sistem-digital/tokens/css';`}</code>
             </pre>
           </div>
