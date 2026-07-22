@@ -1,3 +1,5 @@
+import { ThemeControls } from '../components/theme-controls';
+
 const principles = [
   {
     title: 'Accesibil implicit',
@@ -11,6 +13,33 @@ const principles = [
     title: 'Construit pentru servicii',
     description:
       'Componentele vor fi validate în fluxuri administrative complete, nu doar în galerii.',
+  },
+];
+
+const feedbackExamples = [
+  {
+    tone: 'info',
+    symbol: 'i',
+    title: 'Informație',
+    message: 'Poți salva cererea și reveni înainte de trimitere.',
+  },
+  {
+    tone: 'success',
+    symbol: '✓',
+    title: 'Cerere salvată',
+    message: 'Datele au fost păstrate în siguranță.',
+  },
+  {
+    tone: 'warning',
+    symbol: '!',
+    title: 'Verifică termenul',
+    message: 'Documentul expiră în următoarele 30 de zile.',
+  },
+  {
+    tone: 'danger',
+    symbol: '×',
+    title: 'Câmp incomplet',
+    message: 'Introdu codul poștal pentru a continua.',
   },
 ];
 
@@ -30,19 +59,25 @@ export default function HomePage() {
             <span>Sistem Digital</span>
           </a>
 
-          <nav aria-label="Navigație principală">
-            <ul className="nav-list">
-              <li>
-                <a href="#principii">Principii</a>
-              </li>
-              <li>
-                <a href="#fundatie">Fundație</a>
-              </li>
-              <li>
-                <a href="https://github.com/users/ciprian-rus/projects/5">Roadmap</a>
-              </li>
-            </ul>
-          </nav>
+          <div className="header-actions">
+            <nav aria-label="Navigație principală">
+              <ul className="nav-list">
+                <li>
+                  <a href="#principii">Principii</a>
+                </li>
+                <li>
+                  <a href="#teme">Teme</a>
+                </li>
+                <li>
+                  <a href="#fundatie">Fundație</a>
+                </li>
+                <li>
+                  <a href="https://github.com/users/ciprian-rus/projects/5">Roadmap</a>
+                </li>
+              </ul>
+            </nav>
+            <ThemeControls />
+          </div>
         </div>
       </header>
 
@@ -74,12 +109,12 @@ export default function HomePage() {
 
             <aside className="status-card" aria-labelledby="milestone-title">
               <p className="status-label">Etapa curentă</p>
-              <h2 id="milestone-title">M0 — Fundația proiectului</h2>
+              <h2 id="milestone-title">M1 — Fundamente și design tokens</h2>
               <ul>
-                <li>Monorepo și convenții tehnice</li>
-                <li>Design tokens canonice</li>
-                <li>CI și verificări reproductibile</li>
-                <li>Guvernanță și contribuții publice</li>
+                <li>Arhitectură DTCG multi-platformă</li>
+                <li>Patru teme oficiale validate</li>
+                <li>Personalizare instituțională controlată</li>
+                <li>Tipografie, grilă, focus și motion</li>
               </ul>
             </aside>
           </div>
@@ -100,18 +135,58 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section section-subtle" id="fundatie">
+        <section className="section section-subtle" id="teme">
+          <div className="container">
+            <p className="section-kicker">Teme funcționale</p>
+            <h2>Aceeași semantică în orice condiții de utilizare.</h2>
+            <p className="body-copy">
+              Alege tema din antet. Fiecare variantă păstrează aceleași roluri, stări și mesaje, iar
+              contrastul este verificat automat înainte de publicare.
+            </p>
+
+            <div className="theme-demo-grid">
+              <article className="service-example" data-sd-accent="teal">
+                <p className="status-label">Exemplu tranzacțional</p>
+                <h3>Solicită un document</h3>
+                <div className="field-group">
+                  <label htmlFor="document-name">Denumirea documentului</label>
+                  <input id="document-name" name="document-name" defaultValue="Certificat fiscal" />
+                  <p className="field-hint">Poți modifica denumirea înainte de trimitere.</p>
+                </div>
+                <button className="button button-primary" type="button">
+                  Continuă
+                </button>
+              </article>
+
+              <div className="feedback-stack" aria-label="Exemple de mesaje de stare">
+                {feedbackExamples.map((item) => (
+                  <article className={`feedback-message feedback-${item.tone}`} key={item.tone}>
+                    <span className="feedback-symbol" aria-hidden="true">
+                      {item.symbol}
+                    </span>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.message}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="fundatie">
           <div className="container split-grid">
             <div>
               <p className="section-kicker">Prima piesă reutilizabilă</p>
-              <h2>Token-uri distribuite ca pachet, CSS și JSON.</h2>
+              <h2>Token-uri și teme distribuite ca pachet, CSS și JSON.</h2>
               <p className="body-copy">
-                Sursa canonică este neutră față de framework. Proiectele moderne vor instala
-                pachete, iar site-urile legacy vor putea folosi fișiere versionate și self-hosted.
+                Sursa canonică este neutră față de framework. Proiectele moderne instalează pachetul,
+                iar site-urile legacy pot folosi fișiere versionate și self-hosted.
               </p>
             </div>
             <pre className="code-block" aria-label="Exemplu de instalare" tabIndex={0}>
-              <code>{`pnpm add @sistem-digital/tokens\n\nimport '@sistem-digital/tokens/css';`}</code>
+              <code>{`pnpm add @sistem-digital/tokens\n\nimport '@sistem-digital/tokens/css';\nimport '@sistem-digital/tokens/themes.css';`}</code>
             </pre>
           </div>
         </section>
