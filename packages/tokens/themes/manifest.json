@@ -82,14 +82,38 @@
     { "foreground": "link.hover", "background": "surface.page", "minimum": 4.5 },
     { "foreground": "link.active", "background": "surface.page", "minimum": 4.5 },
     { "foreground": "link.visited", "background": "surface.page", "minimum": 4.5 },
-    { "foreground": "action.primary.text", "background": "action.primary.background", "minimum": 4.5 },
+    {
+      "foreground": "action.primary.text",
+      "background": "action.primary.background",
+      "minimum": 4.5
+    },
     { "foreground": "action.primary.text", "background": "action.primary.hover", "minimum": 4.5 },
     { "foreground": "action.primary.text", "background": "action.primary.active", "minimum": 4.5 },
-    { "foreground": "action.primary.disabledText", "background": "action.primary.disabledBackground", "minimum": 4.5 },
-    { "foreground": "feedback.info.text", "background": "feedback.info.background", "minimum": 4.5 },
-    { "foreground": "feedback.success.text", "background": "feedback.success.background", "minimum": 4.5 },
-    { "foreground": "feedback.warning.text", "background": "feedback.warning.background", "minimum": 4.5 },
-    { "foreground": "feedback.danger.text", "background": "feedback.danger.background", "minimum": 4.5 },
+    {
+      "foreground": "action.primary.disabledText",
+      "background": "action.primary.disabledBackground",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "feedback.info.text",
+      "background": "feedback.info.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "feedback.success.text",
+      "background": "feedback.success.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "feedback.warning.text",
+      "background": "feedback.warning.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "feedback.danger.text",
+      "background": "feedback.danger.background",
+      "minimum": 4.5
+    },
     { "foreground": "focus.ring", "background": "surface.strong", "minimum": 3 },
     { "foreground": "focus.contrast", "background": "surface.page", "minimum": 3 }
   ]

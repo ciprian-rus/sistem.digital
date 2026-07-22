@@ -1,0 +1,2 @@
+/* Generated theme initialization. Place before theme styles to avoid a flash. */
+(()=>{try{const r=document.documentElement,k="sd-theme",a=["light","dark","high-contrast-light","high-contrast-dark"],d=["dark","high-contrast-dark"],s=localStorage.getItem(k),t=a.includes(s)?s:(matchMedia('(prefers-color-scheme: dark)').matches?"dark":"light");r.dataset.sdTheme=t;r.dataset.sdThemeSource=a.includes(s)?'stored':'system';r.style.colorScheme=d.includes(t)?'dark':'light'}catch{}})();

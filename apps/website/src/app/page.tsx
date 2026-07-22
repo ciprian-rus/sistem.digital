@@ -181,8 +181,8 @@ export default function HomePage() {
               <p className="section-kicker">Prima piesă reutilizabilă</p>
               <h2>Token-uri și teme distribuite ca pachet, CSS și JSON.</h2>
               <p className="body-copy">
-                Sursa canonică este neutră față de framework. Proiectele moderne instalează pachetul,
-                iar site-urile legacy pot folosi fișiere versionate și self-hosted.
+                Sursa canonică este neutră față de framework. Proiectele moderne instalează
+                pachetul, iar site-urile legacy pot folosi fișiere versionate și self-hosted.
               </p>
             </div>
             <pre className="code-block" aria-label="Exemplu de instalare" tabIndex={0}>

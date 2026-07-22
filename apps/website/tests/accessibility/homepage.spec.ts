@@ -29,11 +29,13 @@ async function expectNoAxeViolations(page: Page, testInfo: TestInfo, attachmentN
 
 test.describe('homepage accessibility', () => {
   for (const theme of themeNames) {
-    test(`has no automatically detectable WCAG violations in ${theme}`, async ({ page }, testInfo) => {
-      await page.addInitScript(
-        ({ key, value }) => window.localStorage.setItem(key, value),
-        { key: themeStorageKey, value: theme },
-      );
+    test(`has no automatically detectable WCAG violations in ${theme}`, async ({
+      page,
+    }, testInfo) => {
+      await page.addInitScript(({ key, value }) => window.localStorage.setItem(key, value), {
+        key: themeStorageKey,
+        value: theme,
+      });
       await page.goto('/');
 
       await expect(page.locator('html')).toHaveAttribute('data-sd-theme', theme);
@@ -66,7 +68,9 @@ test.describe('homepage accessibility', () => {
     await expect(selector).toHaveValue('high-contrast-dark');
   });
 
-  test('returns to the operating system preference without keeping stale storage', async ({ page }) => {
+  test('returns to the operating system preference without keeping stale storage', async ({
+    page,
+  }) => {
     await page.emulateMedia({ colorScheme: 'dark' });
     await page.goto('/');
     const selector = page.getByRole('combobox', { name: 'Aspect' });

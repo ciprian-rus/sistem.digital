@@ -95,7 +95,7 @@ Pachetul publică patru teme cu același contract de 39 de roluri:
 Tema se aplică pe elementul `html`:
 
 ```html
-<html data-sd-theme="dark">
+<html data-sd-theme="dark"></html>
 ```
 
 Fără atribut, CSS folosește `prefers-color-scheme`. Pentru o preferință salvată fără flash vizual, scriptul de inițializare trebuie executat în `head`, înaintea stilurilor care consumă tema:
@@ -119,7 +119,7 @@ Cheia de stocare este exportată prin `themeStorageKey`. Eliminarea ei revine la
 Accentele aprobate sunt `blue`, `teal`, `burgundy` și `purple`:
 
 ```html
-<html data-sd-theme="light" data-sd-accent="teal">
+<html data-sd-theme="light" data-sd-accent="teal"></html>
 ```
 
 Accentul modifică numai brandul și acțiunea principală. Nu modifică:

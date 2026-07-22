@@ -47,12 +47,7 @@ describe('design tokens', () => {
 
 describe('official themes', () => {
   it('publishes four themes with an identical semantic role contract', () => {
-    expect(themeNames).toEqual([
-      'light',
-      'dark',
-      'high-contrast-light',
-      'high-contrast-dark',
-    ]);
+    expect(themeNames).toEqual(['light', 'dark', 'high-contrast-light', 'high-contrast-dark']);
     expect(themeMetadata.themeCount).toBe(4);
     expect(themeMetadata.requiredRoleCount).toBe(39);
     expect(themeMetadata.contrastPairCount).toBe(18);

@@ -1,0 +1,235 @@
+/* Generated from validated theme sources. Do not edit manually. */
+export const themeNames = [
+  "light",
+  "dark",
+  "high-contrast-light",
+  "high-contrast-dark"
+] as const;
+export const themes = {
+  "light": {
+    "label": "Luminos",
+    "description": "Tema luminoasă implicită pentru servicii și conținut public.",
+    "colorScheme": "light",
+    "roles": {
+      "brand.default": "#1d79bf",
+      "brand.strong": "#002a59",
+      "brand.subtle": "#e8f2fa",
+      "text.default": "#17202a",
+      "text.muted": "#4b5563",
+      "text.inverse": "#ffffff",
+      "text.disabled": "#6b7280",
+      "surface.page": "#ffffff",
+      "surface.subtle": "#f5f7fa",
+      "surface.raised": "#ffffff",
+      "surface.strong": "#002a59",
+      "border.default": "#c7cdd4",
+      "border.strong": "#6b7280",
+      "border.disabled": "#c7cdd4",
+      "link.default": "#005ea8",
+      "link.hover": "#002a59",
+      "link.active": "#004b82",
+      "link.visited": "#6d28d9",
+      "action.primary.background": "#1d79bf",
+      "action.primary.text": "#ffffff",
+      "action.primary.hover": "#004b82",
+      "action.primary.active": "#002a59",
+      "action.primary.disabledBackground": "#c7cdd4",
+      "action.primary.disabledText": "#4b5563",
+      "feedback.info.text": "#005ea8",
+      "feedback.info.background": "#e8f2fa",
+      "feedback.info.border": "#005ea8",
+      "feedback.success.text": "#00703c",
+      "feedback.success.background": "#f0fdf4",
+      "feedback.success.border": "#00703c",
+      "feedback.warning.text": "#78350f",
+      "feedback.warning.background": "#fffbeb",
+      "feedback.warning.border": "#92400e",
+      "feedback.danger.text": "#991b1b",
+      "feedback.danger.background": "#fef2f2",
+      "feedback.danger.border": "#d4351c",
+      "focus.ring": "#ffbf47",
+      "focus.contrast": "#002a59"
+    }
+  },
+  "dark": {
+    "label": "Întunecat",
+    "description": "Tema întunecată pentru utilizare în condiții de lumină redusă, fără reducerea contrastului funcțional.",
+    "colorScheme": "dark",
+    "roles": {
+      "brand.default": "#8bd0ff",
+      "brand.strong": "#111827",
+      "brand.subtle": "#1f2937",
+      "text.default": "#f8fafc",
+      "text.muted": "#cbd5e1",
+      "text.inverse": "#ffffff",
+      "text.disabled": "#cbd5e1",
+      "surface.page": "#0b1220",
+      "surface.subtle": "#111827",
+      "surface.raised": "#1f2937",
+      "surface.strong": "#111827",
+      "border.default": "#64748b",
+      "border.strong": "#cbd5e1",
+      "border.disabled": "#475569",
+      "link.default": "#8bd0ff",
+      "link.hover": "#bae6fd",
+      "link.active": "#67e8f9",
+      "link.visited": "#c4b5fd",
+      "action.primary.background": "#1d4ed8",
+      "action.primary.text": "#ffffff",
+      "action.primary.hover": "#1e40af",
+      "action.primary.active": "#172554",
+      "action.primary.disabledBackground": "#334155",
+      "action.primary.disabledText": "#cbd5e1",
+      "feedback.info.text": "#7dd3fc",
+      "feedback.info.background": "#082f49",
+      "feedback.info.border": "#38bdf8",
+      "feedback.success.text": "#86efac",
+      "feedback.success.background": "#052e16",
+      "feedback.success.border": "#22c55e",
+      "feedback.warning.text": "#fcd34d",
+      "feedback.warning.background": "#451a03",
+      "feedback.warning.border": "#f59e0b",
+      "feedback.danger.text": "#fca5a5",
+      "feedback.danger.background": "#450a0a",
+      "feedback.danger.border": "#ef4444",
+      "focus.ring": "#fbbf24",
+      "focus.contrast": "#ffffff"
+    }
+  },
+  "high-contrast-light": {
+    "label": "Contrast ridicat luminos",
+    "description": "Tema luminoasă cu contrast ridicat, suprafețe simple și delimitări puternice.",
+    "colorScheme": "light",
+    "roles": {
+      "brand.default": "#000000",
+      "brand.strong": "#000000",
+      "brand.subtle": "#ffffff",
+      "text.default": "#000000",
+      "text.muted": "#000000",
+      "text.inverse": "#ffffff",
+      "text.disabled": "#000000",
+      "surface.page": "#ffffff",
+      "surface.subtle": "#ffffff",
+      "surface.raised": "#ffffff",
+      "surface.strong": "#000000",
+      "border.default": "#000000",
+      "border.strong": "#000000",
+      "border.disabled": "#000000",
+      "link.default": "#0000ee",
+      "link.hover": "#000000",
+      "link.active": "#b00020",
+      "link.visited": "#551a8b",
+      "action.primary.background": "#000000",
+      "action.primary.text": "#ffffff",
+      "action.primary.hover": "#202020",
+      "action.primary.active": "#000000",
+      "action.primary.disabledBackground": "#ffffff",
+      "action.primary.disabledText": "#000000",
+      "feedback.info.text": "#000000",
+      "feedback.info.background": "#ffffff",
+      "feedback.info.border": "#000000",
+      "feedback.success.text": "#000000",
+      "feedback.success.background": "#ffffff",
+      "feedback.success.border": "#000000",
+      "feedback.warning.text": "#000000",
+      "feedback.warning.background": "#ffffff",
+      "feedback.warning.border": "#000000",
+      "feedback.danger.text": "#000000",
+      "feedback.danger.background": "#ffffff",
+      "feedback.danger.border": "#000000",
+      "focus.ring": "#ffff00",
+      "focus.contrast": "#000000"
+    }
+  },
+  "high-contrast-dark": {
+    "label": "Contrast ridicat întunecat",
+    "description": "Tema întunecată cu contrast ridicat și culori funcționale ușor de diferențiat.",
+    "colorScheme": "dark",
+    "roles": {
+      "brand.default": "#ffffff",
+      "brand.strong": "#000000",
+      "brand.subtle": "#000000",
+      "text.default": "#ffffff",
+      "text.muted": "#ffffff",
+      "text.inverse": "#ffffff",
+      "text.disabled": "#ffffff",
+      "surface.page": "#000000",
+      "surface.subtle": "#000000",
+      "surface.raised": "#111111",
+      "surface.strong": "#000000",
+      "border.default": "#ffffff",
+      "border.strong": "#ffffff",
+      "border.disabled": "#ffffff",
+      "link.default": "#00ffff",
+      "link.hover": "#ffff00",
+      "link.active": "#ffffff",
+      "link.visited": "#ff9cff",
+      "action.primary.background": "#ffffff",
+      "action.primary.text": "#000000",
+      "action.primary.hover": "#ffff00",
+      "action.primary.active": "#00ffff",
+      "action.primary.disabledBackground": "#000000",
+      "action.primary.disabledText": "#ffffff",
+      "feedback.info.text": "#ffffff",
+      "feedback.info.background": "#000000",
+      "feedback.info.border": "#00ffff",
+      "feedback.success.text": "#ffffff",
+      "feedback.success.background": "#000000",
+      "feedback.success.border": "#00ff00",
+      "feedback.warning.text": "#ffffff",
+      "feedback.warning.background": "#000000",
+      "feedback.warning.border": "#ffff00",
+      "feedback.danger.text": "#ffffff",
+      "feedback.danger.background": "#000000",
+      "feedback.danger.border": "#ff4d4d",
+      "focus.ring": "#ffff00",
+      "focus.contrast": "#ffffff"
+    }
+  }
+} as const;
+export const themeStorageKey = "sd-theme" as const;
+export const themeInitScript = "(()=>{try{const r=document.documentElement,k=\"sd-theme\",a=[\"light\",\"dark\",\"high-contrast-light\",\"high-contrast-dark\"],d=[\"dark\",\"high-contrast-dark\"],s=localStorage.getItem(k),t=a.includes(s)?s:(matchMedia('(prefers-color-scheme: dark)').matches?\"dark\":\"light\");r.dataset.sdTheme=t;r.dataset.sdThemeSource=a.includes(s)?'stored':'system';r.style.colorScheme=d.includes(t)?'dark':'light'}catch{}})();" as const;
+export const institutionalAccents = {
+  "blue": {
+    "label": "Albastru instituțional",
+    "default": "#1d79bf",
+    "hover": "#004b82",
+    "active": "#002a59"
+  },
+  "teal": {
+    "label": "Verde-albăstrui",
+    "default": "#00695c",
+    "hover": "#00574c",
+    "active": "#004d40"
+  },
+  "burgundy": {
+    "label": "Burgund",
+    "default": "#8e1b3a",
+    "hover": "#781630",
+    "active": "#681127"
+  },
+  "purple": {
+    "label": "Violet",
+    "default": "#6d28d9",
+    "hover": "#5b21b6",
+    "active": "#4c1d95"
+  }
+} as const;
+export const accentNames = [
+  "blue",
+  "teal",
+  "burgundy",
+  "purple"
+] as const;
+export const themeMetadata = {
+  "format": "Sistem Digital Themes 1.0",
+  "sourceHash": "f9a97ff1b648ed6fc697bd53279c7f73e94cf16e1de58724d8e1abf06b18ebc2",
+  "themeCount": 4,
+  "accentCount": 4,
+  "requiredRoleCount": 38,
+  "contrastPairCount": 18
+} as const;
+
+export type ThemeName = (typeof themeNames)[number];
+export type AccentName = (typeof accentNames)[number];
+export type ThemeRole = keyof (typeof themes)[ThemeName]['roles'];

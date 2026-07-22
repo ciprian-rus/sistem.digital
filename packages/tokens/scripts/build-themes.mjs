@@ -103,7 +103,8 @@ function validateAccents(source) {
     }
     presets[name] = normalized;
   }
-  if (Object.keys(presets).length === 0) throw new Error('At least one institutional accent is required');
+  if (Object.keys(presets).length === 0)
+    throw new Error('At least one institutional accent is required');
   return { textColor, presets };
 }
 
@@ -214,7 +215,11 @@ function renderTypescript(manifest, themes, accents, metadata, initScript) {
       { label, description, colorScheme, roles },
     ]),
   );
-  return `/* Generated from validated theme sources. Do not edit manually. */\nexport const themeNames = ${JSON.stringify(themes.map((theme) => theme.name), null, 2)} as const;\nexport const themes = ${JSON.stringify(themeMap, null, 2)} as const;\nexport const themeStorageKey = ${JSON.stringify(manifest.storageKey)} as const;\nexport const themeInitScript = ${JSON.stringify(initScript)} as const;\nexport const institutionalAccents = ${JSON.stringify(accents.presets, null, 2)} as const;\nexport const accentNames = ${JSON.stringify(Object.keys(accents.presets), null, 2)} as const;\nexport const themeMetadata = ${JSON.stringify(metadata, null, 2)} as const;\n\nexport type ThemeName = (typeof themeNames)[number];\nexport type AccentName = (typeof accentNames)[number];\nexport type ThemeRole = keyof (typeof themes)[ThemeName]['roles'];\n`;
+  return `/* Generated from validated theme sources. Do not edit manually. */\nexport const themeNames = ${JSON.stringify(
+    themes.map((theme) => theme.name),
+    null,
+    2,
+  )} as const;\nexport const themes = ${JSON.stringify(themeMap, null, 2)} as const;\nexport const themeStorageKey = ${JSON.stringify(manifest.storageKey)} as const;\nexport const themeInitScript = ${JSON.stringify(initScript)} as const;\nexport const institutionalAccents = ${JSON.stringify(accents.presets, null, 2)} as const;\nexport const accentNames = ${JSON.stringify(Object.keys(accents.presets), null, 2)} as const;\nexport const themeMetadata = ${JSON.stringify(metadata, null, 2)} as const;\n\nexport type ThemeName = (typeof themeNames)[number];\nexport type AccentName = (typeof accentNames)[number];\nexport type ThemeRole = keyof (typeof themes)[ThemeName]['roles'];\n`;
 }
 
 async function writeOrCheck(path, content, stale) {
@@ -288,6 +293,11 @@ if (checkOnly) {
   await writeFile(resolve(distRoot, 'themes.css'), css);
   await writeFile(resolve(distRoot, 'themes.json'), json);
   await writeFile(resolve(distRoot, 'theme-init.js'), standaloneScript);
-  await writeFile(resolve(distRoot, 'theme-metadata.json'), `${JSON.stringify(metadata, null, 2)}\n`);
-  console.log(`Generated ${themes.length} themes and ${Object.keys(accents.presets).length} accents.`);
+  await writeFile(
+    resolve(distRoot, 'theme-metadata.json'),
+    `${JSON.stringify(metadata, null, 2)}\n`,
+  );
+  console.log(
+    `Generated ${themes.length} themes and ${Object.keys(accents.presets).length} accents.`,
+  );
 }
