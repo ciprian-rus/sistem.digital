@@ -6,3 +6,4 @@
 - [Politica generală de personalizare](customization-policy.md)
 - [Teme, culoare semantică și personalizare](theme-policy.md)
 - [Exemple de implementare pentru teme](theme-examples.md)
+- [ADR 0003 — contractul semantic al temelor](../architecture/adr/0003-semantic-theme-contract.md)
