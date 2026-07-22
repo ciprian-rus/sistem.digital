@@ -4,4 +4,4 @@ export {
   formComponentNames,
   type ErrorSummaryFocusOptions,
   type FormComponentName,
-} from './forms';
+} from './forms.js';
