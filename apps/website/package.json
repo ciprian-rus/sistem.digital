@@ -5,9 +5,9 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev --turbopack",
-    "lint": "eslint src tests playwright.config.ts",
+    "lint": "eslint src tests playwright.config.ts vitest.config.ts",
     "start": "next start",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run --config vitest.config.ts",
     "test:a11y": "playwright test --config=playwright.config.ts",
     "typecheck": "tsc --noEmit"
   },
@@ -21,6 +21,7 @@
     "@axe-core/playwright": "catalog:",
     "@playwright/test": "catalog:",
     "@types/react": "catalog:",
-    "@types/react-dom": "catalog:"
+    "@types/react-dom": "catalog:",
+    "vitest": "catalog:"
   }
 }
