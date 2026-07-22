@@ -60,7 +60,7 @@ jobs:
       - name: Install exact dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Validate tag and release channel
+      - name: Validate tag and coordinated release channel
         id: release
         env:
           GITHUB_REF_NAME: ${{ github.event.release.tag_name }}
@@ -73,15 +73,14 @@ jobs:
           pnpm secrets:check
           pnpm audit:ci
 
-      - name: Build publishable packages
-        run: pnpm --filter @sistem-digital/tokens build
+      - name: Build public packages
+        run: pnpm --filter "./packages/*" --if-present build
 
       - name: Create release artifacts
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p release-artifacts
-          pnpm --filter @sistem-digital/tokens pack --pack-destination "${GITHUB_WORKSPACE}/release-artifacts"
+          node scripts/pack-public-packages.mjs release-artifacts
           pnpm sbom \
             --sbom-format cyclonedx \
             --sbom-type application \
@@ -89,6 +88,8 @@ jobs:
             --out release-artifacts/sbom.cdx.json
           (
             cd release-artifacts
+            tarballs=(./*.tgz)
+            test -e "${tarballs[0]}"
             sha256sum ./*.tgz ./sbom.cdx.json > SHA256SUMS
             sha256sum --check SHA256SUMS
           )
@@ -104,7 +105,7 @@ jobs:
           subject-path: release-artifacts/*.tgz
           sbom-path: release-artifacts/sbom.cdx.json
 
-      - name: Publish exact tarball to npm
+      - name: Publish exact tarballs to npm
         env:
           NPM_CONFIG_PROVENANCE: 'true'
           NODE_AUTH_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
@@ -112,9 +113,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          tarball="$(find release-artifacts -maxdepth 1 -name '*.tgz' -print -quit)"
-          test -n "${tarball}"
-          npm publish "${tarball}" --access public --tag "${DIST_TAG}"
+          shopt -s nullglob
+          tarballs=(release-artifacts/*.tgz)
+          test "${#tarballs[@]}" -gt 0
+          for tarball in "${tarballs[@]}"; do
+            npm publish "${tarball}" --access public --tag "${DIST_TAG}"
+          done
 
       - name: Attach artifacts to GitHub release
         env:
