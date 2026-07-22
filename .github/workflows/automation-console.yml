@@ -11,9 +11,9 @@ permissions:
 jobs:
   regenerate-lockfile:
     if: >-
-      github.event.issue.pull_request == null &&
-      startsWith(github.event.comment.body, '/automation regenerate-lockfile ') &&
-      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+      !github.event.issue.pull_request &&
+      github.event.comment.user.login == github.repository_owner &&
+      startsWith(github.event.comment.body, '/automation regenerate-lockfile ')
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -27,9 +27,10 @@ jobs:
           set -euo pipefail
 
           first_line="$(printf '%s\n' "${COMMENT_BODY}" | head -n 1)"
-          target_branch="${first_line#'/automation regenerate-lockfile '}"
+          prefix="/automation regenerate-lockfile "
+          target_branch="${first_line#${prefix}}"
 
-          if [ -z "${target_branch}" ] || [[ "${target_branch}" =~ [[:space:]] ]]; then
+          if [ -z "${target_branch}" ] || [ "${target_branch}" = "${first_line}" ] || [[ "${target_branch}" =~ [[:space:]] ]]; then
             echo "Invalid target branch." >&2
             exit 1
           fi
@@ -78,6 +79,7 @@ jobs:
           echo "changed=true" >> "${GITHUB_OUTPUT}"
 
       - name: Report result on issue
+        if: success()
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -92,3 +94,11 @@ jobs:
           fi
 
           gh issue comment "${ISSUE_NUMBER}" --body "${message}"
+
+      - name: Report failure on issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: gh issue comment "${ISSUE_NUMBER}" --body "❌ Lockfile automation failed. Inspect: ${RUN_URL}"
