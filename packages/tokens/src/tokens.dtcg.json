@@ -3,7 +3,7 @@
   "$extensions": {
     "ro.sistem-digital": {
       "format": "DTCG 2025.10",
-      "sourceHash": "65ee0a0fa629b2717d94cceaf0702af31fe0a8081e8df56d6952f8371f9c5d4e",
+      "sourceHash": "6dadcf82776c4633778ae68b1c5e8eea0159a60df224cc98b5fcfe7a25d646ae",
       "tokenCount": 86,
       "aliasCount": 49,
       "layers": [
