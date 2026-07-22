@@ -15,9 +15,7 @@ export interface PublicHeaderProps {
   showMajorAlert?: boolean;
 }
 
-function NavigationLinks({
-  currentPath,
-}: Readonly<{ currentPath: string | undefined }>) {
+function NavigationLinks({ currentPath }: Readonly<{ currentPath: string | undefined }>) {
   return (
     <>
       {navigationItems.map((item) => (
