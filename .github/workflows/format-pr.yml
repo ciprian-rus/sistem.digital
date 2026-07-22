@@ -43,7 +43,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate derived token artifacts
-        run: pnpm --filter @sistem-digital/tokens tokens:generate
+        run: |
+          pnpm --filter @sistem-digital/tokens tokens:generate
+          pnpm --filter @sistem-digital/tokens themes:generate
 
       - name: Format repository files
         run: pnpm format
