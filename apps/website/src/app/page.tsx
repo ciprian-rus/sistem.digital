@@ -69,6 +69,9 @@ export default function HomePage() {
                   <a href="#teme">Teme</a>
                 </li>
                 <li>
+                  <a href="/componente/formulare">Formulare</a>
+                </li>
+                <li>
                   <a href="#fundatie">Fundație</a>
                 </li>
                 <li>
@@ -92,29 +95,26 @@ export default function HomePage() {
                 o pot instala, testa, actualiza și îmbunătăți împreună.
               </p>
               <div className="actions">
-                <a
-                  className="button button-primary"
-                  href="https://github.com/ciprian-rus/sistem.digital"
-                >
-                  Vezi codul sursă
+                <a className="button button-primary" href="/componente/formulare">
+                  Explorează formularele
                 </a>
                 <a
                   className="button button-secondary"
-                  href="https://github.com/ciprian-rus/sistem.digital/issues"
+                  href="https://github.com/ciprian-rus/sistem.digital"
                 >
-                  Explorează backlog-ul
+                  Vezi codul sursă
                 </a>
               </div>
             </div>
 
             <aside className="status-card" aria-labelledby="milestone-title">
               <p className="status-label">Etapa curentă</p>
-              <h2 id="milestone-title">M1 — Fundamente și design tokens</h2>
+              <h2 id="milestone-title">M2 — Biblioteca de componente accesibile</h2>
               <ul>
-                <li>Arhitectură DTCG multi-platformă</li>
-                <li>Patru teme oficiale validate</li>
-                <li>Personalizare instituțională controlată</li>
-                <li>Tipografie, grilă, focus și motion</li>
+                <li>Formulare și validare</li>
+                <li>Navigație și structură instituțională</li>
+                <li>Conținut și afișare de date</li>
+                <li>Componente interactive testate</li>
               </ul>
             </aside>
           </div>
@@ -178,15 +178,19 @@ export default function HomePage() {
         <section className="section" id="fundatie">
           <div className="container split-grid">
             <div>
-              <p className="section-kicker">Prima piesă reutilizabilă</p>
-              <h2>Token-uri și teme distribuite ca pachet, CSS și JSON.</h2>
+              <p className="section-kicker">Fundație reutilizabilă</p>
+              <h2>Token-uri, teme și componente distribuite ca pachete publice.</h2>
               <p className="body-copy">
                 Sursa canonică este neutră față de framework. Proiectele moderne instalează
-                pachetul, iar site-urile legacy pot folosi fișiere versionate și self-hosted.
+                pachetele, iar site-urile legacy pot folosi fișiere versionate și self-hosted.
               </p>
             </div>
             <pre className="code-block" aria-label="Exemplu de instalare" tabIndex={0}>
-              <code>{`pnpm add @sistem-digital/tokens\n\nimport '@sistem-digital/tokens/css';\nimport '@sistem-digital/tokens/themes.css';`}</code>
+              <code>{`pnpm add @sistem-digital/tokens @sistem-digital/components
+
+import '@sistem-digital/tokens/css';
+import '@sistem-digital/tokens/themes.css';
+import '@sistem-digital/components/forms.css';`}</code>
             </pre>
           </div>
         </section>
