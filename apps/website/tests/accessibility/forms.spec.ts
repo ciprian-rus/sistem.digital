@@ -60,7 +60,9 @@ test.describe('form components', () => {
 
     const message = page.locator('#email-error');
     await expect(message).toContainText('Introdu o adresă');
-    const prefix = await message.evaluate((element) => getComputedStyle(element, '::before').content);
+    const prefix = await message.evaluate(
+      (element) => getComputedStyle(element, '::before').content,
+    );
     expect(prefix).toContain('Eroare:');
   });
 
