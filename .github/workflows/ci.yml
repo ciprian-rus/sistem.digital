@@ -184,3 +184,48 @@ jobs:
       - name: Stop after dependency audit failure
         if: steps.audit.outputs.status != '0' && github.event_name != 'pull_request'
         run: exit 1
+
+  accessibility:
+    name: Accessibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm --filter @sistem-digital/website exec playwright install --with-deps chromium
+
+      - name: Build website
+        run: pnpm --filter @sistem-digital/website build
+
+      - name: Run axe and keyboard tests
+        run: pnpm --filter @sistem-digital/website test:a11y
+
+      - name: Upload accessibility report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-report
+          path: |
+            apps/website/playwright-report
+            apps/website/test-results
+          if-no-files-found: ignore
+          retention-days: 14
