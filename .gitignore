@@ -6,5 +6,6 @@
 .turbo/
 coverage/
 dist/
+dist-cjs/
 node_modules/
 *.tsbuildinfo
