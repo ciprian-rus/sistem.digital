@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discuții despre proiect
+    url: https://github.com/ciprian-rus/sistem.digital/discussions
+    about: Folosește Discussions pentru întrebări, idei incipiente și conversații comunitare.
+  - name: Raportare vulnerabilitate
+    url: https://github.com/ciprian-rus/sistem.digital/security/advisories/new
+    about: Raportează confidențial vulnerabilitățile de securitate.
