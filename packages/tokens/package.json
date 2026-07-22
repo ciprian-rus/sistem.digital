@@ -23,6 +23,8 @@
     "dist",
     "src/tokens.css",
     "src/tokens.json",
+    "src/tokens.dtcg.json",
+    "tokens",
     "README.md",
     "CHANGELOG.md"
   ],
@@ -32,12 +34,20 @@
       "import": "./dist/index.js"
     },
     "./css": "./src/tokens.css",
-    "./tokens.json": "./src/tokens.json"
+    "./tokens.json": "./src/tokens.json",
+    "./tokens.dtcg.json": "./src/tokens.dtcg.json",
+    "./source/manifest.json": "./tokens/manifest.json",
+    "./source/core.tokens.json": "./tokens/core.tokens.json",
+    "./source/semantic.tokens.json": "./tokens/semantic.tokens.json",
+    "./source/component.tokens.json": "./tokens/component.tokens.json"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "lint": "eslint src",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "tokens:generate": "node scripts/build-tokens.mjs",
+    "tokens:check": "node scripts/build-tokens.mjs --check",
+    "build": "pnpm tokens:generate && tsc -p tsconfig.json",
+    "lint": "pnpm tokens:check && eslint src scripts",
+    "typecheck": "pnpm tokens:check && tsc -p tsconfig.json --noEmit",
+    "test": "pnpm tokens:check && vitest run",
+    "prepack": "pnpm build"
   }
 }

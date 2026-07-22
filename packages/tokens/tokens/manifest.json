@@ -1,0 +1,42 @@
+{
+  "format": "DTCG 2025.10",
+  "sources": ["core.tokens.json", "semantic.tokens.json", "component.tokens.json"],
+  "layers": ["core", "semantic", "component"],
+  "contrastPairs": [
+    {
+      "foreground": "semantic.color.text.default",
+      "background": "semantic.color.surface.page",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "semantic.color.text.muted",
+      "background": "semantic.color.surface.page",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "semantic.color.text.inverse",
+      "background": "semantic.color.surface.strong",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "semantic.color.link.default",
+      "background": "semantic.color.surface.page",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "semantic.color.feedback.danger",
+      "background": "semantic.color.surface.page",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "semantic.color.feedback.success",
+      "background": "semantic.color.surface.page",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "semantic.color.focus.ring",
+      "background": "semantic.color.surface.strong",
+      "minimum": 3
+    }
+  ]
+}

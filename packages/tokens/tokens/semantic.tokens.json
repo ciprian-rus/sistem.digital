@@ -1,0 +1,89 @@
+{
+  "$description": "Roluri stabile folosite de produse și teme.",
+  "semantic": {
+    "$description": "Roluri stabile folosite de produse și teme.",
+    "color": {
+      "$type": "color",
+      "brand": {
+        "strong": { "$value": "{core.color.blue.900}" },
+        "default": { "$value": "{core.color.blue.600}" },
+        "subtle": { "$value": "{core.color.blue.100}" },
+        "900": { "$value": "{core.color.blue.900}" },
+        "700": { "$value": "{core.color.blue.700}" },
+        "600": { "$value": "{core.color.blue.600}" },
+        "100": { "$value": "{core.color.blue.100}" }
+      },
+      "text": {
+        "default": { "$value": "{core.color.neutral.1000}" },
+        "muted": { "$value": "{core.color.neutral.700}" },
+        "inverse": { "$value": "{core.color.neutral.0}" }
+      },
+      "link": {
+        "default": { "$value": "{core.color.cyan.700}" }
+      },
+      "surface": {
+        "page": { "$value": "{core.color.neutral.0}" },
+        "subtle": { "$value": "{core.color.neutral.100}" },
+        "strong": { "$value": "{core.color.blue.900}" }
+      },
+      "border": {
+        "default": { "$value": "{core.color.neutral.300}" },
+        "strong": { "$value": "{core.color.neutral.500}" }
+      },
+      "feedback": {
+        "info": { "$value": "{core.color.cyan.700}" },
+        "success": { "$value": "{core.color.green.700}" },
+        "warning": { "$value": "{core.color.yellow.500}" },
+        "danger": { "$value": "{core.color.red.700}" }
+      },
+      "focus": {
+        "ring": { "$value": "{core.color.yellow.400}" }
+      }
+    },
+    "font": {
+      "family": {
+        "$type": "fontFamily",
+        "sans": { "$value": "{core.font.family.sans}" },
+        "mono": { "$value": "{core.font.family.mono}" }
+      }
+    },
+    "space": {
+      "$type": "dimension",
+      "1": { "$value": "{core.dimension.space.1}" },
+      "2": { "$value": "{core.dimension.space.2}" },
+      "3": { "$value": "{core.dimension.space.3}" },
+      "4": { "$value": "{core.dimension.space.4}" },
+      "6": { "$value": "{core.dimension.space.6}" },
+      "8": { "$value": "{core.dimension.space.8}" },
+      "12": { "$value": "{core.dimension.space.12}" },
+      "16": { "$value": "{core.dimension.space.16}" }
+    },
+    "radius": {
+      "$type": "dimension",
+      "control": { "$value": "{core.dimension.radius.control}" },
+      "panel": { "$value": "{core.dimension.radius.panel}" }
+    },
+    "layout": {
+      "$type": "dimension",
+      "content": { "$value": "{core.dimension.layout.content}" },
+      "reading": { "$value": "{core.dimension.layout.reading}" }
+    },
+    "focus": {
+      "$type": "dimension",
+      "width": { "$value": "{core.dimension.stroke.focus}" },
+      "offset": { "$value": { "value": 0.2, "unit": "rem" } }
+    },
+    "target": {
+      "$type": "dimension",
+      "minimum": { "$value": "{core.dimension.target.minimum}" }
+    },
+    "motion": {
+      "duration": {
+        "$type": "duration",
+        "fast": { "$value": "{core.duration.fast}" },
+        "moderate": { "$value": "{core.duration.moderate}" },
+        "slow": { "$value": "{core.duration.slow}" }
+      }
+    }
+  }
+}
