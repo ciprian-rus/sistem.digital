@@ -21,6 +21,10 @@ catalog:
   typescript-eslint: 8.65.0
   vitest: 4.1.10
 
+overrides:
+  # Next.js 16.2.10 resolves sharp 0.34.5; 0.35.3 contains the libvips security fixes.
+  sharp: 0.35.3
+
 # pnpm 11 blocks dependency build scripts unless they are explicitly reviewed.
 # sharp is required by Next.js for production image processing.
 allowBuilds:
