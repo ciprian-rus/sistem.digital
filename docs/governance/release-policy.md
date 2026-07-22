@@ -10,6 +10,8 @@ Workflow-ul canonic este:
 .github/workflows/release.yml
 ```
 
+Fiecare pull request execută separat workflow-ul `Release readiness`, care reproduce pașii de împachetare, SBOM și hash înainte ca modificarea să poată ajunge în `main`.
+
 ## Versionare
 
 Proiectul folosește Semantic Versioning și Changesets.
