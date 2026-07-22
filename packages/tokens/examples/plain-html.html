@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Exemplu Sistem Digital fără framework</title>
+    <link rel="stylesheet" href="../src/tokens.css" />
+    <style>
+      body {
+        max-width: var(--sd-layout-reading);
+        margin: 0 auto;
+        padding: var(--sd-space-6);
+        background: var(--sd-color-surface-page);
+        color: var(--sd-color-text);
+        font-family: var(--sd-font-sans);
+        line-height: 1.6;
+      }
+
+      a {
+        color: var(--sd-color-link);
+      }
+
+      button {
+        min-height: var(--sd-component-button-min-height);
+        padding-inline: var(--sd-component-button-padding-inline);
+        border: var(--sd-component-button-border-width) solid transparent;
+        border-radius: var(--sd-component-button-radius);
+        background: var(--sd-color-brand-900);
+        color: var(--sd-color-text-inverse);
+        font: inherit;
+        font-weight: 700;
+      }
+
+      :focus-visible {
+        outline: var(--sd-focus-width) solid var(--sd-color-focus);
+        outline-offset: var(--sd-focus-offset);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Solicită un document</h1>
+      <p>Acest exemplu consumă direct CSS custom properties, fără React sau JavaScript.</p>
+      <p><a href="#detalii">Vezi documentele necesare</a></p>
+      <button type="button">Începe solicitarea</button>
+    </main>
+  </body>
+</html>
