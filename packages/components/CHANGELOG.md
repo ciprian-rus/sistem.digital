@@ -10,7 +10,10 @@
 - căutare GET și footer standard;
 - linkuri, mesaje, inset text, carduri și statusuri;
 - tabel responsive, summary list, details, pagination și metadate;
+- accordion, dialog, tabs, step indicator, date input, autocomplete și upload avansat;
+- helper-e de progressive enhancement cu cleanup;
 - semantică de date, reflow și operare cu tastatura verificate automat;
+- regresie vizuală Playwright pentru desktop și mobil;
 - shell verificat cu tastatura, reflow și JavaScript dezactivat;
 - distribuție ESM, CommonJS și CSS independent de framework;
 - versiune coordonată cu celelalte pachete oficiale Sistem Digital.
