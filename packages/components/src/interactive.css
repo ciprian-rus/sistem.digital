@@ -52,6 +52,8 @@
 
   .sd-dialog {
     width: min(calc(100% - 2rem), 42rem);
+    max-width: calc(100vw - 2rem);
+    min-width: 0;
     max-height: calc(100vh - 2rem);
     padding: 0;
     overflow: auto;
@@ -154,6 +156,7 @@
   }
 
   .sd-tabs [data-sd-tab-panel] {
+    min-width: 0;
     padding: var(--sd-space-5);
     border: 1px solid var(--sd-color-border);
     border-radius: var(--sd-radius-panel);
@@ -187,6 +190,7 @@
   .sd-step-indicator__item {
     position: relative;
     display: grid;
+    min-width: 0;
     gap: var(--sd-space-2);
     justify-items: center;
     padding-inline: var(--sd-space-2);
@@ -237,11 +241,14 @@
 
   .sd-step-indicator__label {
     max-width: 16ch;
+    overflow-wrap: anywhere;
     font-size: var(--sd-font-size-body-small);
   }
 
   .sd-date-input {
     display: flex;
+    min-width: 0;
+    max-width: 100%;
     gap: var(--sd-space-3);
     flex-wrap: wrap;
     align-items: flex-end;
@@ -249,6 +256,8 @@
 
   .sd-date-input__part {
     display: grid;
+    min-width: 0;
+    max-width: 100%;
     gap: var(--sd-space-2);
   }
 
@@ -258,6 +267,8 @@
 
   .sd-date-input__part input,
   .sd-date-picker {
+    min-width: 0;
+    max-width: 100%;
     min-height: var(--sd-target-minimum);
     padding: var(--sd-space-3);
     border: 2px solid var(--sd-color-border-strong);
@@ -265,6 +276,10 @@
     background: var(--sd-color-surface-page);
     color: var(--sd-color-text);
     font: inherit;
+  }
+
+  .sd-date-picker {
+    width: 100%;
   }
 
   .sd-date-input__part--day input,
@@ -278,7 +293,14 @@
 
   .sd-autocomplete {
     position: relative;
+    min-width: 0;
     max-width: 36rem;
+  }
+
+  .sd-autocomplete input {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .sd-autocomplete [data-sd-autocomplete-menu] {
@@ -317,11 +339,18 @@
 
   .sd-file-upload-advanced {
     display: grid;
+    min-width: 0;
+    max-width: 100%;
     gap: var(--sd-space-4);
     padding: var(--sd-space-5);
     border: 2px dashed var(--sd-color-border-strong);
     border-radius: var(--sd-radius-panel);
     background: var(--sd-color-surface-subtle);
+  }
+
+  .sd-file-upload-advanced input[type='file'] {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .sd-file-upload-advanced[data-sd-drag-active='true'] {
@@ -337,6 +366,7 @@
 
   .sd-file-upload__list {
     display: grid;
+    min-width: 0;
     gap: var(--sd-space-2);
     margin: 0;
     padding: 0;
@@ -345,6 +375,7 @@
 
   .sd-file-upload__item {
     display: flex;
+    min-width: 0;
     align-items: center;
     justify-content: space-between;
     gap: var(--sd-space-4);
@@ -352,6 +383,11 @@
     border: 1px solid var(--sd-color-border);
     border-radius: var(--sd-radius-control);
     background: var(--sd-color-surface-raised);
+  }
+
+  .sd-file-upload__item > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .sd-file-upload__remove {
@@ -404,6 +440,7 @@
       max-width: none;
     }
 
+    .sd-dialog__header,
     .sd-dialog__footer,
     .sd-file-upload__item {
       align-items: stretch;
