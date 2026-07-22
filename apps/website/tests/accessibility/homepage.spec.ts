@@ -1,15 +1,11 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page, type TestInfo } from '@playwright/test';
 
-import { themeNames, themeStorageKey, themes, type ThemeName } from '@sistem-digital/tokens';
+import { themeNames, themeStorageKey, themes } from '@sistem-digital/tokens';
 
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
-async function expectNoAxeViolations(
-  page: Parameters<typeof AxeBuilder>[0]['page'],
-  testInfo: Parameters<(typeof test)['info']>[0] | ReturnType<(typeof test)['info']>,
-  attachmentName: string,
-) {
+async function expectNoAxeViolations(page: Page, testInfo: TestInfo, attachmentName: string) {
   const results = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
 
   await testInfo.attach(attachmentName, {
