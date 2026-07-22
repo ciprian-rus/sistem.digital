@@ -23,4 +23,6 @@ Fiecare componentă documentată trebuie să includă:
 - exemple complete;
 - probleme cunoscute și changelog.
 
+Schimbările vizuale trebuie să treacă status check-ul `Visual regression`, iar actualizarea imaginilor de referință se face explicit și este revizuită în același pull request.
+
 Componentele nu intră în categoria stabilă înainte de audit manual de accesibilitate și testare în cel puțin un flux administrativ complet.
