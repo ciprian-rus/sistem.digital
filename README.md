@@ -62,9 +62,13 @@ docs/
   contribution/
 ```
 
-## Stadiu
+## Stadiu și planificare
 
-Proiectul se află în etapa de fundație. Roadmap-ul și backlog-ul sunt publice în GitHub Issues.
+Proiectul se află în etapa de fundație.
+
+- [Roadmap public — GitHub Project](https://github.com/users/ciprian-rus/projects/5)
+- [Backlog — GitHub Issues](https://github.com/ciprian-rus/sistem.digital/issues)
+- [Roadmap M0–M7](ROADMAP.md)
 
 ## Domeniu
 
