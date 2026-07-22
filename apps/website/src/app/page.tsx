@@ -31,7 +31,7 @@ export default function HomePage() {
           </a>
 
           <nav aria-label="Navigație principală">
-            <ul className="navigation-list">
+            <ul className="nav-list">
               <li>
                 <a href="#principii">Principii</a>
               </li>
@@ -56,7 +56,7 @@ export default function HomePage() {
                 Construim infrastructura de design pe care instituțiile, furnizorii și comunitățile
                 o pot instala, testa, actualiza și îmbunătăți împreună.
               </p>
-              <div className="hero-actions">
+              <div className="actions">
                 <a
                   className="button button-primary"
                   href="https://github.com/ciprian-rus/sistem.digital"
@@ -72,8 +72,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            <aside className="milestone-card" aria-labelledby="milestone-title">
-              <p className="milestone-kicker">Etapa curentă</p>
+            <aside className="status-card" aria-labelledby="milestone-title">
+              <p className="status-label">Etapa curentă</p>
               <h2 id="milestone-title">M0 — Fundația proiectului</h2>
               <ul>
                 <li>Monorepo și convenții tehnice</li>
