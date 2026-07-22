@@ -59,7 +59,9 @@ export function focusErrorSummary(options: ErrorSummaryFocusOptions = {}): boole
  */
 export function enhanceErrorSummaryLinks(summary: HTMLElement): () => void {
   const handleClick = (event: Event) => {
-    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
+    if (!(event.target instanceof Element)) return;
+
+    const link = event.target.closest<HTMLAnchorElement>('a[href^="#"]');
     if (!link) return;
 
     const targetId = decodeURIComponent(link.hash.slice(1));
