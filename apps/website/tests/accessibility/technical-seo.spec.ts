@@ -37,6 +37,12 @@ test.describe('technical SEO and error states', () => {
       'https://sistem.digital/guvernanta',
     );
     const jsonLd = page.locator('script[type="application/ld+json"]');
-    await expect(jsonLd.first()).toContainText('"@type":"Organization"');
+    const structuredData = await jsonLd.allTextContents();
+    expect(
+      structuredData.some((value) => {
+        const data = JSON.parse(value) as { '@type'?: string };
+        return data['@type'] === 'Organization';
+      }),
+    ).toBe(true);
   });
 });
