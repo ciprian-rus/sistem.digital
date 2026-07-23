@@ -2,7 +2,9 @@
 
 ## Sursa de adevăr
 
-- `site-map.ts` definește taxonomia, paginile, navigația și indexul de căutare;
+- `site-map.ts` definește taxonomia, paginile, navigația și indexul general de căutare;
+- `catalog-data.mjs` definește fundamentele și componentele din catalogul versionat;
+- `catalog.ts` validează tipurile și oferă filtrele website-ului;
 - `pages/*.mdx` conține documentația editorială;
 - `documentation.ts` validează frontmatter-ul;
 - `create-documentation-route.tsx` leagă fiecare fișier MDX de ruta publică;
@@ -16,6 +18,15 @@
 4. adaugă teste pentru căutare, breadcrumbs și accesibilitate;
 5. verifică dacă pagina este inclusă în navigația locală;
 6. actualizează tree testing-ul când schimbarea afectează taxonomia.
+
+## Adăugarea unei componente publice
+
+1. adaugă componenta în inventarul pachetului;
+2. adaugă intrarea corespunzătoare în `catalog-data.mjs`;
+3. declară versiunea, importul CSS, helper-ele JavaScript și markup-ul canonic;
+4. actualizează documentația familiei și changelog-ul;
+5. rulează `pnpm catalog:check`;
+6. verifică pagina statică generată la `/componente/catalog/[slug]`.
 
 ## Frontmatter obligatoriu
 
@@ -40,6 +51,7 @@ Fiecare schimbare editorială trece prin aceleași verificări ca aplicația:
 
 - formatare, lint și TypeScript;
 - compilarea MDX și validarea frontmatter-ului;
+- sincronizarea catalogului cu manifestele și inventarele publice;
 - teste pentru sitemap, breadcrumbs și căutare;
 - axe, tastatură, JavaScript dezactivat și reflow;
 - auditul dependențelor și scanarea semnăturilor de secrete;
@@ -52,4 +64,5 @@ Fiecare schimbare editorială trece prin aceleași verificări ca aplicația:
 - nu introduce JavaScript client dacă pagina poate fi server-rendered;
 - nu copia markup-ul template-ului în fișierul MDX;
 - păstrează exemplele și versiunile sincronizate cu pachetele publice;
+- preview-ul catalogului și blocul de cod trebuie să folosească același câmp `markup`;
 - folosește componentele `Callout`, `Preview`, `CodeExample` și `ComponentStatus`.
