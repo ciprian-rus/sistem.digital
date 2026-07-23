@@ -27,7 +27,10 @@ export function CatalogStatus({ item }: Readonly<{ item: CatalogItem }>) {
 
 export function CatalogPreview({ item }: Readonly<{ item: CatalogItem }>) {
   return (
-    <section className="sd-doc-preview sd-catalog-preview" aria-label={`Previzualizare ${item.title}`}>
+    <section
+      className="sd-doc-preview sd-catalog-preview"
+      aria-label={`Previzualizare ${item.title}`}
+    >
       <div className="sd-doc-preview__label">Previzualizare din markup-ul canonic</div>
       <div
         className="sd-doc-preview__surface"
@@ -74,7 +77,9 @@ export function CatalogImportExamples({ item }: Readonly<{ item: CatalogItem }>)
   return (
     <div className="sd-catalog-code-stack">
       <CodeExample caption="Import CSS" language="css" code={cssCode} />
-      {jsCode ? <CodeExample caption="Import JavaScript opțional" language="ts" code={jsCode} /> : null}
+      {jsCode ? (
+        <CodeExample caption="Import JavaScript opțional" language="ts" code={jsCode} />
+      ) : null}
       <CodeExample caption="Markup canonic" language="html" code={item.markup} />
     </div>
   );

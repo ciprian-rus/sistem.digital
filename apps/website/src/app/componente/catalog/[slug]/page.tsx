@@ -102,8 +102,8 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
             <section className="sd-catalog-detail__section" aria-labelledby="catalog-preview-title">
               <h2 id="catalog-preview-title">Preview și markup canonic</h2>
               <p>
-                Previzualizarea de mai jos redă exact șirul HTML afișat în exemplul de cod. Nu există
-                o implementare paralelă pentru documentație.
+                Previzualizarea de mai jos redă exact șirul HTML afișat în exemplul de cod. Nu
+                există o implementare paralelă pentru documentație.
               </p>
               <CatalogPreview item={item} />
             </section>
@@ -116,7 +116,10 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
               <CatalogImportExamples item={item} />
             </section>
 
-            <section className="sd-catalog-detail__section" aria-labelledby="catalog-contract-title">
+            <section
+              className="sd-catalog-detail__section"
+              aria-labelledby="catalog-contract-title"
+            >
               <h2 id="catalog-contract-title">Contract și surse</h2>
               <ul>
                 <li>
@@ -145,7 +148,8 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
       </main>
       <PublicFooter>
         <p>
-          Pagina este generată din registry-ul verificat automat față de pachetul {item.packageName}.
+          Pagina este generată din registry-ul verificat automat față de pachetul {item.packageName}
+          .
         </p>
       </PublicFooter>
     </>

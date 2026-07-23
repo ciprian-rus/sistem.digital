@@ -61,13 +61,17 @@ test.describe('versioned catalog', () => {
     await page.getByLabel('Familie').selectOption('interactive');
     await page.getByRole('button', { name: 'Aplică filtrele' }).click();
 
-    await expect(page).toHaveURL(/tip=component.*familie=interactive|familie=interactive.*tip=component/u);
+    await expect(page).toHaveURL(
+      /tip=component.*familie=interactive|familie=interactive.*tip=component/u,
+    );
     await expect(page.getByRole('heading', { name: '7 rezultate' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Dialog', exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Label', exact: true })).toHaveCount(0);
   });
 
-  test('generates an individual page with explicit package version and imports', async ({ page }) => {
+  test('generates an individual page with explicit package version and imports', async ({
+    page,
+  }) => {
     await page.goto('/componente/catalog/interactive-dialog');
 
     await expect(page.getByRole('heading', { level: 1, name: 'Dialog' })).toBeVisible();

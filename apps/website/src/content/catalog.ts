@@ -58,24 +58,21 @@ function namespacePreviewLandmarks(markup: string, id: string): string {
       'aria-label="Informație despre autenticitate"',
       `aria-label="Informație despre autenticitate${suffix}"`,
     )
-    .replaceAll(
-      'aria-label="Navigație principală"',
-      `aria-label="Navigație principală${suffix}"`,
-    )
+    .replaceAll('aria-label="Navigație principală"', `aria-label="Navigație principală${suffix}"`)
     .replaceAll(
       'aria-label="Navigație principală mobilă"',
       `aria-label="Navigație principală mobilă${suffix}"`,
     )
     .replaceAll('aria-label="Breadcrumb"', `aria-label="Breadcrumb${suffix}"`)
-    .replaceAll(
-      'aria-label="În această secțiune"',
-      `aria-label="În această secțiune${suffix}"`,
-    )
+    .replaceAll('aria-label="În această secțiune"', `aria-label="În această secțiune${suffix}"`)
     .replaceAll(
       'aria-label="Paginarea rezultatelor"',
       `aria-label="Paginarea rezultatelor${suffix}"`,
     )
-    .replace('role="search" action=', `role="search" aria-label="Căutare demonstrativă${suffix}" action=`);
+    .replace(
+      'role="search" action=',
+      `role="search" aria-label="Căutare demonstrativă${suffix}" action=`,
+    );
 }
 
 function validateCatalog(items: readonly unknown[]): readonly CatalogItem[] {
@@ -84,7 +81,8 @@ function validateCatalog(items: readonly unknown[]): readonly CatalogItem[] {
     if (!isCatalogItem(item)) throw new Error(`Catalog: intrarea ${index} este invalidă.`);
     if (ids.has(item.id)) throw new Error(`Catalog: id duplicat „${item.id}”.`);
     if (!/^[a-z0-9-]+$/u.test(item.id)) throw new Error(`Catalog: id invalid „${item.id}”.`);
-    if (item.markup.trim().length === 0) throw new Error(`Catalog: markup lipsă pentru ${item.id}.`);
+    if (item.markup.trim().length === 0)
+      throw new Error(`Catalog: markup lipsă pentru ${item.id}.`);
     ids.add(item.id);
     return {
       ...item,
@@ -133,9 +131,7 @@ export function filterCatalogItems({
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/gu, '')
       .toLocaleLowerCase('ro-RO');
-    const needle = normalizedQuery
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/gu, '');
+    const needle = normalizedQuery.normalize('NFD').replace(/[\u0300-\u036f]/gu, '');
     return haystack.includes(needle);
   });
 }

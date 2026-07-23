@@ -1,10 +1,5 @@
 export type SiteSectionId =
-  | 'foundations'
-  | 'components'
-  | 'patterns'
-  | 'templates'
-  | 'guides'
-  | 'governance';
+  'foundations' | 'components' | 'patterns' | 'templates' | 'guides' | 'governance';
 
 export type SitePageStatus = 'available' | 'planned';
 

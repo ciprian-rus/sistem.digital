@@ -58,8 +58,15 @@ function exportedNames(source) {
   }
   for (const block of source.matchAll(/export\s*\{([\s\S]*?)\}\s*from/gu)) {
     for (const token of block[1].split(',')) {
-      const cleaned = token.trim().replace(/^type\s+/u, '').split(/\s+as\s+/u)[1] ??
-        token.trim().replace(/^type\s+/u, '').split(/\s+as\s+/u)[0];
+      const cleaned =
+        token
+          .trim()
+          .replace(/^type\s+/u, '')
+          .split(/\s+as\s+/u)[1] ??
+        token
+          .trim()
+          .replace(/^type\s+/u, '')
+          .split(/\s+as\s+/u)[0];
       if (cleaned) names.add(cleaned.trim());
     }
   }
@@ -115,7 +122,9 @@ for (const item of catalogItems) {
   }
   const manifest = packageCache.get(item.packageName);
   if (item.version !== manifest.version) {
-    fail(`${item.id} documentează ${item.version}, dar ${item.packageName} are ${manifest.version}`);
+    fail(
+      `${item.id} documentează ${item.version}, dar ${item.packageName} are ${manifest.version}`,
+    );
   }
 
   const cssExport = exportKeyForImport(item.packageName, item.cssImport);

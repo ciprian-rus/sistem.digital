@@ -23,9 +23,7 @@ describe('site search', () => {
     expect(searchSite('rezumatul erorilor')[0]?.href).toBe(
       '/componente/catalog/forms-error-summary',
     );
-    expect(searchSite('teme funcționale')[0]?.href).toBe(
-      '/componente/catalog/foundation-themes',
-    );
+    expect(searchSite('teme funcționale')[0]?.href).toBe('/componente/catalog/foundation-themes');
   });
 
   it('keeps family pages for broad multi-component queries', () => {

@@ -82,8 +82,8 @@ export default async function CatalogPage({ searchParams }: Readonly<CatalogPage
               <p className="section-kicker">Componente · M3</p>
               <h1>Catalog versionat</h1>
               <p className="sd-doc-lead">
-                Fiecare intrare indică pachetul, versiunea, canalul, importurile publice și markup-ul
-                canonic folosit și pentru previzualizare.
+                Fiecare intrare indică pachetul, versiunea, canalul, importurile publice și
+                markup-ul canonic folosit și pentru previzualizare.
               </p>
               <ul className="sd-metadata" aria-label="Datele catalogului">
                 <li className="sd-metadata__item">
@@ -120,7 +120,12 @@ export default async function CatalogPage({ searchParams }: Readonly<CatalogPage
                 <label className="sd-label" htmlFor="catalog-kind">
                   Tip
                 </label>
-                <select className="sd-select" id="catalog-kind" name="tip" defaultValue={kind ?? ''}>
+                <select
+                  className="sd-select"
+                  id="catalog-kind"
+                  name="tip"
+                  defaultValue={kind ?? ''}
+                >
                   <option value="">Toate</option>
                   <option value="foundation">Fundamente</option>
                   <option value="component">Componente</option>
@@ -142,7 +147,8 @@ export default async function CatalogPage({ searchParams }: Readonly<CatalogPage
                     <option key={entry} value={entry}>
                       {entry === 'foundations'
                         ? 'Fundamente'
-                        : catalogItems.find((item) => item.family === entry)?.familyTitle ?? entry}
+                        : (catalogItems.find((item) => item.family === entry)?.familyTitle ??
+                          entry)}
                     </option>
                   ))}
                 </select>
