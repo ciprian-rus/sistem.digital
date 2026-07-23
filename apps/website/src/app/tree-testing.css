@@ -1,0 +1,240 @@
+@layer sd-base {
+  .sd-tree-test-page {
+    padding-block-end: var(--sd-space-12);
+  }
+
+  .sd-tree-test-intro {
+    max-width: var(--sd-layout-measure);
+    padding-block: var(--sd-space-8);
+  }
+
+  .sd-tree-test-intro h1 {
+    max-width: 18ch;
+    font-size: clamp(2.25rem, 6vw, 4rem);
+  }
+
+  .sd-tree-test-intro > p:last-child {
+    font-size: var(--sd-font-size-body-large);
+  }
+
+  .sd-tree-test-card {
+    display: grid;
+    gap: var(--sd-space-5);
+    max-width: 54rem;
+    padding: clamp(var(--sd-space-5), 5vw, var(--sd-space-9));
+    border: 1px solid var(--sd-color-border);
+    border-radius: var(--sd-radius-panel);
+    background: var(--sd-color-surface-raised);
+    box-shadow: var(--sd-shadow-panel);
+  }
+
+  .sd-tree-test-card :where(h2, p, ul) {
+    margin: 0;
+  }
+
+  .sd-tree-test-card h2 {
+    max-width: 24ch;
+  }
+
+  .sd-tree-test-facts {
+    display: grid;
+    gap: var(--sd-space-2);
+    padding-inline-start: var(--sd-space-5);
+  }
+
+  .sd-tree-test-notice {
+    display: grid;
+    gap: var(--sd-space-1);
+    padding: var(--sd-space-4);
+    border-inline-start: 0.35rem solid var(--sd-color-feedback-info-border);
+    background: var(--sd-color-feedback-info-background);
+    color: var(--sd-color-feedback-info-text);
+  }
+
+  .sd-tree-test-notice--success {
+    border-inline-start-color: var(--sd-color-feedback-success-border);
+    background: var(--sd-color-feedback-success-background);
+    color: var(--sd-color-feedback-success-text);
+  }
+
+  .sd-tree-test-notice--error {
+    border-inline-start-color: var(--sd-color-feedback-error-border);
+    background: var(--sd-color-feedback-error-background);
+    color: var(--sd-color-feedback-error-text);
+  }
+
+  .sd-tree-test-fieldset,
+  .sd-tree-test-confidence {
+    display: grid;
+    gap: var(--sd-space-3);
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .sd-tree-test-fieldset legend,
+  .sd-tree-test-confidence legend,
+  .sd-tree-test-comment label {
+    margin-block-end: var(--sd-space-3);
+    font-weight: var(--sd-font-weight-semibold);
+  }
+
+  .sd-tree-test-fieldset label,
+  .sd-tree-test-leaves label {
+    display: flex;
+    min-height: var(--sd-target-minimum);
+    gap: var(--sd-space-3);
+    align-items: center;
+    padding: var(--sd-space-3) var(--sd-space-4);
+    border: 1px solid var(--sd-color-border);
+    border-radius: var(--sd-radius-control);
+    cursor: pointer;
+  }
+
+  .sd-tree-test-fieldset label:has(input:checked),
+  .sd-tree-test-leaves label:has(input:checked) {
+    border-color: var(--sd-color-brand);
+    background: var(--sd-color-surface-subtle);
+    box-shadow: inset 0 0 0 1px var(--sd-color-brand);
+  }
+
+  .sd-tree-test-fieldset input,
+  .sd-tree-test-leaves input,
+  .sd-tree-test-confidence input {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: none;
+    accent-color: var(--sd-color-brand);
+  }
+
+  .sd-tree-test-progress {
+    display: grid;
+    gap: var(--sd-space-2);
+    color: var(--sd-color-text-muted);
+    font-size: var(--sd-font-size-body-small);
+    font-weight: var(--sd-font-weight-semibold);
+  }
+
+  .sd-tree-test-progress progress {
+    width: 100%;
+    height: 0.75rem;
+    accent-color: var(--sd-color-brand);
+  }
+
+  .sd-tree-test-tree {
+    display: grid;
+    gap: var(--sd-space-2);
+  }
+
+  .sd-tree-test-branch > button {
+    width: 100%;
+    min-height: var(--sd-target-minimum);
+    padding: var(--sd-space-3) var(--sd-space-4);
+    border: 2px solid var(--sd-color-border-strong);
+    border-radius: var(--sd-radius-control);
+    background: var(--sd-color-surface-raised);
+    color: var(--sd-color-text);
+    font-weight: var(--sd-font-weight-semibold);
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .sd-tree-test-branch > button::before {
+    display: inline-block;
+    width: 1.5rem;
+    content: '›';
+  }
+
+  .sd-tree-test-branch > button.is-open {
+    border-color: var(--sd-color-brand);
+  }
+
+  .sd-tree-test-branch > button.is-open::before {
+    transform: rotate(90deg);
+  }
+
+  .sd-tree-test-leaves {
+    display: grid;
+    gap: var(--sd-space-2);
+    padding: var(--sd-space-3) 0 var(--sd-space-3) var(--sd-space-6);
+  }
+
+  .sd-tree-test-confidence > div {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(2.75rem, 1fr));
+    gap: var(--sd-space-2);
+    max-width: 28rem;
+  }
+
+  .sd-tree-test-confidence label {
+    display: grid;
+    min-height: var(--sd-target-minimum);
+    place-items: center;
+    padding: var(--sd-space-2);
+    border: 1px solid var(--sd-color-border);
+    border-radius: var(--sd-radius-control);
+    cursor: pointer;
+  }
+
+  .sd-tree-test-confidence label:has(input:checked) {
+    border-color: var(--sd-color-brand);
+    background: var(--sd-color-surface-subtle);
+  }
+
+  .sd-tree-test-confidence label input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .sd-tree-test-confidence > p {
+    display: flex;
+    max-width: 28rem;
+    justify-content: space-between;
+    color: var(--sd-color-text-muted);
+    font-size: var(--sd-font-size-body-small);
+  }
+
+  .sd-tree-test-comment {
+    display: grid;
+  }
+
+  .sd-tree-test-comment textarea {
+    width: 100%;
+    max-width: var(--sd-layout-measure);
+    padding: var(--sd-space-3);
+    border: 2px solid var(--sd-color-border-strong);
+    border-radius: var(--sd-radius-control);
+    resize: vertical;
+    background: var(--sd-color-surface-raised);
+    color: var(--sd-color-text);
+    font: inherit;
+  }
+
+  .sd-tree-test-privacy {
+    max-width: var(--sd-layout-measure);
+    margin-block-start: var(--sd-space-9);
+    padding-block-start: var(--sd-space-7);
+    border-block-start: 1px solid var(--sd-color-border);
+  }
+
+  .sd-tree-test-privacy h2 {
+    font-size: var(--sd-font-size-heading-small);
+  }
+
+  @media (max-width: 40rem) {
+    .sd-tree-test-card {
+      margin-inline: -0.5rem;
+      padding: var(--sd-space-5);
+    }
+
+    .sd-tree-test-leaves {
+      padding-inline-start: var(--sd-space-3);
+    }
+  }
+
+  @media print {
+    .sd-tree-test-card {
+      box-shadow: none;
+    }
+  }
+}
