@@ -121,6 +121,17 @@ jobs:
           tarballs=(release-artifacts/*.tgz)
           test "${#tarballs[@]}" -gt 0
           for tarball in "${tarballs[@]}"; do
+            package_json="$(tar -xOf "${tarball}" package/package.json)"
+            package_name="$(node -e "process.stdout.write(JSON.parse(process.argv[1]).name)" "${package_json}")"
+            package_version="$(node -e "process.stdout.write(JSON.parse(process.argv[1]).version)" "${package_json}")"
+            package_spec="${package_name}@${package_version}"
+
+            if npm view "${package_spec}" version --json >/dev/null 2>&1; then
+              echo "Skipping ${package_spec}: already published."
+              continue
+            fi
+
+            echo "Publishing ${package_spec}."
             npm publish "./${tarball}" --access public --tag "${DIST_TAG}"
           done
 
