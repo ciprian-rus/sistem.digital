@@ -32,7 +32,7 @@ export default async function SearchPage({ searchParams }: Readonly<SearchPagePr
   const parameters = await searchParams;
   const query = firstValue(parameters.q).trim();
   const section = validSection(firstValue(parameters.categorie));
-  const results = searchSite(query, { section });
+  const results = searchSite(query, section ? { section } : {});
   const hasQuery = query.length >= 2;
   const sectionLabel = siteSections.find((entry) => entry.id === section)?.title;
 
