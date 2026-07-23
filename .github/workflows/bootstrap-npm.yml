@@ -78,7 +78,7 @@ jobs:
       - name: Validate coordinated version
         id: release
         env:
-          GITHUB_REF_NAME: v0.1.0-alpha.0
+          RELEASE_TAG: v0.1.0-alpha.0
         run: node scripts/check-release-tag.mjs
 
       - name: Run release quality gates
