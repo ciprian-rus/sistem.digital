@@ -1,0 +1,32 @@
+@layer sd-base {
+  .sd-page-feedback {
+    display: grid;
+    gap: var(--sd-space-4);
+    max-width: var(--sd-layout-measure);
+    margin-block-start: var(--sd-space-10);
+    padding: var(--sd-space-6);
+    border: 1px solid var(--sd-color-border);
+    border-radius: var(--sd-radius-panel);
+    background: var(--sd-color-surface-subtle);
+  }
+
+  .sd-page-feedback :where(h2, p) {
+    margin: 0;
+  }
+
+  .sd-page-feedback h2 {
+    max-width: none;
+    font-size: var(--sd-font-size-heading-small);
+  }
+
+  .sd-page-feedback__note {
+    color: var(--sd-color-text-muted);
+    font-size: var(--sd-font-size-body-small);
+  }
+
+  @media print {
+    .sd-page-feedback {
+      display: none;
+    }
+  }
+}

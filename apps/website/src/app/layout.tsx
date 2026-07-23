@@ -7,12 +7,14 @@ import '@sistem-digital/tokens/themes.css';
 import './base.css';
 import './documentation.css';
 import './catalog.css';
+import './feedback.css';
 import '@sistem-digital/components/forms.css';
 import '@sistem-digital/components/navigation.css';
 import '@sistem-digital/components/content.css';
 import '@sistem-digital/components/interactive.css';
 
 import { InteractiveEnhancements } from '../components/interactive-enhancements';
+import { WebVitalsReporter } from '../components/web-vitals-reporter';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://sistem.digital'),
@@ -33,6 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body>
         {children}
         <InteractiveEnhancements />
+        <WebVitalsReporter />
       </body>
     </html>
   );

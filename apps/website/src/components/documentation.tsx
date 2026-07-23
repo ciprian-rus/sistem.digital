@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import type { DocumentationFrontmatter, DocumentationStatus } from '../content/documentation';
 import { findSiteSection, getSectionNavigation, getSiteBreadcrumbs } from '../content/site-map';
 import { CopyCodeButton } from './copy-code';
+import { PageFeedback } from './page-feedback';
 import { Breadcrumbs, PublicFooter, PublicHeader, ServiceNavigation } from './public-shell';
 
 const statusLabels: Record<DocumentationStatus, string> = {
@@ -81,6 +82,7 @@ export function DocumentationPage({
             </header>
 
             <div className="sd-doc-content">{children}</div>
+            <PageFeedback pathname={pathname} title={frontmatter.title} />
           </article>
         </div>
       </main>
