@@ -22,9 +22,15 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",
+    "@mdx-js/loader": "catalog:",
+    "@mdx-js/react": "catalog:",
+    "@next/mdx": "catalog:",
     "@playwright/test": "catalog:",
+    "@types/mdx": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "remark-frontmatter": "catalog:",
+    "remark-mdx-frontmatter": "catalog:",
     "vitest": "catalog:"
   }
 }
