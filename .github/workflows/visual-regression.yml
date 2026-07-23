@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: visual-${{ github.workflow }}-${{ github.ref }}
@@ -19,10 +19,8 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - name: Checkout source branch
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -46,28 +44,7 @@ jobs:
       - name: Build website and workspace dependencies
         run: pnpm --filter @sistem-digital/website... build
 
-      - name: Update reviewed M3 baselines once
-        if: >-
-          github.event_name == 'pull_request' &&
-          github.event.pull_request.head.repo.full_name == github.repository &&
-          github.event.pull_request.head.ref == 'agent/m3-information-architecture-mdx'
-        run: |
-          set -euo pipefail
-          pnpm --filter @sistem-digital/website test:visual:update
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add apps/website/tests/visual/__snapshots__
-          if git diff --cached --quiet; then
-            echo "Baseline-urile sunt deja actuale."
-            exit 0
-          fi
-          git commit -m "test(visual): update baselines for M3 taxonomy"
-          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
-          echo "Baseline-urile M3 au fost actualizate. Workflow-ul read-only va fi restaurat." >&2
-          exit 1
-
       - name: Compare versioned screenshots
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.ref != 'agent/m3-information-architecture-mdx'
         run: pnpm --filter @sistem-digital/website test:visual
 
       - name: Upload expected, actual and diff images
