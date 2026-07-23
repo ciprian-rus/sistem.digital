@@ -56,10 +56,15 @@ test.describe('versioned catalog', () => {
     await page.goto('/componente/catalog/interactive-dialog');
 
     await expect(page.getByRole('heading', { level: 1, name: 'Dialog' })).toBeVisible();
-    await expect(page.getByText('@sistem-digital/components', { exact: true }).first()).toBeVisible();
-    await expect(page.getByText('0.1.0-alpha.0', { exact: true })).toBeVisible();
-    await expect(page.getByText('@sistem-digital/components/interactive.css', { exact: true })).toBeVisible();
-    await expect(page.getByText('enhanceDialogs', { exact: false })).toBeVisible();
+    const metadata = page.locator('.sd-catalog-detail__metadata');
+    await expect(metadata.getByText('@sistem-digital/components', { exact: true })).toBeVisible();
+    await expect(metadata.getByText('0.1.0-alpha.0', { exact: true })).toBeVisible();
+    await expect(
+      metadata.getByText('@sistem-digital/components/interactive.css', { exact: true }),
+    ).toBeVisible();
+    await expect(page.getByLabel(/Import JavaScript opțional; cod ts/iu)).toContainText(
+      'enhanceDialogs',
+    );
     await expect(page.getByRole('link', { name: /Changelog/iu })).toBeVisible();
   });
 
@@ -88,11 +93,15 @@ test.describe('versioned catalog', () => {
   });
 
   test('keeps the canonical markup readable without JavaScript', async ({ browser }) => {
-    const page = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 800, height: 900 } });
+    const page = await browser.newPage({
+      javaScriptEnabled: false,
+      viewport: { width: 800, height: 900 },
+    });
     try {
       await page.goto('/componente/catalog/interactive-dialog');
-      await expect(page.getByText('Trimite cererea?')).toBeVisible();
-      await expect(page.getByText('Vei primi confirmarea în inbox.')).toBeVisible();
+      const preview = page.getByRole('region', { name: 'Previzualizare Dialog' });
+      await expect(preview.getByText('Trimite cererea?')).toBeVisible();
+      await expect(preview.getByText('Vei primi confirmarea în inbox.')).toBeVisible();
       await expect(page.getByLabel(/Markup canonic; cod html/iu)).toBeVisible();
     } finally {
       await page.close();
