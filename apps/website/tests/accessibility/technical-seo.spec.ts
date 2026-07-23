@@ -24,7 +24,7 @@ test.describe('technical SEO and error states', () => {
     ).toBeVisible();
 
     const robots = page.locator('meta[name="robots"]');
-    await expect(robots).toHaveAttribute('content', /noindex/);
+    await expect(robots.first()).toHaveAttribute('content', /noindex/);
 
     const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations).toEqual([]);
@@ -37,6 +37,6 @@ test.describe('technical SEO and error states', () => {
       'https://sistem.digital/guvernanta',
     );
     const jsonLd = page.locator('script[type="application/ld+json"]');
-    await expect(jsonLd).toContainText('"@type":"Organization"');
+    await expect(jsonLd.first()).toContainText('"@type":"Organization"');
   });
 });
