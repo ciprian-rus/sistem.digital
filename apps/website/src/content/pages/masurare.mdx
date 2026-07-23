@@ -1,0 +1,55 @@
+---
+title: Măsurare cu protecția vieții private
+description: Datele minime folosite pentru a îmbunătăți găsirea conținutului și performanța platformei.
+section: governance
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-07-23
+order: 2
+keywords:
+  - măsurare
+  - analytics
+  - confidențialitate
+  - core web vitals
+  - retenție
+  - cookie-uri
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Principiul de bază
+
+Măsurăm numai ce ne ajută să facem platforma mai ușor de găsit și mai rapidă. Nu construim profiluri, nu vindem date și nu folosim cookie-uri de marketing.
+
+## Ce măsurăm
+
+Pentru performanță, browserul raportează către domeniul <code>sistem.digital</code> numai:
+
+- numele metricii Core Web Vitals: CLS, FCP, FID, INP, LCP sau TTFB;
+- valoarea numerică a metricii;
+- calificativul <code>good</code>, <code>needs-improvement</code> sau <code>poor</code>.
+
+Raportarea rulează numai pe domeniul Production. Preview-urile, localhost-ul și testele automate nu trimit metrici.
+
+## Ce nu trimite aplicația
+
+Payload-ul nu conține adresa IP, identificatori de utilizator sau dispozitiv, URL-ul paginii, parametri de căutare, referrer, conținutul formularelor ori textul introdus în căutare. Infrastructura de găzduire procesează metadatele tehnice obișnuite ale unei cereri HTTP, conform propriei politici.
+
+## Retenție și acces
+
+Metricile sunt scrise numai în Runtime Logs ale deploymentului Vercel și nu sunt copiate într-o bază de date sau într-un serviciu extern. Retenția efectivă urmează limita planului Vercel activ: o oră pentru Hobby, o zi pentru Pro și trei zile pentru Enterprise. Observability Plus poate extinde retenția la 30 de zile. Orice schimbare a furnizorului, a planului sau a destinației de date trebuie documentată aici înainte de activare.
+
+<Callout title="Fără trimitere automată a feedback-ului" type="info">
+  <p>
+    Butoanele „Da” și „Nu” deschid un issue GitHub precompletat. Nicio informație nu este trimisă
+    până când utilizatorul verifică și publică formularul.
+  </p>
+</Callout>
+
+## Surse și control
+
+- [Politica Vercel pentru Web Analytics](https://vercel.com/docs/analytics/privacy-policy);
+- [limitele curente pentru Runtime Logs](https://vercel.com/docs/logs/runtime);
+- [limitele generale de observabilitate Vercel](https://vercel.com/docs/limits);
+- codul raportării și schema payload-ului sunt publicate împreună cu platforma;
+- orice extindere a măsurării necesită issue, pull request și actualizarea acestei pagini.
