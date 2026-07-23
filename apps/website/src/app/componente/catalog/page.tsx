@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { CatalogCard, CatalogEmptyState } from '../../../components/catalog';
+import { PageFeedback } from '../../../components/page-feedback';
 import {
   Breadcrumbs,
   PublicFooter,
@@ -203,6 +204,8 @@ export default async function CatalogPage({ searchParams }: Readonly<CatalogPage
                 </CatalogEmptyState>
               )}
             </section>
+
+            <PageFeedback pathname="/componente/catalog" title="Catalog versionat" />
           </article>
         </div>
       </main>
