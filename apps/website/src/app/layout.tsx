@@ -24,6 +24,32 @@ export const metadata: Metadata = {
   },
   description:
     'Infrastructură open-source pentru servicii digitale clare, accesibile și coerente în România.',
+  applicationName: 'Sistem Digital',
+  alternates: { canonical: '/' },
+  manifest: '/manifest.webmanifest',
+  openGraph: {
+    type: 'website',
+    locale: 'ro_RO',
+    siteName: 'Sistem Digital',
+    url: '/',
+    title: 'Sistem Digital',
+    description:
+      'Infrastructură open-source pentru servicii digitale clare, accesibile și coerente în România.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Sistem Digital',
+  url: 'https://sistem.digital',
+  description:
+    'Infrastructură open-source pentru servicii digitale clare, accesibile și coerente în România.',
+  sameAs: ['https://github.com/ciprian-rus/sistem.digital'],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
@@ -31,6 +57,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="ro" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </head>
       <body>
         {children}

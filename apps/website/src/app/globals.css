@@ -235,6 +235,17 @@ h3 {
   gap: var(--sd-space-4);
 }
 
+.sd-state-page {
+  min-height: 28rem;
+  padding-block: clamp(4rem, 10vw, 8rem);
+}
+
+.sd-state-page__lead {
+  max-width: 42rem;
+  margin-bottom: var(--sd-space-8);
+  font-size: 1.2rem;
+}
+
 .button {
   display: inline-flex;
   min-height: var(--sd-target-minimum);

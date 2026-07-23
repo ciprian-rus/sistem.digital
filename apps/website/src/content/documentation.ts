@@ -84,10 +84,14 @@ export function validateDocumentationFrontmatter(
   };
 }
 
-export function createDocumentationMetadata(frontmatter: DocumentationFrontmatter): Metadata {
+export function createDocumentationMetadata(
+  frontmatter: DocumentationFrontmatter,
+  pathname?: string,
+): Metadata {
   return {
     title: frontmatter.title,
     description: frontmatter.description,
     keywords: [...frontmatter.keywords],
+    ...(pathname ? { alternates: { canonical: pathname } } : {}),
   };
 }

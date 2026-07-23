@@ -9,6 +9,7 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Căutare',
   description: 'Caută componente, fundamente, ghiduri și resurse în Sistem Digital.',
+  alternates: { canonical: '/cautare' },
 };
 
 interface SearchPageProps {

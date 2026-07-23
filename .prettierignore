@@ -11,3 +11,4 @@ packages/tokens/src/tokens.dtcg.json
 packages/tokens/src/themes.css
 packages/tokens/src/themes.json
 packages/tokens/src/theme-init.js
+apps/website/next-env.d.ts

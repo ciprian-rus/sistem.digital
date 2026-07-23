@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Componente interactive',
   description:
     'Accordion, dialog, tabs, step indicator, date input, autocomplete și upload avansat cu progressive enhancement.',
+  alternates: { canonical: '/componente/interactive' },
 };
 
 export default function InteractiveComponentsPage() {

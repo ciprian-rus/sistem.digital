@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Navigație și structură instituțională',
   description:
     'Componente accesibile pentru identitate, navigație, breadcrumb, căutare, alerte și footer.',
+  alternates: { canonical: '/componente/navigatie' },
 };
 
 const serviceItems = [
