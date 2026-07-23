@@ -5,6 +5,7 @@ import { themeInitScript } from '@sistem-digital/tokens';
 import '@sistem-digital/tokens/css';
 import '@sistem-digital/tokens/themes.css';
 import './base.css';
+import './documentation.css';
 import '@sistem-digital/components/forms.css';
 import '@sistem-digital/components/navigation.css';
 import '@sistem-digital/components/content.css';
@@ -13,6 +14,7 @@ import '@sistem-digital/components/interactive.css';
 import { InteractiveEnhancements } from '../components/interactive-enhancements';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://sistem.digital'),
   title: {
     default: 'Sistem Digital',
     template: '%s | Sistem Digital',
