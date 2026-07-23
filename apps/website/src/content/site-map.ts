@@ -147,6 +147,15 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['status', 'confirmare', 'reluare', 'completari', 'notificari', 'dosar'],
         status: 'available',
       },
+      {
+        href: '/pattern-uri/verifica-raspunsurile',
+        title: 'Verifică răspunsurile înainte de trimitere',
+        navigationLabel: 'Verifică răspunsurile',
+        description:
+          'Sumarul cererii, proveniența datelor, corectarea fără pierderi și trimiterea idempotentă.',
+        keywords: ['verificare', 'sumar', 'provenienta', 'idempotency', 'trimitere'],
+        status: 'available',
+      },
     ],
   },
   {
