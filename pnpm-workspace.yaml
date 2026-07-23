@@ -30,6 +30,8 @@ catalog:
   vitest: 4.1.10
 
 overrides:
+  # Next.js still resolves an older PostCSS release; 8.5.12 patches GHSA-6g55-p6wh-862q.
+  postcss: 8.5.12
   # Next.js resolves sharp 0.34.x; 0.35.3 contains the reviewed libvips security fixes.
   sharp: 0.35.3
 
