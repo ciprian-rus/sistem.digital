@@ -37,11 +37,17 @@ describe('canonical site map', () => {
       { label: 'Componente', href: '/componente' },
       { label: 'Componente interactive' },
     ]);
+    expect(getSiteBreadcrumbs('/componente/catalog')).toEqual([
+      { label: 'Acasă', href: '/' },
+      { label: 'Componente', href: '/componente' },
+      { label: 'Catalog versionat' },
+    ]);
   });
 
   it('publishes only available paths', () => {
     const paths = getAvailableSitePaths();
     expect(paths).toContain('/fundamente');
+    expect(paths).toContain('/componente/catalog');
     expect(paths).toContain('/componente/interactive');
     expect(paths).not.toContain('/fundamente/design-tokens');
   });

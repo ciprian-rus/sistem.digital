@@ -1,3 +1,4 @@
+import { catalogItems, getCatalogHref } from '../content/catalog';
 import { siteSections } from '../content/site-map';
 
 export interface SearchEntry {
@@ -20,6 +21,13 @@ export const searchEntries: readonly SearchEntry[] = [
         keywords: page.keywords,
       })),
   ),
+  ...catalogItems.map((item) => ({
+    href: getCatalogHref(item),
+    title: item.title,
+    description: item.description,
+    category: `Catalog · ${item.familyTitle}`,
+    keywords: [item.id, item.componentName ?? '', item.packageName, ...item.keywords],
+  })),
   {
     href: 'https://github.com/users/ciprian-rus/projects/5',
     title: 'Roadmap Sistem Digital',

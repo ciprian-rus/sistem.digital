@@ -49,9 +49,17 @@ export const siteSections: readonly SiteSection[] = [
       {
         href: '/componente',
         title: 'Catalogul componentelor',
-        navigationLabel: 'Toate componentele',
+        navigationLabel: 'Prezentare generală',
         description: 'Inventarul familiilor de componente disponibile în versiunea alpha.',
-        keywords: ['componente', 'catalog', 'html', 'css', 'javascript', 'alpha'],
+        keywords: ['componente', 'familii', 'html', 'css', 'javascript', 'alpha'],
+        status: 'available',
+      },
+      {
+        href: '/componente/catalog',
+        title: 'Catalog versionat',
+        navigationLabel: 'Catalog versionat',
+        description: 'Toate fundamentele și componentele cu versiune, importuri, preview și cod.',
+        keywords: ['catalog', 'versiune', 'api', 'importuri', 'preview', 'changelog'],
         status: 'available',
       },
       {

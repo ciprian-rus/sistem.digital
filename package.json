@@ -23,12 +23,13 @@
     "format": "prettier --write apps packages scripts docs/architecture/adr package.json pnpm-workspace.yaml turbo.json tsconfig.base.json eslint.config.mjs",
     "format:check": "prettier --check apps packages scripts docs/architecture/adr package.json pnpm-workspace.yaml turbo.json tsconfig.base.json eslint.config.mjs",
     "docs:check": "node scripts/check-docs.mjs",
+    "catalog:check": "node scripts/check-catalog.mjs",
     "secrets:check": "node scripts/check-secrets.mjs",
     "audit:ci": "pnpm audit --audit-level=high",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "check": "pnpm format:check && pnpm catalog:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",

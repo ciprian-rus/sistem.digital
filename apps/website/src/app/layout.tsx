@@ -6,6 +6,7 @@ import '@sistem-digital/tokens/css';
 import '@sistem-digital/tokens/themes.css';
 import './base.css';
 import './documentation.css';
+import './catalog.css';
 import '@sistem-digital/components/forms.css';
 import '@sistem-digital/components/navigation.css';
 import '@sistem-digital/components/content.css';
