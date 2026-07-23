@@ -17,7 +17,9 @@ concurrency:
 jobs:
   release:
     name: Build attest and publish
-    if: github.event.release.draft == false
+    if: >-
+      github.event.release.draft == false &&
+      github.event.release.tag_name != 'v0.1.0-alpha.0'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment: npm
@@ -111,7 +113,6 @@ jobs:
       - name: Publish exact tarballs to npm
         env:
           NPM_CONFIG_PROVENANCE: 'true'
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
           DIST_TAG: ${{ steps.release.outputs.dist_tag }}
         shell: bash
         run: |

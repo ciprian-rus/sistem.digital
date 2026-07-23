@@ -39,6 +39,15 @@ Trusted publisher se poate configura după ce pachetul există în registry. Pri
 7. tokenul este revocat din npm;
 8. următorul prerelease verifică publicarea exclusiv prin OIDC.
 
+Bootstrap-ul este implementat de
+`.github/workflows/bootstrap-npm.yml` și este declanșat o singură dată de
+markerul versionat `.release/bootstrap/v0.1.0-alpha.0`. Workflow-ul refuză
+publicarea dacă oricare dintre cele două pachete există deja în registrul npm,
+pentru a preveni reutilizarea accidentală a credentialului temporar. După
+publicarea reușită, tagul bootstrap este exclus explicit din `release.yml`, iar
+orice release ulterior folosește acel workflow exclusiv prin OIDC, fără
+`NODE_AUTH_TOKEN`.
+
 Tokenul de bootstrap nu se folosește pentru instalare, dezvoltare sau publicări ulterioare.
 
 ## Configurarea trusted publisher în npm
