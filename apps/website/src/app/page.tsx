@@ -59,23 +59,23 @@ export default function HomePage() {
                 o pot instala, testa, actualiza și îmbunătăți împreună.
               </p>
               <div className="actions">
-                <a className="button button-primary" href="/componente/formulare">
-                  Explorează formularele
+                <a className="button button-primary" href="/componente/catalog">
+                  Explorează catalogul
                 </a>
-                <a className="button button-secondary" href="/componente/navigatie">
-                  Explorează navigația
+                <a className="button button-secondary" href="/ghiduri">
+                  Citește ghidurile
                 </a>
               </div>
             </div>
 
             <aside className="status-card" aria-labelledby="milestone-title">
               <p className="status-label">Etapa curentă</p>
-              <h2 id="milestone-title">M2 — Biblioteca de componente accesibile</h2>
+              <h2 id="milestone-title">M3 — Platforma publică și catalogul interactiv</h2>
               <ul>
-                <li>Formulare și validare</li>
-                <li>Navigație și structură instituțională</li>
-                <li>Conținut și afișare de date</li>
-                <li>Componente interactive testate</li>
+                <li>Taxonomie și navigație unificată</li>
+                <li>Motor editorial MDX și ghid de conținut</li>
+                <li>Catalog versionat cu 48 de pagini</li>
+                <li>Căutare, feedback și hardening în lucru</li>
               </ul>
             </aside>
           </div>

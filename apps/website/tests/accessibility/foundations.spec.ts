@@ -132,7 +132,7 @@ test.describe('responsive structural foundations', () => {
       true,
     );
 
-    const button = page.getByRole('link', { name: 'Explorează formularele' });
+    const button = page.getByRole('link', { name: 'Explorează catalogul' });
     await button.hover();
     await expect(button).toHaveCSS('transform', 'none');
   });
