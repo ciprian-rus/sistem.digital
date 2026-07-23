@@ -1,0 +1,77 @@
+---
+title: Înainte să începi
+description: Ajută persoana să decidă informat dacă serviciul este potrivit, înainte să ofere date sau să creeze un cont.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-07-23
+order: 2
+keywords:
+  - rezultat
+  - eligibilitate
+  - documente
+  - cost
+  - termen
+  - autentificare
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să știu ce obțin, dacă pot folosi serviciul și ce îmi trebuie, fără să pierd timp sau să ofer date inutil.”
+
+Folosește pattern-ul înaintea primului formular, a autentificării sau a transferului către alt sistem. Nu îl transforma într-o copie a temeiului legal.
+
+## Informațiile obligatorii
+
+1. **Rezultatul:** denumirea documentului, plății, programării sau deciziei obținute.
+2. **Eligibilitatea:** condițiile esențiale și alternativa pentru persoanele neeligibile.
+3. **Ce trebuie pregătit:** date, documente și formate acceptate; marchează ce este opțional.
+4. **Costul:** suma totală, modalitățile de plată și cazurile de scutire. Spune explicit când este gratuit.
+5. **Durata:** timpul de completare și termenul legal sau estimat de soluționare.
+6. **Accesul:** dacă este necesar cont, ROeID, semnătură sau alt mijloc de identificare și de ce.
+7. **Canalele alternative:** telefon, ghișeu, reprezentant sau acces asistat, când sunt disponibile.
+
+<Callout title="Nu cere autentificarea pentru orientare" type="success">
+  <p>
+    Condițiile, costul, termenul și lista de documente trebuie să rămână publice. Cere identificarea
+    numai când este necesară pentru continuarea serviciului.
+  </p>
+</Callout>
+
+## Ordinea recomandată
+
+Începe cu rezultatul și eligibilitatea. Continuă cu documentele, costul și durata. Explică accesul și confidențialitatea imediat înaintea butonului principal. Folosește un singur îndemn clar: „Începe”, „Verifică eligibilitatea” sau „Continuă în [serviciu]”.
+
+## Fără cont și fără JavaScript
+
+- Oferă un traseu fără cont dacă identitatea nu este necesară legal sau operațional.
+- Dacă un cont este obligatoriu, permite citirea tuturor condițiilor înainte de autentificare.
+- Randează informațiile și linkurile ca HTML; JavaScript poate îmbunătăți verificarea eligibilității, dar nu trebuie să ascundă condițiile.
+- Pentru un chestionar dinamic, oferă și o listă completă a condițiilor sau un contact asistat.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                |
+| ---------- | ----------------------------------------------------------------------------------------------- |
+| Conținut   | Denumește rezultatul în limbajul cetățeanului, menține condițiile și explică alternativele.     |
+| Date       | Publică sursa, data actualizării și proprietarul pentru costuri, termene și eligibilitate.      |
+| Backend    | Furnizează reguli versionate și nu solicită date înainte de consimțământul sau temeiul necesar. |
+| Operațiuni | Confirmă canalele alternative, programul și capacitatea reală de soluționare.                   |
+
+## Criterii de acceptare
+
+- O persoană poate decide dacă începe fără autentificare.
+- Costul și durata nu sunt ascunse într-un PDF sau într-o pagină separată.
+- Documentele sunt descrise prin scop, emitent și format, nu doar prin denumiri juridice.
+- Traseul neeligibil oferă o explicație și o alternativă.
+- Conținutul esențial rămâne disponibil la 320 CSS px, la zoom 400% și fără JavaScript.
+
+## În aplicația de referință
+
+Pagina [Solicită o adeverință](/exemple/adeverinta) demonstrează rezultatul, durata de completare, condițiile, documentul opțional, lipsa taxei și lipsa autentificării înainte de pornire.
+
+## Dovezi și limite
+
+Prioritatea rezultă din observațiile OBS-007, OBS-009, OBS-011, OBS-012 și OBS-022 din [auditul comparativ](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/romania-audit-2026/observations.csv). Pattern-ul rămâne alpha până la testarea cu cetățeni și tehnologii asistive.

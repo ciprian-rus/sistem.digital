@@ -120,6 +120,33 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['serviciu', 'demonstratie', 'adeverinta', 'formular', 'status', 'reluare'],
         status: 'available',
       },
+      {
+        href: '/pattern-uri/inainte-sa-incepi',
+        title: 'Înainte să începi',
+        navigationLabel: 'Înainte să începi',
+        description:
+          'Informațiile esențiale de care o persoană are nevoie pentru a decide dacă poate și vrea să înceapă un serviciu.',
+        keywords: ['rezultat', 'eligibilitate', 'documente', 'cost', 'termen', 'autentificare'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/transfer-extern',
+        title: 'Transfer extern sigur',
+        navigationLabel: 'Transfer extern sigur',
+        description:
+          'Cum explici trecerea către alt operator sau domeniu și păstrezi continuitatea serviciului.',
+        keywords: ['transfer', 'domeniu', 'operator', 'date', 'autenticitate', 'intoarcere'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/status-confirmare-reluare',
+        title: 'Status, confirmare și reluare',
+        navigationLabel: 'Status și reluare',
+        description:
+          'Confirmarea depunerii, urmărirea cererii, solicitarea completărilor și reluarea în siguranță.',
+        keywords: ['status', 'confirmare', 'reluare', 'completari', 'notificari', 'dosar'],
+        status: 'available',
+      },
     ],
   },
   {
