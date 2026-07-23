@@ -51,4 +51,15 @@ describe('canonical site map', () => {
     expect(paths).toContain('/componente/interactive');
     expect(paths).not.toContain('/fundamente/design-tokens');
   });
+
+  it('keeps every available editorial page reachable from a section', () => {
+    const sectionPaths = new Set(
+      siteSections.flatMap((section) => section.pages.map((page) => page.href)),
+    );
+    for (const path of getAvailableSitePaths().filter(
+      (path) => !['/', '/cautare'].includes(path),
+    )) {
+      expect(sectionPaths.has(path), `${path} este o pagină orfană`).toBe(true);
+    }
+  });
 });

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Formulare și validare',
   description:
     'Componente accesibile pentru formulare, validare, mesaje de eroare și progressive enhancement.',
+  alternates: { canonical: '/componente/formulare' },
 };
 
 const invalidExample = `<div class="sd-form-group sd-form-group--error">

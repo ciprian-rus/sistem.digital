@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "next build && node scripts/check-performance-budget.mjs",
     "dev": "next dev --turbopack",
     "lint": "eslint src tests playwright.config.ts playwright.visual.config.ts vitest.config.ts",
     "start": "next start",
@@ -11,6 +11,7 @@
     "test:a11y": "playwright test --config=playwright.config.ts",
     "test:visual": "playwright test --config=playwright.visual.config.ts",
     "test:visual:update": "playwright test --config=playwright.visual.config.ts --update-snapshots",
+    "performance:check": "node scripts/check-performance-budget.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

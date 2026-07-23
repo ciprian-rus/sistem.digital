@@ -15,7 +15,7 @@ export function createDocumentationRoute({
   source: string;
 }>) {
   const frontmatter = validateDocumentationFrontmatter(rawFrontmatter, source);
-  const metadata = createDocumentationMetadata(frontmatter);
+  const metadata = createDocumentationMetadata(frontmatter, pathname);
 
   function Page() {
     return (

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Conținut și afișare a datelor',
   description:
     'Componente accesibile pentru mesaje, carduri, statusuri, tabele, summary list, details, pagination și metadate.',
+  alternates: { canonical: '/componente/continut-date' },
 };
 
 const numberFormatter = new Intl.NumberFormat('ro-RO');

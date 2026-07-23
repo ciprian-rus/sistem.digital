@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: CatalogDetailPageProps): Prom
     title: `${item.title} — catalog`,
     description: item.description,
     keywords: [...item.keywords, item.familyTitle, item.packageName],
+    alternates: { canonical: `/componente/catalog/${item.id}` },
   };
 }
 

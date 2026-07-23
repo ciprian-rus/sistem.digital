@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   title: 'Catalog versionat',
   description:
     'Fundamente și componente Sistem Digital cu versiune, status, importuri, preview și cod canonic.',
+  alternates: { canonical: '/componente/catalog' },
 };
 
 interface CatalogPageProps {
