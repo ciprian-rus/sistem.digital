@@ -115,6 +115,8 @@ Platforma locală este disponibilă implicit la `http://localhost:3000`.
 Pachetele sunt construite și publicate exclusiv din GitHub Actions. Fiecare release produce tarball-ul npm, SBOM CycloneDX, hash-uri SHA-256 și attestations verificabile.
 
 - [Politica de release, LTS și rollback](docs/governance/release-policy.md)
+- [Canalele npm, ZIP, self-hosted și politica CDN](docs/distribution/channels.md)
+- [Instalare self-hosted, actualizare și rollback](docs/distribution/self-hosting.md)
 - [npm Trusted Publishing și provenance](docs/security/trusted-publishing.md)
 - [Răspunsul la vulnerabilități](docs/security/vulnerability-response.md)
 - [Politica generală de securitate](SECURITY.md)
