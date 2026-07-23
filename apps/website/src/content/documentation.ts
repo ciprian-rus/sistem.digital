@@ -92,8 +92,5 @@ export function createDocumentationMetadata(frontmatter: DocumentationFrontmatte
     title: frontmatter.title,
     description: frontmatter.description,
     keywords: [...frontmatter.keywords],
-    alternates: {
-      canonical: undefined,
-    },
   };
 }
