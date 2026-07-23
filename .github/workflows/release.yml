@@ -121,7 +121,7 @@ jobs:
           tarballs=(release-artifacts/*.tgz)
           test "${#tarballs[@]}" -gt 0
           for tarball in "${tarballs[@]}"; do
-            npm publish "${tarball}" --access public --tag "${DIST_TAG}"
+            npm publish "./${tarball}" --access public --tag "${DIST_TAG}"
           done
 
       - name: Attach artifacts to GitHub release

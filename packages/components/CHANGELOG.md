@@ -1,5 +1,10 @@
 # @sistem-digital/components
 
+## 0.1.0-alpha.1
+
+- release coordonat pentru validarea npm Trusted Publishing prin GitHub Actions;
+- conținutul public și API-ul pachetului rămân neschimbate față de alpha inițial.
+
 ## 0.1.0-alpha.0
 
 - pachet public inițial;
