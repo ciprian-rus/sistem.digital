@@ -29,6 +29,7 @@ test.describe('M4 reference service', () => {
     });
     expect(results.violations).toEqual([]);
 
+    await page.getByLabel('Declar că informațiile furnizate de mine sunt corecte.').check();
     await page.getByRole('button', { name: 'Trimite cererea demonstrativă' }).click();
     await expect(
       page.getByRole('heading', { name: 'Cererea demonstrativă a fost trimisă' }),
@@ -55,6 +56,7 @@ test.describe('M4 reference service', () => {
     await page.getByLabel('CNP demonstrativ').fill('1990101223344');
     await page.getByRole('button', { name: 'Continuă', exact: true }).click();
     await page.getByRole('button', { name: 'Continuă', exact: true }).click();
+    await page.getByLabel('Declar că informațiile furnizate de mine sunt corecte.').check();
     await page.getByText('Testează o stare de indisponibilitate').click();
     await page.getByLabel('Simulează eroarea temporară la trimitere').check();
     await page.getByRole('button', { name: 'Trimite cererea demonstrativă' }).click();

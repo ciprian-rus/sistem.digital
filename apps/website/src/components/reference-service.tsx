@@ -41,6 +41,8 @@ export function ReferenceService() {
   const [error, setError] = useState('');
   const [savedNotice, setSavedNotice] = useState('');
   const [simulateUnavailable, setSimulateUnavailable] = useState(false);
+  const [declarationAccepted, setDeclarationAccepted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const saved = window.localStorage.getItem(storageKey);
@@ -76,6 +78,8 @@ export function ReferenceService() {
     setError('');
     setSavedNotice('');
     setSimulateUnavailable(false);
+    setDeclarationAccepted(false);
+    setSubmitting(false);
   };
 
   const continueFromEligibility = () => {
@@ -104,8 +108,15 @@ export function ReferenceService() {
   };
 
   const submit = () => {
+    if (submitting) return;
+    if (!declarationAccepted) {
+      setError('Confirmă declarația înainte de trimitere.');
+      return;
+    }
+    setSubmitting(true);
     if (simulateUnavailable) {
       setError('Serviciul este temporar indisponibil. Cererea nu a fost trimisă.');
+      setSubmitting(false);
       return;
     }
     window.localStorage.removeItem(storageKey);
@@ -171,6 +182,10 @@ export function ReferenceService() {
         </p>
         <dl className="sd-summary-list">
           <div className="sd-summary-list__row">
+            <dt>Data și ora</dt>
+            <dd>23 iulie 2026, 12:00</dd>
+          </div>
+          <div className="sd-summary-list__row">
             <dt>Status</dt>
             <dd>
               <span className="sd-tag">În verificare</span>
@@ -183,6 +198,10 @@ export function ReferenceService() {
           <div className="sd-summary-list__row">
             <dt>Livrare</dt>
             <dd>{draft.delivery === 'digital' ? 'Document digital' : 'Ridicare de la ghișeu'}</dd>
+          </div>
+          <div className="sd-summary-list__row">
+            <dt>Canal de notificare</dt>
+            <dd>Pagina de status a cererii</dd>
           </div>
         </dl>
         <div className="sd-callout">
@@ -431,34 +450,74 @@ export function ReferenceService() {
         <>
           <p className="section-kicker">Verificare</p>
           <h1 id={titleId}>Verifică răspunsurile înainte de trimitere</h1>
+          <p>
+            Verifică datele grupate mai jos. Eticheta de proveniență arată de unde vine fiecare
+            informație și dacă o poți corecta aici.
+          </p>
+          <h2>Date verificate la sursă</h2>
           <dl className="sd-summary-list">
             <SummaryRow
               label="Eligibilitate"
               value="Condiții îndeplinite"
+              provenance="Verificat în acest demo din răspunsurile de eligibilitate"
               onChange={() => goTo('eligibility')}
             />
             <SummaryRow
               label="Acces"
               value={draft.identity === 'account' ? 'Identitate digitală' : 'Fără cont'}
+              provenance="Declarat de tine"
               onChange={() => goTo('identity')}
             />
-            <SummaryRow label="Nume" value={draft.fullName} onChange={() => goTo('request')} />
+          </dl>
+          <h2>Date declarate de tine</h2>
+          <dl className="sd-summary-list">
+            <SummaryRow
+              label="Nume"
+              value={draft.fullName}
+              provenance="Declarat de tine"
+              onChange={() => goTo('request')}
+            />
             <SummaryRow
               label="CNP"
               value={maskPersonalId(draft.personalId)}
+              provenance="Declarat de tine · valoare mascată"
               onChange={() => goTo('request')}
             />
             <SummaryRow
               label="Livrare"
               value={draft.delivery === 'digital' ? 'Document digital' : 'Ridicare de la ghișeu'}
-              onChange={() => goTo('documents')}
-            />
-            <SummaryRow
-              label="Atașament"
-              value={draft.attachmentName || 'Niciun document'}
+              provenance="Alegerea ta"
               onChange={() => goTo('documents')}
             />
           </dl>
+          <h2>Documente încărcate</h2>
+          <dl className="sd-summary-list">
+            <SummaryRow
+              label="Atașament"
+              value={draft.attachmentName || 'Niciun document'}
+              provenance={
+                draft.attachmentName ? 'Document încărcat de tine' : 'Nu ai încărcat un document'
+              }
+              onChange={() => goTo('documents')}
+            />
+          </dl>
+          <label className="sd-choice">
+            <input
+              className="sd-choice__control"
+              type="checkbox"
+              checked={declarationAccepted}
+              onChange={(event) => {
+                setDeclarationAccepted(event.target.checked);
+                setError('');
+              }}
+            />
+            <span className="sd-choice__label">
+              Declar că informațiile furnizate de mine sunt corecte.
+              <span className="sd-choice__hint">
+                Declarația se aplică numai datelor introduse de tine în această cerere.
+              </span>
+            </span>
+          </label>
           <details className="sd-details sd-reference-simulation">
             <summary>Testează o stare de indisponibilitate</summary>
             <label className="sd-choice">
@@ -472,8 +531,13 @@ export function ReferenceService() {
             </label>
           </details>
           <div className="sd-button-group">
-            <button className="sd-button sd-button--primary" type="button" onClick={submit}>
-              Trimite cererea demonstrativă
+            <button
+              className="sd-button sd-button--primary"
+              type="button"
+              disabled={submitting}
+              onClick={submit}
+            >
+              {submitting ? 'Se trimite cererea…' : 'Trimite cererea demonstrativă'}
             </button>
             <button
               className="sd-button sd-button--secondary"
@@ -486,6 +550,18 @@ export function ReferenceService() {
               Salvează și continuă mai târziu
             </button>
           </div>
+          <p role="status" aria-live="polite">
+            {submitting ? 'Cererea este în curs de trimitere. Nu închide pagina.' : ''}
+          </p>
+          <p className="sd-reference-meta">
+            Într-o implementare reală, backend-ul folosește o cheie idempotentă. Dezactivarea
+            butonului nu este suficientă pentru prevenirea duplicatelor.
+          </p>
+          <p>
+            <a href="/exemple/adeverinta/fara-javascript">
+              Vezi varianta server-rendered fără JavaScript
+            </a>
+          </p>
         </>
       ) : null}
 
@@ -524,12 +600,14 @@ function FlowActions({
 function SummaryRow({
   label,
   onChange,
+  provenance,
   value,
-}: Readonly<{ label: string; onChange: () => void; value: string }>) {
+}: Readonly<{ label: string; onChange: () => void; provenance: string; value: string }>) {
   return (
     <div className="sd-summary-list__row">
       <dt>{label}</dt>
       <dd>{value}</dd>
+      <dd className="sd-summary-list__provenance">{provenance}</dd>
       <dd className="sd-summary-list__action">
         <button type="button" onClick={onChange}>
           Schimbă <span className="sd-visually-hidden">{label.toLocaleLowerCase('ro')}</span>

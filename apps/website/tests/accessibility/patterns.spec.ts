@@ -5,6 +5,7 @@ const patternPaths = [
   '/pattern-uri/inainte-sa-incepi',
   '/pattern-uri/transfer-extern',
   '/pattern-uri/status-confirmare-reluare',
+  '/pattern-uri/verifica-raspunsurile',
 ] as const;
 
 test.describe('M4 service patterns', () => {
@@ -30,6 +31,24 @@ test.describe('M4 service patterns', () => {
         page.getByRole('heading', { name: 'Fără cont și fără JavaScript' }),
       ).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Responsabilități' })).toBeVisible();
+    } finally {
+      await page.close();
+    }
+  });
+
+  test('provides a server-rendered submission path without JavaScript', async ({ browser }) => {
+    const page = await browser.newPage({ javaScriptEnabled: false });
+    try {
+      await page.goto('/exemple/adeverinta/fara-javascript');
+      await expect(
+        page.getByRole('heading', { name: 'Verifică răspunsurile înainte de trimitere' }),
+      ).toBeVisible();
+      await page.getByLabel('Declar că informațiile furnizate de mine sunt corecte.').check();
+      await page.getByRole('button', { name: 'Trimite cererea demonstrativă' }).click();
+      await expect(
+        page.getByRole('heading', { name: 'Cererea demonstrativă a fost primită' }),
+      ).toBeVisible();
+      await expect(page.getByText('SD-NOJS-2026-0042')).toBeVisible();
     } finally {
       await page.close();
     }

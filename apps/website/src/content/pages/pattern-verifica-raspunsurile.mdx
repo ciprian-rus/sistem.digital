@@ -1,0 +1,111 @@
+---
+title: Verifică răspunsurile înainte de trimitere
+description: Ajută persoana să verifice, să corecteze și să trimită o singură dată o cerere completă.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-07-23
+order: 5
+keywords:
+  - verificare
+  - sumar
+  - proveniența datelor
+  - consimțământ
+  - idempotency
+  - confirmare
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să văd într-un singur loc ce urmează să trimit, să corectez rapid o greșeală și să știu că apăsarea repetată nu creează două cereri.”
+
+Folosește acest pattern imediat înaintea unei acțiuni cu efect administrativ. Nu îl transforma într-o pagină de termeni și condiții și nu cere reconfirmarea datelor pe care persoana nu le poate controla.
+
+## Structura sumarului
+
+Grupează informațiile în aceeași ordine în care au fost cerute:
+
+1. date verificate la sursă;
+2. răspunsuri declarate de persoană;
+3. opțiuni privind serviciul și livrarea;
+4. documente încărcate;
+5. declarația sau acordul final, numai dacă există un temei real.
+
+Pentru fiecare grup oferă o acțiune „Schimbă” cu un nume accesibil specific. Revenirea duce la secțiunea corectă, păstrează toate celelalte răspunsuri și întoarce persoana la sumar după corectare.
+
+## Explică proveniența
+
+Nu folosi pictograme sau culori fără explicații. Etichetează în limbaj simplu:
+
+| Etichetă           | Înțeles                                                 | Ce poate face persoana                 |
+| ------------------ | ------------------------------------------------------- | -------------------------------------- |
+| Verificat la sursă | Instituția a primit valoarea dintr-un registru oficial. | Semnalează o eroare la sursa indicată. |
+| Declarat de tine   | Persoana a introdus sau a ales valoarea.                | O poate schimba înainte de trimitere.  |
+| Document încărcat  | Fișierul a fost adăugat cererii.                        | Îl poate înlocui sau elimina.          |
+
+Arată sursa și data verificării când acestea ajută persoana. Nu expune în sumar identificatori sensibili compleți dacă nu sunt necesari.
+
+## Declarația finală
+
+- Cere o declarație numai când efectul juridic nu rezultă deja clar din butonul de trimitere.
+- Separă acordurile obligatorii de opțiunile de comunicare sau marketing.
+- Nu folosi căsuțe preselectate.
+- Leagă declarația de versiunea exactă a cererii, nu de o formulare generică.
+
+Butonul descrie efectul: „Trimite cererea”, nu „Continuă” sau „Confirmă”.
+
+## Trimitere unică și stări
+
+Interfața dezactivează acțiunea după submit și anunță „Se trimite cererea”. Backend-ul rămâne autoritatea:
+
+- generează o cheie idempotentă pentru versiunea cererii;
+- returnează același rezultat la repetarea aceleiași trimiteri;
+- nu creează o cerere nouă la refresh, dublu click sau timeout;
+- păstrează un jurnal tehnic fără a dubla evenimentul administrativ;
+- la rezultat necunoscut, verifică starea înainte să permită o nouă trimitere.
+
+Un control dezactivat în browser nu înlocuiește idempotency în API.
+
+## Fără JavaScript și reluare
+
+Sumarul și trimiterea trebuie să funcționeze prin formular HTML și răspuns server-rendered. Serverul validează din nou toate câmpurile și folosește aceeași cheie idempotentă. Acțiunile „Schimbă” pot fi linkuri către secțiuni, iar răspunsurile se păstrează în sesiunea securizată.
+
+După eroare, timeout sau revenire din autentificare:
+
+- păstrează versiunea cererii și răspunsurile valide;
+- explică dacă cererea a fost sau nu primită;
+- mută focusul la rezumatul erorilor;
+- nu cere reîncărcarea documentelor decât dacă stocarea temporară a expirat.
+
+## Confirmarea
+
+Confirmarea este dovada rezultatului, nu doar o pagină verde. Include identificatorul, data și ora, canalul de notificare, rezumatul cererii, termenul, următorul pas și metoda de urmărire. Oferă HTML imprimabil; PDF-ul este suplimentar.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                           |
+| ---------- | ------------------------------------------------------------------------------------------ |
+| Conținut   | Denumește secțiunile, proveniența, declarația, acțiunea și mesajele de eroare.             |
+| Date       | Definește sursa, data verificării, mascarea și versiunea valorilor trimise.                |
+| Backend    | Revalidează, aplică idempotency, autorizează, jurnalizează și emite dovada unică.          |
+| Operațiuni | Definește termenul, canalul de ajutor și procedura pentru rezultate incerte sau duplicate. |
+
+## Criterii de acceptare
+
+- Sumarul include toate răspunsurile și documentele relevante, grupate logic.
+- Fiecare „Schimbă” revine la secțiunea corectă fără pierderea celorlalte date.
+- Proveniența este explicată textual, iar identificatorii sensibili sunt mascați.
+- Trimiterea funcționează fără JavaScript și este idempotentă în backend.
+- Stările de procesare, succes și eroare nu se bazează numai pe culoare.
+- Confirmarea conține dovada, identificatorul și pașii următori.
+- Pagina este utilizabilă la tastatură, la zoom și cu cititor de ecran.
+
+## În aplicația de referință
+
+[Solicită o adeverință](/exemple/adeverinta) demonstrează gruparea sumarului, etichetele de proveniență, corectarea contextuală, declarația finală, blocarea trimiterii repetate și confirmarea. [Varianta fără JavaScript](/exemple/adeverinta/fara-javascript) demonstrează contractul HTML server-rendered.
+
+## Dovezi și limite
+
+Prioritatea rezultă din OBS-005, OBS-010, OBS-013, OBS-016 și OBS-024 din [auditul comparativ](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/romania-audit-2026/observations.csv). Formulările și ordinea secțiunilor trebuie validate cu participanții din #40–#42 și cu tehnologii asistive în #53.
