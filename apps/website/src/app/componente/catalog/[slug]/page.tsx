@@ -6,6 +6,7 @@ import {
   CatalogPreview,
   CatalogStatus,
 } from '../../../../components/catalog';
+import { PageFeedback } from '../../../../components/page-feedback';
 import {
   Breadcrumbs,
   PublicFooter,
@@ -55,7 +56,10 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
           items={[
             { label: 'Acasă', href: '/' },
             { label: 'Componente', href: '/componente' },
-            { label: 'Catalog versionat', href: '/componente/catalog' },
+            {
+              label: 'Catalog versionat',
+              href: '/componente/catalog',
+            },
             { label: item.title },
           ]}
         />
@@ -129,12 +133,14 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
                 </li>
                 <li>
                   <a className="sd-link sd-link--external" href={item.sourceHref}>
-                    Codul sursă<span className="sd-visually-hidden"> (site extern)</span>
+                    Codul sursă
+                    <span className="sd-visually-hidden"> (site extern)</span>
                   </a>
                 </li>
                 <li>
                   <a className="sd-link sd-link--external" href={item.changelogHref}>
-                    Changelog<span className="sd-visually-hidden"> (site extern)</span>
+                    Changelog
+                    <span className="sd-visually-hidden"> (site extern)</span>
                   </a>
                 </li>
               </ul>
@@ -143,6 +149,8 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
                 necesită versionare și instrucțiuni de migrare.
               </p>
             </section>
+
+            <PageFeedback pathname={`/componente/catalog/${item.id}`} title={item.title} />
           </article>
         </div>
       </main>
