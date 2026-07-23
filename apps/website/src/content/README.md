@@ -34,6 +34,16 @@ keywords:
 
 Valorile invalide opresc build-ul.
 
+## Validare
+
+Fiecare schimbare editorială trece prin aceleași verificări ca aplicația:
+
+- formatare, lint și TypeScript;
+- compilarea MDX și validarea frontmatter-ului;
+- teste pentru sitemap, breadcrumbs și căutare;
+- axe, tastatură, JavaScript dezactivat și reflow;
+- preview Vercel și regresie vizuală.
+
 ## Reguli
 
 - nu crea liste separate pentru navigație, footer și căutare;
