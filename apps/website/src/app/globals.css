@@ -240,6 +240,121 @@ h3 {
   padding-block: clamp(4rem, 10vw, 8rem);
 }
 
+.sd-reference-page {
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+.sd-reference-intro,
+.sd-reference-flow,
+.sd-reference-result {
+  max-width: var(--sd-layout-reading);
+  padding-block: var(--sd-space-8) clamp(4rem, 8vw, 7rem);
+}
+
+.sd-reference-lead {
+  max-width: 42rem;
+  font-size: clamp(1.12rem, 2vw, 1.3rem);
+}
+
+.sd-reference-notice {
+  margin-block: var(--sd-space-8);
+}
+
+.sd-reference-notice h2,
+.sd-reference-result h2 {
+  font-size: var(--sd-font-size-heading-small);
+}
+
+.sd-reference-checklist {
+  display: grid;
+  gap: var(--sd-space-3);
+  margin-bottom: var(--sd-space-8);
+}
+
+.sd-reference-meta,
+.sd-reference-saved {
+  margin-top: var(--sd-space-4);
+  color: var(--sd-color-text-muted);
+}
+
+.sd-reference-progress {
+  display: grid;
+  grid-template-columns: auto minmax(10rem, 1fr) auto;
+  gap: var(--sd-space-3);
+  align-items: center;
+  margin-bottom: var(--sd-space-10);
+  padding-bottom: var(--sd-space-6);
+  border-bottom: 1px solid var(--sd-color-border);
+  font-size: var(--sd-font-size-body-small);
+  font-weight: var(--sd-font-weight-semibold);
+}
+
+.sd-reference-progress p {
+  margin: 0;
+}
+
+.sd-reference-progress progress {
+  width: 100%;
+  height: 0.75rem;
+  accent-color: var(--sd-color-action-primary-background);
+}
+
+.sd-reference-flow > .sd-error-summary {
+  margin-bottom: var(--sd-space-8);
+}
+
+.sd-reference-flow > .sd-fieldset,
+.sd-reference-flow > .sd-form,
+.sd-reference-flow > .sd-form-group,
+.sd-reference-flow > .sd-summary-list,
+.sd-reference-flow > .sd-details {
+  margin-bottom: var(--sd-space-8);
+}
+
+.sd-reference-flow > .sd-button-group {
+  margin-top: var(--sd-space-8);
+}
+
+.sd-reference-reset {
+  min-height: var(--sd-target-minimum);
+  margin-top: var(--sd-space-8);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--sd-color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.sd-reference-success {
+  display: grid;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: var(--sd-space-6);
+  place-items: center;
+  border-radius: 50%;
+  background: var(--sd-color-feedback-success-background);
+  color: var(--sd-color-feedback-success-text);
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.sd-reference-simulation {
+  margin-top: var(--sd-space-8);
+}
+
+@media (max-width: 42rem) {
+  .sd-reference-progress {
+    grid-template-columns: 1fr auto;
+  }
+
+  .sd-reference-progress progress {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
 .sd-state-page__lead {
   max-width: 42rem;
   margin-bottom: var(--sd-space-8);

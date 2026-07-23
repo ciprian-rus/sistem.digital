@@ -111,6 +111,15 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['pattern', 'pattern-uri', 'servicii publice', 'flux', 'end-to-end'],
         status: 'available',
       },
+      {
+        href: '/exemple/adeverinta',
+        title: 'Serviciu demonstrativ — solicită o adeverință',
+        navigationLabel: 'Serviciu demonstrativ',
+        description:
+          'Aplicație de referință end-to-end: eligibilitate, formular, documente, verificare și status.',
+        keywords: ['serviciu', 'demonstratie', 'adeverinta', 'formular', 'status', 'reluare'],
+        status: 'available',
+      },
     ],
   },
   {
