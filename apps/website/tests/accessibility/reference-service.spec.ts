@@ -58,6 +58,7 @@ test.describe('M4 reference service', () => {
     await page.getByText('Testează o stare de indisponibilitate').click();
     await page.getByLabel('Simulează eroarea temporară la trimitere').check();
     await page.getByRole('button', { name: 'Trimite cererea demonstrativă' }).click();
+    // Next.js also renders an internal route announcer with role=alert.
     await expect(page.locator('.sd-error-summary')).toContainText('temporar indisponibil');
 
     await page.getByLabel('Simulează eroarea temporară la trimitere').uncheck();
