@@ -40,6 +40,21 @@ test.describe('versioned catalog', () => {
     });
   }
 
+  test('has no axe violations on representative detail previews', async ({ page }, testInfo) => {
+    const examples = [
+      ['/componente/catalog/forms-error-summary', 'forms'],
+      ['/componente/catalog/navigation-breadcrumb', 'navigation'],
+      ['/componente/catalog/content-responsive-table', 'content'],
+      ['/componente/catalog/interactive-dialog', 'interactive'],
+      ['/componente/catalog/foundation-themes', 'foundations'],
+    ] as const;
+
+    for (const [pathname, family] of examples) {
+      await page.goto(pathname);
+      await expectNoAxeViolations(page, testInfo, `catalog-detail-axe-${family}`);
+    }
+  });
+
   test('filters server-rendered results and keeps the state in the URL', async ({ page }) => {
     await page.goto('/componente/catalog');
     await page.getByLabel('Tip').selectOption('component');
