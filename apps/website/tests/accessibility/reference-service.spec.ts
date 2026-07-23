@@ -14,13 +14,13 @@ test.describe('M4 reference service', () => {
     ).toBeVisible();
     await page.getByRole('button', { name: 'Începe' }).click();
     await page.getByLabel('Da').check();
-    await page.getByRole('button', { name: 'Continuă' }).click();
+    await page.getByRole('button', { name: 'Continuă', exact: true }).click();
     await page.getByLabel('Fără cont').check();
-    await page.getByRole('button', { name: 'Continuă' }).click();
+    await page.getByRole('button', { name: 'Continuă', exact: true }).click();
     await page.getByLabel('Nume complet').fill('Persoană Exemplu');
     await page.getByLabel('CNP demonstrativ').fill('1990101223344');
-    await page.getByRole('button', { name: 'Continuă' }).click();
-    await page.getByRole('button', { name: 'Continuă' }).click();
+    await page.getByRole('button', { name: 'Continuă', exact: true }).click();
+    await page.getByRole('button', { name: 'Continuă', exact: true }).click();
 
     const results = await new AxeBuilder({ page }).analyze();
     await testInfo.attach('reference-service-review-axe', {
@@ -48,13 +48,13 @@ test.describe('M4 reference service', () => {
       page.getByRole('heading', { name: 'Poți solicita această adeverință?' }),
     ).toBeVisible();
 
-    await page.getByRole('button', { name: 'Continuă' }).click();
+    await page.getByRole('button', { name: 'Continuă', exact: true }).click();
     await page.getByLabel('Fără cont').check();
-    await page.getByRole('button', { name: 'Continuă' }).click();
+    await page.getByRole('button', { name: 'Continuă', exact: true }).click();
     await page.getByLabel('Nume complet').fill('Persoană Exemplu');
     await page.getByLabel('CNP demonstrativ').fill('1990101223344');
-    await page.getByRole('button', { name: 'Continuă' }).click();
-    await page.getByRole('button', { name: 'Continuă' }).click();
+    await page.getByRole('button', { name: 'Continuă', exact: true }).click();
+    await page.getByRole('button', { name: 'Continuă', exact: true }).click();
     await page.getByText('Testează o stare de indisponibilitate').click();
     await page.getByLabel('Simulează eroarea temporară la trimitere').check();
     await page.getByRole('button', { name: 'Trimite cererea demonstrativă' }).click();
