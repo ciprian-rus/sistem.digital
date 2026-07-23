@@ -1,0 +1,188 @@
+@layer sd-base {
+  .sd-catalog-page,
+  .sd-catalog-detail {
+    min-width: 0;
+  }
+
+  .sd-catalog-filters {
+    display: grid;
+    grid-template-columns: minmax(14rem, 2fr) repeat(3, minmax(10rem, 1fr));
+    gap: var(--sd-space-5);
+    align-items: end;
+    margin-block: var(--sd-space-8);
+    padding: var(--sd-space-6);
+    border: 1px solid var(--sd-color-border);
+    border-radius: var(--sd-radius-panel);
+    background: var(--sd-color-surface-subtle);
+  }
+
+  .sd-catalog-filters .sd-form-group {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .sd-catalog-filters :where(.sd-input, .sd-select) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sd-catalog-filter-actions {
+    grid-column: 1 / -1;
+    align-items: center;
+  }
+
+  .sd-catalog-results {
+    display: grid;
+    gap: var(--sd-space-6);
+  }
+
+  .sd-catalog-results__header {
+    display: flex;
+    gap: var(--sd-space-4);
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .sd-catalog-results__header :where(h2, p) {
+    margin: 0;
+  }
+
+  .sd-catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sd-catalog-card {
+    min-width: 0;
+  }
+
+  .sd-catalog-status {
+    display: flex;
+    gap: var(--sd-space-2);
+    align-items: center;
+    flex-wrap: wrap;
+    color: var(--sd-color-text-muted);
+    font-size: var(--sd-font-size-body-small);
+  }
+
+  .sd-catalog-card__metadata {
+    display: grid;
+    gap: var(--sd-space-2);
+    margin: auto 0 0;
+    padding-block-start: var(--sd-space-4);
+    border-block-start: 1px solid var(--sd-color-border);
+  }
+
+  .sd-catalog-card__metadata > div {
+    display: grid;
+    grid-template-columns: minmax(5rem, auto) minmax(0, 1fr);
+    gap: var(--sd-space-3);
+  }
+
+  .sd-catalog-card__metadata :where(dt, dd) {
+    margin: 0;
+  }
+
+  .sd-catalog-card__metadata dt {
+    color: var(--sd-color-text-muted);
+  }
+
+  .sd-catalog-card__metadata dd {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-weight: var(--sd-font-weight-semibold);
+  }
+
+  .sd-catalog-empty {
+    max-width: var(--sd-layout-measure);
+  }
+
+  .sd-catalog-detail__metadata {
+    max-width: 100%;
+  }
+
+  .sd-catalog-detail__section {
+    max-width: var(--sd-layout-measure);
+    padding-block: var(--sd-space-8);
+    border-block-end: 1px solid var(--sd-color-border);
+  }
+
+  .sd-catalog-detail__section > :first-child {
+    margin-block-start: 0;
+  }
+
+  .sd-catalog-detail__section > :last-child {
+    margin-block-end: 0;
+  }
+
+  .sd-catalog-preview .sd-doc-preview__surface {
+    overflow-x: auto;
+  }
+
+  .sd-catalog-code-stack {
+    display: grid;
+    gap: var(--sd-space-4);
+  }
+
+  .sd-catalog-code-stack .sd-doc-code-example {
+    margin-block: var(--sd-space-4);
+  }
+
+  .sd-catalog-install {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: var(--sd-space-4);
+    border: 2px solid var(--sd-color-border-strong);
+    border-radius: var(--sd-radius-control);
+    background: var(--sd-color-surface-strong);
+    color: var(--sd-color-text-inverse);
+    font-family: var(--sd-font-mono);
+  }
+
+  .sd-tag--deprecated {
+    border: 1px solid var(--sd-color-feedback-error-border);
+    background: var(--sd-color-feedback-error-background);
+    color: var(--sd-color-feedback-error-text);
+  }
+
+  @media (max-width: 75rem) {
+    .sd-catalog-filters {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 52rem) {
+    .sd-catalog-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .sd-catalog-filters {
+      grid-template-columns: minmax(0, 1fr);
+      padding: var(--sd-space-4);
+    }
+
+    .sd-catalog-card__metadata > div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sd-space-1);
+    }
+  }
+
+  @media print {
+    .sd-catalog-filters,
+    .sd-catalog-filter-actions,
+    .sd-doc-copy-button {
+      display: none;
+    }
+
+    .sd-catalog-grid {
+      display: block;
+    }
+
+    .sd-catalog-card {
+      break-inside: avoid;
+      margin-block-end: var(--sd-space-5);
+    }
+  }
+}
