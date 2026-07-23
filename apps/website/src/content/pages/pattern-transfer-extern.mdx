@@ -1,0 +1,86 @@
+---
+title: Transfer extern sigur
+description: Păstrează încrederea și continuitatea când serviciul mută persoana către alt operator, domeniu sau mecanism de autentificare.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-07-23
+order: 3
+keywords:
+  - transfer
+  - domeniu
+  - operator
+  - date
+  - autentificare
+  - întoarcere
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să știu unde ajung, cine îmi gestionează datele și cum revin dacă nu pot continua.”
+
+Folosește pattern-ul când o acțiune părăsește domeniul curent, deschide un serviciu operat de altă instituție sau pornește autentificarea, plata ori semnarea într-un sistem transversal.
+
+## Ce explici înainte de transfer
+
+1. numele operatorului și domeniul pe care îl va vedea persoana;
+2. rezultatul acțiunii și motivul pentru care transferul este necesar;
+3. datele care vor fi cerute sau transmise și scopul lor;
+4. dacă sesiunea ori progresul curent se păstrează;
+5. cum revine persoana și unde cere ajutor;
+6. orice limită de timp, fereastră nouă sau cerință tehnică.
+
+Butonul trebuie să numească destinația sau acțiunea: „Continuă la Ghișeul.ro pentru plată”, nu „Click aici”.
+
+<Callout title="Schimbarea domeniului nu trebuie să fie o surpriză" type="warning">
+  <p>
+    Sigla instituției nu este suficientă. Arată operatorul, domeniul și motivul înainte ca persoana
+    să părăsească serviciul.
+  </p>
+</Callout>
+
+## După întoarcere
+
+- Confirmă rezultatul primit de la serviciul extern.
+- Nu cere repetarea datelor deja confirmate.
+- Recuperează pasul și contextul anterior.
+- Pentru eșec sau abandon, explică ce s-a păstrat și oferă „Încearcă din nou” plus o alternativă.
+- Nu marca plata, autentificarea ori semnarea drept finalizată numai pentru că persoana a revenit pe domeniu.
+
+## Fără cont și fără JavaScript
+
+- Linkul către destinație trebuie să fie un element HTML real, cu o pagină intermediară lizibilă fără JavaScript.
+- Păstrează un identificator opac de corelare pe server; nu pune date personale în URL.
+- Dacă întoarcerea automată nu funcționează, oferă instrucțiuni și o adresă sigură la care persoana poate reveni.
+- Nu deschide o fereastră nouă decât dacă este necesar; anunță acest comportament în textul linkului.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                          |
+| ---------- | --------------------------------------------------------------------------------------------------------- |
+| Conținut   | Numește operatorul, explică motivul, pașii de întoarcere și canalul de ajutor.                            |
+| Date       | Definește minimul de date transferate, scopul, temeiul, retenția și jurnalizarea.                         |
+| Backend    | Folosește redirecturi validate, stare anti-CSRF, expirare, idempotency și verificarea răspunsului semnat. |
+| Operațiuni | Menține contactele de incident și responsabilitatea clară între operatori.                                |
+
+## Stări obligatorii
+
+Documentează separat transferul pregătit, transferul în curs, întoarcerea reușită, anularea, expirarea, indisponibilitatea destinației și răspunsul invalid. Pentru fiecare stare spune ce date s-au păstrat și ce poate face persoana.
+
+## Criterii de acceptare
+
+- Destinația și operatorul sunt vizibile înaintea acțiunii.
+- Datele personale nu apar în URL și nu sunt retrimise inutil.
+- Întoarcerea reia serviciul în pasul corect.
+- Eșecul extern nu șterge progresul și nu produce o confirmare falsă.
+- Transferul poate fi inițiat, abandonat și reluat cu tastatura și fără JavaScript client.
+
+## În aplicația de referință
+
+Serviciul demonstrativ nu transferă încă date către un operator real. Alegerea autentificării arată locul în care acest pattern trebuie aplicat înaintea integrării ROeID sau a altui furnizor.
+
+## Dovezi și limite
+
+Prioritatea rezultă din observațiile OBS-001, OBS-007, OBS-011, OBS-012, OBS-016, OBS-019 și OBS-022 din [auditul comparativ](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/romania-audit-2026/observations.csv). Contractele concrete de securitate trebuie validate pentru fiecare integrare.

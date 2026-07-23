@@ -1,0 +1,101 @@
+---
+title: Status, confirmare și reluare
+description: Oferă dovada depunerii, explică progresul și permite completarea sau reluarea unei cereri fără pierderea contextului.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-07-23
+order: 4
+keywords:
+  - status
+  - confirmare
+  - reluare
+  - completări
+  - notificări
+  - dosar
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau dovada că instituția a primit cererea, să știu ce se întâmplă și să pot continua fără să o iau de la început.”
+
+Pattern-ul începe înaintea trimiterii, prin explicarea efectului acțiunii, și continuă până la rezultat, retragere sau contestare.
+
+## Confirmarea depunerii
+
+Afișează imediat:
+
+- rezultatul clar: primit, nu doar „succes”;
+- numărul de înregistrare și data/ora;
+- rezumatul cererii și canalul de livrare;
+- statusul inițial și următorul pas;
+- termenul estimat sau legal;
+- modul de urmărire și contactul pentru ajutor;
+- o confirmare descărcabilă în HTML imprimabil; PDF-ul este suplimentar.
+
+Nu afișa confirmarea dacă backend-ul nu a acceptat cererea. La timeout, spune că rezultatul este necunoscut și verifică idempotent înainte de retrimitere.
+
+## Vocabularul de status
+
+Folosește puține stări orientate spre utilizator:
+
+| Status              | Ce înseamnă                                                          | Acțiunea persoanei                                |
+| ------------------- | -------------------------------------------------------------------- | ------------------------------------------------- |
+| Salvată, netrimisă  | Progresul există, instituția nu a primit cererea.                    | Continuă sau șterge ciorna.                       |
+| Primită             | Cererea are număr de înregistrare.                                   | Nu este necesară nicio acțiune.                   |
+| În verificare       | Instituția verifică datele și documentele.                           | Așteaptă până la termenul afișat.                 |
+| Necesită completări | Lipsesc informații precise.                                          | Completează până la data indicată.                |
+| Soluționată         | Rezultatul este disponibil sau a fost transmis.                      | Descarcă, ridică sau citește decizia.             |
+| Închisă             | Fluxul s-a încheiat prin retragere, expirare sau alt motiv explicat. | Vezi alternativa sau contestă, dacă este posibil. |
+
+Statusul trebuie să includă data ultimei actualizări și istoricul schimbărilor importante.
+
+## Reluarea și completările
+
+- Salvează explicit și confirmă unde, cât timp și pe ce dispozitiv poate fi reluată ciorna.
+- Pentru reluare fără cont, folosește un cod sau link cu expirare și un al doilea factor adecvat riscului.
+- Cere numai câmpurile sau documentele care trebuie completate și păstrează restul răspunsurilor.
+- Explică termenul, consecința necompletării și persoana sau compartimentul care poate ajuta.
+- Jurnalizează completarea ca eveniment nou; nu rescrie silențios cererea depusă.
+
+<Callout title="Notificarea nu este statusul" type="success">
+  <p>
+    Emailul sau SMS-ul anunță schimbarea. Sursa de adevăr rămâne pagina de status, care arată
+    contextul, istoricul și acțiunea necesară.
+  </p>
+</Callout>
+
+## Fără cont și fără JavaScript
+
+- Confirmarea și pagina de status trebuie să fie HTML server-rendered și imprimabile.
+- Oferă număr de înregistrare plus o metodă sigură de verificare fără cont, proporțională cu sensibilitatea datelor.
+- Formularul de completări trebuie să funcționeze prin submit HTTP normal; JavaScript poate preveni erori, nu poate fi singura cale.
+- Notificările trebuie să evite datele sensibile și să trimită persoana la sursa autentică.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                    |
+| ---------- | --------------------------------------------------------------------------------------------------- |
+| Conținut   | Definește etichetele, explicațiile, acțiunile și mesajele pentru întârzieri sau respingere.         |
+| Date       | Definește sursa de adevăr, istoricul, termenul, actualizarea și accesul la status.                  |
+| Backend    | Asigură numere unice, idempotency, audit, autorizare, notificări și conservarea versiunilor depuse. |
+| Operațiuni | Menține SLA-urile, gestionează excepțiile și răspunde canalelor de ajutor și contestare.            |
+
+## Criterii de acceptare
+
+- Fiecare cerere acceptată are dovadă și număr unic.
+- Persoana distinge fără ambiguitate o ciornă de o cerere depusă.
+- Fiecare status explică sensul, data și acțiunea necesară.
+- Reluarea și completările păstrează răspunsurile valide.
+- Timeout-ul sau dubla apăsare nu creează cereri duplicate.
+- Confirmarea și statusul sunt utilizabile la tastatură, cu cititor de ecran și fără JavaScript.
+
+## În aplicația de referință
+
+[Solicită o adeverință](/exemple/adeverinta) demonstrează salvarea locală, reluarea, prevenirea confirmării la indisponibilitate, numărul de înregistrare, statusul inițial și termenul estimat.
+
+## Dovezi și limite
+
+Prioritatea rezultă din observațiile OBS-010, OBS-013, OBS-016 și OBS-024 din [auditul comparativ](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/romania-audit-2026/observations.csv). Terminologia și mecanismele fără cont trebuie validate cu utilizatori și pe servicii cu niveluri diferite de risc.
