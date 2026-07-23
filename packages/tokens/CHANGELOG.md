@@ -5,6 +5,7 @@
 ### OIDC release verification
 
 - release coordonat pentru validarea npm Trusted Publishing prin GitHub Actions;
+- publicare prin OIDC, fără credential npm persistent în workflow;
 - conținutul public și API-ul pachetului rămân neschimbate față de alpha inițial.
 
 ## 0.1.0-alpha.0
