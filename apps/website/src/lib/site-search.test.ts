@@ -24,6 +24,7 @@ describe('site search', () => {
       '/componente/catalog/forms-error-summary',
     );
     expect(searchSite('teme funcționale')[0]?.href).toBe('/componente/catalog/foundation-themes');
+    expect(searchSite('enhanceDialogs')[0]?.href).toBe('/componente/catalog/interactive-dialog');
   });
 
   it('keeps family pages for broad multi-component queries', () => {
@@ -34,9 +35,26 @@ describe('site search', () => {
     expect(searchSite('fundamente')[0]?.href).toBe('/fundamente');
     expect(searchSite('template starter')[0]?.href).toBe('/template-uri');
     expect(searchSite('ghid adopție')[0]?.href).toBe('/ghiduri');
+    expect(searchSite('confidențialitate retenție')[0]?.href).toBe('/guvernanta/masurare');
   });
 
-  it('requires all query terms', () => {
+  it('uses Romanian public-language synonyms without replacing direct matches', () => {
+    expect(searchSite('șablon')[0]?.href).toBe('/template-uri');
+    expect(searchSite('antet').some((entry) => entry.href === '/componente/navigatie')).toBe(true);
+    expect(searchSite('subsol').some((entry) => entry.title === 'Footer')).toBe(true);
+  });
+
+  it('filters results by the canonical content section', () => {
+    expect(searchSite('dialog', { section: 'guides' })).toEqual([]);
+    expect(searchSite('dialog', { section: 'components' }).length).toBeGreaterThan(0);
+    expect(
+      searchSite('fundamente', { section: 'foundations' }).every(
+        (entry) => entry.section === 'foundations',
+      ),
+    ).toBe(true);
+  });
+
+  it('requires all query concepts', () => {
     expect(searchSite('formular eroare')[0]?.href).toBe('/componente/formulare');
     expect(searchSite('formular roadmap')).toEqual([]);
   });
