@@ -81,10 +81,10 @@ export function filterCatalogItems({
   query,
   status,
 }: Readonly<{
-  family?: string;
-  kind?: CatalogKind;
-  query?: string;
-  status?: CatalogStatus;
+  family?: string | undefined;
+  kind?: CatalogKind | undefined;
+  query?: string | undefined;
+  status?: CatalogStatus | undefined;
 }>): readonly CatalogItem[] {
   const normalizedQuery = query?.trim().toLocaleLowerCase('ro-RO') ?? '';
   return catalogItems.filter((item) => {
