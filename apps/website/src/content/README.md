@@ -42,6 +42,7 @@ Fiecare schimbare editorială trece prin aceleași verificări ca aplicația:
 - compilarea MDX și validarea frontmatter-ului;
 - teste pentru sitemap, breadcrumbs și căutare;
 - axe, tastatură, JavaScript dezactivat și reflow;
+- auditul dependențelor și scanarea semnăturilor de secrete;
 - preview Vercel și regresie vizuală.
 
 ## Reguli
