@@ -1,10 +1,10 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const tag = process.env.GITHUB_REF_NAME;
+const tag = process.env.RELEASE_TAG ?? process.env.GITHUB_REF_NAME;
 
 if (!tag) {
-  console.error('GITHUB_REF_NAME is required.');
+  console.error('RELEASE_TAG or GITHUB_REF_NAME is required.');
   process.exit(1);
 }
 
