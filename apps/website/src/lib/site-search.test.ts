@@ -7,18 +7,29 @@ describe('site search', () => {
     expect(normalizeSearchText(' Căutare, NAVIGAȚIE! ')).toBe('cautare navigatie');
   });
 
-  it('finds the navigation page without diacritics', () => {
-    expect(searchSite('navigatie')[0]?.href).toBe('/componente/navigatie');
+  it('finds the navigation family without diacritics', () => {
+    expect(searchSite('navigatie structura')[0]?.href).toBe('/componente/navigatie');
   });
 
-  it('finds content and data components by their public concepts', () => {
+  it('finds content and data documentation by public concepts', () => {
     expect(searchSite('tabel status')[0]?.href).toBe('/componente/continut-date');
     expect(searchSite('conținut')[0]?.href).toBe('/componente/continut-date');
   });
 
-  it('finds interactive components by ARIA pattern names', () => {
+  it('finds individual versioned catalog entries', () => {
+    expect(searchSite('autocomplete')[0]?.href).toBe(
+      '/componente/catalog/interactive-autocomplete',
+    );
+    expect(searchSite('rezumatul erorilor')[0]?.href).toBe(
+      '/componente/catalog/forms-error-summary',
+    );
+    expect(searchSite('teme funcționale')[0]?.href).toBe(
+      '/componente/catalog/foundation-themes',
+    );
+  });
+
+  it('keeps family pages for broad multi-component queries', () => {
     expect(searchSite('dialog tabs')[0]?.href).toBe('/componente/interactive');
-    expect(searchSite('autocomplete')[0]?.href).toBe('/componente/interactive');
   });
 
   it('indexes all top-level documentation categories', () => {
