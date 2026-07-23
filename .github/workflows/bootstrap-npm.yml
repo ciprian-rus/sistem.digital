@@ -132,8 +132,8 @@ jobs:
           set -euo pipefail
           shopt -s nullglob
           test -n "${NODE_AUTH_TOKEN}"
-          tokens=(release-artifacts/sistem-digital-tokens-*.tgz)
-          components=(release-artifacts/sistem-digital-components-*.tgz)
+          tokens=(./release-artifacts/sistem-digital-tokens-*.tgz)
+          components=(./release-artifacts/sistem-digital-components-*.tgz)
           test "${#tokens[@]}" -eq 1
           test "${#components[@]}" -eq 1
           npm publish "${tokens[0]}" --access public --tag next
