@@ -23,6 +23,8 @@ Pentru M3 folosim:
 - sitemap-ul canonic din `src/content/site-map.ts` pentru navigație, breadcrumbs și căutare;
 - Git și pull requests drept flux editorial și de aprobare.
 
+Versiunile pluginurilor MDX și remark sunt blocate în catalogul pnpm, iar compilarea folosește lockfile-ul verificat pentru rezultate reproductibile.
+
 Nu introducem CMS în MVP.
 
 ## Contractul frontmatter
