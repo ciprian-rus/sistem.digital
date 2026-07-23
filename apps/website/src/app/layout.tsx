@@ -8,6 +8,7 @@ import './base.css';
 import './documentation.css';
 import './catalog.css';
 import './feedback.css';
+import './tree-testing.css';
 import '@sistem-digital/components/forms.css';
 import '@sistem-digital/components/navigation.css';
 import '@sistem-digital/components/content.css';

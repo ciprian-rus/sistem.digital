@@ -44,18 +44,18 @@ Participanții aleg locul în care s-ar aștepta să găsească răspunsul pentr
 
 ## Răspunsuri așteptate
 
-| Sarcină | Destinație principală |
-| --- | --- |
-| 1 | Fundamente → Culori și teme |
-| 2 | Componente → Formulare |
-| 3 | Pattern-uri |
-| 4 | Template-uri |
-| 5 | Ghiduri → Content design |
-| 6 | Guvernanță → RFC și contribuții |
-| 7 | Componente → Interactive |
-| 8 | Ghiduri → Achiziții și adopție |
-| 9 | pagina componentei sau catalogul versionat |
-| 10 | Guvernanță → Securitate |
+| Sarcină | Destinație principală                      |
+| ------- | ------------------------------------------ |
+| 1       | Fundamente → Culori și teme                |
+| 2       | Componente → Formulare                     |
+| 3       | Pattern-uri                                |
+| 4       | Template-uri                               |
+| 5       | Ghiduri → Content design                   |
+| 6       | Guvernanță → RFC și contribuții            |
+| 7       | Componente → Interactive                   |
+| 8       | Ghiduri → Achiziții și adopție             |
+| 9       | pagina componentei sau catalogul versionat |
+| 10      | Guvernanță → Securitate                    |
 
 ## Indicatori
 
@@ -88,6 +88,23 @@ Un prag ratat produce modificarea denumirilor sau structurii și o rundă de ret
 5. rezultatele sunt anonimizate;
 6. observațiile sunt grupate pe rol și sarcină;
 7. deciziile rezultate sunt publicate în issue #54.
+
+## Instrument public
+
+Testul este disponibil la `/cercetare/tree-testing`. Instrumentul:
+
+- randomizează ordinea celor 10 sarcini pentru fiecare participant;
+- prezintă exclusiv arborele textual, fără căutare sau indicii vizuale din platformă;
+- măsoară prima categorie, traseul, alegerea finală, timpul și încrederea;
+- colectează rolul general și opțiunea privind nevoile de accesibilitate, fără nume, e-mail sau
+  cont;
+- permite un singur răspuns pe instalarea browserului și oferă participantului o copie JSON;
+- validează strict payloadul și colectează numai răspunsurile trimise pe domeniul Production;
+- păstrează temporar răspunsurile brute în logurile Vercel, apoi publică numai agregări și
+  observații anonimizate.
+
+Pagina rămâne `noindex` pe durata studiului. După atingerea eșantionului și publicarea raportului,
+endpointul de colectare este dezactivat sau mutat într-o rundă nouă versionată.
 
 ## Limitări
 
