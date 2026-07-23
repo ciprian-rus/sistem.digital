@@ -1,0 +1,198 @@
+name: Bootstrap npm packages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .release/bootstrap/v0.1.0-alpha.0
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+  artifact-metadata: write
+
+concurrency:
+  group: bootstrap-npm-v0.1.0-alpha.0
+  cancel-in-progress: false
+
+jobs:
+  bootstrap:
+    name: Publish first npm release
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: npm
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Require exact bootstrap marker
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF_NAME}" = "main"
+          grep -Fx 'v0.1.0-alpha.0' .release/bootstrap/v0.1.0-alpha.0
+
+      - name: Refuse an existing or partial npm release
+        shell: bash
+        run: |
+          set -euo pipefail
+          for package in \
+            '@sistem-digital/tokens' \
+            '@sistem-digital/components'
+          do
+            status="$(
+              curl \
+                --silent \
+                --show-error \
+                --output /dev/null \
+                --write-out '%{http_code}' \
+                "https://registry.npmjs.org/${package/@/%40}"
+            )"
+            test "${status}" = "404" || {
+              echo "::error::${package} returned HTTP ${status}; bootstrap is allowed only while both packages are absent."
+              exit 1
+            }
+          done
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js and npm registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install exact dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate coordinated version
+        id: release
+        env:
+          GITHUB_REF_NAME: v0.1.0-alpha.0
+        run: node scripts/check-release-tag.mjs
+
+      - name: Run release quality gates
+        run: |
+          pnpm check
+          pnpm docs:check
+          pnpm secrets:check
+          pnpm audit:ci
+
+      - name: Build public packages
+        run: pnpm --filter "./packages/*" --if-present build
+
+      - name: Create and verify release artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/pack-public-packages.mjs release-artifacts
+          pnpm release:pack:check
+          pnpm release:static
+          pnpm release:static:check
+          pnpm sbom \
+            --sbom-format cyclonedx \
+            --sbom-type application \
+            --lockfile-only \
+            > release-artifacts/sbom.cdx.json
+          (
+            cd release-artifacts
+            tarballs=(./*.tgz)
+            test -e "${tarballs[0]}"
+            sha256sum ./*.tgz ./*.zip ./sbom.cdx.json > SHA256SUMS
+            sha256sum --check SHA256SUMS
+          )
+
+      - name: Attest release artifact provenance
+        uses: actions/attest@v4
+        with:
+          subject-checksums: release-artifacts/SHA256SUMS
+
+      - name: Attest release SBOM
+        uses: actions/attest@v4
+        with:
+          subject-path: release-artifacts/*.tgz
+          sbom-path: release-artifacts/sbom.cdx.json
+
+      - name: Publish the one-time bootstrap release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          test -n "${NODE_AUTH_TOKEN}"
+          tokens=(release-artifacts/sistem-digital-tokens-*.tgz)
+          components=(release-artifacts/sistem-digital-components-*.tgz)
+          test "${#tokens[@]}" -eq 1
+          test "${#components[@]}" -eq 1
+          npm publish "${tokens[0]}" --access public --tag next
+          npm publish "${components[0]}" --access public --tag next
+
+      - name: Verify the public registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          for package in \
+            '@sistem-digital/tokens' \
+            '@sistem-digital/components'
+          do
+            for attempt in {1..12}; do
+              version="$(npm view "${package}@next" version 2>/dev/null || true)"
+              if [[ "${version}" = "0.1.0-alpha.0" ]]; then
+                break
+              fi
+              if [[ "${attempt}" = 12 ]]; then
+                echo "::error::${package}@next was not visible in the public registry."
+                exit 1
+              fi
+              sleep 5
+            done
+          done
+
+      - name: Validate installation in a clean project
+        shell: bash
+        run: |
+          set -euo pipefail
+          test_project="${RUNNER_TEMP}/sistem-digital-install"
+          mkdir -p "${test_project}"
+          cd "${test_project}"
+          npm init --yes
+          npm install \
+            @sistem-digital/tokens@next \
+            @sistem-digital/components@next
+          node --input-type=module -e \
+            "await import('@sistem-digital/tokens'); await import('@sistem-digital/components')"
+          node -e \
+            "require('@sistem-digital/tokens'); require('@sistem-digital/components')"
+
+      - name: Create GitHub prerelease and attach artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create v0.1.0-alpha.0 \
+            --target "${GITHUB_SHA}" \
+            --prerelease \
+            --title "Sistem Digital v0.1.0-alpha.0" \
+            --notes "Primul release public instalabil al pachetelor Sistem Digital. Include pachetele npm, bundle-ul static, SBOM CycloneDX, checksum-uri și provenance verificabil." \
+            release-artifacts/*
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bootstrap-v0.1.0-alpha.0
+          path: release-artifacts
+          if-no-files-found: error
+          retention-days: 90
