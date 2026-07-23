@@ -16,9 +16,9 @@ describe('canonical site map', () => {
 
   it('gives every section an available landing page', () => {
     for (const section of siteSections) {
-      expect(section.pages.some((page) => page.href === section.href && page.status === 'available')).toBe(
-        true,
-      );
+      expect(
+        section.pages.some((page) => page.href === section.href && page.status === 'available'),
+      ).toBe(true);
     }
   });
 

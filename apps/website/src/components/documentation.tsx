@@ -1,18 +1,9 @@
 import type { ReactNode } from 'react';
 
 import type { DocumentationFrontmatter, DocumentationStatus } from '../content/documentation';
-import {
-  findSiteSection,
-  getSectionNavigation,
-  getSiteBreadcrumbs,
-} from '../content/site-map';
+import { findSiteSection, getSectionNavigation, getSiteBreadcrumbs } from '../content/site-map';
 import { CopyCodeButton } from './copy-code';
-import {
-  Breadcrumbs,
-  PublicFooter,
-  PublicHeader,
-  ServiceNavigation,
-} from './public-shell';
+import { Breadcrumbs, PublicFooter, PublicHeader, ServiceNavigation } from './public-shell';
 
 const statusLabels: Record<DocumentationStatus, string> = {
   alpha: 'Alpha',

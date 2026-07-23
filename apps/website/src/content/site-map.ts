@@ -1,10 +1,5 @@
 export type SiteSectionId =
-  | 'foundations'
-  | 'components'
-  | 'patterns'
-  | 'templates'
-  | 'guides'
-  | 'governance';
+  'foundations' | 'components' | 'patterns' | 'templates' | 'guides' | 'governance';
 
 export type SitePageStatus = 'available' | 'planned';
 
@@ -196,5 +191,9 @@ export function getSiteBreadcrumbs(pathname: string): readonly { href?: string; 
 }
 
 export function getAvailableSitePaths(): readonly string[] {
-  return ['/', '/cautare', ...sitePages.filter((page) => page.status === 'available').map((page) => page.href)];
+  return [
+    '/',
+    '/cautare',
+    ...sitePages.filter((page) => page.status === 'available').map((page) => page.href),
+  ];
 }

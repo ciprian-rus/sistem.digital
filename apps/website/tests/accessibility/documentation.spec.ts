@@ -68,10 +68,15 @@ test.describe('M3 documentation platform', () => {
   });
 
   test('keeps essential documentation readable without JavaScript', async ({ browser }) => {
-    const page = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 800, height: 900 } });
+    const page = await browser.newPage({
+      javaScriptEnabled: false,
+      viewport: { width: 800, height: 900 },
+    });
     try {
       await page.goto('/ghiduri');
-      await expect(page.getByRole('heading', { name: 'Ghiduri de implementare și adopție' })).toBeVisible();
+      await expect(
+        page.getByRole('heading', { name: 'Ghiduri de implementare și adopție' }),
+      ).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Pentru dezvoltatori' })).toBeVisible();
       await expect(page.getByText('Conținutul este parte din serviciu')).toBeVisible();
     } finally {
@@ -79,7 +84,9 @@ test.describe('M3 documentation platform', () => {
     }
   });
 
-  test('offers an accessible code copy action while keeping the code selectable', async ({ page }) => {
+  test('offers an accessible code copy action while keeping the code selectable', async ({
+    page,
+  }) => {
     await page.goto('/fundamente');
     const button = page.getByRole('button', { name: 'Copiază codul' });
     const code = page.getByLabel(/Importul minim al fundației; cod css/iu);

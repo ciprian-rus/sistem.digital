@@ -38,10 +38,7 @@ describe('documentation frontmatter', () => {
     ).toThrow(/YYYY-MM-DD/u);
 
     expect(() =>
-      validateDocumentationFrontmatter(
-        { ...validFrontmatter, order: 1.5 },
-        'invalid-order.mdx',
-      ),
+      validateDocumentationFrontmatter({ ...validFrontmatter, order: 1.5 }, 'invalid-order.mdx'),
     ).toThrow(/număr întreg/u);
   });
 

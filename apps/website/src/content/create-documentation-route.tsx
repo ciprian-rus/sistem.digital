@@ -1,10 +1,7 @@
 import type { ComponentType } from 'react';
 
 import { DocumentationPage } from '../components/documentation';
-import {
-  createDocumentationMetadata,
-  validateDocumentationFrontmatter,
-} from './documentation';
+import { createDocumentationMetadata, validateDocumentationFrontmatter } from './documentation';
 
 export function createDocumentationRoute({
   Content,

@@ -19,11 +19,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-function requireString(
-  record: Record<string, unknown>,
-  key: string,
-  source: string,
-): string {
+function requireString(record: Record<string, unknown>, key: string, source: string): string {
   const value = record[key];
   if (typeof value !== 'string' || value.trim().length === 0) {
     throw new Error(`${source}: frontmatter.${key} trebuie să fie un text nevid.`);
@@ -35,7 +31,8 @@ export function validateDocumentationFrontmatter(
   value: unknown,
   source: string,
 ): DocumentationFrontmatter {
-  if (!isRecord(value)) throw new Error(`${source}: frontmatter-ul lipsește sau nu este un obiect.`);
+  if (!isRecord(value))
+    throw new Error(`${source}: frontmatter-ul lipsește sau nu este un obiect.`);
 
   const title = requireString(value, 'title', source);
   const description = requireString(value, 'description', source);

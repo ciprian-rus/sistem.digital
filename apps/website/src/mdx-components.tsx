@@ -1,12 +1,7 @@
 import type { MDXComponents } from 'mdx/types';
 import type { ComponentPropsWithoutRef } from 'react';
 
-import {
-  Callout,
-  CodeExample,
-  ComponentStatus,
-  Preview,
-} from './components/documentation';
+import { Callout, CodeExample, ComponentStatus, Preview } from './components/documentation';
 
 function MdxLink(props: ComponentPropsWithoutRef<'a'>) {
   return <a className="sd-link" {...props} />;
