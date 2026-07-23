@@ -44,6 +44,14 @@ jobs:
       - name: Pack release candidates
         run: node scripts/pack-public-packages.mjs release-artifacts
 
+      - name: Verify npm package contracts
+        run: pnpm release:pack:check
+
+      - name: Build and reproduce static release
+        run: |
+          pnpm release:static
+          pnpm release:static:check
+
       - name: Generate CycloneDX SBOM
         shell: bash
         run: |
@@ -52,7 +60,7 @@ jobs:
             --sbom-format cyclonedx \
             --sbom-type application \
             --lockfile-only \
-            --out release-artifacts/sbom.cdx.json
+            > release-artifacts/sbom.cdx.json
           node -e "const sbom = require('./release-artifacts/sbom.cdx.json'); if (sbom.bomFormat !== 'CycloneDX') process.exit(1)"
 
       - name: Generate and verify hashes
@@ -63,7 +71,7 @@ jobs:
             cd release-artifacts
             tarballs=(./*.tgz)
             test -e "${tarballs[0]}"
-            sha256sum ./*.tgz ./sbom.cdx.json > SHA256SUMS
+            sha256sum ./*.tgz ./*.zip ./sbom.cdx.json > SHA256SUMS
             sha256sum --check SHA256SUMS
           )
 

@@ -81,16 +81,19 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/pack-public-packages.mjs release-artifacts
+          pnpm release:pack:check
+          pnpm release:static
+          pnpm release:static:check
           pnpm sbom \
             --sbom-format cyclonedx \
             --sbom-type application \
             --lockfile-only \
-            --out release-artifacts/sbom.cdx.json
+            > release-artifacts/sbom.cdx.json
           (
             cd release-artifacts
             tarballs=(./*.tgz)
             test -e "${tarballs[0]}"
-            sha256sum ./*.tgz ./sbom.cdx.json > SHA256SUMS
+            sha256sum ./*.tgz ./*.zip ./sbom.cdx.json > SHA256SUMS
             sha256sum --check SHA256SUMS
           )
 

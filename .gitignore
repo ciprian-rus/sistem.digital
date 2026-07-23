@@ -7,5 +7,6 @@
 coverage/
 dist/
 dist-cjs/
+release-artifacts/
 node_modules/
 *.tsbuildinfo
