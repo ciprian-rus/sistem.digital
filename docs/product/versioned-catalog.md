@@ -70,6 +70,8 @@ Fiecare intrare are un singur câmp `markup`. Același șir este:
 
 Nu menținem o componentă demonstrativă separată de exemplul copiat de utilizator.
 
+Landmark-urile demonstrative primesc etichete accesibile cu sufixul intrării de catalog. Astfel, un preview de header, navigație, breadcrumb, căutare sau pagination nu intră în conflict cu landmark-urile reale ale paginii de documentație. Modificarea este aplicată aceluiași șir folosit în preview și în cod.
+
 ## Versionare
 
 Versiunea este explicită pentru fiecare intrare. Înaintea unui release:
