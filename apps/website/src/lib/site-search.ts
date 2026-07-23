@@ -1,3 +1,5 @@
+import { siteSections } from '../content/site-map';
+
 export interface SearchEntry {
   href: string;
   title: string;
@@ -7,73 +9,17 @@ export interface SearchEntry {
 }
 
 export const searchEntries: readonly SearchEntry[] = [
-  {
-    href: '/componente/formulare',
-    title: 'Formulare și validare',
-    description: 'Input, textarea, select, checkbox, radio, upload și mesaje de eroare.',
-    category: 'Componente',
-    keywords: ['formular', 'formulare', 'validare', 'eroare', 'input', 'checkbox', 'radio'],
-  },
-  {
-    href: '/componente/navigatie',
-    title: 'Navigație și structură instituțională',
-    description: 'Header, footer, meniu mobil, breadcrumb, căutare și autenticitatea domeniului.',
-    category: 'Componente',
-    keywords: ['navigatie', 'navigație', 'header', 'footer', 'breadcrumb', 'meniu', 'cautare'],
-  },
-  {
-    href: '/componente/continut-date',
-    title: 'Conținut și afișare a datelor',
-    description: 'Mesaje, carduri, statusuri, tabele, summary list, details și pagination.',
-    category: 'Componente',
-    keywords: [
-      'continut',
-      'conținut',
-      'date',
-      'tabel',
-      'table',
-      'card',
-      'status',
-      'summary list',
-      'details',
-      'pagination',
-      'metadata',
-    ],
-  },
-  {
-    href: '/componente/interactive',
-    title: 'Componente interactive',
-    description: 'Accordion, dialog, tabs, pași, dată, autocomplete și upload avansat.',
-    category: 'Componente',
-    keywords: [
-      'interactiv',
-      'interactive',
-      'accordion',
-      'dialog',
-      'modal',
-      'tabs',
-      'step indicator',
-      'date picker',
-      'autocomplete',
-      'combobox',
-      'file upload',
-      'regresie vizuala',
-    ],
-  },
-  {
-    href: '/#teme',
-    title: 'Teme funcționale',
-    description: 'Light, dark, high-contrast, forced colors și accente instituționale controlate.',
-    category: 'Fundamente',
-    keywords: ['tema', 'teme', 'dark', 'contrast', 'culori', 'forced colors'],
-  },
-  {
-    href: '/#fundatie',
-    title: 'Design tokens și distribuție',
-    description: 'Token-uri DTCG, CSS, JSON, TypeScript, ESM și CommonJS.',
-    category: 'Fundamente',
-    keywords: ['token', 'tokens', 'dtcg', 'css', 'json', 'typescript', 'npm'],
-  },
+  ...siteSections.flatMap((section) =>
+    section.pages
+      .filter((page) => page.status === 'available')
+      .map((page) => ({
+        href: page.href,
+        title: page.title,
+        description: page.description,
+        category: section.title,
+        keywords: page.keywords,
+      })),
+  ),
   {
     href: 'https://github.com/users/ciprian-rus/projects/5',
     title: 'Roadmap Sistem Digital',

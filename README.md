@@ -45,10 +45,20 @@ Sistem Digital este inițial un proiect open-source independent. El poate deveni
 - [Tipografie, spațiere, layout, focus și motion](docs/product/typography-layout-motion.md)
 - [Politica generală de personalizare instituțională](docs/product/customization-policy.md)
 - [Terminologia canonică a proiectului](docs/product/terminology.md)
+- [Arhitectura informației pentru sistem.digital](docs/product/information-architecture.md)
+
+## Platforma editorială M3
+
+Documentația publică folosește Next.js App Router și MDX local versionat. Frontmatter-ul este validat la build, iar navigația, breadcrumbs și căutarea sunt derivate dintr-un sitemap canonic.
+
+- [ADR — App Router și MDX local](docs/architecture/adr/mdx-editorial-platform.md)
+- [Ghidul de content design în limba română](docs/content/content-style-guide.md)
+- [Protocolul de tree testing M3](docs/research/tree-testing-m3.md)
+- [Catalogul public](https://sistem.digital/componente)
 
 ## Cercetare
 
-M1 pornește de la dovezi comparabile și ipoteze locale explicite. Cercetarea de birou este publică, iar cercetarea cu cetățeni, persoane cu dizabilități, funcționari și furnizori va fi adăugată etapizat.
+Cercetarea de birou este publică, iar cercetarea cu cetățeni, persoane cu dizabilități, funcționari și furnizori este adăugată etapizat.
 
 - [Indexul cercetării](docs/research/README.md)
 - [Audit comparativ al sistemelor mature](docs/research/comparative-audit.md)
@@ -127,12 +137,11 @@ Regulile recomandate pentru branch-ul principal sunt documentate în [Protecția
 
 ```text
 apps/
-  website/             # platforma sistem.digital
-  playground/          # laborator interactiv
-  reference-service/   # serviciu public demonstrativ
+  website/
+    src/content/          # sitemap canonic și conținut MDX
+    src/app/              # routing și pagini publice
 packages/
   tokens/
-  styles/
   components/
   web-components/
   react/
@@ -146,6 +155,7 @@ starters/
 docs/
   product/
   research/
+  content/
   architecture/
   governance/
   accessibility/
@@ -155,7 +165,7 @@ docs/
 
 ## Stadiu și planificare
 
-**M0 — Fundația proiectului** este finalizat. Proiectul se află în **M2 — Biblioteca de componente MVP accesibile**.
+**M0 — Fundația proiectului** este finalizat. **M2 — Biblioteca de componente MVP** este complet tehnic în stadiu alpha și așteaptă auditul manual #53. Proiectul se află în **M3 — Platforma publică și catalogul interactiv**.
 
 - [Roadmap public — GitHub Project](https://github.com/users/ciprian-rus/projects/5)
 - [Backlog — GitHub Issues](https://github.com/ciprian-rus/sistem.digital/issues)

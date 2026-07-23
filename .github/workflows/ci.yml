@@ -113,7 +113,7 @@ jobs:
             echo "### CI dependency installation failed"
             echo
             echo '```text'
-            tail -n 60 pnpm-install.log
+            tail -n 40 pnpm-install.log
             echo '```'
           } > /tmp/ci-comment.md
 
@@ -147,7 +147,7 @@ jobs:
             echo "### CI quality gates failed"
             echo
             echo '```text'
-            tail -n 100 pnpm-check.log
+            tail -n 40 pnpm-check.log
             echo '```'
           } > /tmp/ci-comment.md
 
@@ -229,7 +229,7 @@ jobs:
             echo "### Dependency audit failed"
             echo
             echo '```text'
-            tail -n 100 pnpm-audit.log
+            tail -n 40 pnpm-audit.log
             echo '```'
           } > /tmp/audit-comment.md
 

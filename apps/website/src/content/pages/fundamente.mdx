@@ -1,0 +1,51 @@
+---
+title: Fundamentele Sistem Digital
+description: Regulile comune care păstrează serviciile publice coerente, accesibile și ușor de întreținut.
+section: foundations
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-07-23
+order: 1
+keywords:
+  - principii
+  - design tokens
+  - teme
+  - tipografie
+  - layout
+  - accesibilitate
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Ce intră în fundamente
+
+Fundamentele sunt contracte comune, nu preferințe vizuale locale. Ele includ:
+
+- principiile de proiectare a serviciilor;
+- design tokens în format DTCG;
+- rolurile cromatice și temele funcționale;
+- tipografia, spațierea și grila responsive;
+- focusul, motion, elevation și z-index;
+- regulile de accesibilitate și content design.
+
+<Callout title="Regula principală" type="info">
+  <p>
+    Componentele consumă roluri semantice. Nu folosesc direct culori, dimensiuni sau valori de
+    brand.
+  </p>
+</Callout>
+
+## Cum sunt distribuite token-urile
+
+Aceeași sursă DTCG generează CSS, TypeScript și JSON rezolvat. Artefactele nu sunt editate manual.
+
+<CodeExample
+  caption="Importul minim al fundației"
+  language="css"
+  code={`@import '@sistem-digital/tokens/css';
+@import '@sistem-digital/tokens/themes.css';`}
+/>
+
+## Ce urmează
+
+În M3, fiecare familie de fundamente va primi o pagină proprie, cu reguli, exemple, API și limite cunoscute. Până atunci, documentele normative din repository rămân sursa completă.

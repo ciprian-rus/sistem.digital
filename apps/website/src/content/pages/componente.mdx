@@ -1,0 +1,84 @@
+---
+title: Catalogul componentelor
+description: Familii de componente accesibile, independente de framework și pregătite pentru progressive enhancement.
+section: components
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-07-23
+order: 1
+keywords:
+  - componente
+  - catalog
+  - formulare
+  - navigație
+  - date
+  - interactive
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Familii disponibile
+
+<Preview title="Catalogul MVP">
+  <div className="sd-card-grid">
+    <article className="sd-card">
+      <h3 className="sd-card__heading">
+        <a className="sd-card__link" href="/componente/formulare">
+          Formulare și validare
+        </a>
+      </h3>
+      <p className="sd-card__description">
+        Câmpuri, alegeri native, upload, erori și error summary.
+      </p>
+      <p className="sd-card__metadata">Stadiu: alpha</p>
+    </article>
+    <article className="sd-card">
+      <h3 className="sd-card__heading">
+        <a className="sd-card__link" href="/componente/navigatie">
+          Navigație și structură
+        </a>
+      </h3>
+      <p className="sd-card__description">Header, footer, meniu mobil, breadcrumb și căutare.</p>
+      <p className="sd-card__metadata">Stadiu: alpha</p>
+    </article>
+    <article className="sd-card">
+      <h3 className="sd-card__heading">
+        <a className="sd-card__link" href="/componente/continut-date">
+          Conținut și date
+        </a>
+      </h3>
+      <p className="sd-card__description">Mesaje, carduri, tabele, summary list și pagination.</p>
+      <p className="sd-card__metadata">Stadiu: alpha</p>
+    </article>
+    <article className="sd-card">
+      <h3 className="sd-card__heading">
+        <a className="sd-card__link" href="/componente/interactive">
+          Interactive
+        </a>
+      </h3>
+      <p className="sd-card__description">
+        Accordion, dialog, tabs, autocomplete și upload avansat.
+      </p>
+      <p className="sd-card__metadata">Stadiu: alpha</p>
+    </article>
+  </div>
+</Preview>
+
+## Contractul canonic
+
+HTML-ul semantic și clasele CSS reprezintă contractul de bază. JavaScript-ul este modular și opțional. React nu este obligatoriu pentru consumarea bibliotecii.
+
+<CodeExample
+  caption="Importul modulelor publice"
+  language="css"
+  code={`@import '@sistem-digital/components/forms.css';
+@import '@sistem-digital/components/navigation.css';
+@import '@sistem-digital/components/content.css';
+@import '@sistem-digital/components/interactive.css';`}
+/>
+
+<Callout title="Înainte de utilizare critică" type="warning">
+  <p>
+    Componentele rămân alpha până la auditul manual complet cu NVDA, JAWS, VoiceOver și TalkBack.
+  </p>
+</Callout>

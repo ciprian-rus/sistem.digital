@@ -21,6 +21,12 @@ describe('site search', () => {
     expect(searchSite('autocomplete')[0]?.href).toBe('/componente/interactive');
   });
 
+  it('indexes all top-level documentation categories', () => {
+    expect(searchSite('fundamente')[0]?.href).toBe('/fundamente');
+    expect(searchSite('template starter')[0]?.href).toBe('/template-uri');
+    expect(searchSite('ghid adopție')[0]?.href).toBe('/ghiduri');
+  });
+
   it('requires all query terms', () => {
     expect(searchSite('formular eroare')[0]?.href).toBe('/componente/formulare');
     expect(searchSite('formular roadmap')).toEqual([]);
@@ -32,7 +38,7 @@ describe('site search', () => {
   });
 
   it('ranks title matches before keyword-only matches', () => {
-    const results = searchSite('teme');
-    expect(results[0]?.title).toBe('Teme funcționale');
+    const results = searchSite('fundamente');
+    expect(results[0]?.title).toBe('Fundamentele Sistem Digital');
   });
 });
