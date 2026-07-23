@@ -162,6 +162,22 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['guvernanta', 'roadmap', 'rfc', 'contributii', 'release', 'securitate'],
         status: 'available',
       },
+      {
+        href: '/guvernanta/masurare',
+        title: 'Măsurare cu protecția vieții private',
+        navigationLabel: 'Măsurare și viață privată',
+        description: 'Datele minime folosite pentru performanță și feedback, fără profilare.',
+        keywords: [
+          'masurare',
+          'analytics',
+          'confidentialitate',
+          'privacy',
+          'core web vitals',
+          'retentie',
+          'cookie-uri',
+        ],
+        status: 'available',
+      },
     ],
   },
 ] as const;
