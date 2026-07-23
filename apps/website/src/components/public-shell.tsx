@@ -1,15 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { primaryNavigation, siteSections } from '../content/site-map';
 import { ThemeControls } from './theme-controls';
-
-const navigationItems = [
-  { href: '/', label: 'Acasă' },
-  { href: '/componente/formulare', label: 'Componente' },
-  { href: '/componente/navigatie', label: 'Navigație' },
-  { href: '/componente/continut-date', label: 'Conținut și date' },
-  { href: '/componente/interactive', label: 'Interactive' },
-  { href: '/cautare', label: 'Căutare' },
-] as const;
 
 export interface PublicHeaderProps {
   currentPath?: string;
@@ -20,13 +12,17 @@ export interface PublicHeaderProps {
 function NavigationLinks({ currentPath }: Readonly<{ currentPath: string | undefined }>) {
   return (
     <>
-      {navigationItems.map((item) => (
-        <li key={item.href}>
-          <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>
-            {item.label}
-          </a>
-        </li>
-      ))}
+      {primaryNavigation.map((item) => {
+        const isCurrent =
+          currentPath === item.href || Boolean(currentPath?.startsWith(`${item.href}/`));
+        return (
+          <li key={item.href}>
+            <a href={item.href} aria-current={isCurrent ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        );
+      })}
       <li>
         <a href="https://github.com/users/ciprian-rus/projects/5">Roadmap</a>
       </li>
@@ -96,7 +92,7 @@ export function PublicHeader({
                 id="site-search"
                 name="q"
                 type="search"
-                placeholder="Caută componente"
+                placeholder="Caută în documentație"
                 autoComplete="off"
               />
               <button className="sd-search__button" type="submit">
@@ -201,30 +197,20 @@ export function PublicFooter({ children }: Readonly<{ children?: ReactNode }>) {
 
         <nav aria-labelledby="footer-resources-title">
           <h2 className="sd-footer__heading" id="footer-resources-title">
-            Resurse
+            Documentație
           </h2>
           <ul className="sd-footer__list">
-            <li>
-              <a href="/componente/formulare">Formulare</a>
-            </li>
-            <li>
-              <a href="/componente/navigatie">Navigație</a>
-            </li>
-            <li>
-              <a href="/componente/continut-date">Conținut și date</a>
-            </li>
-            <li>
-              <a href="/componente/interactive">Interactive</a>
-            </li>
-            <li>
-              <a href="https://github.com/ciprian-rus/sistem.digital">Cod sursă</a>
-            </li>
+            {siteSections.map((section) => (
+              <li key={section.href}>
+                <a href={section.href}>{section.navigationLabel}</a>
+              </li>
+            ))}
           </ul>
         </nav>
 
         <nav aria-labelledby="footer-governance-title">
           <h2 className="sd-footer__heading" id="footer-governance-title">
-            Guvernanță
+            Proiect
           </h2>
           <ul className="sd-footer__list">
             <li>
@@ -237,6 +223,9 @@ export function PublicFooter({ children }: Readonly<{ children?: ReactNode }>) {
               <a href="https://github.com/ciprian-rus/sistem.digital/blob/main/CONTRIBUTING.md">
                 Contribuie
               </a>
+            </li>
+            <li>
+              <a href="https://github.com/ciprian-rus/sistem.digital">Cod sursă</a>
             </li>
           </ul>
         </nav>
