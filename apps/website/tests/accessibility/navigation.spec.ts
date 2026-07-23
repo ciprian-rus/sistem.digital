@@ -57,11 +57,12 @@ test.describe('navigation and institutional shell', () => {
   test('uses correct landmarks and current-page semantics', async ({ page }) => {
     await page.goto('/componente/navigatie');
 
-    await expect(page.getByRole('navigation', { name: 'Navigație principală' })).toBeVisible();
+    const primaryNavigation = page.getByRole('navigation', { name: 'Navigație principală' });
+    await expect(primaryNavigation).toBeVisible();
     await expect(page.getByRole('main')).toHaveAttribute('id', 'continut');
     await expect(page.getByRole('contentinfo')).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Navigație', exact: true }).first(),
+      primaryNavigation.getByRole('link', { name: 'Componente', exact: true }),
     ).toHaveAttribute('aria-current', 'page');
 
     const breadcrumb = page.locator('#continut > .sd-breadcrumb');
