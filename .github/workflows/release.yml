@@ -84,6 +84,7 @@ jobs:
           set -euo pipefail
           node scripts/pack-public-packages.mjs release-artifacts
           pnpm release:pack:check
+          pnpm release:pack:smoke
           pnpm release:static
           pnpm release:static:check
           pnpm sbom \

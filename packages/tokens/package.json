@@ -1,6 +1,6 @@
 {
   "name": "@sistem-digital/tokens",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Design tokens canonice pentru Sistem Digital.",
   "license": "Apache-2.0",
   "type": "module",

@@ -77,7 +77,7 @@ test.describe('versioned catalog', () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Dialog' })).toBeVisible();
     const metadata = page.locator('.sd-catalog-detail__metadata');
     await expect(metadata.getByText('@sistem-digital/components', { exact: true })).toBeVisible();
-    await expect(metadata.getByText('0.1.0-alpha.2', { exact: true })).toBeVisible();
+    await expect(metadata.getByText('0.1.0-alpha.3', { exact: true })).toBeVisible();
     await expect(
       metadata.getByText('@sistem-digital/components/interactive.css', { exact: true }),
     ).toBeVisible();

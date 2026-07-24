@@ -32,6 +32,7 @@
     "release:static": "node scripts/build-static-release.mjs",
     "release:static:check": "node scripts/build-static-release.mjs --check",
     "release:pack:check": "node scripts/check-public-packages.mjs",
+    "release:pack:smoke": "node scripts/smoke-test-public-packages.mjs release-artifacts",
     "check": "pnpm format:check && pnpm catalog:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
