@@ -1,33 +1,35 @@
-import { spawnSync } from 'node:child_process';
+import { spawnSync } from "node:child_process";
 import {
   mkdtempSync,
   readFileSync,
   readdirSync,
   rmSync,
   writeFileSync,
-} from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 
-const artifactsRoot = resolve(process.argv[2] ?? 'release-artifacts');
-const packagesRoot = resolve('packages');
+const artifactsRoot = resolve(process.argv[2] ?? "release-artifacts");
+const packagesRoot = resolve("packages");
 
 const manifests = readdirSync(packagesRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) =>
-    JSON.parse(readFileSync(resolve(packagesRoot, entry.name, 'package.json'), 'utf8')),
+    JSON.parse(
+      readFileSync(resolve(packagesRoot, entry.name, "package.json"), "utf8"),
+    ),
   )
   .filter(
     (manifest) =>
       manifest.private !== true &&
-      typeof manifest.name === 'string' &&
-      typeof manifest.version === 'string',
+      typeof manifest.name === "string" &&
+      typeof manifest.version === "string",
   )
   .map(({ name, version }) => ({ name, version }))
   .sort((left, right) => left.name.localeCompare(right.name));
 
 const tarballs = readdirSync(artifactsRoot)
-  .filter((name) => name.endsWith('.tgz'))
+  .filter((name) => name.endsWith(".tgz"))
   .sort()
   .map((name) => resolve(artifactsRoot, name));
 
@@ -40,40 +42,43 @@ if (manifests.length === 0 || tarballs.length !== manifests.length) {
 function run(command, args, cwd) {
   const result = spawnSync(command, args, {
     cwd,
-    encoding: 'utf8',
+    encoding: "utf8",
     env: {
       ...process.env,
-      npm_config_cache: resolve(cwd, '.npm-cache'),
-      npm_config_update_notifier: 'false',
+      npm_config_cache: resolve(cwd, ".npm-cache"),
+      npm_config_update_notifier: "false",
     },
-    shell: process.platform === 'win32',
+    shell: process.platform === "win32",
   });
 
   if (result.status !== 0) {
-    const output = [result.stdout, result.stderr].filter(Boolean).join('\n').trim();
+    const output = [result.stdout, result.stderr]
+      .filter(Boolean)
+      .join("\n")
+      .trim();
     throw new Error(
-      `${command} ${args.join(' ')} failed with exit code ${result.status ?? 'unknown'}${output ? `:\n${output}` : '.'}`,
+      `${command} ${args.join(" ")} failed with exit code ${result.status ?? "unknown"}${output ? `:\n${output}` : "."}`,
     );
   }
 }
 
-const consumerRoot = mkdtempSync(join(tmpdir(), 'sistem-digital-consumer-'));
+const consumerRoot = mkdtempSync(join(tmpdir(), "sistem-digital-consumer-"));
 
 try {
   writeFileSync(
-    resolve(consumerRoot, 'package.json'),
-    `${JSON.stringify({ name: 'release-candidate-consumer', private: true }, null, 2)}\n`,
+    resolve(consumerRoot, "package.json"),
+    `${JSON.stringify({ name: "release-candidate-consumer", private: true }, null, 2)}\n`,
   );
 
   run(
-    'npm',
+    "npm",
     [
-      'install',
-      '--offline',
-      '--ignore-scripts',
-      '--no-audit',
-      '--no-fund',
-      '--package-lock=false',
+      "install",
+      "--offline",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--package-lock=false",
       ...tarballs,
     ],
     consumerRoot,
@@ -82,8 +87,13 @@ try {
   for (const manifest of manifests) {
     const installedManifest = JSON.parse(
       readFileSync(
-        resolve(consumerRoot, 'node_modules', ...manifest.name.split('/'), 'package.json'),
-        'utf8',
+        resolve(
+          consumerRoot,
+          "node_modules",
+          ...manifest.name.split("/"),
+          "package.json",
+        ),
+        "utf8",
       ),
     );
     if (installedManifest.version !== manifest.version) {
@@ -95,7 +105,7 @@ try {
 
   const serializedManifests = JSON.stringify(manifests);
   writeFileSync(
-    resolve(consumerRoot, 'smoke-esm.mjs'),
+    resolve(consumerRoot, "smoke-esm.mjs"),
     `const manifests = ${serializedManifests};
 for (const manifest of manifests) {
   const loaded = await import(manifest.name);
@@ -115,7 +125,7 @@ if (!tokens.themeNames.includes('light') || typeof components.enhanceDialogs !==
 `,
   );
   writeFileSync(
-    resolve(consumerRoot, 'smoke-cjs.cjs'),
+    resolve(consumerRoot, "smoke-cjs.cjs"),
     `const manifests = ${serializedManifests};
 for (const manifest of manifests) {
   const loaded = require(manifest.name);
@@ -135,8 +145,8 @@ if (!tokens.themeNames.includes('light') || typeof components.enhanceDialogs !==
 `,
   );
 
-  run(process.execPath, ['smoke-esm.mjs'], consumerRoot);
-  run(process.execPath, ['smoke-cjs.cjs'], consumerRoot);
+  run(process.execPath, ["smoke-esm.mjs"], consumerRoot);
+  run(process.execPath, ["smoke-cjs.cjs"], consumerRoot);
   console.log(
     `Consumed ${manifests.length} release candidates through ESM and CommonJS entry points.`,
   );
