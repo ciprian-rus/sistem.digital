@@ -25,7 +25,7 @@ describe('versioned catalog registry', () => {
   });
 
   it('documents one coordinated alpha version', () => {
-    expect(catalogVersions).toEqual(['0.1.0-alpha.2']);
+    expect(catalogVersions).toEqual(['0.1.0-alpha.3']);
     expect(catalogItems.every((item) => item.channel === 'alpha')).toBe(true);
   });
 
