@@ -1,0 +1,171 @@
+name: Recover release artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing release tag whose assets must be rebuilt and attached
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+  artifact-metadata: write
+
+concurrency:
+  group: recover-release-artifacts-${{ inputs.release_tag }}
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    name: Rebuild attest and attach
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_tag }}
+          fetch-depth: 0
+
+      - name: Validate release and ancestry
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          release_json="$(
+            gh release view "${RELEASE_TAG}" --json tagName,isDraft
+          )"
+          node -e "
+            const release = JSON.parse(process.argv[1]);
+            if (release.tagName !== process.argv[2] || release.isDraft) {
+              process.exit(1);
+            }
+          " "${release_json}" "${RELEASE_TAG}"
+          git fetch --no-tags origin +refs/heads/main:refs/remotes/origin/main
+          release_sha="$(git rev-parse HEAD)"
+          git merge-base --is-ancestor "${release_sha}" origin/main
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install exact dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate coordinated release tag
+        env:
+          GITHUB_REF_NAME: ${{ inputs.release_tag }}
+        run: node scripts/check-release-tag.mjs
+
+      - name: Build public packages
+        run: pnpm --filter "./packages/*" --if-present build
+
+      - name: Rebuild and verify release artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/pack-public-packages.mjs release-artifacts
+          pnpm release:pack:check
+          pnpm release:pack:smoke
+          pnpm release:static
+          pnpm release:static:check
+          pnpm sbom \
+            --sbom-format cyclonedx \
+            --sbom-type application \
+            --lockfile-only \
+            > release-artifacts/sbom.cdx.json
+          (
+            cd release-artifacts
+            tarballs=(./*.tgz)
+            test -e "${tarballs[0]}"
+            sha256sum ./*.tgz ./*.zip ./sbom.cdx.json > SHA256SUMS
+            sha256sum --check SHA256SUMS
+          )
+
+      - name: Match rebuilt tarballs to npm
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          tarballs=(release-artifacts/*.tgz)
+          test "${#tarballs[@]}" -gt 0
+          for tarball in "${tarballs[@]}"; do
+            package_json="$(tar -xOf "${tarball}" package/package.json)"
+            package_name="$(node -e "process.stdout.write(JSON.parse(process.argv[1]).name)" "${package_json}")"
+            package_version="$(node -e "process.stdout.write(JSON.parse(process.argv[1]).version)" "${package_json}")"
+            package_spec="${package_name}@${package_version}"
+            registry_integrity="$(npm view "${package_spec}" dist.integrity)"
+            tarball_integrity="$(
+              node -e "
+                const { createHash } = require('node:crypto');
+                const { readFileSync } = require('node:fs');
+                const digest = createHash('sha512')
+                  .update(readFileSync(process.argv[1]))
+                  .digest('base64');
+                process.stdout.write('sha512-' + digest);
+              " "${tarball}"
+            )"
+            test "${tarball_integrity}" = "${registry_integrity}"
+            echo "Verified ${package_spec} against npm."
+          done
+
+      - name: Attest recovered artifact provenance
+        uses: actions/attest@v4
+        with:
+          subject-checksums: release-artifacts/SHA256SUMS
+
+      - name: Attest recovered SBOM
+        uses: actions/attest@v4
+        with:
+          subject-path: release-artifacts/*.tgz
+          sbom-path: release-artifacts/sbom.cdx.json
+
+      - name: Upload rebuilt workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-recovery-${{ inputs.release_tag }}
+          path: release-artifacts
+          if-no-files-found: error
+          retention-days: 90
+          overwrite: true
+
+      - name: Attach regular artifacts to GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -d '' -t assets < <(
+            find release-artifacts -maxdepth 1 -type f -print0 | sort -z
+          )
+          test "${#assets[@]}" -gt 0
+          printf 'Uploading %s\n' "${assets[@]}"
+          gh release upload "${RELEASE_TAG}" "${assets[@]}" --clobber
+
+          for asset in "${assets[@]}"; do
+            asset_name="$(basename "${asset}")"
+            local_size="$(stat --format='%s' "${asset}")"
+            remote_size="$(
+              gh release view "${RELEASE_TAG}" \
+                --json assets \
+                --jq ".assets[] | select(.name == \"${asset_name}\") | .size"
+            )"
+            test "${remote_size}" = "${local_size}"
+            echo "Verified ${asset_name} (${local_size} bytes)."
+          done
