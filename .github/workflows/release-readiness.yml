@@ -47,6 +47,9 @@ jobs:
       - name: Verify npm package contracts
         run: pnpm release:pack:check
 
+      - name: Smoke-test package consumers
+        run: pnpm release:pack:smoke
+
       - name: Build and reproduce static release
         run: |
           pnpm release:static
