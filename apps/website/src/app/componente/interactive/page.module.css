@@ -15,7 +15,7 @@
   display: grid;
   min-width: 0;
   gap: var(--sd-space-6);
-  padding-block: var(--sd-space-9);
+  padding-block: var(--sd-space-8);
   border-block-start: 1px solid var(--sd-color-border);
 }
 

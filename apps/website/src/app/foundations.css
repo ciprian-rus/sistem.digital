@@ -123,15 +123,7 @@ button {
 
 .code-block {
   max-width: 100%;
-  box-shadow: var(--sd-elevation-low);
   white-space: pre;
-}
-
-.principle-card,
-.service-example,
-.feedback-message,
-.status-card {
-  box-shadow: var(--sd-elevation-low);
 }
 
 .button {
@@ -224,14 +216,11 @@ button {
     font-size: 11pt;
   }
 
-  .header-actions,
   .theme-control,
-  .actions,
-  .site-footer {
+  .actions {
     display: none !important;
   }
 
-  .site-header,
   .hero,
   .section,
   .section-subtle {
@@ -255,7 +244,6 @@ button {
   .status-card,
   .code-block {
     break-inside: avoid;
-    box-shadow: none !important;
   }
 
   a[href^='http']::after {

@@ -45,7 +45,6 @@
   border: 1px solid var(--sd-color-border);
   border-radius: var(--sd-radius-panel);
   background: var(--sd-color-surface-page);
-  box-shadow: var(--sd-elevation-low);
 }
 
 .demoHeader {
@@ -150,10 +149,5 @@
 
   .layout > aside {
     display: none;
-  }
-
-  .demo,
-  .ruleCard {
-    box-shadow: none;
   }
 }
