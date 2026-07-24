@@ -94,7 +94,6 @@
   border: 1px solid var(--sd-color-border);
   border-radius: var(--sd-radius-panel);
   background: var(--sd-color-surface-raised);
-  box-shadow: var(--sd-elevation-low);
 }
 
 .examplePanel h2,
@@ -161,6 +160,5 @@
 
   .examplePanel {
     border-color: #000000;
-    box-shadow: none;
   }
 }

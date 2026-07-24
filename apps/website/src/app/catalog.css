@@ -153,9 +153,9 @@
   }
 
   .sd-tag--deprecated {
-    border: 1px solid var(--sd-color-feedback-error-border);
-    background: var(--sd-color-feedback-error-background);
-    color: var(--sd-color-feedback-error-text);
+    border: 1px solid var(--sd-color-feedback-danger-border);
+    background: var(--sd-color-feedback-danger-background);
+    color: var(--sd-color-feedback-danger-text);
   }
 
   @media (max-width: 75rem) {

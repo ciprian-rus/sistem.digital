@@ -21,11 +21,10 @@
     display: grid;
     gap: var(--sd-space-5);
     max-width: 54rem;
-    padding: clamp(var(--sd-space-5), 5vw, var(--sd-space-9));
+    padding: clamp(var(--sd-space-5), 5vw, var(--sd-space-8));
     border: 1px solid var(--sd-color-border);
     border-radius: var(--sd-radius-panel);
     background: var(--sd-color-surface-raised);
-    box-shadow: var(--sd-shadow-panel);
   }
 
   .sd-tree-test-card :where(h2, p, ul) {
@@ -58,9 +57,9 @@
   }
 
   .sd-tree-test-notice--error {
-    border-inline-start-color: var(--sd-color-feedback-error-border);
-    background: var(--sd-color-feedback-error-background);
-    color: var(--sd-color-feedback-error-text);
+    border-inline-start-color: var(--sd-color-feedback-danger-border);
+    background: var(--sd-color-feedback-danger-background);
+    color: var(--sd-color-feedback-danger-text);
   }
 
   .sd-tree-test-fieldset,
@@ -212,8 +211,8 @@
 
   .sd-tree-test-privacy {
     max-width: var(--sd-layout-measure);
-    margin-block-start: var(--sd-space-9);
-    padding-block-start: var(--sd-space-7);
+    margin-block-start: var(--sd-space-8);
+    padding-block-start: var(--sd-space-6);
     border-block-start: 1px solid var(--sd-color-border);
   }
 
@@ -229,12 +228,6 @@
 
     .sd-tree-test-leaves {
       padding-inline-start: var(--sd-space-3);
-    }
-  }
-
-  @media print {
-    .sd-tree-test-card {
-      box-shadow: none;
     }
   }
 }
