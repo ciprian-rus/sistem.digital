@@ -122,7 +122,7 @@ jobs:
 
       - name: Publish exact tarballs to npm
         env:
-          NPM_CONFIG_PROVENANCE: "true"
+          NPM_CONFIG_PROVENANCE: 'true'
           DIST_TAG: ${{ steps.release.outputs.dist_tag }}
         shell: bash
         run: |
