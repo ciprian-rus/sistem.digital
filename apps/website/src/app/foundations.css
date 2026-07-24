@@ -123,15 +123,7 @@ button {
 
 .code-block {
   max-width: 100%;
-  box-shadow: var(--sd-elevation-low);
   white-space: pre;
-}
-
-.principle-card,
-.service-example,
-.feedback-message,
-.status-card {
-  box-shadow: var(--sd-elevation-low);
 }
 
 .button {
