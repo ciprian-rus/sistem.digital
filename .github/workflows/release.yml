@@ -111,9 +111,18 @@ jobs:
           subject-path: release-artifacts/*.tgz
           sbom-path: release-artifacts/sbom.cdx.json
 
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ github.event.release.tag_name }}
+          path: release-artifacts
+          if-no-files-found: error
+          retention-days: 90
+          overwrite: true
+
       - name: Publish exact tarballs to npm
         env:
-          NPM_CONFIG_PROVENANCE: 'true'
+          NPM_CONFIG_PROVENANCE: "true"
           DIST_TAG: ${{ steps.release.outputs.dist_tag }}
         shell: bash
         run: |
@@ -136,16 +145,16 @@ jobs:
             npm publish "./${tarball}" --access public --tag "${DIST_TAG}"
           done
 
-      - name: Attach artifacts to GitHub release
+      - name: Attach regular artifacts to GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.event.release.tag_name }}
-        run: gh release upload "${RELEASE_TAG}" release-artifacts/* --clobber
-
-      - name: Upload workflow artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-${{ github.event.release.tag_name }}
-          path: release-artifacts
-          if-no-files-found: error
-          retention-days: 90
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -d '' -t assets < <(
+            find release-artifacts -maxdepth 1 -type f -print0 | sort -z
+          )
+          test "${#assets[@]}" -gt 0
+          printf 'Uploading %s\n' "${assets[@]}"
+          gh release upload "${RELEASE_TAG}" "${assets[@]}" --clobber
