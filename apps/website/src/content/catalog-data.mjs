@@ -79,6 +79,9 @@ const familyDefinitions = {
       'date-input',
       'autocomplete',
       'file-upload-advanced',
+      'switch',
+      'tooltip',
+      'dropdown',
     ],
   },
 };
@@ -128,6 +131,9 @@ const labels = {
   'date-input': 'Introducerea datei',
   autocomplete: 'Autocomplete',
   'file-upload-advanced': 'Încărcare avansată de fișiere',
+  switch: 'Switch',
+  tooltip: 'Tooltip',
+  dropdown: 'Dropdown',
 };
 
 const descriptions = {
@@ -175,6 +181,10 @@ const descriptions = {
   'date-input': 'Colectează ziua, luna și anul separat sau folosește selectorul nativ.',
   autocomplete: 'Adaugă listbox și navigare cu tastatura peste baseline-ul datalist.',
   'file-upload-advanced': 'Adaugă listă, eliminare și drag-and-drop peste inputul nativ.',
+  switch: 'Comută o stare binară imediată, fără buton de confirmare separat.',
+  tooltip: 'Explică pe scurt un termen sau control, vizibil la hover și la focus.',
+  dropdown:
+    'Ascunde acțiuni secundare într-un meniu declanșat de buton, cu fallback de listă vizibilă.',
 };
 
 function markupFor(name) {
@@ -260,6 +270,12 @@ function markupFor(name) {
       '<div class="sd-autocomplete" data-sd-autocomplete><label class="sd-label" for="catalog-institution">Instituție</label><input class="sd-input" id="catalog-institution" list="catalog-options" data-sd-autocomplete-input><datalist id="catalog-options"><option value="Primăria Cluj-Napoca"></option><option value="Primăria Brașov"></option></datalist><div data-sd-autocomplete-menu hidden></div><p class="sd-visually-hidden" aria-live="polite" data-sd-autocomplete-status></p></div>',
     'file-upload-advanced':
       '<div class="sd-file-upload-advanced" data-sd-file-upload data-sd-file-dropzone><label class="sd-label" for="catalog-files">Documente</label><input class="sd-file-upload" id="catalog-files" type="file" multiple><ul class="sd-file-upload__list" data-sd-file-list></ul><p class="sd-visually-hidden" aria-live="polite" data-sd-file-status></p></div>',
+    switch:
+      '<label class="sd-switch"><input class="sd-switch__input" type="checkbox" role="switch" checked><span class="sd-switch__track"><span class="sd-switch__thumb"></span></span><span class="sd-switch__label">Notificări prin e-mail</span></label>',
+    tooltip:
+      '<span class="sd-tooltip-wrapper" data-sd-tooltip><button type="button" class="sd-tooltip-trigger" data-sd-tooltip-trigger aria-describedby="catalog-tooltip" title="Format: 13 cifre, fără spații">CNP</button><span class="sd-tooltip" role="tooltip" id="catalog-tooltip" hidden>Format: 13 cifre, fără spații</span></span>',
+    dropdown:
+      '<div class="sd-dropdown" data-sd-dropdown><button type="button" class="sd-dropdown__trigger" aria-expanded="true" aria-controls="catalog-dropdown-menu" data-sd-dropdown-trigger>Acțiuni</button><ul class="sd-dropdown__menu" id="catalog-dropdown-menu" data-sd-dropdown-menu><li><a class="sd-dropdown__item" href="#">Descarcă PDF</a></li><li><a class="sd-dropdown__item" href="#">Trimite pe e-mail</a></li></ul></div>',
   };
   return examples[name];
 }
@@ -272,6 +288,8 @@ function jsImportsFor(name) {
     tabs: ['enhanceTabs'],
     autocomplete: ['enhanceAutocompletes'],
     'file-upload-advanced': ['enhanceFileUploads'],
+    tooltip: ['enhanceTooltips'],
+    dropdown: ['enhanceDropdowns'],
   };
   return helpers[name] ?? [];
 }

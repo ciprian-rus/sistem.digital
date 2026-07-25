@@ -55,6 +55,17 @@
   flex-wrap: wrap;
 }
 
+.tooltipLabelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sd-space-2);
+  flex-wrap: wrap;
+}
+
+.tooltipLabelRow :global(.sd-label) {
+  margin: 0;
+}
+
 .tabsContent {
   display: grid;
   gap: var(--sd-space-3);

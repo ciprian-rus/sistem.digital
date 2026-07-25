@@ -10,10 +10,10 @@ import {
 } from './catalog';
 
 describe('versioned catalog registry', () => {
-  it('contains all 44 published components and four foundations', () => {
-    expect(catalogItems.filter((item) => item.kind === 'component')).toHaveLength(44);
+  it('contains all 47 published components and four foundations', () => {
+    expect(catalogItems.filter((item) => item.kind === 'component')).toHaveLength(47);
     expect(catalogItems.filter((item) => item.kind === 'foundation')).toHaveLength(4);
-    expect(catalogItems).toHaveLength(48);
+    expect(catalogItems).toHaveLength(51);
   });
 
   it('uses unique stable IDs and static detail URLs', () => {
@@ -41,8 +41,8 @@ describe('versioned catalog registry', () => {
 
   it('filters by type, family, status and Romanian text', () => {
     expect(filterCatalogItems({ kind: 'foundation' })).toHaveLength(4);
-    expect(filterCatalogItems({ family: 'interactive' })).toHaveLength(7);
-    expect(filterCatalogItems({ status: 'alpha' })).toHaveLength(48);
+    expect(filterCatalogItems({ family: 'interactive' })).toHaveLength(10);
+    expect(filterCatalogItems({ status: 'alpha' })).toHaveLength(51);
     expect(filterCatalogItems({ query: 'încărcare avansată' })[0]?.id).toBe(
       'interactive-file-upload-advanced',
     );

@@ -64,7 +64,7 @@ test.describe('versioned catalog', () => {
     await expect(page).toHaveURL(
       /tip=component.*familie=interactive|familie=interactive.*tip=component/u,
     );
-    await expect(page.getByRole('heading', { name: '7 rezultate' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '10 rezultate' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Dialog', exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Label', exact: true })).toHaveCount(0);
   });

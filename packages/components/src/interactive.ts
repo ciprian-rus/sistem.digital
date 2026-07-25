@@ -6,6 +6,9 @@ export const interactiveComponentNames = [
   'date-input',
   'autocomplete',
   'file-upload-advanced',
+  'switch',
+  'tooltip',
+  'dropdown',
 ] as const;
 
 export type InteractiveComponentName = (typeof interactiveComponentNames)[number];
@@ -415,6 +418,127 @@ export function enhanceFileUploads({ root }: EnhancementOptions = {}): Cleanup {
   return combineCleanups(cleanups);
 }
 
+export function enhanceTooltips({ root }: EnhancementOptions = {}): Cleanup {
+  const resolvedRoot = resolveRoot(root);
+  if (!resolvedRoot) return () => {};
+
+  const cleanups: Cleanup[] = [];
+  for (const wrapper of resolvedRoot.querySelectorAll<HTMLElement>('[data-sd-tooltip]')) {
+    const trigger = wrapper.querySelector<HTMLElement>('[data-sd-tooltip-trigger]');
+    const describedById = trigger?.getAttribute('aria-describedby');
+    const tooltip = describedById
+      ? resolvedRoot.querySelector<HTMLElement>(`#${describedById}`)
+      : null;
+    if (!trigger || !tooltip) continue;
+
+    const originalTitle = trigger.getAttribute('title');
+
+    const show = () => {
+      tooltip.hidden = false;
+      if (originalTitle) trigger.removeAttribute('title');
+    };
+
+    const hide = () => {
+      tooltip.hidden = true;
+      if (originalTitle) trigger.setAttribute('title', originalTitle);
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !tooltip.hidden) {
+        event.preventDefault();
+        hide();
+      }
+    };
+
+    trigger.addEventListener('mouseenter', show);
+    trigger.addEventListener('mouseleave', hide);
+    trigger.addEventListener('focus', show);
+    trigger.addEventListener('blur', hide);
+    trigger.addEventListener('keydown', onKeyDown);
+    hide();
+
+    cleanups.push(() => {
+      trigger.removeEventListener('mouseenter', show);
+      trigger.removeEventListener('mouseleave', hide);
+      trigger.removeEventListener('focus', show);
+      trigger.removeEventListener('blur', hide);
+      trigger.removeEventListener('keydown', onKeyDown);
+      tooltip.hidden = false;
+      if (originalTitle) trigger.setAttribute('title', originalTitle);
+    });
+  }
+
+  return combineCleanups(cleanups);
+}
+
+export function enhanceDropdowns({ root }: EnhancementOptions = {}): Cleanup {
+  const resolvedRoot = resolveRoot(root);
+  if (!resolvedRoot) return () => {};
+
+  const cleanups: Cleanup[] = [];
+  for (const container of resolvedRoot.querySelectorAll<HTMLElement>('[data-sd-dropdown]')) {
+    const trigger = container.querySelector<HTMLButtonElement>('[data-sd-dropdown-trigger]');
+    const menu = container.querySelector<HTMLElement>('[data-sd-dropdown-menu]');
+    if (!trigger || !menu) continue;
+
+    const close = () => {
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    const open = () => {
+      menu.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+
+    const toggle = () => (menu.hidden ? open() : close());
+
+    const onTriggerClick = (event: MouseEvent) => {
+      event.preventDefault();
+      toggle();
+    };
+
+    const onDocumentClick = (event: MouseEvent) => {
+      if (menu.hidden) return;
+      if (event.target instanceof Node && container.contains(event.target)) return;
+      close();
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !menu.hidden) {
+        event.preventDefault();
+        close();
+        trigger.focus();
+      }
+    };
+
+    const onFocusOut = (event: FocusEvent) => {
+      const next = event.relatedTarget;
+      if (next instanceof Node && container.contains(next)) return;
+      close();
+    };
+
+    trigger.setAttribute('aria-haspopup', 'true');
+    close();
+
+    trigger.addEventListener('click', onTriggerClick);
+    container.ownerDocument.addEventListener('click', onDocumentClick);
+    container.addEventListener('keydown', onKeyDown);
+    container.addEventListener('focusout', onFocusOut);
+
+    cleanups.push(() => {
+      trigger.removeEventListener('click', onTriggerClick);
+      container.ownerDocument.removeEventListener('click', onDocumentClick);
+      container.removeEventListener('keydown', onKeyDown);
+      container.removeEventListener('focusout', onFocusOut);
+      trigger.removeAttribute('aria-haspopup');
+      open();
+    });
+  }
+
+  return combineCleanups(cleanups);
+}
+
 export function enhanceInteractiveComponents(options: EnhancementOptions = {}): Cleanup {
   return combineCleanups([
     enhanceAccordions(options),
@@ -422,5 +546,7 @@ export function enhanceInteractiveComponents(options: EnhancementOptions = {}): 
     enhanceTabs(options),
     enhanceAutocompletes(options),
     enhanceFileUploads(options),
+    enhanceTooltips(options),
+    enhanceDropdowns(options),
   ]);
 }

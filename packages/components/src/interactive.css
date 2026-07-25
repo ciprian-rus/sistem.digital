@@ -402,13 +402,181 @@
     cursor: pointer;
   }
 
+  .sd-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sd-space-3);
+    cursor: pointer;
+  }
+
+  .sd-switch__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .sd-switch__track {
+    position: relative;
+    display: inline-flex;
+    width: 3rem;
+    height: 1.75rem;
+    flex: none;
+    align-items: center;
+    border: 2px solid var(--sd-color-border-strong);
+    border-radius: 999px;
+    background: var(--sd-color-surface-subtle);
+    transition: background-color var(--sd-motion-duration-fast) var(--sd-motion-easing-standard);
+  }
+
+  .sd-switch__thumb {
+    position: absolute;
+    inset-inline-start: 0.15rem;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: var(--sd-color-border-strong);
+    transition:
+      transform var(--sd-motion-duration-fast) var(--sd-motion-easing-standard),
+      background-color var(--sd-motion-duration-fast) var(--sd-motion-easing-standard);
+  }
+
+  .sd-switch__input:checked ~ .sd-switch__track {
+    border-color: var(--sd-color-action-primary-background);
+    background: var(--sd-color-action-primary-background);
+  }
+
+  .sd-switch__input:checked ~ .sd-switch__track .sd-switch__thumb {
+    background: var(--sd-color-action-primary-text);
+    transform: translateX(1.25rem);
+  }
+
+  .sd-switch__input:disabled ~ .sd-switch__track {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .sd-tooltip-wrapper {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .sd-tooltip-trigger {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline dotted;
+    text-underline-offset: 0.2em;
+    cursor: help;
+  }
+
+  .sd-tooltip {
+    position: absolute;
+    z-index: var(--sd-z-index-popover, 40);
+    inset-block-end: calc(100% + var(--sd-space-2));
+    inset-inline-start: 50%;
+    width: max-content;
+    max-width: 18rem;
+    padding: var(--sd-space-2) var(--sd-space-3);
+    border-radius: var(--sd-radius-control);
+    background: var(--sd-color-surface-strong);
+    color: var(--sd-color-text-inverse);
+    font-size: var(--sd-font-size-body-small);
+    line-height: var(--sd-font-line-height-body);
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  .sd-tooltip[hidden] {
+    display: none;
+  }
+
+  .sd-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .sd-dropdown__trigger {
+    display: inline-flex;
+    min-height: var(--sd-target-minimum);
+    align-items: center;
+    gap: var(--sd-space-2);
+    padding: var(--sd-space-2) var(--sd-space-4);
+    border: 2px solid var(--sd-color-border-strong);
+    border-radius: var(--sd-radius-control);
+    background: var(--sd-color-surface-page);
+    color: var(--sd-color-text);
+    font: inherit;
+    font-weight: var(--sd-font-weight-semibold);
+    cursor: pointer;
+  }
+
+  .sd-dropdown__trigger::after {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    content: '';
+    transform: rotate(45deg) translateY(-15%);
+  }
+
+  .sd-dropdown__trigger[aria-expanded='true']::after {
+    transform: rotate(-135deg) translateY(15%);
+  }
+
+  .sd-dropdown__menu {
+    position: absolute;
+    z-index: var(--sd-z-index-popover, 40);
+    inset-block-start: calc(100% + var(--sd-space-1));
+    inset-inline-start: 0;
+    display: grid;
+    min-width: 12rem;
+    margin: 0;
+    padding: var(--sd-space-2);
+    border: 2px solid var(--sd-color-border-strong);
+    border-radius: var(--sd-radius-control);
+    background: var(--sd-color-surface-raised);
+    list-style: none;
+    box-shadow: var(--sd-elevation-raised, 0 0.5rem 1.5rem rgb(0 0 0 / 18%));
+  }
+
+  .sd-dropdown__menu[hidden] {
+    display: none;
+  }
+
+  .sd-dropdown__item {
+    display: block;
+    width: 100%;
+    min-height: var(--sd-target-minimum);
+    padding: var(--sd-space-2) var(--sd-space-3);
+    border: 0;
+    border-radius: var(--sd-radius-control);
+    background: transparent;
+    color: var(--sd-color-link);
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .sd-dropdown__item:hover {
+    background: var(--sd-color-surface-subtle);
+  }
+
   .sd-accordion summary:focus-visible,
   .sd-dialog :where(button, a, input, select, textarea):focus-visible,
   .sd-tabs :where(button, [role='tabpanel']):focus-visible,
   .sd-date-input input:focus-visible,
   .sd-date-picker:focus-visible,
   .sd-autocomplete input:focus-visible,
-  .sd-file-upload-advanced :where(input, button):focus-visible {
+  .sd-file-upload-advanced :where(input, button):focus-visible,
+  .sd-switch__input:focus-visible ~ .sd-switch__track,
+  .sd-tooltip-trigger:focus-visible,
+  .sd-dropdown__trigger:focus-visible,
+  .sd-dropdown__item:focus-visible {
     outline: var(--sd-focus-width) solid var(--sd-color-focus);
     outline-offset: var(--sd-focus-offset);
     box-shadow: 0 0 0 var(--sd-focus-halo) var(--sd-color-focus-contrast);
@@ -452,13 +620,16 @@
     .sd-dialog,
     .sd-tabs [data-sd-tab-panel],
     .sd-file-upload-advanced,
-    .sd-autocomplete [data-sd-autocomplete-menu] {
+    .sd-autocomplete [data-sd-autocomplete-menu],
+    .sd-tooltip,
+    .sd-dropdown__menu {
       border-color: CanvasText;
     }
 
     .sd-tabs [data-sd-tab][aria-selected='true'],
     .sd-step-indicator__item[aria-current='step'] .sd-step-indicator__marker,
-    .sd-autocomplete [role='option'][aria-selected='true'] {
+    .sd-autocomplete [role='option'][aria-selected='true'],
+    .sd-switch__input:checked ~ .sd-switch__track {
       border-color: Highlight;
       background: Highlight;
       color: HighlightText;
@@ -468,6 +639,11 @@
   @media (prefers-reduced-motion: reduce) {
     .sd-dialog::backdrop {
       backdrop-filter: none;
+    }
+
+    .sd-switch__track,
+    .sd-switch__thumb {
+      transition: none;
     }
   }
 
@@ -484,7 +660,9 @@
     .sd-tabs [data-sd-tab-list],
     .sd-dialog__close,
     .sd-dialog__footer,
-    .sd-file-upload-advanced {
+    .sd-file-upload-advanced,
+    .sd-tooltip,
+    .sd-dropdown__menu {
       display: none !important;
     }
   }

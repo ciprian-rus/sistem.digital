@@ -16,6 +16,9 @@ describe('interactive component contract', () => {
       'date-input',
       'autocomplete',
       'file-upload-advanced',
+      'switch',
+      'tooltip',
+      'dropdown',
     ]);
   });
 
