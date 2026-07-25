@@ -357,6 +357,104 @@ export default function InteractiveComponentsPage() {
           </div>
         </section>
 
+        <section className={styles.section} aria-labelledby="switch-title">
+          <div className={styles.sectionHeader}>
+            <p className="section-kicker">Switch și tooltip</p>
+            <h2 id="switch-title">
+              Switch schimbă starea imediat; tooltip-ul explică fără să blocheze.
+            </h2>
+            <p>
+              Switch-ul este un checkbox nativ stilizat cu <code>role=&quot;switch&quot;</code> —
+              funcționează identic fără JavaScript. Tooltip-ul folosește <code>title</code> ca
+              fallback și devine un tooltip accesibil, cu focus și Escape, când scriptul rulează.
+            </p>
+          </div>
+          <div className={styles.demoGrid}>
+            <article className={styles.panel}>
+              <h3>Preferințe de notificare</h3>
+              <label className="sd-switch">
+                <input className="sd-switch__input" type="checkbox" role="switch" defaultChecked />
+                <span className="sd-switch__track">
+                  <span className="sd-switch__thumb" />
+                </span>
+                <span className="sd-switch__label">Notificări prin e-mail</span>
+              </label>
+            </article>
+
+            <article className={styles.panel}>
+              <h3>Câmp cu explicație scurtă</h3>
+              <div className={styles.tooltipLabelRow}>
+                <label className="sd-label" htmlFor="cnp-field">
+                  Cod Numeric Personal
+                </label>
+                <span className="sd-tooltip-wrapper" data-sd-tooltip>
+                  <button
+                    type="button"
+                    className="sd-tooltip-trigger"
+                    data-sd-tooltip-trigger
+                    aria-describedby="cnp-tooltip"
+                    title="Format: 13 cifre, fără spații sau liniuțe."
+                  >
+                    ce înseamnă?
+                  </button>
+                  <span className="sd-tooltip" role="tooltip" id="cnp-tooltip" hidden>
+                    Format: 13 cifre, fără spații sau liniuțe.
+                  </span>
+                </span>
+              </div>
+              <input
+                className="sd-input"
+                id="cnp-field"
+                name="cnp"
+                inputMode="numeric"
+                maxLength={13}
+              />
+            </article>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="dropdown-title">
+          <div className={styles.sectionHeader}>
+            <p className="section-kicker">Dropdown</p>
+            <h2 id="dropdown-title">
+              Meniul rămâne o listă de linkuri vizibilă, nu un widget izolat.
+            </h2>
+            <p>
+              Fără JavaScript, <code>aria-expanded=&quot;true&quot;</code> și lista de acțiuni sunt
+              afișate direct. Cu enhancement, butonul o ascunde și o deschide la cerere; Escape și
+              click în afară o închid și restaurează focusul.
+            </p>
+          </div>
+          <div className="sd-dropdown" data-sd-dropdown>
+            <button
+              type="button"
+              className="sd-dropdown__trigger"
+              aria-expanded="true"
+              aria-controls="request-actions-menu"
+              data-sd-dropdown-trigger
+            >
+              Acțiuni cerere
+            </button>
+            <ul className="sd-dropdown__menu" id="request-actions-menu" data-sd-dropdown-menu>
+              <li>
+                <a className="sd-dropdown__item" href="#">
+                  Descarcă PDF
+                </a>
+              </li>
+              <li>
+                <a className="sd-dropdown__item" href="#">
+                  Trimite pe e-mail
+                </a>
+              </li>
+              <li>
+                <a className="sd-dropdown__item" href="#">
+                  Anulează cererea
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
         <section className={styles.section} aria-labelledby="known-issues-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Limite cunoscute</p>
@@ -378,6 +476,15 @@ export default function InteractiveComponentsPage() {
             <li>
               Baseline-urile vizuale detectează schimbări, dar nu decid dacă o schimbare este
               corectă.
+            </li>
+            <li>
+              Tooltip-ul afișat la focus poate rămâne insuficient de vizibil pentru unele cititoare
+              de ecran mobile; necesită testare manuală suplimentară.
+            </li>
+            <li>
+              Dropdown-ul folosește o listă simplă de linkuri, nu <code>role=&quot;menu&quot;</code>
+              ; navigarea se face cu Tab, nu cu săgeți, conform recomandării de a evita semantica
+              ARIA de meniu acolo unde nu e strict necesară.
             </li>
           </ul>
           <pre className={styles.code} tabIndex={0} aria-label="Exemplu inițializare JavaScript">
