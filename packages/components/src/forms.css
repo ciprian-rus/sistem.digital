@@ -354,8 +354,8 @@
   }
 
   .sd-segmented-control__input:checked ~ .sd-segmented-control__label {
-    background: var(--sd-color-surface-page);
-    color: var(--sd-color-action-primary-background);
+    background: var(--sd-color-action-primary-background);
+    color: var(--sd-color-action-primary-text);
   }
 
   .sd-segmented-control__input:disabled ~ .sd-segmented-control__label {
