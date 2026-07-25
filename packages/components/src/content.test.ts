@@ -21,6 +21,9 @@ describe('content and data components', () => {
       'pagination',
       'metadata',
       'last-updated',
+      'spinner',
+      'chip',
+      'avatar',
     ]);
   });
 

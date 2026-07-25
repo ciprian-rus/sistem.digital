@@ -6,7 +6,12 @@ export {
   type FormComponentName,
 } from './forms.js';
 
-export { navigationComponentNames, type NavigationComponentName } from './navigation.js';
+export {
+  enhanceCookieBanner,
+  navigationComponentNames,
+  type CookieBannerOptions,
+  type NavigationComponentName,
+} from './navigation.js';
 
 export { contentComponentNames, type ContentComponentName } from './content.js';
 

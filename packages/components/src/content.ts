@@ -12,6 +12,9 @@ export const contentComponentNames = [
   'pagination',
   'metadata',
   'last-updated',
+  'spinner',
+  'chip',
+  'avatar',
 ] as const;
 
 export type ContentComponentName = (typeof contentComponentNames)[number];

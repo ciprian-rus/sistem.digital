@@ -77,6 +77,36 @@
     margin-bottom: 0;
   }
 
+  .sd-cookie-banner {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: var(--sd-z-index-overlay);
+    border-block-start: 2px solid var(--sd-color-border-strong);
+    background: var(--sd-color-surface-page);
+    color: var(--sd-color-text);
+  }
+
+  .sd-cookie-banner[hidden] {
+    display: none;
+  }
+
+  .sd-cookie-banner__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sd-space-5);
+    padding-block: var(--sd-space-5);
+  }
+
+  .sd-cookie-banner__content {
+    max-width: var(--sd-layout-measure);
+  }
+
+  .sd-cookie-banner__content > :last-child {
+    margin-bottom: 0;
+  }
+
   .sd-header {
     border-block-end: 1px solid color-mix(in srgb, var(--sd-color-text-inverse) 28%, transparent);
     background: var(--sd-color-surface-strong);
@@ -408,7 +438,8 @@
   .sd-header :where(a, summary, input, button):focus-visible,
   .sd-breadcrumb a:focus-visible,
   .sd-service-navigation a:focus-visible,
-  .sd-footer a:focus-visible {
+  .sd-footer a:focus-visible,
+  .sd-cookie-banner :where(a, button):focus-visible {
     outline: var(--sd-focus-width) solid var(--sd-color-focus);
     outline-offset: var(--sd-focus-offset);
     box-shadow: 0 0 0 var(--sd-focus-halo) var(--sd-color-focus-contrast);
@@ -442,7 +473,8 @@
     .sd-header,
     .sd-footer,
     .sd-official-banner,
-    .sd-major-alert {
+    .sd-major-alert,
+    .sd-cookie-banner {
       border-color: CanvasText;
     }
 
@@ -458,7 +490,8 @@
     .sd-major-alert,
     .sd-header,
     .sd-service-navigation,
-    .sd-footer {
+    .sd-footer,
+    .sd-cookie-banner {
       display: none;
     }
 

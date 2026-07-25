@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { navigationComponentNames } from './navigation';
+import { enhanceCookieBanner, navigationComponentNames } from './navigation';
 
 describe('navigation component contract', () => {
   it('publishes the complete navigation MVP inventory', () => {
@@ -18,6 +18,7 @@ describe('navigation component contract', () => {
       'search',
       'footer',
       'skip-link',
+      'cookie-banner',
     ]);
   });
 
@@ -29,5 +30,11 @@ describe('navigation component contract', () => {
     expect(css).toContain('.sd-primary-navigation a[aria-current=');
     expect(css).toContain('@media (forced-colors: active)');
     expect(css).toContain('@media print');
+  });
+
+  it('is safe during server-side rendering', () => {
+    const cleanup = enhanceCookieBanner();
+    expect(cleanup).toBeTypeOf('function');
+    expect(() => cleanup()).not.toThrow();
   });
 });

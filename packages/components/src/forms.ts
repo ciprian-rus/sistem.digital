@@ -13,6 +13,7 @@ export const formComponentNames = [
   'button',
   'button-group',
   'file-upload',
+  'segmented-control',
 ] as const;
 
 export type FormComponentName = (typeof formComponentNames)[number];

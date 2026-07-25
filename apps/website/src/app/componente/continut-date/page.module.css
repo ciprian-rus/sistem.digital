@@ -92,6 +92,20 @@
   font-size: var(--sd-font-size-body-small);
 }
 
+.chipRow {
+  display: flex;
+  gap: var(--sd-space-2);
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.avatarRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sd-space-3);
+  margin: 0;
+}
+
 @media (max-width: 48rem) {
   .exampleGrid {
     grid-template-columns: 1fr;

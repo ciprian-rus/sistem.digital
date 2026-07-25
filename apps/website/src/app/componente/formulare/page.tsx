@@ -360,6 +360,50 @@ export default function FormsReferencePage() {
           </p>
         </section>
 
+        <section className={styles.section} aria-labelledby="segmented-title">
+          <div className={styles.sectionHeader}>
+            <p className="section-kicker">Control segmentat</p>
+            <h2 id="segmented-title">
+              Vizual e un grup de butoane; semantic rămâne un grup de radio-uri.
+            </h2>
+            <p>
+              Input-urile native sunt ascunse vizual, nu eliminate din arborele de accesibilitate.
+              Funcționează identic fără JavaScript și cu orice tehnologie asistivă.
+            </p>
+          </div>
+          <fieldset className="sd-segmented-control">
+            <legend className="sd-visually-hidden">Vizualizarea rezultatelor</legend>
+            <label className="sd-segmented-control__option">
+              <input
+                className="sd-segmented-control__input"
+                type="radio"
+                name="results-view"
+                value="list"
+                defaultChecked
+              />
+              <span className="sd-segmented-control__label">Listă</span>
+            </label>
+            <label className="sd-segmented-control__option">
+              <input
+                className="sd-segmented-control__input"
+                type="radio"
+                name="results-view"
+                value="grid"
+              />
+              <span className="sd-segmented-control__label">Grilă</span>
+            </label>
+            <label className="sd-segmented-control__option">
+              <input
+                className="sd-segmented-control__input"
+                type="radio"
+                name="results-view"
+                value="map"
+              />
+              <span className="sd-segmented-control__label">Hartă</span>
+            </label>
+          </fieldset>
+        </section>
+
         <section className={styles.section} aria-labelledby="markup-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Markup de referință</p>
