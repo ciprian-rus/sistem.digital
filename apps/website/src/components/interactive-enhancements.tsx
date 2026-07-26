@@ -2,9 +2,16 @@
 
 import { useEffect } from 'react';
 
-import { enhanceInteractiveComponents } from '@sistem-digital/components';
+import { enhanceCookieBanner, enhanceInteractiveComponents } from '@sistem-digital/components';
 
 export function InteractiveEnhancements() {
-  useEffect(() => enhanceInteractiveComponents(), []);
+  useEffect(() => {
+    const cleanupInteractive = enhanceInteractiveComponents();
+    const cleanupCookieBanner = enhanceCookieBanner();
+    return () => {
+      cleanupCookieBanner();
+      cleanupInteractive();
+    };
+  }, []);
   return null;
 }

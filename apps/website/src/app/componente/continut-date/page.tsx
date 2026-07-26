@@ -179,6 +179,66 @@ export default function ContentDataReferencePage() {
           </div>
         </section>
 
+        <section className={styles.section} aria-labelledby="identity-status-title">
+          <div className={styles.sectionHeader}>
+            <p className="section-kicker">Spinner, chip și avatar</p>
+            <h2 id="identity-status-title">
+              O operație în curs, o selecție activă și o identitate — trei stări diferite.
+            </h2>
+            <p>
+              Spinner-ul are <code>role=&quot;status&quot;</code> și text pentru cititoare de ecran,
+              nu doar animație. Chip-ul se elimină printr-un link real, nu doar prin JavaScript.
+              Avatar-ul cu inițiale rămâne lizibil fără imagine.
+            </p>
+          </div>
+
+          <div className={styles.exampleGrid}>
+            <article className={styles.panel}>
+              <h3>Operație în curs</h3>
+              <span className="sd-spinner" role="status">
+                <span className="sd-spinner__icon" aria-hidden="true" />
+                <span>Se verifică situația cererii…</span>
+              </span>
+            </article>
+
+            <article className={styles.panel}>
+              <h3>Filtre active</h3>
+              <p className={styles.chipRow}>
+                <span className="sd-chip">
+                  Cluj-Napoca
+                  <a
+                    className="sd-chip__remove"
+                    href="/componente/continut-date"
+                    aria-label="Elimină filtrul Cluj-Napoca"
+                  >
+                    ×
+                  </a>
+                </span>
+                <span className="sd-chip">
+                  Activ
+                  <a
+                    className="sd-chip__remove"
+                    href="/componente/continut-date"
+                    aria-label="Elimină filtrul Activ"
+                  >
+                    ×
+                  </a>
+                </span>
+              </p>
+            </article>
+
+            <article className={styles.panel}>
+              <h3>Identitate</h3>
+              <p className={styles.avatarRow}>
+                <span className="sd-avatar" aria-hidden="true">
+                  AB
+                </span>
+                <span>Ana Popescu, funcționar public</span>
+              </p>
+            </article>
+          </div>
+        </section>
+
         <section className={styles.section} aria-labelledby="table-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Tabel responsive</p>

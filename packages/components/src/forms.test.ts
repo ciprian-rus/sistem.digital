@@ -43,6 +43,7 @@ describe('form component contract', () => {
       'button',
       'button-group',
       'file-upload',
+      'segmented-control',
     ]);
   });
 

@@ -22,6 +22,7 @@ const familyDefinitions = {
       'button',
       'button-group',
       'file-upload',
+      'segmented-control',
     ],
   },
   navigation: {
@@ -41,6 +42,7 @@ const familyDefinitions = {
       'search',
       'footer',
       'skip-link',
+      'cookie-banner',
     ],
   },
   content: {
@@ -63,6 +65,9 @@ const familyDefinitions = {
       'pagination',
       'metadata',
       'last-updated',
+      'spinner',
+      'chip',
+      'avatar',
     ],
   },
   interactive: {
@@ -134,6 +139,11 @@ const labels = {
   switch: 'Switch',
   tooltip: 'Tooltip',
   dropdown: 'Dropdown',
+  'segmented-control': 'Control segmentat',
+  'cookie-banner': 'Banner de cookie-uri',
+  spinner: 'Spinner',
+  chip: 'Chip',
+  avatar: 'Avatar',
 };
 
 const descriptions = {
@@ -185,6 +195,12 @@ const descriptions = {
   tooltip: 'Explică pe scurt un termen sau control, vizibil la hover și la focus.',
   dropdown:
     'Ascunde acțiuni secundare într-un meniu declanșat de buton, cu fallback de listă vizibilă.',
+  'segmented-control': 'Grup de radio-uri stilizat ca alegere exclusivă compactă, fără JavaScript.',
+  'cookie-banner':
+    'Comunică folosirea cookie-urilor și persistă acordul; rămâne vizibil fără JavaScript.',
+  spinner: 'Indică o operație în curs printr-o regiune live text, nu doar vizual.',
+  chip: 'Afișează o selecție sau un filtru activ, eliminabil printr-un link real.',
+  avatar: 'Reprezintă o identitate prin inițiale sau imagine, cu text alternativ.',
 };
 
 function markupFor(name) {
@@ -276,6 +292,14 @@ function markupFor(name) {
       '<span class="sd-tooltip-wrapper" data-sd-tooltip><button type="button" class="sd-tooltip-trigger" data-sd-tooltip-trigger aria-describedby="catalog-tooltip" title="Format: 13 cifre, fără spații">CNP</button><span class="sd-tooltip" role="tooltip" id="catalog-tooltip" hidden>Format: 13 cifre, fără spații</span></span>',
     dropdown:
       '<div class="sd-dropdown" data-sd-dropdown><button type="button" class="sd-dropdown__trigger" aria-expanded="true" aria-controls="catalog-dropdown-menu" data-sd-dropdown-trigger>Acțiuni</button><ul class="sd-dropdown__menu" id="catalog-dropdown-menu" data-sd-dropdown-menu><li><a class="sd-dropdown__item" href="#">Descarcă PDF</a></li><li><a class="sd-dropdown__item" href="#">Trimite pe e-mail</a></li></ul></div>',
+    'segmented-control':
+      '<fieldset class="sd-segmented-control"><legend class="sd-visually-hidden">Vizualizare</legend><label class="sd-segmented-control__option"><input class="sd-segmented-control__input" type="radio" name="catalog-view" value="list" checked><span class="sd-segmented-control__label">Listă</span></label><label class="sd-segmented-control__option"><input class="sd-segmented-control__input" type="radio" name="catalog-view" value="grid"><span class="sd-segmented-control__label">Grilă</span></label></fieldset>',
+    'cookie-banner':
+      '<section class="sd-cookie-banner" data-sd-cookie-banner aria-label="Cookie-uri"><div class="container sd-cookie-banner__inner"><div class="sd-cookie-banner__content"><h2>Acest site folosește doar cookie-uri esențiale</h2><p>Nu folosim cookie-uri de urmărire sau publicitate.</p></div><button type="button" class="sd-button sd-button--primary" data-sd-cookie-accept>Am înțeles</button></div></section>',
+    spinner:
+      '<span class="sd-spinner" role="status"><span class="sd-spinner__icon" aria-hidden="true"></span><span class="sd-visually-hidden">Se încarcă…</span></span>',
+    chip: '<span class="sd-chip">Cluj-Napoca<a class="sd-chip__remove" href="?judet=" aria-label="Elimină filtrul Cluj-Napoca">×</a></span>',
+    avatar: '<span class="sd-avatar" aria-hidden="true">AB</span>',
   };
   return examples[name];
 }
@@ -290,6 +314,7 @@ function jsImportsFor(name) {
     'file-upload-advanced': ['enhanceFileUploads'],
     tooltip: ['enhanceTooltips'],
     dropdown: ['enhanceDropdowns'],
+    'cookie-banner': ['enhanceCookieBanner'],
   };
   return helpers[name] ?? [];
 }

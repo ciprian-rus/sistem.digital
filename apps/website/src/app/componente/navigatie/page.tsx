@@ -20,6 +20,7 @@ const serviceItems = [
   { href: '#responsive', label: 'Navigație responsive' },
   { href: '#cautare', label: 'Căutare' },
   { href: '#breadcrumb', label: 'Breadcrumb și service navigation' },
+  { href: '#cookie-banner', label: 'Banner de cookie-uri' },
   { href: '#footer', label: 'Footer și alerte' },
 ] as const;
 
@@ -200,6 +201,49 @@ export default function NavigationReferencePage() {
                       { href: '#trimitere', label: 'Trimite cererea' },
                     ]}
                   />
+                </div>
+              </div>
+            </section>
+
+            <section
+              className={styles.section}
+              id="cookie-banner"
+              aria-labelledby="cookie-banner-title"
+            >
+              <div>
+                <p className="section-kicker">Banner de cookie-uri</p>
+                <h2 id="cookie-banner-title">
+                  Fără JavaScript, bannerul rămâne vizibil — niciodată invers.
+                </h2>
+                <p>
+                  Acordul se salvează local doar când scriptul rulează. Dacă JavaScript lipsește,
+                  bannerul nu dispare niciodată singur; e o limitare cunoscută, nu o eroare
+                  silențioasă.
+                </p>
+              </div>
+
+              <div className={styles.demo}>
+                <div className={styles.demoHeader}>Exemplu (nu ascunde restul paginii)</div>
+                <div className={styles.demoBody}>
+                  <section
+                    className="sd-cookie-banner"
+                    data-sd-cookie-banner
+                    aria-label="Cookie-uri"
+                  >
+                    <div className="sd-cookie-banner__inner">
+                      <div className="sd-cookie-banner__content">
+                        <h3>Acest site folosește doar cookie-uri esențiale</h3>
+                        <p>Nu folosim cookie-uri de urmărire sau publicitate.</p>
+                      </div>
+                      <button
+                        type="button"
+                        className="sd-button sd-button--primary"
+                        data-sd-cookie-accept
+                      >
+                        Am înțeles
+                      </button>
+                    </div>
+                  </section>
                 </div>
               </div>
             </section>

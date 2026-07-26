@@ -218,6 +218,77 @@
     color: var(--sd-color-feedback-danger-text);
   }
 
+  .sd-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sd-space-3);
+    color: var(--sd-color-text-muted);
+  }
+
+  .sd-spinner__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 0.2rem solid var(--sd-color-border);
+    border-block-start-color: var(--sd-color-action-primary-background);
+    border-radius: 50%;
+    animation: sd-spinner-rotate 0.8s linear infinite;
+  }
+
+  @keyframes sd-spinner-rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .sd-chip {
+    display: inline-flex;
+    min-height: 1.75rem;
+    align-items: center;
+    gap: var(--sd-space-2);
+    padding: 0.2rem var(--sd-space-2) 0.2rem var(--sd-space-3);
+    border: 1px solid var(--sd-color-border-strong);
+    border-radius: 999px;
+    background: var(--sd-color-surface-subtle);
+    color: var(--sd-color-text);
+    font-size: var(--sd-font-size-body-small);
+    font-weight: var(--sd-font-weight-semibold);
+    line-height: 1.2;
+  }
+
+  .sd-chip__remove {
+    display: inline-grid;
+    width: 1.25rem;
+    height: 1.25rem;
+    place-items: center;
+    border-radius: 50%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sd-chip__remove:hover {
+    background: var(--sd-color-surface-raised);
+  }
+
+  .sd-avatar {
+    display: inline-grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    background: var(--sd-color-brand-subtle);
+    color: var(--sd-color-text);
+    font-size: var(--sd-font-size-body-small);
+    font-weight: var(--sd-font-weight-bold);
+  }
+
+  .sd-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .sd-table-container {
     max-width: 100%;
     overflow-x: auto;
@@ -441,7 +512,8 @@
   .sd-card a:focus-visible,
   .sd-details summary:focus-visible,
   .sd-pagination a:focus-visible,
-  .sd-summary-list__actions a:focus-visible {
+  .sd-summary-list__actions a:focus-visible,
+  .sd-chip__remove:focus-visible {
     outline: var(--sd-focus-width) solid var(--sd-color-focus);
     outline-offset: var(--sd-focus-offset);
     box-shadow: 0 0 0 var(--sd-focus-halo) var(--sd-color-focus-contrast);
@@ -473,6 +545,8 @@
     .sd-notification-banner,
     .sd-card,
     .sd-tag,
+    .sd-chip,
+    .sd-avatar,
     .sd-table-container,
     .sd-table th,
     .sd-table td,
@@ -488,6 +562,16 @@
       background: Highlight;
       color: HighlightText;
     }
+
+    .sd-spinner__icon {
+      border-block-start-color: Highlight;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sd-spinner__icon {
+      animation-duration: 2.4s;
+    }
   }
 
   @media print {
@@ -496,7 +580,8 @@
     .sd-notification-banner,
     .sd-inset-text,
     .sd-table-container,
-    .sd-tag {
+    .sd-tag,
+    .sd-chip {
       border-color: #000000;
       background: #ffffff;
       color: #000000;
