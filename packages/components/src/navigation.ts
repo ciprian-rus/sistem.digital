@@ -46,6 +46,9 @@ export function enhanceCookieBanner({
     }
     if (stored) {
       banner.hidden = true;
+      cleanups.push(() => {
+        banner.hidden = false;
+      });
       continue;
     }
 
