@@ -10,6 +10,9 @@ export const navigationComponentNames = [
   'footer',
   'skip-link',
   'cookie-banner',
+  'phase-banner',
+  'back-to-top-link',
+  'exit-this-page',
 ] as const;
 
 export type NavigationComponentName = (typeof navigationComponentNames)[number];
@@ -70,5 +73,67 @@ export function enhanceCookieBanner({
 
   return () => {
     for (const cleanup of cleanups.reverse()) cleanup();
+  };
+}
+
+export interface ExitThisPageOptions {
+  root?: ParentNode;
+  /** Number of consecutive Shift presses that trigger the emergency exit. */
+  pressCount?: number;
+  /** Milliseconds allowed between presses before the count resets. */
+  pressWindowMs?: number;
+}
+
+/**
+ * Without JavaScript, the exit link is a real anchor and leaving the page
+ * works exactly as it would anywhere else. With JavaScript, clicking it (or
+ * pressing Shift three times in a row) replaces the current history entry
+ * instead of pushing a new one, so the back button cannot return here.
+ */
+export function enhanceExitThisPage({
+  root,
+  pressCount: requiredPresses = 3,
+  pressWindowMs = 1000,
+}: ExitThisPageOptions = {}): () => void {
+  const resolvedRoot = root ?? (typeof document === 'undefined' ? null : document);
+  if (!resolvedRoot) return () => {};
+
+  const links = [...resolvedRoot.querySelectorAll<HTMLAnchorElement>('[data-sd-exit-this-page]')];
+  if (links.length === 0) return () => {};
+
+  const exit = () => {
+    const href = links[0]?.getAttribute('href');
+    if (href) window.location.replace(href);
+  };
+
+  const onClick = (event: MouseEvent) => {
+    event.preventDefault();
+    exit();
+  };
+  for (const link of links) link.addEventListener('click', onClick);
+
+  let shiftPresses = 0;
+  let resetTimer: number | undefined;
+  const onKeyUp = (event: KeyboardEvent) => {
+    if (event.key !== 'Shift') {
+      shiftPresses = 0;
+      return;
+    }
+    shiftPresses += 1;
+    window.clearTimeout(resetTimer);
+    resetTimer = window.setTimeout(() => {
+      shiftPresses = 0;
+    }, pressWindowMs);
+    if (shiftPresses >= requiredPresses) {
+      shiftPresses = 0;
+      exit();
+    }
+  };
+  document.addEventListener('keyup', onKeyUp);
+
+  return () => {
+    for (const link of links) link.removeEventListener('click', onClick);
+    document.removeEventListener('keyup', onKeyUp);
+    window.clearTimeout(resetTimer);
   };
 }

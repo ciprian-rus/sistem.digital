@@ -404,6 +404,40 @@ export default function FormsReferencePage() {
           </fieldset>
         </section>
 
+        <section className={styles.section} aria-labelledby="character-count-title">
+          <div className={styles.sectionHeader}>
+            <p className="section-kicker">Numărător de caractere</p>
+            <h2 id="character-count-title">
+              Fără JavaScript rămâne doar hint-ul static; cu JavaScript, se actualizează live.
+            </h2>
+            <p>
+              Nu folosește atributul nativ <code>maxlength</code>: limita e informativă, nu blocantă
+              — poți depăși numărul de caractere și vezi acest lucru semnalat, nu tăiat pe nesimțite
+              la mijlocul unei propoziții. Regiunea de status este o zonă{' '}
+              <code>aria-live=&quot;polite&quot;</code> deja prezentă în markup, nu creată dinamic —
+              cititoarele de ecran o anunță corect din primul enhancement.
+            </p>
+          </div>
+          <div className="sd-form-group" data-sd-character-count={200}>
+            <label className="sd-label" htmlFor="request-reason">
+              Motivul cererii
+            </label>
+            <textarea
+              className="sd-textarea sd-character-count__field"
+              id="request-reason"
+              rows={4}
+              data-sd-character-count-field
+            />
+            <p
+              className="sd-character-count__status"
+              data-sd-character-count-status
+              aria-live="polite"
+            >
+              Mai aveți 200 caractere
+            </p>
+          </div>
+        </section>
+
         <section className={styles.section} aria-labelledby="markup-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Markup de referință</p>

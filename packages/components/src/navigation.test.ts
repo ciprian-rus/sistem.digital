@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { enhanceCookieBanner, navigationComponentNames } from './navigation';
+import { enhanceCookieBanner, enhanceExitThisPage, navigationComponentNames } from './navigation';
 
 describe('navigation component contract', () => {
   it('publishes the complete navigation MVP inventory', () => {
@@ -19,6 +19,9 @@ describe('navigation component contract', () => {
       'footer',
       'skip-link',
       'cookie-banner',
+      'phase-banner',
+      'back-to-top-link',
+      'exit-this-page',
     ]);
   });
 
@@ -34,6 +37,12 @@ describe('navigation component contract', () => {
 
   it('is safe during server-side rendering', () => {
     const cleanup = enhanceCookieBanner();
+    expect(cleanup).toBeTypeOf('function');
+    expect(() => cleanup()).not.toThrow();
+  });
+
+  it('exit-this-page enhancement is safe during server-side rendering', () => {
+    const cleanup = enhanceExitThisPage();
     expect(cleanup).toBeTypeOf('function');
     expect(() => cleanup()).not.toThrow();
   });

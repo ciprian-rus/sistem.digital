@@ -14,6 +14,7 @@ export const formComponentNames = [
   'button-group',
   'file-upload',
   'segmented-control',
+  'character-count',
 ] as const;
 
 export type FormComponentName = (typeof formComponentNames)[number];
@@ -74,4 +75,49 @@ export function enhanceErrorSummaryLinks(summary: HTMLElement): () => void {
 
   summary.addEventListener('click', handleClick);
   return () => summary.removeEventListener('click', handleClick);
+}
+
+export interface CharacterCountOptions {
+  root?: ParentNode;
+}
+
+/**
+ * Without JavaScript, the field shows only the static "maximum N characters"
+ * hint written in markup. With JavaScript, a live region below it counts
+ * down (or over) as the visitor types, updated on every input event.
+ */
+export function enhanceCharacterCount({ root }: CharacterCountOptions = {}): () => void {
+  const resolvedRoot = root ?? documentRoot();
+  if (!resolvedRoot) return () => {};
+
+  const cleanups: Array<() => void> = [];
+  for (const wrapper of resolvedRoot.querySelectorAll<HTMLElement>('[data-sd-character-count]')) {
+    const field = wrapper.querySelector<HTMLTextAreaElement | HTMLInputElement>(
+      '[data-sd-character-count-field]',
+    );
+    const status = wrapper.querySelector<HTMLElement>('[data-sd-character-count-status]');
+    const max = Number(wrapper.dataset.sdCharacterCount);
+    if (!field || !status || !Number.isFinite(max) || max <= 0) continue;
+
+    const update = () => {
+      const remaining = max - field.value.length;
+      status.textContent =
+        remaining < 0
+          ? `${Math.abs(remaining)} caractere peste limita permisă`
+          : `Mai aveți ${remaining} caractere`;
+      wrapper.classList.toggle('sd-character-count--error', remaining < 0);
+    };
+
+    field.addEventListener('input', update);
+    update();
+
+    cleanups.push(() => {
+      field.removeEventListener('input', update);
+      wrapper.classList.remove('sd-character-count--error');
+    });
+  }
+
+  return () => {
+    for (const cleanup of cleanups.reverse()) cleanup();
+  };
 }

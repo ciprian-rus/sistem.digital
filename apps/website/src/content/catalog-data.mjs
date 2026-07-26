@@ -23,6 +23,7 @@ const familyDefinitions = {
       'button-group',
       'file-upload',
       'segmented-control',
+      'character-count',
     ],
   },
   navigation: {
@@ -43,6 +44,9 @@ const familyDefinitions = {
       'footer',
       'skip-link',
       'cookie-banner',
+      'phase-banner',
+      'back-to-top-link',
+      'exit-this-page',
     ],
   },
   content: {
@@ -68,6 +72,7 @@ const familyDefinitions = {
       'spinner',
       'chip',
       'avatar',
+      'warning-text',
     ],
   },
   interactive: {
@@ -144,6 +149,11 @@ const labels = {
   spinner: 'Spinner',
   chip: 'Chip',
   avatar: 'Avatar',
+  'warning-text': 'Text de avertizare',
+  'phase-banner': 'Banner de fază',
+  'back-to-top-link': 'Link înapoi sus',
+  'exit-this-page': 'Ieșire rapidă din pagină',
+  'character-count': 'Numărător de caractere',
 };
 
 const descriptions = {
@@ -201,6 +211,14 @@ const descriptions = {
   spinner: 'Indică o operație în curs printr-o regiune live text, nu doar vizual.',
   chip: 'Afișează o selecție sau un filtru activ, eliminabil printr-un link real.',
   avatar: 'Reprezintă o identitate prin inițiale sau imagine, cu text alternativ.',
+  'warning-text': 'Atrage atenția asupra unei consecințe importante, cu simbol non-cromatic.',
+  'phase-banner': 'Semnalează stadiul serviciului (alfa/beta) și leagă la feedback.',
+  'back-to-top-link':
+    'Revine la începutul paginii pe conținut lung; ancoră reală, nu doar scroll cu JavaScript.',
+  'exit-this-page':
+    'Părăsește pagina imediat, prin înlocuirea intrării din istoric; link real fără JavaScript.',
+  'character-count':
+    'Numără caracterele rămase într-un câmp cu limită, actualizat live pentru cititoare de ecran.',
 };
 
 function markupFor(name) {
@@ -300,6 +318,16 @@ function markupFor(name) {
       '<span class="sd-spinner" role="status"><span class="sd-spinner__icon" aria-hidden="true"></span><span class="sd-visually-hidden">Se încarcă…</span></span>',
     chip: '<span class="sd-chip">Cluj-Napoca<a class="sd-chip__remove" href="?judet=" aria-label="Elimină filtrul Cluj-Napoca">×</a></span>',
     avatar: '<span class="sd-avatar" aria-hidden="true">AB</span>',
+    'warning-text':
+      '<div class="sd-warning-text"><span class="sd-warning-text__icon" aria-hidden="true">!</span><strong><span class="sd-visually-hidden">Avertisment: </span>Această acțiune nu poate fi anulată.</strong></div>',
+    'phase-banner':
+      '<div class="sd-phase-banner"><div class="sd-phase-banner__inner"><span class="sd-tag sd-tag--info">Beta</span><p>Acesta este un serviciu nou. <a href="#">Trimite-ne feedback</a>.</p></div></div>',
+    'back-to-top-link':
+      '<a class="sd-back-to-top" href="#catalog-top"><span class="sd-back-to-top__icon" aria-hidden="true">→</span>Înapoi sus</a>',
+    'exit-this-page':
+      '<a class="sd-exit-page" href="https://www.google.com" data-sd-exit-this-page>Ieși rapid din această pagină</a>',
+    'character-count':
+      '<div class="sd-form-group" data-sd-character-count="200"><label class="sd-label" for="catalog-comment">Motivul cererii</label><textarea class="sd-textarea sd-character-count__field" id="catalog-comment" data-sd-character-count-field rows="4"></textarea><p class="sd-character-count__status" data-sd-character-count-status aria-live="polite">Mai aveți 200 caractere</p></div>',
   };
   return examples[name];
 }
@@ -315,6 +343,8 @@ function jsImportsFor(name) {
     tooltip: ['enhanceTooltips'],
     dropdown: ['enhanceDropdowns'],
     'cookie-banner': ['enhanceCookieBanner'],
+    'exit-this-page': ['enhanceExitThisPage'],
+    'character-count': ['enhanceCharacterCount'],
   };
   return helpers[name] ?? [];
 }
