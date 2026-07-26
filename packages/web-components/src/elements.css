@@ -1,0 +1,19 @@
+/*
+ * Every element here wraps existing markup without rendering content of its
+ * own. `display: contents` keeps the wrapper out of layout so it behaves as
+ * if its children sat directly in the parent — visually invisible whether
+ * or not `defineWebComponents()` has run.
+ */
+sd-accordion,
+sd-autocomplete,
+sd-character-count,
+sd-cookie-banner,
+sd-dialog,
+sd-dropdown,
+sd-error-summary,
+sd-exit-this-page,
+sd-file-upload-advanced,
+sd-tabs,
+sd-tooltip {
+  display: contents;
+}
