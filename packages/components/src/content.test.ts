@@ -24,6 +24,7 @@ describe('content and data components', () => {
       'spinner',
       'chip',
       'avatar',
+      'warning-text',
     ]);
   });
 

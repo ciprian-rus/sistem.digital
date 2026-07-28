@@ -15,6 +15,7 @@ export const contentComponentNames = [
   'spinner',
   'chip',
   'avatar',
+  'warning-text',
 ] as const;
 
 export type ContentComponentName = (typeof contentComponentNames)[number];

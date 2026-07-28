@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { focusErrorSummary, formComponentNames } from './forms';
+import { enhanceCharacterCount, focusErrorSummary, formComponentNames } from './forms';
 
 interface MockSummary {
   focused: boolean;
@@ -44,6 +44,7 @@ describe('form component contract', () => {
       'button-group',
       'file-upload',
       'segmented-control',
+      'character-count',
     ]);
   });
 
@@ -77,5 +78,11 @@ describe('form component contract', () => {
 
   it('is safe during server-side rendering', () => {
     expect(focusErrorSummary()).toBe(false);
+  });
+
+  it('character count enhancement is safe during server-side rendering', () => {
+    const cleanup = enhanceCharacterCount();
+    expect(cleanup).toBeTypeOf('function');
+    expect(() => cleanup()).not.toThrow();
   });
 });

@@ -249,6 +249,22 @@
     cursor: pointer;
   }
 
+  .sd-character-count__field {
+    margin-bottom: var(--sd-space-2);
+  }
+
+  .sd-character-count__status {
+    display: block;
+    max-width: var(--sd-layout-measure);
+    color: var(--sd-color-text-muted);
+    font-size: var(--sd-font-size-body-small);
+  }
+
+  .sd-character-count--error .sd-character-count__status {
+    color: var(--sd-color-feedback-danger-text);
+    font-weight: var(--sd-font-weight-bold);
+  }
+
   .sd-button {
     display: inline-flex;
     gap: var(--sd-component-button-gap);

@@ -21,6 +21,8 @@ const serviceItems = [
   { href: '#cautare', label: 'Căutare' },
   { href: '#breadcrumb', label: 'Breadcrumb și service navigation' },
   { href: '#cookie-banner', label: 'Banner de cookie-uri' },
+  { href: '#phase-banner', label: 'Banner de fază și link înapoi sus' },
+  { href: '#exit-this-page', label: 'Ieșire rapidă din pagină' },
   { href: '#footer', label: 'Footer și alerte' },
 ] as const;
 
@@ -244,6 +246,71 @@ export default function NavigationReferencePage() {
                       </button>
                     </div>
                   </section>
+                </div>
+              </div>
+            </section>
+
+            <section
+              className={styles.section}
+              id="phase-banner"
+              aria-labelledby="phase-banner-title"
+            >
+              <div>
+                <p className="section-kicker">Banner de fază și link înapoi sus</p>
+                <h2 id="phase-banner-title">
+                  Stadiul serviciului e text explicit, nu doar o etichetă colorată.
+                </h2>
+                <p>
+                  Bannerul de fază leagă direct la un canal de feedback. Link-ul înapoi sus e o
+                  ancoră HTML reală către începutul paginii, utilă pe conținut lung — funcționează
+                  identic fără JavaScript.
+                </p>
+              </div>
+
+              <div className={styles.demo}>
+                <div className={styles.demoHeader}>Exemplu</div>
+                <div className={styles.demoBody}>
+                  <div className="sd-phase-banner">
+                    <div className="sd-phase-banner__inner">
+                      <span className="sd-tag sd-tag--info">Beta</span>
+                      <p>
+                        Acesta este un serviciu nou. <a href="#">Trimite-ne feedback</a>.
+                      </p>
+                    </div>
+                  </div>
+                  <a className="sd-back-to-top" href="#page-title">
+                    <span className="sd-back-to-top__icon" aria-hidden="true">
+                      →
+                    </span>
+                    Înapoi sus
+                  </a>
+                </div>
+              </div>
+            </section>
+
+            <section
+              className={styles.section}
+              id="exit-this-page"
+              aria-labelledby="exit-this-page-title"
+            >
+              <div>
+                <p className="section-kicker">Ieșire rapidă din pagină</p>
+                <h2 id="exit-this-page-title">
+                  Fără JavaScript e un link obișnuit; nu depinde de un script care poate lipsi.
+                </h2>
+                <p>
+                  Cu JavaScript, apăsarea link-ului sau tasta Shift apăsată de trei ori consecutiv
+                  înlocuiește intrarea curentă din istoric înainte de a naviga, astfel încât butonul
+                  Înapoi al browserului nu revine la această pagină.
+                </p>
+              </div>
+
+              <div className={styles.demo}>
+                <div className={styles.demoHeader}>Exemplu</div>
+                <div className={styles.demoBody}>
+                  <a className="sd-exit-page" href="https://www.google.com" data-sd-exit-this-page>
+                    Ieși rapid din această pagină
+                  </a>
                 </div>
               </div>
             </section>

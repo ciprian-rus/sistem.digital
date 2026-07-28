@@ -1,15 +1,19 @@
 export {
+  enhanceCharacterCount,
   enhanceErrorSummaryLinks,
   focusErrorSummary,
   formComponentNames,
+  type CharacterCountOptions,
   type ErrorSummaryFocusOptions,
   type FormComponentName,
 } from './forms.js';
 
 export {
   enhanceCookieBanner,
+  enhanceExitThisPage,
   navigationComponentNames,
   type CookieBannerOptions,
+  type ExitThisPageOptions,
   type NavigationComponentName,
 } from './navigation.js';
 

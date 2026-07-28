@@ -1,14 +1,14 @@
 {
-  "name": "@sistem-digital/components",
-  "version": "0.1.0-alpha.3",
-  "description": "Componente accesibile și independente de framework pentru Sistem Digital.",
+  "name": "@sistem-digital/web-components",
+  "version": "0.1.0-alpha.0",
+  "description": "Custom elements care înregistrează progressive enhancements din @sistem-digital/components pentru orice framework.",
   "license": "Apache-2.0",
   "type": "module",
   "homepage": "https://sistem.digital/componente",
   "repository": {
     "type": "git",
     "url": "https://github.com/ciprian-rus/sistem.digital.git",
-    "directory": "packages/components"
+    "directory": "packages/web-components"
   },
   "bugs": {
     "url": "https://github.com/ciprian-rus/sistem.digital/issues"
@@ -22,14 +22,10 @@
   "files": [
     "dist",
     "dist-cjs",
-    "src/forms.css",
-    "src/navigation.css",
-    "src/content.css",
-    "src/interactive.css",
+    "src/elements.css",
     "README.md",
     "CHANGELOG.md"
   ],
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -37,13 +33,10 @@
       "require": "./dist-cjs/index.js",
       "default": "./dist/index.js"
     },
-    "./forms.css": "./src/forms.css",
-    "./navigation.css": "./src/navigation.css",
-    "./content.css": "./src/content.css",
-    "./interactive.css": "./src/interactive.css"
+    "./elements.css": "./src/elements.css"
   },
   "peerDependencies": {
-    "@sistem-digital/tokens": ">=0.1.0-alpha.0 <1.0.0"
+    "@sistem-digital/components": ">=0.1.0-alpha.0 <1.0.0"
   },
   "scripts": {
     "build:esm": "tsc -p tsconfig.json",
@@ -55,7 +48,7 @@
     "prepack": "pnpm build"
   },
   "devDependencies": {
-    "@sistem-digital/tokens": "workspace:*",
+    "@sistem-digital/components": "workspace:*",
     "vitest": "catalog:"
   }
 }

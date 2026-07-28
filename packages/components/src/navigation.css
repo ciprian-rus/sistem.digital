@@ -107,6 +107,66 @@
     margin-bottom: 0;
   }
 
+  .sd-phase-banner {
+    border-block-end: 1px solid var(--sd-color-border);
+    background: var(--sd-color-surface-subtle);
+    color: var(--sd-color-text);
+    font-size: var(--sd-font-size-body-small);
+  }
+
+  .sd-phase-banner__inner {
+    display: flex;
+    min-height: var(--sd-target-minimum);
+    align-items: center;
+    gap: var(--sd-space-3);
+    padding-block: var(--sd-space-2);
+  }
+
+  .sd-phase-banner p {
+    margin: 0;
+  }
+
+  .sd-phase-banner a {
+    color: var(--sd-color-link);
+  }
+
+  .sd-back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sd-space-2);
+    margin-block: var(--sd-space-6);
+    color: var(--sd-color-link);
+    font-weight: var(--sd-font-weight-semibold);
+    text-decoration: none;
+  }
+
+  .sd-back-to-top:hover {
+    text-decoration: underline;
+  }
+
+  .sd-back-to-top__icon {
+    display: inline-block;
+    transform: rotate(-90deg);
+  }
+
+  .sd-exit-page {
+    display: inline-flex;
+    min-height: var(--sd-target-minimum);
+    align-items: center;
+    padding-inline: var(--sd-space-4);
+    border: var(--sd-component-button-border-width) solid var(--sd-color-feedback-danger-border);
+    border-radius: var(--sd-component-button-radius);
+    background: var(--sd-color-feedback-danger-background);
+    color: var(--sd-color-feedback-danger-text);
+    font-weight: var(--sd-font-weight-bold);
+    text-decoration: none;
+  }
+
+  .sd-exit-page:hover {
+    background: var(--sd-color-feedback-danger-border);
+    color: var(--sd-color-text-inverse);
+  }
+
   .sd-header {
     border-block-end: 1px solid color-mix(in srgb, var(--sd-color-text-inverse) 28%, transparent);
     background: var(--sd-color-surface-strong);
@@ -439,7 +499,10 @@
   .sd-breadcrumb a:focus-visible,
   .sd-service-navigation a:focus-visible,
   .sd-footer a:focus-visible,
-  .sd-cookie-banner :where(a, button):focus-visible {
+  .sd-cookie-banner :where(a, button):focus-visible,
+  .sd-phase-banner a:focus-visible,
+  .sd-back-to-top:focus-visible,
+  .sd-exit-page:focus-visible {
     outline: var(--sd-focus-width) solid var(--sd-color-focus);
     outline-offset: var(--sd-focus-offset);
     box-shadow: 0 0 0 var(--sd-focus-halo) var(--sd-color-focus-contrast);
@@ -474,7 +537,9 @@
     .sd-footer,
     .sd-official-banner,
     .sd-major-alert,
-    .sd-cookie-banner {
+    .sd-cookie-banner,
+    .sd-phase-banner,
+    .sd-exit-page {
       border-color: CanvasText;
     }
 
@@ -491,7 +556,10 @@
     .sd-header,
     .sd-service-navigation,
     .sd-footer,
-    .sd-cookie-banner {
+    .sd-cookie-banner,
+    .sd-phase-banner,
+    .sd-back-to-top,
+    .sd-exit-page {
       display: none;
     }
 

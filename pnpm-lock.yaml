@@ -179,6 +179,15 @@ importers:
 
   packages/tokens: {}
 
+  packages/web-components:
+    devDependencies:
+      '@sistem-digital/components':
+        specifier: workspace:*
+        version: link:../components
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.13.3)(vite@8.1.5(@types/node@24.13.3)(yaml@2.9.0))
+
 packages:
 
   '@axe-core/playwright@4.12.1':

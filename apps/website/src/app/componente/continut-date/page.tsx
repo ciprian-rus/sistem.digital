@@ -128,6 +128,16 @@ export default function ContentDataReferencePage() {
                   <p>Modificările sunt vizibile în registrul public.</p>
                 </div>
               </section>
+
+              <div className="sd-warning-text">
+                <span className="sd-warning-text__icon" aria-hidden="true">
+                  !
+                </span>
+                <strong>
+                  <span className="sd-visually-hidden">Avertisment: </span>
+                  Această acțiune nu poate fi anulată.
+                </strong>
+              </div>
             </div>
           </div>
         </section>
