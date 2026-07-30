@@ -1,0 +1,53 @@
+{
+  "name": "@sistem-digital/react",
+  "version": "0.1.0-alpha.0",
+  "description": "Hook-uri React pentru progressive enhancements din @sistem-digital/components.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "homepage": "https://sistem.digital/componente",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ciprian-rus/sistem.digital.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/ciprian-rus/sistem.digital/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "dist-cjs",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist-cjs/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "peerDependencies": {
+    "@sistem-digital/components": ">=0.1.0-alpha.0 <1.0.0",
+    "react": ">=18.0.0"
+  },
+  "scripts": {
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && node -e \"require('node:fs').writeFileSync('dist-cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}\\n')\"",
+    "build": "pnpm build:esm && pnpm build:cjs",
+    "lint": "eslint src",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",
+    "test": "vitest run",
+    "prepack": "pnpm build"
+  },
+  "devDependencies": {
+    "@sistem-digital/components": "workspace:*",
+    "@types/react": "catalog:",
+    "react": "catalog:",
+    "vitest": "catalog:"
+  }
+}

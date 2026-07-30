@@ -1,24 +1,27 @@
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 const artifactsRoot = resolve(process.argv[2] ?? 'release-artifacts');
 const packagesRoot = resolve('packages');
 
-const manifests = readdirSync(packagesRoot, { withFileTypes: true })
+const packageDirs = readdirSync(packagesRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
-  .map((entry) =>
-    JSON.parse(readFileSync(resolve(packagesRoot, entry.name, 'package.json'), 'utf8')),
-  )
+  .map((entry) => ({
+    directory: resolve(packagesRoot, entry.name),
+    manifest: JSON.parse(readFileSync(resolve(packagesRoot, entry.name, 'package.json'), 'utf8')),
+  }))
   .filter(
-    (manifest) =>
+    ({ manifest }) =>
       manifest.private !== true &&
       typeof manifest.name === 'string' &&
       typeof manifest.version === 'string',
   )
-  .map(({ name, version }) => ({ name, version }))
-  .sort((left, right) => left.name.localeCompare(right.name));
+  .sort((left, right) => left.manifest.name.localeCompare(right.manifest.name));
+
+const manifests = packageDirs.map(({ manifest: { name, version } }) => ({ name, version }));
 
 const tarballs = readdirSync(artifactsRoot)
   .filter((name) => name.endsWith('.tgz'))
@@ -29,6 +32,20 @@ if (manifests.length === 0 || tarballs.length !== manifests.length) {
   throw new Error(
     `Expected ${manifests.length} public package tarballs, found ${tarballs.length}.`,
   );
+}
+
+// A public package may declare a peerDependency outside this monorepo (e.g.
+// react). The offline install below can't fetch those from the registry, so
+// resolve the exact copy each package was built and tested against locally
+// and install it alongside the packed tarballs — deterministic, and no
+// different in spirit from vendoring an already-verified dependency.
+const externalPeerDirs = new Map();
+for (const { directory, manifest } of packageDirs) {
+  const packageRequire = createRequire(resolve(directory, 'package.json'));
+  for (const peerName of Object.keys(manifest.peerDependencies ?? {})) {
+    if (peerName.startsWith('@sistem-digital/') || externalPeerDirs.has(peerName)) continue;
+    externalPeerDirs.set(peerName, dirname(packageRequire.resolve(`${peerName}/package.json`)));
+  }
 }
 
 function run(command, args, cwd) {
@@ -69,6 +86,7 @@ try {
       '--no-fund',
       '--package-lock=false',
       ...tarballs,
+      ...externalPeerDirs.values(),
     ],
     consumerRoot,
   );
@@ -99,12 +117,20 @@ for (const manifest of manifests) {
 }
 const tokens = await import('@sistem-digital/tokens');
 const components = await import('@sistem-digital/components');
+const webComponents = await import('@sistem-digital/web-components');
+const reactAdapter = await import('@sistem-digital/react');
 const expectedTokenVersion = manifests.find(({ name }) => name === '@sistem-digital/tokens')?.version;
 if (tokens.tokenVersion !== expectedTokenVersion || tokens.tokens?.core?.color?.blue?.[900] !== '#002a59') {
   throw new Error('ESM tokens API does not match the release candidate.');
 }
 if (!tokens.themeNames.includes('light') || typeof components.enhanceDialogs !== 'function') {
   throw new Error('ESM public APIs are incomplete.');
+}
+if (!webComponents.webComponentNames?.includes('sd-dialog') || typeof webComponents.defineWebComponents !== 'function') {
+  throw new Error('ESM web-components API does not match the release candidate.');
+}
+if (typeof reactAdapter.useDialog !== 'function' || typeof reactAdapter.GlobalEnhancements !== 'function') {
+  throw new Error('ESM react API does not match the release candidate.');
 }
 `,
   );
@@ -119,12 +145,20 @@ for (const manifest of manifests) {
 }
 const tokens = require('@sistem-digital/tokens');
 const components = require('@sistem-digital/components');
+const webComponents = require('@sistem-digital/web-components');
+const reactAdapter = require('@sistem-digital/react');
 const expectedTokenVersion = manifests.find(({ name }) => name === '@sistem-digital/tokens')?.version;
 if (tokens.tokenVersion !== expectedTokenVersion || tokens.tokens?.core?.color?.blue?.[900] !== '#002a59') {
   throw new Error('CommonJS tokens API does not match the release candidate.');
 }
 if (!tokens.themeNames.includes('light') || typeof components.enhanceDialogs !== 'function') {
   throw new Error('CommonJS public APIs are incomplete.');
+}
+if (!webComponents.webComponentNames?.includes('sd-dialog') || typeof webComponents.defineWebComponents !== 'function') {
+  throw new Error('CommonJS web-components API does not match the release candidate.');
+}
+if (typeof reactAdapter.useDialog !== 'function' || typeof reactAdapter.GlobalEnhancements !== 'function') {
+  throw new Error('CommonJS react API does not match the release candidate.');
 }
 `,
   );
