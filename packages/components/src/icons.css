@@ -1,0 +1,13 @@
+@layer sd-components {
+  .sd-icon {
+    display: inline-block;
+    flex: none;
+    vertical-align: -0.125em;
+  }
+
+  @media (forced-colors: active) {
+    .sd-icon {
+      forced-color-adjust: auto;
+    }
+  }
+}

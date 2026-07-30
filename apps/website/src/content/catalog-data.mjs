@@ -251,7 +251,7 @@ function markupFor(name) {
     'official-banner':
       '<section class="sd-official-banner" aria-label="Informație despre autenticitate"><div class="sd-official-banner__inner"><span class="sd-official-banner__mark" aria-hidden="true">RO</span><p>Domeniul oficial este <a href="#">institutie.ro</a>.</p></div></section>',
     'major-alert':
-      '<section class="sd-major-alert" aria-labelledby="catalog-alert"><div class="sd-major-alert__inner"><span aria-hidden="true">!</span><div><strong id="catalog-alert">Serviciu indisponibil temporar</strong><p>Revenim la ora 14:00.</p></div></div></section>',
+      '<section class="sd-major-alert" aria-labelledby="catalog-alert"><div class="sd-major-alert__inner"><span class="sd-major-alert__symbol" aria-hidden="true"><svg class="sd-icon" width="1.1rem" height="1.1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="12" y1="6" x2="12" y2="14"/><circle cx="12" cy="18" r="0.75" fill="currentColor" stroke="none"/></svg></span><div><strong id="catalog-alert">Serviciu indisponibil temporar</strong><p>Revenim la ora 14:00.</p></div></div></section>',
     'institution-header':
       '<header class="sd-header"><div class="sd-header__identity-row"><a class="sd-identity" href="#"><span class="sd-identity__mark" aria-hidden="true">SD</span><span class="sd-identity__text"><span class="sd-identity__name">Instituția exemplu</span><span class="sd-identity__service">Serviciu digital</span></span></a></div></header>',
     'desktop-navigation':
@@ -272,9 +272,9 @@ function markupFor(name) {
     'external-link':
       '<a class="sd-link sd-link--external" href="https://example.org">Registrul extern<span class="sd-visually-hidden"> (site extern)</span></a>',
     alert:
-      '<section class="sd-alert sd-alert--info" aria-labelledby="catalog-info"><span class="sd-alert__symbol" aria-hidden="true">i</span><div class="sd-alert__content"><strong class="sd-alert__title" id="catalog-info">Cererea poate fi salvată</strong><p>Poți reveni înainte de termen.</p></div></section>',
+      '<section class="sd-alert sd-alert--info" aria-labelledby="catalog-info"><span class="sd-alert__symbol" aria-hidden="true"><svg class="sd-icon" width="1.1rem" height="1.1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="12" y1="10.5" x2="12" y2="17"/><circle cx="12" cy="6.5" r="0.75" fill="currentColor" stroke="none"/></svg></span><div class="sd-alert__content"><strong class="sd-alert__title" id="catalog-info">Cererea poate fi salvată</strong><p>Poți reveni înainte de termen.</p></div></section>',
     'notification-banner':
-      '<section class="sd-notification-banner sd-notification-banner--success" aria-labelledby="catalog-success"><span class="sd-notification-banner__symbol" aria-hidden="true">✓</span><div class="sd-notification-banner__content"><strong class="sd-notification-banner__title" id="catalog-success">Cererea a fost trimisă</strong><p>Număr de înregistrare: 12345.</p></div></section>',
+      '<section class="sd-notification-banner sd-notification-banner--success" aria-labelledby="catalog-success"><span class="sd-notification-banner__symbol" aria-hidden="true"><svg class="sd-icon" width="1.1rem" height="1.1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="5 13 10 18 19 7"/></svg></span><div class="sd-notification-banner__content"><strong class="sd-notification-banner__title" id="catalog-success">Cererea a fost trimisă</strong><p>Număr de înregistrare: 12345.</p></div></section>',
     'inset-text':
       '<div class="sd-inset-text"><p><strong>Notă:</strong> instituția verifică informația direct la sursă.</p></div>',
     card: '<article class="sd-card"><span class="sd-tag sd-tag--success">Activ</span><h3 class="sd-card__heading"><a class="sd-card__link" href="#">Serviciu digital</a></h3><p class="sd-card__description">Depune cererea integral online.</p></article>',
@@ -297,7 +297,7 @@ function markupFor(name) {
       '<a class="sd-button sd-button--primary" href="#catalog-dialog" aria-controls="catalog-dialog" data-sd-dialog-trigger>Revizuiește</a><dialog class="sd-dialog" id="catalog-dialog" data-sd-dialog aria-labelledby="catalog-dialog-title"><div class="sd-dialog__header"><h3 class="sd-dialog__title" id="catalog-dialog-title">Trimite cererea?</h3><button class="sd-dialog__close" type="button" data-sd-dialog-close>Închide</button></div><div class="sd-dialog__body"><p>Vei primi confirmarea în inbox.</p></div></dialog>',
     tabs: '<div class="sd-tabs" data-sd-tabs><div data-sd-tab-list hidden aria-label="Modalități"><button id="catalog-tab-a" data-sd-tab aria-controls="catalog-panel-a" aria-selected="true">Digital</button><button id="catalog-tab-b" data-sd-tab aria-controls="catalog-panel-b">La ghișeu</button></div><section id="catalog-panel-a" data-sd-tab-panel><p>Primești documentul în inbox.</p></section><section id="catalog-panel-b" data-sd-tab-panel><p>Ridici documentul de la sediu.</p></section></div>',
     'step-indicator':
-      '<nav class="sd-step-indicator" aria-label="Progres"><ol class="sd-step-indicator__list"><li class="sd-step-indicator__item sd-step-indicator__item--complete"><span class="sd-step-indicator__marker" aria-hidden="true">✓</span><span class="sd-step-indicator__label">Date</span></li><li class="sd-step-indicator__item" aria-current="step"><span class="sd-step-indicator__marker" aria-hidden="true">2</span><span class="sd-step-indicator__label">Verificare</span></li></ol></nav>',
+      '<nav class="sd-step-indicator" aria-label="Progres"><ol class="sd-step-indicator__list"><li class="sd-step-indicator__item sd-step-indicator__item--complete"><span class="sd-step-indicator__marker" aria-hidden="true"><svg class="sd-icon" width="0.9rem" height="0.9rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="5 13 10 18 19 7"/></svg></span><span class="sd-step-indicator__label">Date</span></li><li class="sd-step-indicator__item" aria-current="step"><span class="sd-step-indicator__marker" aria-hidden="true">2</span><span class="sd-step-indicator__label">Verificare</span></li></ol></nav>',
     'date-input':
       '<div class="sd-date-input" role="group" aria-label="Data nașterii"><div class="sd-date-input__part sd-date-input__part--day"><label for="catalog-day">Zi</label><input id="catalog-day" inputmode="numeric" maxlength="2"></div><div class="sd-date-input__part sd-date-input__part--month"><label for="catalog-month">Lună</label><input id="catalog-month" inputmode="numeric" maxlength="2"></div><div class="sd-date-input__part sd-date-input__part--year"><label for="catalog-year">An</label><input id="catalog-year" inputmode="numeric" maxlength="4"></div></div>',
     autocomplete:
@@ -319,7 +319,7 @@ function markupFor(name) {
     chip: '<span class="sd-chip">Cluj-Napoca<a class="sd-chip__remove" href="?judet=" aria-label="Elimină filtrul Cluj-Napoca">×</a></span>',
     avatar: '<span class="sd-avatar" aria-hidden="true">AB</span>',
     'warning-text':
-      '<div class="sd-warning-text"><span class="sd-warning-text__icon" aria-hidden="true">!</span><strong><span class="sd-visually-hidden">Avertisment: </span>Această acțiune nu poate fi anulată.</strong></div>',
+      '<div class="sd-warning-text"><span class="sd-warning-text__icon" aria-hidden="true"><svg class="sd-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="12" y1="6" x2="12" y2="14"/><circle cx="12" cy="18" r="0.75" fill="currentColor" stroke="none"/></svg></span><strong><span class="sd-visually-hidden">Avertisment: </span>Această acțiune nu poate fi anulată.</strong></div>',
     'phase-banner':
       '<div class="sd-phase-banner"><div class="sd-phase-banner__inner"><span class="sd-tag sd-tag--info">Beta</span><p>Acesta este un serviciu nou. <a href="#">Trimite-ne feedback</a>.</p></div></div>',
     'back-to-top-link':
@@ -457,6 +457,28 @@ const foundationItems = [
       'https://github.com/ciprian-rus/sistem.digital/blob/main/packages/tokens/CHANGELOG.md',
     markup: '<button class="sd-button sd-button--primary" type="button">Testează focusul</button>',
     keywords: ['focus', 'motion', 'reduced motion', 'keyboard'],
+  },
+  {
+    id: 'foundation-icons',
+    kind: 'foundation',
+    family: 'foundations',
+    familyTitle: 'Fundamente',
+    title: 'Iconițe',
+    description: 'Un set minim de iconițe decorative, montate lângă text — niciodată în locul lui.',
+    packageName: '@sistem-digital/components',
+    version: packageVersion,
+    channel: 'alpha',
+    status: 'alpha',
+    cssImport: '@sistem-digital/components/icons.css',
+    jsImports: ['iconNames', 'iconMarkup'],
+    documentationHref: '/fundamente',
+    sourceHref:
+      'https://github.com/ciprian-rus/sistem.digital/blob/main/packages/components/src/icons.ts',
+    changelogHref:
+      'https://github.com/ciprian-rus/sistem.digital/blob/main/packages/components/CHANGELOG.md',
+    markup:
+      '<div style="display:flex;gap:var(--sd-space-4);align-items:center"><svg class="sd-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="12" y1="10.5" x2="12" y2="17"/><circle cx="12" cy="6.5" r="0.75" fill="currentColor" stroke="none"/></svg><svg class="sd-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="5 13 10 18 19 7"/></svg><svg class="sd-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="12" y1="6" x2="12" y2="14"/><circle cx="12" cy="18" r="0.75" fill="currentColor" stroke="none"/></svg><svg class="sd-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><svg class="sd-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="20" y1="20" x2="15.3" y2="15.3"/></svg><svg class="sd-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5.5" width="16" height="15" rx="1.5"/><line x1="4" y1="10" x2="20" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></div>',
+    keywords: ['iconite', 'icons', 'svg', 'pictograme'],
   },
 ];
 
