@@ -390,7 +390,7 @@ export default function ContentDataReferencePage() {
               tabIndex={0}
             >
               <table className="sd-table sd-table--numeric">
-                <caption>Situația cererilor digitale — trimestrul II 2026</caption>
+                <caption>Situația cererilor digitale, sortabilă — trimestrul II 2026</caption>
                 <thead>
                   <tr>
                     <th scope="col" data-sd-sort="text">
