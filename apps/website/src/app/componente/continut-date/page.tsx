@@ -1,5 +1,6 @@
 import { iconMarkup } from '@sistem-digital/components';
 import type { Metadata } from 'next';
+import type { CSSProperties } from 'react';
 
 import { Breadcrumbs, PublicFooter, PublicHeader } from '../../../components/public-shell';
 import styles from './page.module.css';
@@ -23,6 +24,8 @@ const tableRows = [
   { institution: 'Primăria Brașov', requests: 2314, resolved: 2207, amount: 418_200 },
   { institution: 'Primăria Cluj-Napoca', requests: 3986, resolved: 3814, amount: 756_900 },
 ] as const;
+
+const maxRequests = Math.max(...tableRows.map((row) => row.requests));
 
 export default function ContentDataReferencePage() {
   return (
@@ -308,6 +311,62 @@ export default function ContentDataReferencePage() {
           <p className={styles.numericNote}>
             Numerele folosesc formatul românesc și cifre tabulare; valorile monetare includ moneda.
           </p>
+        </section>
+
+        <section className={styles.section} aria-labelledby="chart-title">
+          <div className={styles.sectionHeader}>
+            <p className="section-kicker">Grafic cu bare</p>
+            <h2 id="chart-title">Un tabel vizualizat ca bare, nu un grafic cu tabel de rezervă.</h2>
+            <p>
+              Bara e generată prin CSS pur, dintr-o proprietate custom scrisă direct în markup — nu
+              există JavaScript și nu există o a doua sursă de date de sincronizat cu tabelul de mai
+              sus.
+            </p>
+          </div>
+
+          <figure className="sd-chart" aria-labelledby="chart-figure-title">
+            <figcaption className="sd-chart__title" id="chart-figure-title">
+              Cereri primite per instituție
+            </figcaption>
+            <table className="sd-chart__table">
+              <caption className="sd-visually-hidden">
+                Numărul de cereri primite, per instituție, trimestrul II 2026
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col" className="sd-visually-hidden">
+                    Instituție
+                  </th>
+                  <th scope="col" className="sd-visually-hidden">
+                    Cereri primite
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableRows.map((row) => {
+                  const percentage = Math.round((row.requests / maxRequests) * 100);
+                  return (
+                    <tr key={row.institution}>
+                      <th scope="row">{row.institution}</th>
+                      <td>
+                        <span className="sd-chart__cell">
+                          <span className="sd-chart__bar-track" aria-hidden="true">
+                            <span
+                              className="sd-chart__bar"
+                              style={{ '--sd-chart-value': `${percentage}%` } as CSSProperties}
+                            />
+                          </span>
+                          <span className="sd-chart__value">
+                            {numberFormatter.format(row.requests)} cereri
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </figure>
         </section>
 
         <section className={styles.section} aria-labelledby="summary-title">

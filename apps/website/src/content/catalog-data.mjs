@@ -73,6 +73,7 @@ const familyDefinitions = {
       'chip',
       'avatar',
       'warning-text',
+      'bar-chart',
     ],
   },
   interactive: {
@@ -154,6 +155,7 @@ const labels = {
   'back-to-top-link': 'Link înapoi sus',
   'exit-this-page': 'Ieșire rapidă din pagină',
   'character-count': 'Numărător de caractere',
+  'bar-chart': 'Grafic cu bare',
 };
 
 const descriptions = {
@@ -219,6 +221,8 @@ const descriptions = {
     'Părăsește pagina imediat, prin înlocuirea intrării din istoric; link real fără JavaScript.',
   'character-count':
     'Numără caracterele rămase într-un câmp cu limită, actualizat live pentru cititoare de ecran.',
+  'bar-chart':
+    'Vizualizează un tabel de date ca bare, prin CSS pur — nu o reprezentare separată de sincronizat.',
 };
 
 function markupFor(name) {
@@ -328,6 +332,8 @@ function markupFor(name) {
       '<a class="sd-exit-page" href="https://www.google.com" data-sd-exit-this-page>Ieși rapid din această pagină</a>',
     'character-count':
       '<div class="sd-form-group" data-sd-character-count="200"><label class="sd-label" for="catalog-comment">Motivul cererii</label><textarea class="sd-textarea sd-character-count__field" id="catalog-comment" data-sd-character-count-field rows="4"></textarea><p class="sd-character-count__status" data-sd-character-count-status aria-live="polite">Mai aveți 200 caractere</p></div>',
+    'bar-chart':
+      '<figure class="sd-chart" aria-labelledby="catalog-chart-title"><figcaption class="sd-chart__title" id="catalog-chart-title">Cereri per instituție</figcaption><table class="sd-chart__table"><caption class="sd-visually-hidden">Numărul de cereri înregistrate, per instituție</caption><thead><tr><th scope="col" class="sd-visually-hidden">Instituție</th><th scope="col" class="sd-visually-hidden">Cereri</th></tr></thead><tbody><tr><th scope="row">Alba Iulia</th><td><span class="sd-chart__cell"><span class="sd-chart__bar-track" aria-hidden="true"><span class="sd-chart__bar" style="--sd-chart-value: 31%"></span></span><span class="sd-chart__value">1.248 cereri</span></span></td></tr><tr><th scope="row">Cluj-Napoca</th><td><span class="sd-chart__cell"><span class="sd-chart__bar-track" aria-hidden="true"><span class="sd-chart__bar" style="--sd-chart-value: 100%"></span></span><span class="sd-chart__value">3.986 cereri</span></span></td></tr></tbody></table></figure>',
   };
   return examples[name];
 }

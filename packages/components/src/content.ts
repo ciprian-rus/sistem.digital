@@ -16,6 +16,7 @@ export const contentComponentNames = [
   'chip',
   'avatar',
   'warning-text',
+  'bar-chart',
 ] as const;
 
 export type ContentComponentName = (typeof contentComponentNames)[number];

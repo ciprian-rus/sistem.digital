@@ -74,7 +74,7 @@ export default function HomePage() {
               <ul>
                 <li>Taxonomie și navigație unificată</li>
                 <li>Motor editorial MDX și ghid de conținut</li>
-                <li>Catalog versionat cu 62 de pagini</li>
+                <li>Catalog versionat cu 63 de pagini</li>
                 <li>Căutare, feedback și hardening în lucru</li>
               </ul>
             </aside>

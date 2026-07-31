@@ -25,6 +25,7 @@ describe('content and data components', () => {
       'chip',
       'avatar',
       'warning-text',
+      'bar-chart',
     ]);
   });
 
@@ -39,5 +40,13 @@ describe('content and data components', () => {
     expect(css).toContain(".sd-pagination [aria-current='page']");
     expect(css).toContain('@media (forced-colors: active)');
     expect(css).toContain('@media print');
+  });
+
+  it('renders the bar chart as a real data table with a CSS-only visual layer', async () => {
+    const css = await readFile(resolve(import.meta.dirname, 'content.css'), 'utf8');
+
+    expect(css).toContain('.sd-chart__table');
+    expect(css).toContain('--sd-chart-value');
+    expect(css).toContain('.sd-chart__bar-track');
   });
 });

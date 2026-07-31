@@ -370,6 +370,63 @@
     font-weight: var(--sd-font-weight-regular);
   }
 
+  .sd-chart {
+    margin: 0;
+  }
+
+  .sd-chart__title {
+    margin-bottom: var(--sd-space-4);
+    font-weight: var(--sd-font-weight-bold);
+  }
+
+  .sd-chart__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .sd-chart__table th,
+  .sd-chart__table td {
+    padding-block: var(--sd-space-2);
+    border-block-start: 1px solid var(--sd-color-border);
+    text-align: start;
+    vertical-align: middle;
+  }
+
+  .sd-chart__table th[scope='row'] {
+    padding-inline-end: var(--sd-space-4);
+    font-weight: var(--sd-font-weight-semibold);
+  }
+
+  .sd-chart__cell {
+    display: flex;
+    align-items: center;
+    gap: var(--sd-space-3);
+    flex-wrap: wrap;
+  }
+
+  .sd-chart__bar-track {
+    display: block;
+    flex: 1 1 6rem;
+    max-width: 10rem;
+    height: 1.25rem;
+    min-width: 3rem;
+    overflow: hidden;
+    border: 1px solid var(--sd-color-border);
+    border-radius: 0.2rem;
+    background: var(--sd-color-surface-subtle);
+  }
+
+  .sd-chart__bar {
+    display: block;
+    width: var(--sd-chart-value, 0%);
+    height: 100%;
+    background: var(--sd-color-action-primary-background);
+  }
+
+  .sd-chart__value {
+    font-variant-numeric: tabular-nums;
+  }
+
   .sd-summary-list {
     margin: 0;
     border-block-start: 1px solid var(--sd-color-border);
@@ -577,7 +634,10 @@
     .sd-details,
     .sd-pagination a,
     .sd-pagination [aria-current='page'],
-    .sd-warning-text__icon {
+    .sd-warning-text__icon,
+    .sd-chart__table th,
+    .sd-chart__table td,
+    .sd-chart__bar-track {
       border-color: CanvasText;
     }
 
@@ -588,6 +648,10 @@
 
     .sd-spinner__icon {
       border-block-start-color: Highlight;
+    }
+
+    .sd-chart__bar {
+      background: Highlight;
     }
   }
 
@@ -604,10 +668,15 @@
     .sd-inset-text,
     .sd-table-container,
     .sd-tag,
-    .sd-chip {
+    .sd-chip,
+    .sd-chart__bar-track {
       border-color: #000000;
       background: #ffffff;
       color: #000000;
+    }
+
+    .sd-chart__bar {
+      background: #000000;
     }
 
     .sd-table-container {
