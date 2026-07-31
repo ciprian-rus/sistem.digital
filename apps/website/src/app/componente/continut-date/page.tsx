@@ -1,3 +1,4 @@
+import { iconMarkup } from '@sistem-digital/components';
 import type { Metadata } from 'next';
 
 import { Breadcrumbs, PublicFooter, PublicHeader } from '../../../components/public-shell';
@@ -103,9 +104,11 @@ export default function ContentDataReferencePage() {
 
             <div className={styles.messageStack}>
               <section className="sd-alert sd-alert--info" aria-labelledby="info-alert-title">
-                <span className="sd-alert__symbol" aria-hidden="true">
-                  i
-                </span>
+                <span
+                  className="sd-alert__symbol"
+                  aria-hidden="true"
+                  dangerouslySetInnerHTML={{ __html: iconMarkup('info', { size: '1.1rem' }) }}
+                />
                 <div className="sd-alert__content">
                   <strong className="sd-alert__title" id="info-alert-title">
                     Cererea poate fi salvată
@@ -118,9 +121,11 @@ export default function ContentDataReferencePage() {
                 className="sd-notification-banner sd-notification-banner--success"
                 aria-labelledby="success-banner-title"
               >
-                <span className="sd-notification-banner__symbol" aria-hidden="true">
-                  ✓
-                </span>
+                <span
+                  className="sd-notification-banner__symbol"
+                  aria-hidden="true"
+                  dangerouslySetInnerHTML={{ __html: iconMarkup('success', { size: '1.1rem' }) }}
+                />
                 <div className="sd-notification-banner__content">
                   <strong className="sd-notification-banner__title" id="success-banner-title">
                     Datele au fost actualizate
@@ -130,9 +135,11 @@ export default function ContentDataReferencePage() {
               </section>
 
               <div className="sd-warning-text">
-                <span className="sd-warning-text__icon" aria-hidden="true">
-                  !
-                </span>
+                <span
+                  className="sd-warning-text__icon"
+                  aria-hidden="true"
+                  dangerouslySetInnerHTML={{ __html: iconMarkup('warning') }}
+                />
                 <strong>
                   <span className="sd-visually-hidden">Avertisment: </span>
                   Această acțiune nu poate fi anulată.

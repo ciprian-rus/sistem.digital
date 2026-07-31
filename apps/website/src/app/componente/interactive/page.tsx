@@ -1,3 +1,4 @@
+import { iconMarkup } from '@sistem-digital/components';
 import type { Metadata } from 'next';
 
 import { Breadcrumbs, PublicFooter, PublicHeader } from '../../../components/public-shell';
@@ -199,15 +200,19 @@ export default function InteractiveComponentsPage() {
           <nav className="sd-step-indicator" aria-label="Progresul cererii">
             <ol className="sd-step-indicator__list">
               <li className="sd-step-indicator__item sd-step-indicator__item--complete">
-                <span className="sd-step-indicator__marker" aria-hidden="true">
-                  ✓
-                </span>
+                <span
+                  className="sd-step-indicator__marker"
+                  aria-hidden="true"
+                  dangerouslySetInnerHTML={{ __html: iconMarkup('success', { size: '0.9rem' }) }}
+                />
                 <span className="sd-step-indicator__label">Date personale</span>
               </li>
               <li className="sd-step-indicator__item sd-step-indicator__item--complete">
-                <span className="sd-step-indicator__marker" aria-hidden="true">
-                  ✓
-                </span>
+                <span
+                  className="sd-step-indicator__marker"
+                  aria-hidden="true"
+                  dangerouslySetInnerHTML={{ __html: iconMarkup('success', { size: '0.9rem' }) }}
+                />
                 <span className="sd-step-indicator__label">Detalii cerere</span>
               </li>
               <li className="sd-step-indicator__item" aria-current="step">

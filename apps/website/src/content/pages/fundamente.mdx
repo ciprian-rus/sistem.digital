@@ -26,6 +26,7 @@ Fundamentele sunt contracte comune, nu preferințe vizuale locale. Ele includ:
 - rolurile cromatice și temele funcționale;
 - tipografia, spațierea și grila responsive;
 - focusul, motion, elevation și z-index;
+- un set minim de iconițe decorative;
 - regulile de accesibilitate și content design.
 
 <Callout title="Regula principală" type="info">
@@ -44,6 +45,24 @@ Aceeași sursă DTCG generează CSS, TypeScript și JSON rezolvat. Artefactele n
   language="css"
   code={`@import '@sistem-digital/tokens/css';
 @import '@sistem-digital/tokens/themes.css';`}
+/>
+
+## Iconițe
+
+`@sistem-digital/components` publică un set minim de iconițe decorative (`iconMarkup`, `iconNames`). Fiecare iconiță e `aria-hidden`, montată lângă text, niciodată în locul lui — nu înlocuiește un mesaj de status sau un label.
+
+<CodeExample
+  caption="Import și utilizare"
+  language="ts"
+  code={`import { iconMarkup } from '@sistem-digital/components';
+
+iconMarkup('success'); // '<svg class="sd-icon" ...>...</svg>'`}
+/>
+
+<CodeExample
+  caption="Importul CSS"
+  language="css"
+  code={`@import '@sistem-digital/components/icons.css';`}
 />
 
 ## Ce urmează

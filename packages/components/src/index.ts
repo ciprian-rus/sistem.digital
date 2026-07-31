@@ -19,6 +19,8 @@ export {
 
 export { contentComponentNames, type ContentComponentName } from './content.js';
 
+export { iconMarkup, iconNames, type IconMarkupOptions, type IconName } from './icons.js';
+
 export {
   enhanceAccordions,
   enhanceAutocompletes,

@@ -1,3 +1,4 @@
+import { iconMarkup } from '@sistem-digital/components';
 import type { ReactNode } from 'react';
 
 import { primaryNavigation, siteSections } from '../content/site-map';
@@ -56,9 +57,11 @@ export function PublicHeader({
       {showMajorAlert ? (
         <section className="sd-major-alert" aria-labelledby="major-alert-title">
           <div className="container sd-major-alert__inner">
-            <span className="sd-major-alert__symbol" aria-hidden="true">
-              !
-            </span>
+            <span
+              className="sd-major-alert__symbol"
+              aria-hidden="true"
+              dangerouslySetInnerHTML={{ __html: iconMarkup('warning', { size: '1.1rem' }) }}
+            />
             <div className="sd-major-alert__content">
               <strong id="major-alert-title">Versiune alpha</strong>
               <p>

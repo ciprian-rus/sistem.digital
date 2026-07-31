@@ -88,7 +88,8 @@ test.describe('M3 documentation platform', () => {
     page,
   }) => {
     await page.goto('/fundamente');
-    const button = page.getByRole('button', { name: 'Copiază codul' });
+    const figure = page.getByRole('figure', { name: 'Importul minim al fundației' });
+    const button = figure.getByRole('button', { name: 'Copiază codul' });
     const code = page.getByLabel(/Importul minim al fundației; cod css/iu);
 
     await expect(button).toBeVisible();
