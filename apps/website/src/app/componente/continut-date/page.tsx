@@ -386,7 +386,7 @@ export default function ContentDataReferencePage() {
             <div
               className="sd-table-container"
               role="region"
-              aria-label="Situația cererilor digitale pe instituții, sortabilă; tabel derulabil orizontal"
+              aria-label="Tabelul sortabil cu situația cererilor digitale pe instituții; conținut cu derulare orizontală"
               tabIndex={0}
             >
               <table className="sd-table sd-table--numeric">
