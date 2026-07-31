@@ -395,7 +395,6 @@
   .sd-chart__table th[scope='row'] {
     padding-inline-end: var(--sd-space-4);
     font-weight: var(--sd-font-weight-semibold);
-    white-space: nowrap;
   }
 
   .sd-chart__cell {
@@ -407,10 +406,10 @@
 
   .sd-chart__bar-track {
     display: block;
-    width: 10rem;
-    max-width: 100%;
+    flex: 1 1 6rem;
+    max-width: 10rem;
     height: 1.25rem;
-    flex: none;
+    min-width: 3rem;
     overflow: hidden;
     border: 1px solid var(--sd-color-border);
     border-radius: 0.2rem;
