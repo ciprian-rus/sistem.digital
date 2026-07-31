@@ -3,9 +3,9 @@
   "$extensions": {
     "ro.sistem-digital": {
       "format": "DTCG 2025.10",
-      "sourceHash": "0de41f8e60b72d53b1027c3493f889d806d2fc02fdf923ff5a9979c3a97be808",
-      "tokenCount": 202,
-      "aliasCount": 103,
+      "sourceHash": "673228f85da345f5eee210502b35b2e072439008ecd5f93d617901d07686da0d",
+      "tokenCount": 204,
+      "aliasCount": 104,
       "layers": [
         "core",
         "semantic",
@@ -510,6 +510,9 @@
         },
         "control": {
           "$value": 1.25
+        },
+        "reading": {
+          "$value": 1.75
         }
       },
       "letterSpacing": {
@@ -767,6 +770,9 @@
         },
         "control": {
           "$value": "{core.font.lineHeight.control}"
+        },
+        "reading": {
+          "$value": "{core.font.lineHeight.reading}"
         }
       },
       "letterSpacing": {

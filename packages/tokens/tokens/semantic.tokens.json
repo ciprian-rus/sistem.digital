@@ -87,7 +87,8 @@
         "display": { "$value": "{core.font.lineHeight.compact}" },
         "heading": { "$value": "{core.font.lineHeight.heading}" },
         "body": { "$value": "{core.font.lineHeight.body}" },
-        "control": { "$value": "{core.font.lineHeight.control}" }
+        "control": { "$value": "{core.font.lineHeight.control}" },
+        "reading": { "$value": "{core.font.lineHeight.reading}" }
       },
       "letterSpacing": {
         "$type": "dimension",
