@@ -12,6 +12,7 @@ import {
   useExitThisPage,
   useFileUploadAdvanced,
   useSistemDigitalEnhancements,
+  useSortableTable,
   useTabs,
   useTooltip,
 } from './index.js';
@@ -34,6 +35,7 @@ describe('react hooks registry', () => {
       useExitThisPage,
       useFileUploadAdvanced,
       useSistemDigitalEnhancements,
+      useSortableTable,
       useTabs,
       useTooltip,
     ];

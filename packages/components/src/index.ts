@@ -17,7 +17,12 @@ export {
   type NavigationComponentName,
 } from './navigation.js';
 
-export { contentComponentNames, type ContentComponentName } from './content.js';
+export {
+  contentComponentNames,
+  enhanceSortableTables,
+  type ContentComponentName,
+  type SortableTableOptions,
+} from './content.js';
 
 export { iconMarkup, iconNames, type IconMarkupOptions, type IconName } from './icons.js';
 

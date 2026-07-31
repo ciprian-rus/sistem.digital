@@ -77,6 +77,7 @@ function ConfirmDialog() {
 | `useErrorSummary`       | `.sd-error-summary`                     | `enhanceErrorSummaryLinks`                  |
 | `useExitThisPage`       | `[data-sd-exit-this-page]`              | `enhanceExitThisPage`                       |
 | `useFileUploadAdvanced` | `[data-sd-file-upload]`                 | `enhanceFileUploads`                        |
+| `useSortableTable`      | `[data-sd-sortable-table]`              | `enhanceSortableTables`                     |
 | `useTabs`               | `[data-sd-tabs]`                        | `enhanceTabs`                               |
 | `useTooltip`            | `[data-sd-tooltip]`                     | `enhanceTooltips`                           |
 

@@ -11,6 +11,7 @@ import {
   SdErrorSummaryElement,
   SdExitThisPageElement,
   SdFileUploadAdvancedElement,
+  SdSortableTableElement,
   SdTabsElement,
   SdTooltipElement,
   defineWebComponents,
@@ -37,6 +38,7 @@ describe('web components registry', () => {
       SdErrorSummaryElement,
       SdExitThisPageElement,
       SdFileUploadAdvancedElement,
+      SdSortableTableElement,
       SdTabsElement,
       SdTooltipElement,
     ];
@@ -56,6 +58,7 @@ describe('web components registry', () => {
       'sd-error-summary',
       'sd-exit-this-page',
       'sd-file-upload-advanced',
+      'sd-sortable-table',
       'sd-tabs',
       'sd-tooltip',
     ]);

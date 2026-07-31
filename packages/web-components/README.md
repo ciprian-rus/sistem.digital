@@ -44,6 +44,7 @@ Fiecare element înfășoară markup-ul existent ca light DOM — nu Shadow DOM,
 | `<sd-error-summary>`        | `.sd-error-summary`                     | `enhanceErrorSummaryLinks`                  |
 | `<sd-exit-this-page>`       | `[data-sd-exit-this-page]`              | `enhanceExitThisPage`                       |
 | `<sd-file-upload-advanced>` | `[data-sd-file-upload]`                 | `enhanceFileUploads`                        |
+| `<sd-sortable-table>`       | `[data-sd-sortable-table]`              | `enhanceSortableTables`                     |
 | `<sd-tabs>`                 | `[data-sd-tabs]`                        | `enhanceTabs`                               |
 | `<sd-tooltip>`              | `[data-sd-tooltip]`                     | `enhanceTooltips`                           |
 

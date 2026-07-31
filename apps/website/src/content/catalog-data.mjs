@@ -74,6 +74,7 @@ const familyDefinitions = {
       'avatar',
       'warning-text',
       'bar-chart',
+      'sortable-table',
     ],
   },
   interactive: {
@@ -156,6 +157,7 @@ const labels = {
   'exit-this-page': 'Ieșire rapidă din pagină',
   'character-count': 'Numărător de caractere',
   'bar-chart': 'Grafic cu bare',
+  'sortable-table': 'Tabel sortabil și filtrabil',
 };
 
 const descriptions = {
@@ -223,6 +225,8 @@ const descriptions = {
     'Numără caracterele rămase într-un câmp cu limită, actualizat live pentru cititoare de ecran.',
   'bar-chart':
     'Vizualizează un tabel de date ca bare, prin CSS pur — nu o reprezentare separată de sincronizat.',
+  'sortable-table':
+    'Adaugă sortare pe coloane și filtrare live peste un tabel obișnuit; fără JavaScript rămâne un tabel complet, static.',
 };
 
 function markupFor(name) {
@@ -334,6 +338,8 @@ function markupFor(name) {
       '<div class="sd-form-group" data-sd-character-count="200"><label class="sd-label" for="catalog-comment">Motivul cererii</label><textarea class="sd-textarea sd-character-count__field" id="catalog-comment" data-sd-character-count-field rows="4"></textarea><p class="sd-character-count__status" data-sd-character-count-status aria-live="polite">Mai aveți 200 caractere</p></div>',
     'bar-chart':
       '<figure class="sd-chart" aria-labelledby="catalog-chart-title"><figcaption class="sd-chart__title" id="catalog-chart-title">Cereri per instituție</figcaption><table class="sd-chart__table"><caption class="sd-visually-hidden">Numărul de cereri înregistrate, per instituție</caption><thead><tr><th scope="col" class="sd-visually-hidden">Instituție</th><th scope="col" class="sd-visually-hidden">Cereri</th></tr></thead><tbody><tr><th scope="row">Alba Iulia</th><td><span class="sd-chart__cell"><span class="sd-chart__bar-track" aria-hidden="true"><span class="sd-chart__bar" style="--sd-chart-value: 31%"></span></span><span class="sd-chart__value">1.248 cereri</span></span></td></tr><tr><th scope="row">Cluj-Napoca</th><td><span class="sd-chart__cell"><span class="sd-chart__bar-track" aria-hidden="true"><span class="sd-chart__bar" style="--sd-chart-value: 100%"></span></span><span class="sd-chart__value">3.986 cereri</span></span></td></tr></tbody></table></figure>',
+    'sortable-table':
+      '<div class="sd-sortable-table" data-sd-sortable-table><div class="sd-table-container" role="region" aria-label="Cereri per instituție; tabel derulabil" tabindex="0"><table class="sd-table sd-table--numeric"><caption>Cereri per instituție</caption><thead><tr><th scope="col" data-sd-sort="text">Instituție</th><th scope="col" data-sd-sort="numeric" class="sd-table__numeric">Cereri</th></tr></thead><tbody><tr><th scope="row">Alba Iulia</th><td class="sd-table__numeric">1.248</td></tr><tr><th scope="row">Cluj-Napoca</th><td class="sd-table__numeric">3.986</td></tr></tbody></table></div></div>',
   };
   return examples[name];
 }
@@ -351,6 +357,7 @@ function jsImportsFor(name) {
     'cookie-banner': ['enhanceCookieBanner'],
     'exit-this-page': ['enhanceExitThisPage'],
     'character-count': ['enhanceCharacterCount'],
+    'sortable-table': ['enhanceSortableTables'],
   };
   return helpers[name] ?? [];
 }
