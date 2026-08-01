@@ -1,3 +1,5 @@
+import { iconMarkup } from '@sistem-digital/components';
+
 import { PublicFooter, PublicHeader } from '../components/public-shell';
 
 const principles = [
@@ -19,29 +21,29 @@ const principles = [
 const feedbackExamples = [
   {
     tone: 'info',
-    symbol: 'i',
+    icon: 'info',
     title: 'Informație',
     message: 'Poți salva cererea și reveni înainte de trimitere.',
   },
   {
     tone: 'success',
-    symbol: '✓',
+    icon: 'success',
     title: 'Cerere salvată',
     message: 'Datele au fost păstrate în siguranță.',
   },
   {
     tone: 'warning',
-    symbol: '!',
+    icon: 'warning',
     title: 'Verifică termenul',
     message: 'Documentul expiră în următoarele 30 de zile.',
   },
   {
     tone: 'danger',
-    symbol: '×',
+    icon: 'danger',
     title: 'Câmp incomplet',
     message: 'Introdu codul poștal pentru a continua.',
   },
-];
+] as const;
 
 export default function HomePage() {
   return (
@@ -122,9 +124,11 @@ export default function HomePage() {
               <div className="feedback-stack" aria-label="Exemple de mesaje de stare">
                 {feedbackExamples.map((item) => (
                   <article className={`feedback-message feedback-${item.tone}`} key={item.tone}>
-                    <span className="feedback-symbol" aria-hidden="true">
-                      {item.symbol}
-                    </span>
+                    <span
+                      className="feedback-symbol"
+                      aria-hidden="true"
+                      dangerouslySetInnerHTML={{ __html: iconMarkup(item.icon) }}
+                    />
                     <div>
                       <h3>{item.title}</h3>
                       <p>{item.message}</p>
