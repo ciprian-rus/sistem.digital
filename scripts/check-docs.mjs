@@ -43,7 +43,59 @@ function isExternalOrAnchor(target) {
   );
 }
 
+function checkRequiredSections(file, requiredStrings) {
+  const absoluteFile = resolve(repositoryRoot, file);
+  if (!existsSync(absoluteFile)) {
+    return [`${file}: fișierul nu există`];
+  }
+
+  const content = readFileSync(absoluteFile, 'utf8');
+  return requiredStrings
+    .filter((required) => !content.includes(required))
+    .map((required) => `${file}: lipsește secțiunea sau textul obligatoriu "${required}"`);
+}
+
 const failures = [];
+
+// Validează structura noilor documente despre maturitatea componentelor
+// (introduse odată cu extinderea benchmarkului internațional, 1 august 2026).
+failures.push(
+  ...checkRequiredSections('docs/research/comparative-audit.md', [
+    '## Designers Italia',
+    '## NL Design System (Țările de Jos)',
+    "## Système de Design de l'État — DSFR (Franța)",
+    '## Mosaico și Ágora Design System (Portugalia)',
+    '## design.gov.ua (Ucraina)',
+    '## Gov.pl și Architektura Informacyjna Państwa (Polonia)',
+    '## Matrice comparativă internațională extinsă',
+    '### Limitele tehnice și de actualitate identificate — explicit',
+  ]),
+);
+
+failures.push(
+  ...checkRequiredSections('docs/governance/component-maturity-model.md', [
+    '### `proposal`',
+    '### `experimental`',
+    '### `candidate`',
+    '### `stable`',
+    '### `deprecated`',
+    '### `retired`',
+    '## Tranziții permise',
+    '## Relația cu inventarul curent',
+  ]),
+);
+
+failures.push(
+  ...checkRequiredSections('docs/product/component-metadata-schema.md', [
+    'state:',
+    'owner:',
+    'lastReviewed:',
+    'evidence:',
+    'deprecationReason',
+    'transitions:',
+    '## Compatibilitate cu structura actuală a catalogului',
+  ]),
+);
 
 for (const file of listMarkdownFiles()) {
   const absoluteFile = resolve(repositoryRoot, file);
