@@ -11,3 +11,4 @@ export { GlobalEnhancements, useSistemDigitalEnhancements } from './hooks/global
 export { useSortableTable } from './hooks/sortable-table.js';
 export { useTabs } from './hooks/tabs.js';
 export { useTooltip } from './hooks/tooltip.js';
+export { reactHookNames } from './hook-names.js';

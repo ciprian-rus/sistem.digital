@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import {
+  CatalogDesignCodeMatrix,
   CatalogImportExamples,
   CatalogMaturity,
   CatalogPreview,
@@ -151,6 +152,8 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
                 necesită versionare și instrucțiuni de migrare.
               </p>
             </section>
+
+            <CatalogDesignCodeMatrix item={item} />
 
             <CatalogMaturity item={item} />
 

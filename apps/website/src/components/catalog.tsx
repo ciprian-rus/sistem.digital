@@ -4,6 +4,7 @@ import type { CatalogItem } from '../content/catalog';
 import { getCatalogHref } from '../content/catalog';
 import type { ComponentMaturityMetadata } from '../content/component-maturity';
 import { getComponentMaturity } from '../content/component-maturity';
+import { getDesignCodeMatrix } from '../content/design-code-matrix';
 import { CodeExample } from './documentation';
 
 const kindLabels = {
@@ -95,6 +96,71 @@ export function CatalogMaturity({ item }: Readonly<{ item: CatalogItem }>) {
           </ul>
         </>
       ) : null}
+    </section>
+  );
+}
+
+const designCodeMatrixLabels = {
+  figma: 'Figma',
+  html: 'HTML/CSS',
+  webComponents: 'Web Components',
+  react: 'React',
+  docs: 'Documentație',
+  automatedTests: 'Teste automate',
+  keyboardTested: 'Testare cu tastatura',
+  screenReaderTested: 'Testare cu cititor de ecran',
+} as const;
+
+export function CatalogDesignCodeMatrix({ item }: Readonly<{ item: CatalogItem }>) {
+  const matrix = getDesignCodeMatrix(item);
+  if (!matrix) return null;
+
+  const rows = (
+    Object.keys(designCodeMatrixLabels) as Array<keyof typeof designCodeMatrixLabels>
+  ).map((channel) => ({
+    channel,
+    label: designCodeMatrixLabels[channel],
+    available: matrix[channel],
+  }));
+
+  return (
+    <section className="sd-catalog-detail__section" aria-labelledby="catalog-matrix-title">
+      <h2 id="catalog-matrix-title">Matricea design–cod</h2>
+      <p>
+        Disponibilitatea reală a acestei componente, calculată din pachetele publicate, conform{' '}
+        <a
+          className="sd-link"
+          href="https://github.com/ciprian-rus/sistem.digital/blob/main/docs/product/design-code-matrix-schema.md"
+        >
+          schemei matricei design–cod
+        </a>
+        . Rândurile Figma, testare cu tastatura și testare cu cititor de ecran rămân „Indisponibil”
+        până la dovezi publicate separat (kit Figma, respectiv auditul manual de accesibilitate).
+      </p>
+      <div
+        className="sd-table-container"
+        role="region"
+        aria-label={`Matricea design–cod pentru ${item.title}; tabel derulabil orizontal`}
+        tabIndex={0}
+      >
+        <table className="sd-table">
+          <caption className="sd-visually-hidden">Matricea design–cod pentru {item.title}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Canal</th>
+              <th scope="col">Disponibilitate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.channel}>
+                <th scope="row">{row.label}</th>
+                <td>{row.available ? 'Disponibil' : 'Indisponibil'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }
