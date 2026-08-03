@@ -8,5 +8,6 @@ export { useErrorSummary } from './hooks/error-summary.js';
 export { useExitThisPage } from './hooks/exit-this-page.js';
 export { useFileUploadAdvanced } from './hooks/file-upload-advanced.js';
 export { GlobalEnhancements, useSistemDigitalEnhancements } from './hooks/global-enhancements.js';
+export { useSortableTable } from './hooks/sortable-table.js';
 export { useTabs } from './hooks/tabs.js';
 export { useTooltip } from './hooks/tooltip.js';

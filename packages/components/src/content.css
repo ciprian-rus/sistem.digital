@@ -427,6 +427,74 @@
     font-variant-numeric: tabular-nums;
   }
 
+  .sd-sortable-table {
+    min-width: 0;
+  }
+
+  .sd-sortable-table__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sd-space-2) var(--sd-space-4);
+    margin-block-end: var(--sd-space-3);
+  }
+
+  .sd-sortable-table__filter-label {
+    font-weight: var(--sd-font-weight-semibold);
+  }
+
+  .sd-sortable-table__filter {
+    min-height: var(--sd-component-input-min-height);
+    padding-block: var(--sd-component-input-padding-block);
+    padding-inline: var(--sd-component-input-padding-inline);
+    border: 2px solid var(--sd-color-border-strong);
+    border-radius: var(--sd-radius-control);
+    background: var(--sd-color-surface-page);
+    color: var(--sd-color-text);
+    font: inherit;
+  }
+
+  .sd-sortable-table__status {
+    margin: 0;
+    color: var(--sd-color-text-muted);
+    font-size: var(--sd-font-size-body-small);
+  }
+
+  .sd-sortable-table__sort-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sd-space-2);
+    padding-block: var(--sd-space-1);
+    padding-inline: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+  }
+
+  .sd-sortable-table__sort-button::after {
+    width: 0.5rem;
+    height: 0.5rem;
+    flex: none;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    content: '';
+    opacity: 0.35;
+    transform: rotate(45deg);
+  }
+
+  [aria-sort='ascending'] .sd-sortable-table__sort-button::after {
+    opacity: 1;
+    transform: rotate(-135deg) translateY(15%);
+  }
+
+  [aria-sort='descending'] .sd-sortable-table__sort-button::after {
+    opacity: 1;
+    transform: rotate(45deg) translateY(-15%);
+  }
+
   .sd-summary-list {
     margin: 0;
     border-block-start: 1px solid var(--sd-color-border);
@@ -637,7 +705,8 @@
     .sd-warning-text__icon,
     .sd-chart__table th,
     .sd-chart__table td,
-    .sd-chart__bar-track {
+    .sd-chart__bar-track,
+    .sd-sortable-table__filter {
       border-color: CanvasText;
     }
 
@@ -688,7 +757,8 @@
     }
 
     .sd-pagination,
-    .sd-summary-list__actions {
+    .sd-summary-list__actions,
+    .sd-sortable-table__controls {
       display: none;
     }
 

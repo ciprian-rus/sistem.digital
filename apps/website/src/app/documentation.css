@@ -25,6 +25,8 @@
   .sd-doc-header {
     max-width: var(--sd-layout-measure);
     padding-block-end: var(--sd-space-6);
+    padding-inline-start: var(--sd-space-5);
+    border-inline-start: 0.3rem solid var(--sd-color-text-accent);
     border-block-end: 1px solid var(--sd-color-border);
   }
 
@@ -34,6 +36,7 @@
 
   .sd-doc-lead {
     font-size: var(--sd-font-size-body-large);
+    line-height: var(--sd-font-line-height-reading);
   }
 
   .sd-doc-metadata {
@@ -102,6 +105,7 @@
 
   .sd-doc-content :where(p, ul, ol, blockquote) {
     max-width: var(--sd-layout-measure);
+    line-height: var(--sd-font-line-height-reading);
   }
 
   .sd-doc-callout {

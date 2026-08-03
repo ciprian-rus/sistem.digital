@@ -369,6 +369,59 @@ export default function ContentDataReferencePage() {
           </figure>
         </section>
 
+        <section className={styles.section} aria-labelledby="sortable-table-title">
+          <div className={styles.sectionHeader}>
+            <p className="section-kicker">Tabel sortabil și filtrabil</p>
+            <h2 id="sortable-table-title">
+              Aceleași date, cu sortare pe coloane și filtrare live.
+            </h2>
+            <p>
+              Fără JavaScript, tabelul de mai jos este identic cu tabelul responsive de mai sus —
+              complet și lizibil. Progresiv, sortarea și câmpul de filtrare sunt adăugate de
+              JavaScript, care nu există decât atunci când e disponibil.
+            </p>
+          </div>
+
+          <div id="requests-sortable-table" className="sd-sortable-table" data-sd-sortable-table>
+            <div
+              className="sd-table-container"
+              role="region"
+              aria-label="Tabelul sortabil cu situația cererilor digitale pe instituții; conținut cu derulare orizontală"
+              tabIndex={0}
+            >
+              <table className="sd-table sd-table--numeric">
+                <caption>Situația cererilor digitale, sortabilă — trimestrul II 2026</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" data-sd-sort="text">
+                      Instituție
+                    </th>
+                    <th className="sd-table__numeric" scope="col" data-sd-sort="numeric">
+                      Cereri primite
+                    </th>
+                    <th className="sd-table__numeric" scope="col" data-sd-sort="numeric">
+                      Soluționate
+                    </th>
+                    <th className="sd-table__numeric" scope="col" data-sd-sort="numeric">
+                      Plăți procesate
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableRows.map((row) => (
+                    <tr key={row.institution}>
+                      <th scope="row">{row.institution}</th>
+                      <td className="sd-table__numeric">{numberFormatter.format(row.requests)}</td>
+                      <td className="sd-table__numeric">{numberFormatter.format(row.resolved)}</td>
+                      <td className="sd-table__numeric">{currencyFormatter.format(row.amount)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
         <section className={styles.section} aria-labelledby="summary-title">
           <div className={styles.sectionHeader}>
             <p className="section-kicker">Summary list și metadate</p>

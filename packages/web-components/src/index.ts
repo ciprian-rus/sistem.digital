@@ -7,6 +7,7 @@ import { SdDropdownElement } from './elements/dropdown.js';
 import { SdErrorSummaryElement } from './elements/error-summary.js';
 import { SdExitThisPageElement } from './elements/exit-this-page.js';
 import { SdFileUploadAdvancedElement } from './elements/file-upload-advanced.js';
+import { SdSortableTableElement } from './elements/sortable-table.js';
 import { SdTabsElement } from './elements/tabs.js';
 import { SdTooltipElement } from './elements/tooltip.js';
 
@@ -20,6 +21,7 @@ export {
   SdErrorSummaryElement,
   SdExitThisPageElement,
   SdFileUploadAdvancedElement,
+  SdSortableTableElement,
   SdTabsElement,
   SdTooltipElement,
 };
@@ -35,6 +37,7 @@ const registry: ReadonlyArray<readonly [string, CustomElementConstructor]> = [
   ['sd-error-summary', SdErrorSummaryElement],
   ['sd-exit-this-page', SdExitThisPageElement],
   ['sd-file-upload-advanced', SdFileUploadAdvancedElement],
+  ['sd-sortable-table', SdSortableTableElement],
   ['sd-tabs', SdTabsElement],
   ['sd-tooltip', SdTooltipElement],
 ];

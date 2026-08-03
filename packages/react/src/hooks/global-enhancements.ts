@@ -3,16 +3,17 @@ import {
   enhanceCookieBanner,
   enhanceExitThisPage,
   enhanceInteractiveComponents,
+  enhanceSortableTables,
 } from '@sistem-digital/components';
 import { useEffect } from 'react';
 
 /**
  * Runs every page-wide progressive enhancement once, defaulting to
  * `document`: accordions, dialogs, tabs, autocomplete, file upload,
- * tooltips, dropdowns, the cookie banner, exit-this-page and character
- * counts. Mirrors what a site typically calls once near the root — the
- * same four calls `apps/website`'s own `InteractiveEnhancements` makes by
- * hand.
+ * tooltips, dropdowns, the cookie banner, exit-this-page, character
+ * counts and sortable tables. Mirrors what a site typically calls once
+ * near the root — the same calls `apps/website`'s own
+ * `InteractiveEnhancements` makes by hand.
  */
 export function useSistemDigitalEnhancements(): void {
   useEffect(() => {
@@ -20,7 +21,9 @@ export function useSistemDigitalEnhancements(): void {
     const cleanupCookieBanner = enhanceCookieBanner();
     const cleanupExitThisPage = enhanceExitThisPage();
     const cleanupCharacterCount = enhanceCharacterCount();
+    const cleanupSortableTables = enhanceSortableTables();
     return () => {
+      cleanupSortableTables();
       cleanupCharacterCount();
       cleanupExitThisPage();
       cleanupCookieBanner();

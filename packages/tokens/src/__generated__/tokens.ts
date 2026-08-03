@@ -147,7 +147,8 @@ export const tokens = {
         "body": 1.6,
         "compact": 1.05,
         "control": 1.25,
-        "heading": 1.2
+        "heading": 1.2,
+        "reading": 1.75
       },
       "size": {
         "75": "0.75rem",
@@ -267,7 +268,8 @@ export const tokens = {
         "body": 1.6,
         "control": 1.25,
         "display": 1.05,
-        "heading": 1.2
+        "heading": 1.2,
+        "reading": 1.75
       },
       "size": {
         "body": "clamp(1rem, 0.975rem + 0.125vw, 1.0625rem)",
@@ -455,6 +457,7 @@ export const flatTokens = {
   "core.font.lineHeight.compact": 1.05,
   "core.font.lineHeight.control": 1.25,
   "core.font.lineHeight.heading": 1.2,
+  "core.font.lineHeight.reading": 1.75,
   "core.font.size.100": "1rem",
   "core.font.size.112": "1.125rem",
   "core.font.size.125": "1.25rem",
@@ -535,6 +538,7 @@ export const flatTokens = {
   "semantic.font.lineHeight.control": 1.25,
   "semantic.font.lineHeight.display": 1.05,
   "semantic.font.lineHeight.heading": 1.2,
+  "semantic.font.lineHeight.reading": 1.75,
   "semantic.font.size.body": "clamp(1rem, 0.975rem + 0.125vw, 1.0625rem)",
   "semantic.font.size.bodyLarge": "clamp(1.125rem, 1.075rem + 0.25vw, 1.25rem)",
   "semantic.font.size.bodySmall": "0.875rem",
@@ -595,9 +599,9 @@ export const flatTokens = {
 } as const;
 export const tokenMetadata = {
   "format": "DTCG 2025.10",
-  "sourceHash": "0de41f8e60b72d53b1027c3493f889d806d2fc02fdf923ff5a9979c3a97be808",
-  "tokenCount": 202,
-  "aliasCount": 103,
+  "sourceHash": "673228f85da345f5eee210502b35b2e072439008ecd5f93d617901d07686da0d",
+  "tokenCount": 204,
+  "aliasCount": 104,
   "layers": [
     "core",
     "semantic",

@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { contentComponentNames } from './content.js';
+import { contentComponentNames, enhanceSortableTables } from './content.js';
 
 describe('content and data components', () => {
   it('publishes the complete MVP inventory', () => {
@@ -26,6 +26,7 @@ describe('content and data components', () => {
       'avatar',
       'warning-text',
       'bar-chart',
+      'sortable-table',
     ]);
   });
 
@@ -48,5 +49,18 @@ describe('content and data components', () => {
     expect(css).toContain('.sd-chart__table');
     expect(css).toContain('--sd-chart-value');
     expect(css).toContain('.sd-chart__bar-track');
+  });
+
+  it('is safe during server-side rendering', () => {
+    const cleanup = enhanceSortableTables();
+    expect(cleanup).toBeTypeOf('function');
+    expect(() => cleanup()).not.toThrow();
+  });
+
+  it('lets a sortable table shrink inside a CSS grid or flex layout', async () => {
+    const css = await readFile(resolve(import.meta.dirname, 'content.css'), 'utf8');
+
+    expect(css).toContain('.sd-sortable-table {');
+    expect(css).toContain('min-width: 0;');
   });
 });

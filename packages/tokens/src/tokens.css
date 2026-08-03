@@ -80,6 +80,7 @@
   --sd-core-font-line-height-compact: 1.05;
   --sd-core-font-line-height-control: 1.25;
   --sd-core-font-line-height-heading: 1.2;
+  --sd-core-font-line-height-reading: 1.75;
   --sd-core-font-size-100: 1rem;
   --sd-core-font-size-112: 1.125rem;
   --sd-core-font-size-125: 1.25rem;
@@ -145,6 +146,7 @@
   --sd-font-line-height-control: 1.25;
   --sd-font-line-height-display: 1.05;
   --sd-font-line-height-heading: 1.2;
+  --sd-font-line-height-reading: 1.75;
   --sd-font-size-body: clamp(1rem, 0.975rem + 0.125vw, 1.0625rem);
   --sd-font-size-body-large: clamp(1.125rem, 1.075rem + 0.25vw, 1.25rem);
   --sd-font-size-body-small: 0.875rem;
