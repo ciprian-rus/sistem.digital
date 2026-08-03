@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import {
   CatalogImportExamples,
+  CatalogMaturity,
   CatalogPreview,
   CatalogStatus,
 } from '../../../../components/catalog';
@@ -150,6 +151,8 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
                 necesită versionare și instrucțiuni de migrare.
               </p>
             </section>
+
+            <CatalogMaturity item={item} />
 
             <PageFeedback pathname={`/componente/catalog/${item.id}`} title={item.title} />
           </article>
