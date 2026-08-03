@@ -127,6 +127,9 @@ importers:
       '@sistem-digital/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
+      '@sistem-digital/web-components':
+        specifier: workspace:*
+        version: link:../../packages/web-components
       next:
         specifier: 'catalog:'
         version: 16.2.11(@playwright/test@1.61.1)(@types/node@24.13.3)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)

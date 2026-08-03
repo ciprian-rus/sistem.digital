@@ -29,6 +29,12 @@
       "import": "./dist/index.js",
       "require": "./dist-cjs/index.js",
       "default": "./dist/index.js"
+    },
+    "./hook-names": {
+      "types": "./dist/hook-names.d.ts",
+      "import": "./dist/hook-names.js",
+      "require": "./dist-cjs/hook-names.js",
+      "default": "./dist/hook-names.js"
     }
   },
   "peerDependencies": {

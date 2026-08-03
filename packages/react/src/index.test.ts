@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import * as SistemDigitalReact from './index.js';
 import {
   GlobalEnhancements,
+  reactHookNames,
   useAccordion,
   useAutocomplete,
   useCharacterCount,
@@ -44,5 +46,11 @@ describe('react hooks registry', () => {
 
   it('publishes GlobalEnhancements as a component that renders nothing', () => {
     expect(GlobalEnhancements).toBeTypeOf('function');
+  });
+
+  it('keeps reactHookNames in sync with the real named exports', () => {
+    for (const name of reactHookNames) {
+      expect(SistemDigitalReact[name as keyof typeof SistemDigitalReact]).toBeTypeOf('function');
+    }
   });
 });
