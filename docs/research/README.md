@@ -16,11 +16,13 @@ Această zonă separă explicit:
 
 | Document | Stare | Rol |
 |---|---|---|
-| [Audit comparativ](comparative-audit.md) | cercetare de birou finalizată | compară sistemele mature și extrage practici transferabile |
+| [Audit comparativ](comparative-audit.md) | cercetare de birou finalizată, extinsă 1 august 2026 | compară sistemele mature și extrage practici transferabile |
 | [Audit România](romania-desk-audit.md) | cercetare de birou inițială | inventariază contextul public și formulează ipoteze locale |
 | [Plan de cercetare de teren](field-research-plan.md) | pregătit pentru execuție | definește participanții, metodele, etica și criteriile de finalizare |
 | [Principiile de design](../product/design-principles.md) | candidate | transformă dovezile curente în criterii de decizie |
 | [Politica de personalizare](../product/customization-policy.md) | candidate | stabilește limitele dintre identitate, consistență și extensibilitate |
+| [Modelul de maturitate a componentelor](../governance/component-maturity-model.md) | formalizat 1 august 2026 | definește Definition of Done și tranzițiile pentru cele șase stări decise în auditul comparativ |
+| [Schema de metadate pentru maturitate](../product/component-metadata-schema.md) | preliminară, 1 august 2026 | propune câmpurile publice pentru starea de maturitate a fiecărei componente |
 
 ## Nivelurile dovezilor
 

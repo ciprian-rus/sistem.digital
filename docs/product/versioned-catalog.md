@@ -92,6 +92,8 @@ Un catalog care documentează o versiune anterioară trebuie să indice explicit
 
 Canalul de release este separat de stadiul unei intrări, chiar dacă în MVP toate intrările folosesc canalul `alpha`.
 
+Acest câmp rămâne sursa de adevăr pentru versionare și distribuție. O guvernanță mai granulară, pe șase stări (`proposal` → `retired`), este definită separat în [modelul de maturitate a componentelor](../governance/component-maturity-model.md) și nu înlocuiește `stadiu` — vezi harta de compatibilitate din acel document.
+
 ## Filtre și URL-uri
 
 Filtrele folosesc query parameters și funcționează server-side:
