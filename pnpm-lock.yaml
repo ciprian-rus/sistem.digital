@@ -218,6 +218,37 @@ importers:
         specifier: '>=0.1.0-alpha.0 <1.0.0'
         version: 0.1.0-alpha.0
 
+  starters/nextjs:
+    dependencies:
+      '@sistem-digital/components':
+        specifier: '>=0.1.0-alpha.0 <1.0.0'
+        version: 0.1.0-alpha.0(@sistem-digital/tokens@0.1.0-alpha.0)
+      '@sistem-digital/tokens':
+        specifier: '>=0.1.0-alpha.0 <1.0.0'
+        version: 0.1.0-alpha.0
+      next:
+        specifier: 16.2.11
+        version: 16.2.11(@playwright/test@1.61.1)(@types/node@24.13.3)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      react:
+        specifier: 19.2.7
+        version: 19.2.7
+      react-dom:
+        specifier: 19.2.7
+        version: 19.2.7(react@19.2.7)
+    devDependencies:
+      '@types/node':
+        specifier: 24.13.3
+        version: 24.13.3
+      '@types/react':
+        specifier: 19.2.17
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.17)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
 packages:
 
   '@axe-core/playwright@4.12.1':

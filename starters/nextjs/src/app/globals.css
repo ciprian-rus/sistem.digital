@@ -1,0 +1,14 @@
+/* Reset minimal — restul stilurilor vin din @sistem-digital/tokens și
+   @sistem-digital/components. Nu adăuga aici stiluri care aparțin
+   componentelor publicate. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--sd-color-surface-page);
+  color: var(--sd-color-text);
+  font-family: var(--sd-font-sans);
+  line-height: var(--sd-font-line-height-body);
+}

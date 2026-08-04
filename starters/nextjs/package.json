@@ -1,0 +1,31 @@
+{
+  "name": "sistem-digital-starter-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starter Next.js pentru servicii publice construite cu pachetele publicate Sistem Digital.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ciprian-rus/sistem.digital.git",
+    "directory": "starters/nextjs"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sistem-digital/components": ">=0.1.0-alpha.0 <1.0.0",
+    "@sistem-digital/tokens": ">=0.1.0-alpha.0 <1.0.0",
+    "next": "16.2.11",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.9.3"
+  }
+}

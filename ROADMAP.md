@@ -64,8 +64,10 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - CDN cu versiuni imutabile și SRI;
 - starter HTML — livrat (`starters/html`), consumă pachetele npm publicate,
   fără build;
-- starter Next.js — următorul, în ordine;
-- integrare WordPress;
+- starter Next.js — livrat (`starters/nextjs`), App Router, consumă aceleași
+  pachete publicate; `@sistem-digital/react` nu e încă publicat, deci
+  enhancement-ul JS apelează direct `@sistem-digital/components`;
+- integrare WordPress — următorul, în ordine;
 - kit Figma.
 
 ## M6 — Comunitate și guvernanță publică
