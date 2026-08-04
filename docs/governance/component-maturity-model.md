@@ -4,7 +4,7 @@
 
 Acest document formalizează cele șase stări de maturitate deja decise în [`docs/research/comparative-audit.md`](../research/comparative-audit.md#niveluri-de-maturitate), cu un Definition of Done verificabil pentru fiecare stare și cu reguli explicite de tranziție. Modelul este inspirat de structura pe patru stări a Estafettemodel (NL Design System), adaptat la un nucleu central menținut oficial — Sistem Digital nu este, cel puțin pentru MVP, un ecosistem federat.
 
-Documentul este preliminar: definește contractul, nu migrează retroactiv componentele existente. Migrarea este tratată separat, prin issues distincte (a se vedea „Relația cu inventarul curent" mai jos).
+Modelul a fost aprobat prin #101, pe baza unei tranziții reale documentate (`content-bar-chart`, `experimental → candidate`, validată automat de `scripts/check-maturity.mjs` — vezi PR #156). Documentul definește contractul; migrarea retroactivă a componentelor existente rămâne separată (a se vedea „Relația cu inventarul curent" mai jos).
 
 ## Stările
 
@@ -107,16 +107,16 @@ proposal → experimental → candidate → stable
 
 Catalogul versionat (`docs/product/versioned-catalog.md`) folosește azi trei stadii: `alpha`, `stable`, `deprecated`. Acest model pe șase stări este compatibil, nu contradictoriu:
 
-| Stare nouă | Echivalent `stadiu` curent |
-|---|---|
-| `proposal` | nu apare în catalog |
+| Stare nouă     | Echivalent `stadiu` curent                            |
+| -------------- | ----------------------------------------------------- |
+| `proposal`     | nu apare în catalog                                   |
 | `experimental` | nu apare în catalog (izolat sau în spatele unui flag) |
-| `candidate` | `alpha` |
-| `stable` | `stable` |
-| `deprecated` | `deprecated` |
-| `retired` | eliminată din catalog |
+| `candidate`    | `alpha`                                               |
+| `stable`       | `stable`                                              |
+| `deprecated`   | `deprecated`                                          |
+| `retired`      | eliminată din catalog                                 |
 
-Toate componentele publicate azi în `@sistem-digital/components` sunt, prin această hartă, în starea `candidate` (folosesc `stadiu: alpha`). Acest PR **nu** migrează retroactiv metadatele fiecărei componente către noul model — vezi schema preliminară din [`docs/product/component-metadata-schema.md`](../product/component-metadata-schema.md) și issues distincte pentru migrarea graduală (Epic C, „Migrarea graduală a componentelor existente").
+Toate componentele publicate azi în `@sistem-digital/components` sunt, prin această hartă, în starea `candidate` (folosesc `stadiu: alpha`). Metadatele fiecărei componente către noul model **nu** sunt migrate retroactiv într-un singur pas — vezi schema aprobată din [`docs/product/component-metadata-schema.md`](../product/component-metadata-schema.md) și issues distincte pentru migrarea graduală (Epic C, „Migrarea graduală a componentelor existente").
 
 ## Relația cu procesul comunitar existent
 
@@ -131,3 +131,29 @@ Fiecare componentă `candidate` sau mai avansată are:
 - pentru `deprecated`/`retired`: motivul documentat, nu doar eticheta.
 
 Absența unui owner activ este motiv suficient pentru a propune trecerea în `deprecated`, indiferent de calitatea tehnică a componentei — mentenanța fără proprietar este exact problema transversală „Contribuții fără owner" identificată în auditul comparativ.
+
+## Politica de depreciere și retragere
+
+Această secțiune formalizează, la nivel de componentă individuală, regulile generale de deprecation deja publicate în [`docs/governance/release-policy.md`](release-policy.md#deprecation) — nu le contrazice, le aplică granular.
+
+### Perioadă minimă între `deprecated` și `retired`
+
+O componentă rămâne `deprecated` minimum **90 de zile calendaristice sau o versiune minoră publicată a pachetului care o conține, oricare dintre cele două este mai lungă**, înainte de a putea trece în `retired`. Perioada nu este lăsată la latitudine — o trecere mai rapidă necesită, la fel ca la nivel de pachet, un security advisory care o justifică explicit (de exemplu, o vulnerabilitate de accesibilitate sau securitate nerezolvabilă în implementarea curentă).
+
+Până la `1.0.0`, pachetele publice pot suferi schimbări incompatibile oricând (conform `release-policy.md`), dar eliminarea unei componente rămâne, indiferent de versiune, o schimbare incompatibilă — documentată printr-un Changeset și migration note, la fel ca orice alt breaking change.
+
+### Canalul de anunț
+
+O depreciere este publică din momentul intrării în `deprecated`, prin toate cele trei canale simultan:
+
+1. **Changeset** — obligatoriu, cu motivul deprecierii și alternativa recomandată, dacă există;
+2. **Changelog** al pachetului — generat din Changeset, la următorul release;
+3. **Pagina componentei** din catalogul versionat — starea, motivul și alternativa afișate vizibil, nu doar ca etichetă (deja cerut de Definition of Done pentru `deprecated`, mai sus).
+
+Fără cele trei canale simultane, deprecierea nu este considerată anunțată public, iar perioada minimă de 90 de zile nu începe să curgă.
+
+### Retragerea efectivă
+
+La expirarea perioadei minime, componenta este eliminată din inventarul public al pachetului (`*ComponentNames`) la următoarea versiune publicată — minoră sau majoră, conform politicii generale de breaking changes din `release-policy.md`. Pagina de documentație rămâne accesibilă istoric (arhivată, nu ștearsă), cu indicarea clară a versiunii din care componenta a fost eliminată, exact ca la nivel de release întreg (`release-policy.md`, secțiunea „Retenție").
+
+Această politică nu se aplică retroactiv niciunei componente existente — nicio componentă din `@sistem-digital/components` nu este marcată `deprecated` prin acest document.

@@ -1,10 +1,10 @@
-# Schema preliminară de metadate pentru componente
+# Schema de metadate pentru maturitatea componentelor
 
 ## Obiectiv
 
 Definește câmpurile minime necesare pentru a susține [modelul de maturitate pe șase stări](../governance/component-maturity-model.md), fără să migreze retroactiv componentele existente și fără să înlocuiască schema curentă a catalogului versionat (`apps/website/src/content/catalog-data.mjs`, documentată în [`docs/product/versioned-catalog.md`](versioned-catalog.md)).
 
-Schema este **preliminară**: stabilește contractul de date, nu implementarea. Validarea automată la build (verificarea că fiecare componentă publicată are metadate complete și consistente) este urmărită separat, ca issue distinct în Epic A.
+Schema a fost aprobată prin #102: locul de stocare este `apps/website/src/content/component-maturity-data.mjs`, validat automat la build de `scripts/check-maturity.mjs` (`pnpm maturity:check`, inclus în `pnpm check`) și afișat condiționat în catalog (`/componente/catalog/[slug]`), livrate prin PR #156. Rămâne, ca înainte, doar popularea retroactivă a metadatelor pentru cele 59 de componente publicate azi — tratată separat, incremental.
 
 ## Domeniu
 
@@ -58,12 +58,10 @@ Câmpul `state` din această schemă **nu înlocuiește** câmpul `status` (`alp
 
 O componentă poate avea `status: 'alpha'` în catalog și `state: 'candidate'` în metadatele de maturitate — cele două nu intră în conflict, pentru că răspund la întrebări diferite („ce pot instala azi?" vs. „cât de matură este guvernanța acestei componente?").
 
-## Ce nu include acest PR
+## Ce nu include acest document
 
-- validarea automată la build a acestor câmpuri (issue distinct, Epic A);
 - popularea retroactivă a metadatelor pentru cele 59 de componente publicate azi (issue distinct, „migrarea graduală", Epic C);
-- afișarea stării în catalog (issue distinct, Epic A);
-- schema matricei design–cod (Epic B, document separat).
+- schema matricei design–cod (Epic B, [`docs/product/design-code-matrix-schema.md`](design-code-matrix-schema.md), document separat).
 
 ## Note de proiectare
 
