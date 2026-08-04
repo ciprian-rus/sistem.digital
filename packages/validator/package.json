@@ -1,0 +1,37 @@
+{
+  "name": "@sistem-digital/validator",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MVP: reguli de validare explicabile pentru implementări Sistem Digital, cu raport JSON/HTML. Nepublicat încă — vezi #25.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ciprian-rus/sistem.digital.git",
+    "directory": "packages/validator"
+  },
+  "bin": {
+    "sistem-digital-validator": "dist/cli.js"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "axe-core": "4.12.1",
+    "playwright-core": "1.61.1"
+  },
+  "devDependencies": {
+    "vitest": "catalog:"
+  }
+}
