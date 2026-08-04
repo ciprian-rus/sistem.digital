@@ -53,7 +53,8 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - serviciu public demonstrativ end-to-end;
 - zece pattern-uri publicate pentru servicii publice recurente;
 - primul model sectorial de referință (primărie), cu catalog de servicii locale;
-- al doilea model sectorial de referință (școală), cu catalog de servicii și cerere de înscriere funcțională end-to-end.
+- al doilea model sectorial de referință (școală), cu catalog de servicii și cerere de înscriere funcțională end-to-end;
+- al treilea model sectorial de referință (spital), cu catalog de servicii și cerere de document medical funcțională end-to-end.
 
 ## M5 — Startere și distribuție
 
