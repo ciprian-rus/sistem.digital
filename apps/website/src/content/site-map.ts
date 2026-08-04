@@ -156,6 +156,42 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['verificare', 'sumar', 'provenienta', 'idempotency', 'trimitere'],
         status: 'available',
       },
+      {
+        href: '/pattern-uri/semnare',
+        title: 'Semnarea unei cereri sau a unui document',
+        navigationLabel: 'Semnarea',
+        description:
+          'Explică în limbaj simplu ce înseamnă semnarea, oferă o cale de rezervă la eșec și leagă semnarea de confirmarea depunerii.',
+        keywords: ['semnatura', 'semnatura electronica', 'declaratie', 'esec', 'confirmare'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/plata-taxei',
+        title: 'Plata unei taxe sau a unui tarif asociat cererii',
+        navigationLabel: 'Plata unei taxe',
+        description:
+          'Arată suma, motivul și scutirile înainte de plată, apoi redirecționează spre platforma comună de plăți și confirmă rezultatul.',
+        keywords: ['plata', 'taxa', 'tarif', 'scutire', 'redirect'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/notificarea-deciziei',
+        title: 'Notificarea unei decizii administrative',
+        navigationLabel: 'Notificarea deciziei',
+        description:
+          'Comunică ce s-a decis, temeiul, consecința practică și pașii următori — separat pentru aprobare, respingere și aprobare parțială.',
+        keywords: ['decizie', 'aprobare', 'respingere', 'notificare', 'temei legal'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/contestarea-deciziei',
+        title: 'Contestarea unei decizii administrative',
+        navigationLabel: 'Contestarea deciziei',
+        description:
+          'Explică termenul, motivele acceptate și documentele suplimentare, apoi confirmă vizibil înregistrarea contestației.',
+        keywords: ['contestare', 'termen', 'decizie', 'motive', 'confirmare'],
+        status: 'available',
+      },
     ],
   },
   {

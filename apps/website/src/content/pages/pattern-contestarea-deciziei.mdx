@@ -1,0 +1,79 @@
+---
+title: Contestarea unei decizii administrative
+description: Explică termenul, motivele acceptate și documentele suplimentare, apoi confirmă vizibil înregistrarea contestației.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 9
+keywords:
+  - contestare
+  - termen
+  - decizie
+  - motive
+  - confirmare
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Nu sunt de acord cu decizia — vreau să știu dacă și cum pot contesta, și până când."
+
+Folosește pattern-ul direct din [notificarea unei decizii](/pattern-uri/notificarea-deciziei) respinse sau parțial aprobate — contestarea nu e un flux izolat, pornește de la decizia contestată.
+
+## Termenul de contestare
+
+Conform [regulii de termene](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#termene), termenul apare explicit, cu tipul de zile (calendaristice sau lucrătoare) și data exactă limită, nu doar „aveți 30 de zile":
+
+<Callout
+  title="Termenul se calculează pentru persoană, nu se lasă la calcul propriu"
+  type="warning"
+>
+  <p>
+    „30 de zile calendaristice de la comunicare" cere ca persoana să calculeze singură data limită.
+    Afișează direct data limită calculată și, dacă termenul e aproape de expirare, un avertisment
+    explicit.
+  </p>
+</Callout>
+
+## Parcursul de contestare
+
+1. motivul contestației — dintr-o listă orientativă sau text liber, după caz;
+2. documentele suplimentare, dacă sunt necesare (opțional vs. obligatoriu, conform [regulii de prezentare a documentelor](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#prezentarea-documentelor-necesare));
+3. confirmarea vizibilă a înregistrării contestației, cu număr propriu, distinct de numărul cererii inițiale;
+4. legătura persistentă între contestație și decizia contestată, vizibilă în ambele direcții.
+
+## Ce urmează după depunere
+
+Contestația urmează, la rândul ei, [pattern-ul de status, confirmare și reluare](/pattern-uri/status-confirmare-reluare) — are propriul status, propriul termen de soluționare și propria notificare de rezultat, nu se contopește cu statusul cererii inițiale.
+
+## Fără cont și fără JavaScript
+
+- Formularul de contestare funcționează prin submit HTTP normal.
+- Confirmarea depunerii contestației este HTML server-rendered, tipăribilă.
+- Data limită calculată e afișată direct în pagină, nu doar calculată client-side prin JavaScript.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                            |
+| ---------- | ------------------------------------------------------------------------------------------- |
+| Conținut   | Explică termenul, motivele acceptate și documentele necesare în limbaj simplu, nu juridic.  |
+| Date       | Calculează și afișează data limită exactă; leagă contestația de decizia originală.          |
+| Backend    | Generează un număr de înregistrare propriu contestației, distinct de cererea inițială.      |
+| Operațiuni | Menține cadrul legal exact al contestațiilor actualizat, per tip de serviciu, unde variază. |
+
+## Criterii de acceptare
+
+- Termenul de contestare este afișat explicit, cu unitatea de timp și data limită calculată.
+- Pattern-ul este legat, în ambele direcții, de notificarea deciziei inițiale.
+- Există confirmare vizibilă a înregistrării contestației, cu număr propriu.
+- Contestația are propriul status, urmărit separat de cererea inițială.
+
+## În aplicația de referință
+
+Serviciul demonstrativ nu emite încă decizii finale contestabile — nu există, deocamdată, o suprafață reală pentru acest pattern. Documentează contractul UX pentru momentul în care un serviciu de referință va avea o etapă reală de decizie.
+
+## Dovezi și limite
+
+Observația OBS-006 din [auditul comparativ românesc](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/romania-audit-2026/observations.csv) confirmă direct problema pe care acest pattern o rezolvă: cel puțin un serviciu public expune un rezultat verificabil fără un traseu public echivalent, clar atașat, pentru contestarea sau corectarea lui. Cadrul legal exact al contestațiilor administrative variază pe tip de serviciu — pattern-ul rămâne generic, cu note explicite unde variația contează, conform riscului semnalat deja în backlog.
