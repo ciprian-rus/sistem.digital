@@ -14,15 +14,15 @@ Această zonă separă explicit:
 
 ## Documente curente
 
-| Document | Stare | Rol |
-|---|---|---|
-| [Audit comparativ](comparative-audit.md) | cercetare de birou finalizată, extinsă 1 august 2026 | compară sistemele mature și extrage practici transferabile |
-| [Audit România](romania-desk-audit.md) | cercetare de birou inițială | inventariază contextul public și formulează ipoteze locale |
-| [Plan de cercetare de teren](field-research-plan.md) | pregătit pentru execuție | definește participanții, metodele, etica și criteriile de finalizare |
-| [Principiile de design](../product/design-principles.md) | candidate | transformă dovezile curente în criterii de decizie |
-| [Politica de personalizare](../product/customization-policy.md) | candidate | stabilește limitele dintre identitate, consistență și extensibilitate |
-| [Modelul de maturitate a componentelor](../governance/component-maturity-model.md) | formalizat 1 august 2026 | definește Definition of Done și tranzițiile pentru cele șase stări decise în auditul comparativ |
-| [Schema de metadate pentru maturitate](../product/component-metadata-schema.md) | preliminară, 1 august 2026 | propune câmpurile publice pentru starea de maturitate a fiecărei componente |
+| Document                                                                           | Stare                                                | Rol                                                                                                                     |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| [Audit comparativ](comparative-audit.md)                                           | cercetare de birou finalizată, extinsă 1 august 2026 | compară sistemele mature și extrage practici transferabile                                                              |
+| [Audit România](romania-desk-audit.md)                                             | cercetare de birou inițială                          | inventariază contextul public și formulează ipoteze locale                                                              |
+| [Plan de cercetare de teren](field-research-plan.md)                               | pregătit pentru execuție                             | definește participanții, metodele, etica și criteriile de finalizare                                                    |
+| [Principiile de design](../product/design-principles.md)                           | candidate                                            | transformă dovezile curente în criterii de decizie                                                                      |
+| [Politica de personalizare](../product/customization-policy.md)                    | candidate                                            | stabilește limitele dintre identitate, consistență și extensibilitate                                                   |
+| [Modelul de maturitate a componentelor](../governance/component-maturity-model.md) | aprobat 3 august 2026                                | definește Definition of Done, tranzițiile și politica de depreciere pentru cele șase stări decise în auditul comparativ |
+| [Schema de metadate pentru maturitate](../product/component-metadata-schema.md)    | aprobată 3 august 2026                               | câmpurile publice pentru starea de maturitate a fiecărei componente, validate automat și afișate în catalog             |
 
 ## Nivelurile dovezilor
 
@@ -48,12 +48,12 @@ O modificare implementată într-un serviciu real sau de referință și evaluat
 
 ## Nivelurile de încredere
 
-| Nivel | Definiție |
-|---|---|
-| Confirmat | dovezi convergente din mai multe metode și segmente |
-| Probabil | observații repetate, dar cu limitări de eșantion sau context |
-| Ipoteză | concluzie bazată predominant pe audit, opinie sau puține observații |
-| Contrazis | dovezile infirmă sau limitează material ipoteza inițială |
+| Nivel     | Definiție                                                           |
+| --------- | ------------------------------------------------------------------- |
+| Confirmat | dovezi convergente din mai multe metode și segmente                 |
+| Probabil  | observații repetate, dar cu limitări de eșantion sau context        |
+| Ipoteză   | concluzie bazată predominant pe audit, opinie sau puține observații |
+| Contrazis | dovezile infirmă sau limitează material ipoteza inițială            |
 
 Fiecare raport viitor trebuie să indice nivelul de încredere al concluziilor importante.
 

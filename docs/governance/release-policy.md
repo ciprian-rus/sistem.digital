@@ -90,6 +90,8 @@ Un API public poate fi retras numai astfel:
 
 Pentru vulnerabilități active, perioada de deprecation poate fi scurtată printr-un security advisory.
 
+Regulile de mai sus se aplică la nivel de pachet și API public. Pentru deprecierea unei componente individuale, cu perioada minimă și canalul de anunț specifice, vezi [`docs/governance/component-maturity-model.md`](component-maturity-model.md#politica-de-depreciere-și-retragere).
+
 ## Rollback
 
 Versiunile npm publicate nu sunt șterse și nu sunt suprascrise.
