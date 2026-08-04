@@ -71,7 +71,10 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
   netestată într-un WordPress viu (mediul de dezvoltare nu are acces la
   wordpress.org și nici Docker) — vezi limitarea documentată în
   `starters/wordpress/README.md`;
-- kit Figma — următorul, în ordine.
+- kit Figma — mapping-ul token→Figma documentat
+  (`docs/product/figma-token-mapping.md`); kitul propriu-zis (fișierul
+  `.fig`) rămâne nelivrat — figma.com și api.figma.com sunt ambele blocate
+  de politica de rețea a mediului de dezvoltare, la fel ca wordpress.org.
 
 ## M6 — Comunitate și guvernanță publică
 
