@@ -14,14 +14,14 @@ catalog:
   '@types/mdx': 2.0.14
   '@types/node': 24.13.3
   '@types/react': 19.2.17
-  '@types/react-dom': 19.2.3
+  '@types/react-dom': 19.2.4
   eslint: 10.7.0
   eslint-config-next: 16.2.11
   globals: 17.7.0
   next: 16.2.11
   prettier: 3.9.6
   react: 19.2.7
-  react-dom: 19.2.7
+  react-dom: 19.2.8
   remark-frontmatter: 5.0.0
   remark-mdx-frontmatter: 5.2.0
   turbo: 2.10.5
