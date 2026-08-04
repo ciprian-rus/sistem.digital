@@ -47,6 +47,7 @@ Sistem Digital este inițial un proiect open-source independent. El poate deveni
 - [Terminologia canonică a proiectului](docs/product/terminology.md)
 - [Arhitectura informației pentru sistem.digital](docs/product/information-architecture.md)
 - [Mapping-ul token-urilor către un kit Figma](docs/product/figma-token-mapping.md)
+- [Inventarul regulilor și formatul de raport al validatorului](docs/product/validator-rules-inventory.md)
 
 ## Platforma editorială M3
 
