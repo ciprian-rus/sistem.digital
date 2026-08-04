@@ -192,6 +192,33 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['contestare', 'termen', 'decizie', 'motive', 'confirmare'],
         status: 'available',
       },
+      {
+        href: '/pattern-uri/identificarea-serviciului',
+        title: 'Identificarea serviciului potrivit',
+        navigationLabel: 'Identificarea serviciului',
+        description:
+          'Pornește de la nevoia utilizatorului, nu de la structura instituțională, pentru a duce persoana la serviciul corect.',
+        keywords: ['cautare', 'servicii', 'nevoie', 'eligibilitate', 'catalog'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/autentificare-cont-unic',
+        title: 'Autentificarea prin mecanism unic de autentificare sau cont unic',
+        navigationLabel: 'Autentificare cont unic',
+        description:
+          'Explică transferul către furnizorul extern de identitate, gestionează erorile tipice și oferă variantă fără autentificare completă unde e posibil.',
+        keywords: ['autentificare', 'cont unic', 'identitate', 'sesiune', 'eroare'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/completarea-din-registre',
+        title: 'Completarea datelor din registre',
+        navigationLabel: 'Completarea din registre',
+        description:
+          'Afișează datele preluate automat cu sursa lor vizibilă, permite confirmarea sau corectarea, și documentează varianta pentru registrul indisponibil.',
+        keywords: ['registre', 'once-only', 'date', 'sursa', 'indisponibilitate'],
+        status: 'available',
+      },
     ],
   },
   {

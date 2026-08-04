@@ -1,0 +1,76 @@
+---
+title: Completarea datelor din registre
+description: Afișează datele preluate automat cu sursa lor vizibilă, permite confirmarea sau corectarea, și documentează varianta pentru registrul indisponibil.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 12
+keywords:
+  - registre
+  - once-only
+  - date
+  - sursă
+  - indisponibilitate
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Statul are deja datele astea — nu vreau să le rescriu de la zero."
+
+Folosește pattern-ul oriunde o cerere ar putea prelua automat date deja deținute de o instituție publică, în loc să le ceară din nou de la persoană — principiul „once-only" din arhitectura de referință.
+
+## Afișarea datelor preluate
+
+Fiecare câmp completat automat își arată sursa — nu apare ca text introdus manual, indistinct de restul formularului:
+
+<Callout title="Sursa datelor rămâne vizibilă, nu doar valoarea" type="success">
+  <p>
+    „Adresă: Str. Exemplu 10 (preluată din Registrul X, la 3 august 2026)” lasă persoana să verifice
+    și să corecteze dacă datele sunt învechite. O valoare precompletată fără sursă pare o
+    presupunere a formularului, nu un fapt verificabil.
+  </p>
+</Callout>
+
+- fiecare câmp preluat automat indică registrul sursă și data ultimei sincronizări;
+- persoana poate confirma datele așa cum sunt sau le poate corecta explicit;
+- o corectare manuală nu se pierde silențios — rămâne vizibilă ca diferență față de sursă, cu opțiunea de a semnala instituției că registrul are o eroare.
+
+## Registrul nu răspunde
+
+Fallback-ul la completare manuală este documentat explicit, nu doar presupus:
+
+1. formularul spune clar că preluarea automată nu a funcționat, nu doar că un câmp e gol;
+2. câmpurile afectate devin editabile manual, cu aceleași reguli de validare ca restul formularului;
+3. cererea nu este blocată de indisponibilitatea unui singur registru, dacă alte căi de completare există.
+
+## Fără cont și fără JavaScript
+
+- Datele preluate și sursa lor sunt randate server-side, vizibile fără JavaScript.
+- Fallback-ul la completare manuală funcționează prin submit HTTP normal — formularul rămâne complet utilizabil dacă preluarea automată eșuează.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                |
+| ---------- | ----------------------------------------------------------------------------------------------- |
+| Conținut   | Explică sursa fiecărei valori preluate și ce înseamnă să o corectezi.                           |
+| Date       | Definește sursa de adevăr per câmp, data ultimei sincronizări și modul de semnalare a erorilor. |
+| Backend    | Gestionează indisponibilitatea registrului cu timeout explicit și fallback automat la manual.   |
+| Operațiuni | Menține relația cu operatorii registrelor și canalul de raportare a datelor eronate.            |
+
+## Criterii de acceptare
+
+- Fiecare câmp preluat automat își arată sursa și data sincronizării.
+- Există variantă de fallback documentată și funcțională pentru indisponibilitatea registrului.
+- Corectarea manuală a unei valori preluate rămâne vizibilă, nu se pierde silențios.
+- Cererea nu este blocată complet de indisponibilitatea unui singur registru.
+
+## În aplicația de referință
+
+Serviciul demonstrativ nu preia încă date dintr-un registru real — toate câmpurile din solicitarea de adeverință sunt completate manual. Acest pattern documentează contractul UX pentru integrarea viitoare cu registre reale, prin PNIDP sau echivalent.
+
+## Dovezi și limite
+
+Lecția Poloniei — Architektura Informacyjna Państwa (registre, API-uri, building blocks) — confirmată din sursă în [auditul comparativ](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/comparative-audit.md), susține direct acest pattern. Fără acces la registre reale românești, exemplul rămâne conceptual — integrarea reală rămâne backlog, tratată separat în [Epic J](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/governance/pnidp-schema-draft.md).
