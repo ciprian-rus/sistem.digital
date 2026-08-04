@@ -1648,4 +1648,346 @@ export const componentPageContent = [
       },
     ],
   },
+  {
+    id: 'interactive-accordion',
+    purpose:
+      'Ascunde opțional secțiuni de conținut lung, redundante pentru majoritatea utilizatorilor, păstrând fiecare secțiune complet accesibilă prin `<details>` nativ.',
+    whenToUse: [
+      'pentru grupuri de întrebări frecvente sau secțiuni opționale, unde majoritatea utilizatorilor nu au nevoie de tot conținutul deodată.',
+    ],
+    whenNotToUse: [
+      'pentru conținut pe care majoritatea utilizatorilor trebuie să-l citească — ascunderea lui implicită crește efortul, nu îl reduce.',
+    ],
+    anatomy:
+      'Un `<div class="sd-accordion" data-sd-accordion="single">` care încadrează unul sau mai multe `<details>` native, fiecare cu `<summary>` (titlul secțiunii) și `<div class="sd-accordion__content">` (conținutul, vizibil doar când `[open]`).',
+    variants: [
+      'implicit — fiecare `<details>` se deschide/închide independent',
+      '`data-sd-accordion="single"` — cu JavaScript, deschiderea unei secțiuni închide automat celelalte',
+    ],
+    states: ['`[open]` pe fiecare `<details>`'],
+    behavior:
+      'Fără JavaScript: fiecare `<details>` funcționează nativ, independent — orice combinație de secțiuni poate fi deschisă simultan. Cu JavaScript (`enhanceAccordions`): pe containerele marcate `data-sd-accordion="single"`, ascultă evenimentul `toggle` al fiecărui `<details>` și închide frații lui când unul se deschide, simulând un comportament de tip acordeon clasic peste elemente native.',
+    contentGuidelines: [
+      'titlul din `<summary>` descrie conținutul secțiunii suficient încât utilizatorul să decidă dacă o deschide, fără text generic de tipul „Detalii”.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'nu pune într-un accordion informații critice pentru finalizarea unei sarcini — utilizatorii care nu deschid o secțiune nu trebuie să piardă context esențial.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-dialog',
+    purpose:
+      'Întrerupe fluxul pentru o decizie sau confirmare care nu poate fi ignorată, folosind elementul `<dialog>` nativ pentru capcana de focus și restaurarea focusului.',
+    whenToUse: [
+      'pentru confirmări care blochează intenționat restul paginii până la o decizie explicită (de exemplu, confirmarea trimiterii unei cereri).',
+    ],
+    whenNotToUse: [
+      'pentru mesaje informative necritice — o `notification-banner` sau un `alert` inline nu întrerupe fluxul utilizatorului fără motiv.',
+    ],
+    anatomy:
+      'Un declanșator (`[data-sd-dialog-trigger]` cu `aria-controls` către id-ul dialogului) și un `<dialog class="sd-dialog" data-sd-dialog aria-labelledby="…">` cu `.sd-dialog__header` (titlu + buton `[data-sd-dialog-close]`), `.sd-dialog__body` și opțional `.sd-dialog__footer`.',
+    variants: ['implicit — o singură variantă, cu conținut liber în body și footer'],
+    states: ['`[open]`', '`[data-sd-enhanced="true"]` — setat de JavaScript la inițializare'],
+    behavior:
+      'Fără JavaScript: `<dialog>` fără `[data-sd-enhanced]` se randează static, inline în flux — declanșatorul rămâne un link funcțional, nu un control mort. Cu JavaScript (`enhanceDialogs`): declanșatorul deschide dialogul prin `showModal()` (capcană de focus și `::backdrop` native ale browserului), memorează elementul care avea focus înainte de deschidere, iar la închidere (buton sau evenimentul nativ `close`, care include tasta Escape) restaurează focusul exact pe acel element.',
+    contentGuidelines: [
+      'titlul din header rezumă decizia cerută, nu doar numele componentei ("Trimite cererea?", nu "Confirmare").',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'dialogul trebuie să aibă un id unic și `aria-labelledby` valid — fără ele, enhancement-ul nu leagă declanșatorul de dialog și browserul nu poate anunța titlul la deschidere.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-tabs',
+    purpose:
+      'Comută între perspective paralele ale aceluiași obiect, cu navigare completă din tastatură prin săgeți, conform pattern-ului ARIA tablist.',
+    whenToUse: [
+      'pentru două sau mai multe seturi de conținut care descriu aceeași temă din unghiuri diferite și pe care utilizatorul le poate compara.',
+    ],
+    whenNotToUse: [
+      'pentru un flux secvențial de pași — un `step-indicator` combinat cu pagini separate exprimă corect progresul, spre deosebire de tabs, care nu implică ordine.',
+    ],
+    anatomy:
+      'Un `<div class="sd-tabs" data-sd-tabs>` cu `[data-sd-tab-list]` (containerul butoanelor, `hidden` până la enhancement), butoane `[data-sd-tab]` cu `aria-controls` către id-ul panoului, și secțiuni `[data-sd-tab-panel]`.',
+    variants: ['implicit — o singură variantă'],
+    states: ['`aria-selected="true|false"` pe fiecare tab', '`[hidden]` pe panoul inactiv'],
+    behavior:
+      'Fără JavaScript: `[data-sd-tab-list]` rămâne `hidden`, iar toate panourile `[data-sd-tab-panel]` sunt vizibile secvențial — degradarea e la conținut simplu, citit în ordine, nu la un control mort. Cu JavaScript (`enhanceTabs`): dezvăluie lista de taburi, îi atribuie `role="tablist"`, activează tab-ul marcat inițial `aria-selected="true"` (sau primul) și ascunde restul panourilor; suportă navigare cu săgețile Stânga/Dreapta (circulară) și Home/End, mutând atât selecția cât și focusul.',
+    contentGuidelines: [
+      'eticheta fiecărui tab e scurtă și descrie conținutul panoului, nu o acțiune ("Digital", nu "Vezi varianta digitală").',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'fiecare buton de tab trebuie să aibă `aria-controls` către un panou existent — fără el, enhancement-ul nu poate lega selecția de vizibilitatea panoului corect.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-step-indicator',
+    purpose:
+      'Arată poziția curentă și progresul într-un flux cu mai mulți pași, printr-o listă ordonată vizibilă permanent.',
+    whenToUse: [
+      'pentru fluxuri de mai mulți pași cu ordine fixă (de exemplu, o cerere de tip formular cu etape de completare, verificare și confirmare).',
+    ],
+    whenNotToUse: [
+      'pentru un singur pas sau pentru un flux fără ordine impusă — indicatorul de progres ar sugera o structură inexistentă.',
+    ],
+    anatomy:
+      'Un `<nav class="sd-step-indicator" aria-label="Progres">` care încadrează `<ol class="sd-step-indicator__list">`, cu `<li class="sd-step-indicator__item">` per pas, fiecare cu `.sd-step-indicator__marker` (număr sau bifă) și `.sd-step-indicator__label`.',
+    variants: [
+      'implicit',
+      '`sd-step-indicator__item--complete` — pas finalizat, marcat cu bifă în loc de număr',
+    ],
+    states: ['`aria-current="step"` pe pasul curent'],
+    behavior:
+      'Complet static, fără JavaScript — nu există enhancement asociat în `interactive.ts`. Starea fiecărui pas (complet, curent, viitor) e exprimată exclusiv prin clase CSS și `aria-current`, setate de aplicație la randare. Sub 40rem lățime, lista trece din grid orizontal în listă verticală, cu conectorii redesenați ca linii verticale.',
+    contentGuidelines: [
+      'eticheta fiecărui pas e un substantiv scurt ("Date", "Verificare"), nu o instrucțiune de acțiune.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'aplicația calculează și setează `aria-current="step"` și clasa `--complete` la fiecare randare — componenta nu are stare proprie, deci un pas neactualizat rămâne afișat greșit după navigare.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-date-input',
+    purpose:
+      'Colectează o dată calendaristică fie ca trei câmpuri numerice separate (zi, lună, an), fie prin selectorul nativ al browserului.',
+    whenToUse: [
+      'pentru date introduse manual, unde formatul ambiguu (zi/lună vs. lună/zi) creează risc real de eroare — trei câmpuri separate elimină ambiguitatea.',
+    ],
+    whenNotToUse: [
+      'pentru date apropiate, unde alegerea dintr-un calendar vizual e mai rapidă decât tastarea — `<input type="date">` simplu, fără despărțire pe componente, poate fi suficient.',
+    ],
+    anatomy:
+      'Un `<div class="sd-date-input" role="group" aria-label="…">` cu câte un `.sd-date-input__part` per componentă (zi, lună, an), fiecare cu `<label>` propriu și `<input inputmode="numeric">`; alternativ, `.sd-date-picker` încadrează direct un `<input type="date">` nativ.',
+    variants: [
+      'implicit — trei câmpuri text (zi/lună/an)',
+      '`.sd-date-picker` — un singur `<input type="date">` nativ, cu selector de calendar al browserului',
+    ],
+    states: [],
+    behavior:
+      'Complet static, fără JavaScript — nu există enhancement asociat în `interactive.ts`. Validarea (dată validă, în intervalul acceptat) rămâne responsabilitatea aplicației, la trimiterea formularului, afișată prin `error-message`/`error-summary`.',
+    contentGuidelines: [
+      'ordinea și eticheta câmpurilor (Zi, Lună, An) rămân fixe — nu inversa ordinea în funcție de context, utilizatorii se bazează pe ea pentru a evita erori de introducere.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'validează combinația zi/lună/an server-side (de exemplu 31 februarie) — componenta nu previne introducerea unei date inexistente.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-autocomplete',
+    purpose:
+      'Ajută la găsirea rapidă a unei valori dintr-o listă lungă, cu sugestii filtrate live și navigare completă din tastatură, peste un `<input>`/`<datalist>` nativ funcțional.',
+    whenToUse: [
+      'pentru selecția dintr-o listă lungă de opțiuni cunoscute (de exemplu, numele unei instituții), unde tastarea unor litere reduce rapid alegerile.',
+    ],
+    whenNotToUse: [
+      'pentru liste scurte (sub 10-15 opțiuni) — un `select` simplu, fără nevoie de filtrare, e mai previzibil.',
+    ],
+    anatomy:
+      'Un `<div class="sd-autocomplete" data-sd-autocomplete>` cu `<label>`, `<input data-sd-autocomplete-input list="…">`, `<datalist>` cu opțiunile sursă, `<div data-sd-autocomplete-menu hidden>` (meniul listbox construit de JavaScript) și un `<p aria-live="polite" data-sd-autocomplete-status>` pentru anunțarea numărului de sugestii.',
+    variants: ['implicit — o singură variantă'],
+    states: [
+      '`aria-expanded="true|false"` pe input',
+      '`aria-selected="true|false"` pe fiecare opțiune din meniu',
+    ],
+    behavior:
+      'Fără JavaScript: inputul folosește `list="…"` către `<datalist>`, oferind autocompletare nativă a browserului — funcțional, deși fără meniul personalizat. Cu JavaScript (`enhanceAutocompletes`): elimină atributul `list`, transformă inputul în `role="combobox"` legat de un `role="listbox"` construit dinamic, filtrează opțiunile la fiecare tastă (comparație fără diacritice, primele 8 rezultate), navighează cu ArrowUp/ArrowDown (circular), selectează cu Enter sau clic, închide cu Escape sau blur, și anunță numărul de sugestii prin regiunea live.',
+    contentGuidelines: [
+      'eticheta fiecărei opțiuni e textul complet căutat de utilizator, nu un cod intern — utilizatorul filtrează după ce vede, nu după un ID ascuns.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      '`<datalist>` trebuie populat complet înainte de inițializare — enhancement-ul citește opțiunile o singură dată, la pornire, dintr-un `<datalist>` static.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-file-upload-advanced',
+    purpose:
+      'Adaugă listă de fișiere selectate, eliminare individuală și zonă drag-and-drop peste inputul nativ `<input type="file">`, fără a-l înlocui.',
+    whenToUse: [
+      'pentru încărcarea a mai multe fișiere, unde utilizatorul beneficiază să vadă și să elimine individual fișierele deja alese înainte de trimitere.',
+    ],
+    whenNotToUse: [
+      'pentru un singur fișier obligatoriu, fără nevoie de listă sau drag-and-drop — `file-upload` simplu e suficient și mai puțin complex.',
+    ],
+    anatomy:
+      'Un `<div class="sd-file-upload-advanced" data-sd-file-upload data-sd-file-dropzone>` cu `<label>`, `<input type="file" multiple>`, `<ul class="sd-file-upload__list" data-sd-file-list>` (populată de JavaScript) și un `<p aria-live="polite" data-sd-file-status>` pentru anunțarea numărului de fișiere.',
+    variants: ['implicit — un singur fișier sau `multiple`, după atributul inputului nativ'],
+    states: ['`[data-sd-drag-active="true"]` pe zona de drop, în timpul unei operații de tragere'],
+    behavior:
+      'Fără JavaScript: inputul nativ `type="file"` rămâne complet funcțional, fără listă sau drag-and-drop — degradarea e la selecția standard a browserului, nu la un control mort. Cu JavaScript (`enhanceFileUploads`): la fiecare schimbare, randează lista de fișiere cu dimensiune formatată (`formatFileSize`, unități B/KB/MB, format românesc) și un buton „Elimină” per fișier, care actualizează lista internă și reconstruiește `input.files` printr-un `DataTransfer`; suportă și drag-and-drop peste zona marcată `data-sd-file-dropzone`, respectând `multiple` la adăugare.',
+    contentGuidelines: [
+      'instrucțiunile din `.sd-file-upload-advanced__instructions` menționează formatele și dimensiunea maximă acceptate, dacă există restricții server-side.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'validează tipul și dimensiunea fișierelor server-side — reconstrucția `input.files` prin `DataTransfer` e doar pentru experiența utilizatorului, nu o barieră de securitate.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-switch',
+    purpose:
+      'Comută imediat o stare binară (pornit/oprit), fără a necesita un buton separat de confirmare, spre deosebire de un checkbox obișnuit dintr-un formular trimis explicit.',
+    whenToUse: [
+      'pentru setări care se aplică imediat la schimbare (de exemplu, activarea unei notificări), unde efectul e instant și reversibil.',
+    ],
+    whenNotToUse: [
+      'într-un formular trimis explicit printr-un buton — acolo un `checkbox` obișnuit comunică mai corect faptul că schimbarea nu are efect până la trimitere.',
+    ],
+    anatomy:
+      'Un `<label class="sd-switch">` care încadrează `<input class="sd-switch__input" type="checkbox" role="switch">` (vizual ascuns, dar accesibil), `<span class="sd-switch__track">` cu `.sd-switch__thumb`, și textul etichetei.',
+    variants: ['implicit — o singură variantă'],
+    states: [':checked', ':disabled'],
+    behavior:
+      'Complet static, fără JavaScript — nu există enhancement asociat în `interactive.ts`. Este un `<input type="checkbox" role="switch">` nativ, stilizat vizual ca întrerupător; starea `checked` și evenimentele native `change` sunt disponibile imediat, fără inițializare.',
+    contentGuidelines: [
+      'eticheta descrie starea „pornit”, nu acțiunea de comutare ("Notificări prin e-mail", nu "Activează notificările").',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'tratează schimbarea de stare a switch-ului ca pe o acțiune reală, cu efect imediat (salvare, apel API) — un switch care nu declanșează nimic contrazice așteptarea creată de comportamentul lui imediat.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-tooltip',
+    purpose:
+      'Explică pe scurt un termen sau un control ambiguu, vizibil atât la hover cât și la focus din tastatură, cu fallback la atributul nativ `title`.',
+    whenToUse: [
+      'pentru clarificarea unui termen tehnic sau a formatului așteptat al unui câmp (de exemplu, formatul CNP), unde textul complet nu încape lângă control.',
+    ],
+    whenNotToUse: [
+      'pentru informații esențiale pentru finalizarea unei sarcini — un tooltip depinde de hover/focus explicit și poate fi ratat; folosește un `hint` vizibil permanent în schimb.',
+    ],
+    anatomy:
+      'Un `<span class="sd-tooltip-wrapper" data-sd-tooltip">` cu `<button class="sd-tooltip-trigger" data-sd-tooltip-trigger aria-describedby="…" title="…">` și `<span class="sd-tooltip" role="tooltip" hidden>` cu textul explicativ.',
+    variants: ['implicit — o singură variantă'],
+    states: ['`[hidden]` — ascuns implicit, dezvăluit la hover/focus'],
+    behavior:
+      'Fără JavaScript: declanșatorul păstrează atributul nativ `title`, afișat de browser la hover — degradare la comportamentul standard al tooltip-urilor native, nu la lipsă totală de informație. Cu JavaScript (`enhanceTooltips`): la `mouseenter`/`focus` afișează `.sd-tooltip` legat prin `aria-describedby` și elimină temporar `title` (evitând dublarea informației); la `mouseleave`/`blur` sau la tasta Escape, îl ascunde din nou și restaurează `title`.',
+    contentGuidelines: [
+      'textul tooltip-ului e scurt (o propoziție) — conținut mai lung aparține unui `hint` vizibil permanent, nu unui tooltip.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'declanșatorul trebuie să fie un element focusabil (buton) cu `aria-describedby` valid — altfel tooltip-ul nu e niciodată accesibil de la tastatură.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
+  {
+    id: 'interactive-dropdown',
+    purpose:
+      'Ascunde acțiuni secundare într-un meniu declanșat de buton, cu închidere la clic în afara lui, la Escape sau la pierderea focusului din grup.',
+    whenToUse: [
+      'pentru un grup de acțiuni secundare, legate de un singur obiect (de exemplu, „Descarcă PDF” / „Trimite pe e-mail” pentru o cerere), care nu trebuie afișate permanent.',
+    ],
+    whenNotToUse: [
+      'pentru una sau două acțiuni întotdeauna relevante — butoane vizibile direct sunt mai rapid de folosit decât un meniu care trebuie deschis mai întâi.',
+    ],
+    anatomy:
+      'Un `<div class="sd-dropdown" data-sd-dropdown>` cu `<button class="sd-dropdown__trigger" aria-expanded="…" aria-controls="…" data-sd-dropdown-trigger>` și `<ul class="sd-dropdown__menu" data-sd-dropdown-menu>` cu `<li><a class="sd-dropdown__item">` pentru fiecare acțiune.',
+    variants: ['implicit — o singură variantă'],
+    states: ['`aria-expanded="true|false"` pe declanșator', '`[hidden]` pe meniu, când e închis'],
+    behavior:
+      'Fără JavaScript: meniul rămâne vizibil permanent, ca listă simplă de linkuri — degradare la o listă statică funcțională, nu la acțiuni inaccesibile. Cu JavaScript (`enhanceDropdowns`): adaugă `aria-haspopup`, ascunde meniul implicit, comută vizibilitatea la clic pe declanșator, închide la clic oriunde în afara containerului, la Escape (cu focus readus pe declanșator) sau când focusul iese din grup (`focusout`).',
+    contentGuidelines: [
+      'fiecare element din meniu descrie o acțiune concretă printr-un verb ("Descarcă PDF"), nu o etichetă ambiguă.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/52'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'meniul trebuie să conțină doar linkuri sau butoane reale, funcționale independent de JavaScript — enhancement-ul controlează doar vizibilitatea, nu adaugă comportament acțiunilor din listă.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor interactive (PR #52).',
+      },
+    ],
+  },
 ];
