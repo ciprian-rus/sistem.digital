@@ -95,10 +95,20 @@ starters/wordpress/
 ## Accesibilitate, SEO și securitate de bază
 
 Aceleași principii ca la [starterul HTML](../html/README.md#accesibilitate-seo-și-securitate-de-bază):
-HTML semantic, `skip-link` funcțional, fără JavaScript inline, fără CDN
-extern. `<title>` vine din `add_theme_support('title-tag')` (standard
-WordPress). Toate string-urile vizibile sunt traductibile
-(`__()`/`_e()`/`esc_html_e()`), cu text domain `sistem-digital-starter`.
+HTML semantic, `skip-link` funcțional, fără CDN extern. `<title>` vine din
+`add_theme_support('title-tag')` (standard WordPress). Toate string-urile
+vizibile sunt traductibile (`__()`/`_e()`/`esc_html_e()`), cu text domain
+`sistem-digital-starter`.
+
+**Excepție de la „fără JavaScript inline”**: spre deosebire de starterele
+HTML și Next.js, `functions.php` inserează două `<script>` inline —
+inițializarea temei (`sistem_digital_starter_theme_init_inline`, necesară
+înainte de primul paint, ca să evite un „flash” vizual) și bootstrap-ul
+enhancement-ului JS (`sistem_digital_starter_print_enhancements`). Dacă
+instituția configurează o politică Content-Security-Policy strictă fără
+`'unsafe-inline'`, aceste două scripturi vor fi blocate implicit —
+adaugă hash-urile lor (`'sha256-…'`) în `script-src` sau externalizează-le
+în fișiere enqueued separate înainte de a activa un CSP strict.
 
 ## Personalizare instituțională
 

@@ -44,7 +44,8 @@ get_header();
 
 	<h2><?php esc_html_e( 'Trimite o întrebare', 'sistem-digital-starter' ); ?></h2>
 
-	<form>
+	<?php /* method="post" — un <form> fără method trimite GET către URL-ul curent, ceea ce ar expune numele/e-mailul completate în istoricul browserului și în loguri, și ar intra în conflict cu `name`, o variabilă de query publică folosită de WordPress pentru căutarea articolelor după slug. Acest formular e doar demonstrativ — înlocuiește-l cu un handler real înainte de a-l folosi în producție. */ ?>
+	<form method="post" action="#">
 		<div class="sd-form-group">
 			<label class="sd-label" for="starter-name"><?php esc_html_e( 'Nume complet', 'sistem-digital-starter' ); ?></label>
 			<input class="sd-input" id="starter-name" name="name" autocomplete="name">
