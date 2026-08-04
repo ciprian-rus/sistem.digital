@@ -264,6 +264,33 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['primarie', 'servicii locale', 'catalog', 'eligibilitate'],
         status: 'available',
       },
+      {
+        href: '/exemple/scoala-model',
+        title: 'Școala Model — model sectorial demonstrativ',
+        navigationLabel: 'Model sectorial: școală',
+        description:
+          'Implementare de referință pentru o școală: organizare, anunțuri și catalog de servicii pentru părinți și elevi.',
+        keywords: ['scoala', 'model sectorial', 'organizare', 'anunturi', 'inscriere'],
+        status: 'available',
+      },
+      {
+        href: '/exemple/scoala-model/servicii',
+        title: 'Servicii — Școala Model',
+        navigationLabel: 'Servicii Școala Model',
+        description:
+          'Catalog demonstrativ de servicii pentru părinți și elevi, organizat după nevoie, nu după structura instituției.',
+        keywords: ['scoala', 'servicii', 'catalog', 'eligibilitate'],
+        status: 'available',
+      },
+      {
+        href: '/exemple/inscriere-scoala',
+        title: 'Serviciu demonstrativ — cerere de înscriere la școală',
+        navigationLabel: 'Cerere de înscriere',
+        description:
+          'Aplicație de referință end-to-end pentru înscrierea unui copil la școală: eligibilitate, formular, documente, verificare și status.',
+        keywords: ['inscriere', 'scoala', 'formular', 'demonstratie', 'status'],
+        status: 'available',
+      },
     ],
   },
   {
