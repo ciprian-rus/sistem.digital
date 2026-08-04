@@ -97,6 +97,18 @@ failures.push(
   ]),
 );
 
+// Validează structura șablonului canonic al paginii unei componente (Epic C, 4 august 2026).
+failures.push(
+  ...checkRequiredSections('docs/product/component-page-template.md', [
+    '## Cele 15 secțiuni',
+    '## Schema de date',
+    '## Câmpuri obligatorii vs. opționale',
+    '## Validare',
+    '## Dovadă de concept',
+    '## Relația cu documentele sursă',
+  ]),
+);
+
 for (const file of listMarkdownFiles()) {
   const absoluteFile = resolve(repositoryRoot, file);
   const markdown = removeFencedCode(readFileSync(absoluteFile, 'utf8'));

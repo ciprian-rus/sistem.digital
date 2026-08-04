@@ -72,6 +72,8 @@ Nu menținem o componentă demonstrativă separată de exemplul copiat de utiliz
 
 Landmark-urile demonstrative primesc etichete accesibile cu sufixul intrării de catalog. Astfel, un preview de header, navigație, breadcrumb, căutare sau pagination nu intră în conflict cu landmark-urile reale ale paginii de documentație. Modificarea este aplicată aceluiași șir folosit în preview și în cod.
 
+Preview-ul și codul corespund secțiunilor 9 și 10 din [șablonul canonic al paginii unei componente](component-page-template.md); secțiunile narative (prezentare, când se folosește, anatomie etc.) sunt un registru separat, opțional, definit în același document.
+
 ## Versionare
 
 Versiunea este explicită pentru fiecare intrare. Înaintea unui release:

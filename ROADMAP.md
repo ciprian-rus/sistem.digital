@@ -30,7 +30,8 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - carduri, tabele, accordion și paginare;
 - încărcare fișiere, summary list și step indicator;
 - teste automate de accesibilitate și regresie vizuală;
-- model de maturitate pe șase stări (`proposal` → `retired`) și schema de metadate asociată.
+- model de maturitate pe șase stări (`proposal` → `retired`) și schema de metadate asociată;
+- șablon canonic al paginii unei componente, pe 15 secțiuni, validat automat la build.
 
 ## M3 — Platforma sistem.digital
 

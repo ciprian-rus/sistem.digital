@@ -2,6 +2,8 @@
 
 Acest șablon se include în documentația fiecărei componente și se completează înainte ca aceasta să treacă în starea `stable`.
 
+Este secțiunea 11 (Accesibilitate) din [șablonul canonic al paginii unei componente](../product/component-page-template.md) — referențiat de acolo, nu duplicat.
+
 ## Rezumat
 
 Descrieți pe scurt cum este percepută și operată componenta de utilizatorii tastaturii și ai tehnologiilor asistive.
@@ -16,15 +18,15 @@ Descrieți pe scurt cum este percepută și operată componenta de utilizatorii 
 
 ## Interacțiune cu tastatura
 
-| Tastă | Comportament așteptat |
-|---|---|
-| `Tab` | |
-| `Shift+Tab` | |
-| `Enter` | |
-| `Space` | |
-| `Escape` | |
-| Săgeți | |
-| Alte taste | |
+| Tastă       | Comportament așteptat |
+| ----------- | --------------------- |
+| `Tab`       |                       |
+| `Shift+Tab` |                       |
+| `Enter`     |                       |
+| `Space`     |                       |
+| `Escape`    |                       |
+| Săgeți      |                       |
+| Alte taste  |                       |
 
 Eliminați rândurile care nu se aplică și adăugați tastele specifice pattern-ului.
 
@@ -83,8 +85,8 @@ Documentați:
 ## Testare manuală
 
 | Data | Versiunea componentei | Sistem și browser | Tehnologie asistivă | Rezultat | Tester |
-|---|---|---|---|---|---|
-| | | | | | |
+| ---- | --------------------- | ----------------- | ------------------- | -------- | ------ |
+|      |                       |                   |                     |          |        |
 
 ## Probleme cunoscute
 
@@ -113,5 +115,5 @@ Listați aspectele care nu pot fi garantate de componentă, de exemplu:
 ## Istoric
 
 | Versiune | Modificare relevantă pentru accesibilitate | Retestare necesară |
-|---|---|---|
-| | | |
+| -------- | ------------------------------------------ | ------------------ |
+|          |                                            |                    |

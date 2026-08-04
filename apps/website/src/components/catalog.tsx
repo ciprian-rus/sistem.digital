@@ -4,6 +4,7 @@ import type { CatalogItem } from '../content/catalog';
 import { getCatalogHref } from '../content/catalog';
 import type { ComponentMaturityMetadata } from '../content/component-maturity';
 import { getComponentMaturity } from '../content/component-maturity';
+import { getComponentPageContent } from '../content/component-page-content';
 import { getDesignCodeMatrix } from '../content/design-code-matrix';
 import { CodeExample } from './documentation';
 
@@ -96,6 +97,112 @@ export function CatalogMaturity({ item }: Readonly<{ item: CatalogItem }>) {
           </ul>
         </>
       ) : null}
+    </section>
+  );
+}
+
+function ListSection({ heading, items }: Readonly<{ heading: string; items: readonly string[] }>) {
+  if (items.length === 0) return null;
+  return (
+    <>
+      <h3>{heading}</h3>
+      <ul>
+        {items.map((text) => (
+          <li key={text}>{text}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+export function CatalogPageContent({ item }: Readonly<{ item: CatalogItem }>) {
+  const content = getComponentPageContent(item.id);
+  if (!content) return null;
+
+  return (
+    <section className="sd-catalog-detail__section" aria-labelledby="catalog-page-content-title">
+      <h2 id="catalog-page-content-title">Prezentare</h2>
+      <p>{content.purpose}</p>
+      <ListSection heading="Când se folosește" items={content.whenToUse} />
+      <ListSection heading="Când nu se folosește" items={content.whenNotToUse} />
+      {content.anatomy ? (
+        <>
+          <h3>Anatomie</h3>
+          <p>{content.anatomy}</p>
+        </>
+      ) : null}
+      <ListSection heading="Variante" items={content.variants ?? []} />
+      <ListSection heading="Stări" items={content.states ?? []} />
+      {content.behavior ? (
+        <>
+          <h3>Comportament</h3>
+          <p>{content.behavior}</p>
+        </>
+      ) : null}
+      <ListSection heading="Reguli de conținut" items={content.contentGuidelines ?? []} />
+      <ListSection heading="Probleme cunoscute" items={content.knownIssues ?? []} />
+      <ListSection
+        heading="Responsabilitățile implementatorului"
+        items={content.implementerResponsibilities ?? []}
+      />
+      {content.research && content.research.length > 0 ? (
+        <>
+          <h3>Cercetare</h3>
+          <ul>
+            {content.research.map((link) => (
+              <li key={link}>
+                <a className="sd-link sd-link--external" href={link}>
+                  {link}
+                  <span className="sd-visually-hidden"> (site extern)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+      {content.history && content.history.length > 0 ? (
+        <>
+          <h3>Istoric</h3>
+          <table className="sd-table">
+            <caption className="sd-visually-hidden">Istoricul modificărilor relevante</caption>
+            <thead>
+              <tr>
+                <th scope="col">Versiune</th>
+                <th scope="col">Dată</th>
+                <th scope="col">Modificare</th>
+              </tr>
+            </thead>
+            <tbody>
+              {content.history.map((entry) => (
+                <tr key={`${entry.version}-${entry.date}`}>
+                  <td>{entry.version}</td>
+                  <td>
+                    <time dateTime={entry.date}>{entry.date}</time>
+                  </td>
+                  <td>{entry.change}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      ) : null}
+      <p>
+        Structura completă a acestei secțiuni urmează{' '}
+        <a
+          className="sd-link"
+          href="https://github.com/ciprian-rus/sistem.digital/blob/main/docs/product/component-page-template.md"
+        >
+          șablonul canonic al paginii unei componente
+        </a>
+        . Accesibilitatea (semantică, tastatură, focus) rămâne documentată separat, conform{' '}
+        <a
+          className="sd-link"
+          href="https://github.com/ciprian-rus/sistem.digital/blob/main/docs/accessibility/component-template.md"
+        >
+          șablonului de accesibilitate
+        </a>
+        .
+      </p>
     </section>
   );
 }

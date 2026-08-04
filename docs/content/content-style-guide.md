@@ -51,7 +51,7 @@ Nu folosi sinonime diferite pentru aceeași acțiune în același flux.
 
 Butoanele descriu acțiunea și consecința:
 
-- „Continuă”; 
+- „Continuă”;
 - „Verifică răspunsurile”;
 - „Trimite cererea”;
 - „Descarcă documentul”.
@@ -105,6 +105,8 @@ Tonul este:
 Nu folosim umor în erori, avertismente, plăți sau situații cu consecințe juridice.
 
 ## Șablon editorial pentru o componentă
+
+Ordinea de mai jos este consolidată, împreună cu secțiunile de accesibilitate din `component-template.md`, în [șablonul canonic pe 15 secțiuni](../product/component-page-template.md) — acesta rămâne sursa regulilor generale de ton și conținut, referențiată, nu duplicată, de șablonul canonic.
 
 Fiecare pagină de componentă include, în această ordine:
 
