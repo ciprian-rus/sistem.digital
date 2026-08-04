@@ -6,6 +6,16 @@ const patternPaths = [
   '/pattern-uri/transfer-extern',
   '/pattern-uri/status-confirmare-reluare',
   '/pattern-uri/verifica-raspunsurile',
+  '/pattern-uri/semnare',
+  '/pattern-uri/plata-taxei',
+  '/pattern-uri/notificarea-deciziei',
+  '/pattern-uri/contestarea-deciziei',
+  '/pattern-uri/identificarea-serviciului',
+  '/pattern-uri/autentificare-cont-unic',
+  '/pattern-uri/completarea-din-registre',
+  '/pattern-uri/anularea-cererii',
+  '/pattern-uri/delegare-reprezentare',
+  '/pattern-uri/consimtamant',
 ] as const;
 
 test.describe('M4 service patterns', () => {
