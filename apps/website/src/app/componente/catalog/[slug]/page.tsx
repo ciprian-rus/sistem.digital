@@ -5,6 +5,7 @@ import {
   CatalogDesignCodeMatrix,
   CatalogImportExamples,
   CatalogMaturity,
+  CatalogPageContent,
   CatalogPreview,
   CatalogStatus,
 } from '../../../../components/catalog';
@@ -105,6 +106,8 @@ export default async function CatalogDetailPage({ params }: Readonly<CatalogDeta
                 </div>
               </dl>
             </header>
+
+            <CatalogPageContent item={item} />
 
             <section className="sd-catalog-detail__section" aria-labelledby="catalog-preview-title">
               <h2 id="catalog-preview-title">Preview și markup canonic</h2>

@@ -25,6 +25,7 @@
     "docs:check": "node scripts/check-docs.mjs",
     "catalog:check": "node scripts/check-catalog.mjs",
     "maturity:check": "node scripts/check-maturity.mjs",
+    "component-docs:check": "node scripts/check-component-docs.mjs",
     "secrets:check": "node scripts/check-secrets.mjs",
     "audit:ci": "pnpm audit --audit-level=high",
     "changeset": "changeset",
@@ -34,7 +35,7 @@
     "release:static:check": "node scripts/build-static-release.mjs --check",
     "release:pack:check": "node scripts/check-public-packages.mjs",
     "release:pack:smoke": "node scripts/smoke-test-public-packages.mjs release-artifacts",
-    "check": "pnpm format:check && pnpm catalog:check && pnpm maturity:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "check": "pnpm format:check && pnpm catalog:check && pnpm maturity:check && pnpm component-docs:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
