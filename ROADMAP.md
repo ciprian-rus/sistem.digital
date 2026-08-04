@@ -62,8 +62,9 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - pachete npm versionate;
 - bundle CSS/JS pentru site-uri legacy;
 - CDN cu versiuni imutabile și SRI;
-- starter HTML;
-- starter Next.js;
+- starter HTML — livrat (`starters/html`), consumă pachetele npm publicate,
+  fără build;
+- starter Next.js — următorul, în ordine;
 - integrare WordPress;
 - kit Figma.
 

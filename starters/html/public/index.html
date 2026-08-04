@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Serviciu digital — pornit cu Sistem Digital</title>
+    <meta
+      name="description"
+      content="Pagină de pornire construită cu pachetele publicate @sistem-digital/tokens și @sistem-digital/components, fără build."
+    />
+    <meta name="robots" content="noindex" />
+    <script src="./vendor/tokens/theme-init.js"></script>
+    <link rel="stylesheet" href="./vendor/tokens/tokens.css" />
+    <link rel="stylesheet" href="./vendor/tokens/themes.css" />
+    <link rel="stylesheet" href="./vendor/components/navigation.css" />
+    <link rel="stylesheet" href="./vendor/components/forms.css" />
+    <link rel="stylesheet" href="./vendor/components/content.css" />
+    <link rel="stylesheet" href="./vendor/components/icons.css" />
+  </head>
+  <body>
+    <a class="sd-skip-link" href="#continut">Sari la conținut</a>
+
+    <section class="sd-official-banner" aria-label="Informație despre autenticitate">
+      <div class="sd-official-banner__inner">
+        <span class="sd-official-banner__mark" aria-hidden="true">RO</span>
+        <p>Acesta este un exemplu local. Domeniul oficial se configurează per instituție.</p>
+      </div>
+    </section>
+
+    <header class="sd-header">
+      <div class="sd-header__identity-row">
+        <a class="sd-identity" href="#">
+          <span class="sd-identity__mark" aria-hidden="true">SD</span>
+          <span class="sd-identity__text">
+            <span class="sd-identity__name">Instituția exemplu</span>
+            <span class="sd-identity__service">Serviciu digital</span>
+          </span>
+        </a>
+      </div>
+      <nav class="sd-primary-navigation" aria-label="Navigație principală">
+        <ul class="sd-primary-navigation__list">
+          <li><a href="#" aria-current="page">Servicii</a></li>
+          <li><a href="#">Despre instituție</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="continut" tabindex="-1">
+      <div style="max-width: 42rem; margin: 3rem auto; padding: 0 1rem">
+        <h1>Cerere de contact</h1>
+
+        <section class="sd-alert sd-alert--info" aria-labelledby="starter-info">
+          <span class="sd-alert__symbol" aria-hidden="true">
+            <svg
+              class="sd-icon"
+              width="1.1rem"
+              height="1.1rem"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <line x1="12" y1="10.5" x2="12" y2="17" />
+              <circle cx="12" cy="6.5" r="0.75" fill="currentColor" stroke="none" />
+            </svg>
+          </span>
+          <div class="sd-alert__content">
+            <strong class="sd-alert__title" id="starter-info">Acesta este un exemplu</strong>
+            <p>
+              Formularul de mai jos nu trimite date nicăieri — înlocuiește-l cu fluxul real al
+              serviciului tău.
+            </p>
+          </div>
+        </section>
+
+        <form novalidate>
+          <div class="sd-form-group">
+            <label class="sd-label" for="starter-name">Nume complet</label>
+            <input class="sd-input" id="starter-name" name="name" type="text" autocomplete="name" />
+          </div>
+
+          <div class="sd-form-group">
+            <label class="sd-label" for="starter-email">Adresă de e-mail</label>
+            <input
+              class="sd-input"
+              id="starter-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+            />
+          </div>
+
+          <fieldset class="sd-fieldset">
+            <legend class="sd-legend">Cum preferi să primești răspunsul?</legend>
+            <label class="sd-choice">
+              <input type="radio" name="delivery" value="digital" checked />
+              Digital, pe e-mail
+            </label>
+            <label class="sd-choice">
+              <input type="radio" name="delivery" value="hartie" />
+              Prin poștă, pe hârtie
+            </label>
+          </fieldset>
+
+          <div class="sd-form-group" data-sd-character-count="280">
+            <label class="sd-label" for="starter-message">Mesaj</label>
+            <textarea
+              class="sd-textarea sd-character-count__field"
+              id="starter-message"
+              name="message"
+              rows="4"
+              data-sd-character-count-field
+            ></textarea>
+            <p class="sd-character-count__status" data-sd-character-count-status aria-live="polite">
+              Poți scrie până la 280 de caractere
+            </p>
+          </div>
+
+          <button class="sd-button sd-button--primary" type="submit">Trimite mesajul</button>
+        </form>
+      </div>
+    </main>
+
+    <footer class="sd-footer">
+      <div class="sd-footer__main">
+        <section>
+          <h2 class="sd-footer__heading">Instituția exemplu</h2>
+          <p>Servicii digitale publice, construite cu Sistem Digital.</p>
+        </section>
+        <nav aria-label="Resurse">
+          <ul class="sd-footer__list">
+            <li><a href="https://sistem.digital">Sistem Digital</a></li>
+            <li>
+              <a href="https://github.com/ciprian-rus/sistem.digital">Cod sursă</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      // Import de tip namespace, nu named import: unele funcții (de exemplu
+      // enhanceCharacterCount) au fost adăugate după prima versiune publicată,
+      // iar un named import lipsă ar opri parsarea întregului modul.
+      import * as sdForms from './vendor/components/forms.js';
+
+      sdForms.enhanceCharacterCount?.();
+    </script>
+  </body>
+</html>
