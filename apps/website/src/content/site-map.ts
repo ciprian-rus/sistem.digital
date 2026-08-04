@@ -246,6 +246,24 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['consimtamant', 'date personale', 'retragere', 'prelucrare'],
         status: 'available',
       },
+      {
+        href: '/exemple/primaria-model',
+        title: 'Primăria Model — model sectorial demonstrativ',
+        navigationLabel: 'Model sectorial: primărie',
+        description:
+          'Implementare de referință pentru o primărie: organizare, transparență decizională și catalog de servicii locale.',
+        keywords: ['primarie', 'model sectorial', 'organizare', 'hotarari', 'transparenta'],
+        status: 'available',
+      },
+      {
+        href: '/exemple/primaria-model/servicii',
+        title: 'Servicii — Primăria Model',
+        navigationLabel: 'Servicii Primăria Model',
+        description:
+          'Catalog demonstrativ de servicii locale, organizat după nevoia cetățeanului, nu după structura instituției.',
+        keywords: ['primarie', 'servicii locale', 'catalog', 'eligibilitate'],
+        status: 'available',
+      },
     ],
   },
   {

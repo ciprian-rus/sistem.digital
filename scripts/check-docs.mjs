@@ -149,6 +149,17 @@ failures.push(
   ]),
 );
 
+// Validează structura modelului sectorial „primărie" (Epic E, 4 august 2026).
+failures.push(
+  ...checkRequiredSections('docs/product/sectoral-model-primaria.md', [
+    '## Ce există',
+    '## Date și conținut demonstrative',
+    '## Catalogul de servicii — set reprezentativ, nu exhaustiv',
+    '## Componente și pattern-uri reutilizate, nu duplicate',
+    '## Ce nu include acest model',
+  ]),
+);
+
 for (const file of listMarkdownFiles()) {
   const absoluteFile = resolve(repositoryRoot, file);
   const markdown = removeFencedCode(readFileSync(absoluteFile, 'utf8'));
