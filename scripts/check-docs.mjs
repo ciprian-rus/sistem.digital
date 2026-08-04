@@ -136,6 +136,19 @@ failures.push(
   ]),
 );
 
+// Validează structura pachetului de achiziții publice (Epic I, 4 august 2026).
+failures.push(
+  ...checkRequiredSections('docs/governance/procurement-package.md', [
+    'punct de plecare, nu text juridic final',
+    '### 1. Versiunea minimă sistem.digital cerută',
+    '### 7. Livrarea codului sursă',
+    '### 8. SBOM',
+    '### 9. Provenance',
+    '### 13. Clauză anti-lock-in',
+    '### 14. Exportul datelor și evitarea lock-in-ului',
+  ]),
+);
+
 for (const file of listMarkdownFiles()) {
   const absoluteFile = resolve(repositoryRoot, file);
   const markdown = removeFencedCode(readFileSync(absoluteFile, 'utf8'));
