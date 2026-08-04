@@ -318,6 +318,39 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['document medical', 'spital', 'formular', 'demonstratie', 'status'],
         status: 'available',
       },
+      {
+        href: '/exemple/minister-model',
+        title: 'Ministerul Model — model sectorial demonstrativ',
+        navigationLabel: 'Model sectorial: minister',
+        description:
+          'Implementare de referință pentru un minister sau o agenție centrală: organizare, acte normative, consultări publice și catalog de servicii.',
+        keywords: [
+          'minister',
+          'agentie centrala',
+          'model sectorial',
+          'acte normative',
+          'consultare publica',
+        ],
+        status: 'available',
+      },
+      {
+        href: '/exemple/minister-model/servicii',
+        title: 'Servicii — Ministerul Model',
+        navigationLabel: 'Servicii Ministerul Model',
+        description:
+          'Catalog demonstrativ de servicii pentru cetățeni și instituții, organizat după nevoie, nu după structura instituției.',
+        keywords: ['minister', 'servicii', 'catalog', 'eligibilitate'],
+        status: 'available',
+      },
+      {
+        href: '/exemple/cerere-informatii-publice',
+        title: 'Serviciu demonstrativ — solicită informații de interes public',
+        navigationLabel: 'Cerere informații publice',
+        description:
+          'Aplicație de referință end-to-end pentru solicitarea de informații de interes public, conform Legii 544/2001: eligibilitate, formular, verificare și status.',
+        keywords: ['informatii publice', 'legea 544', 'minister', 'formular', 'demonstratie'],
+        status: 'available',
+      },
     ],
   },
   {

@@ -28,6 +28,7 @@ const inscriereScoalaConfig: ReferenceServiceConfig = {
   requestTitle: 'Despre cine este cererea de înscriere?',
   subjectLabel: 'Numele complet al copilului',
   personalIdLabel: 'CNP demonstrativ al copilului',
+  personalIdHint: 'Introdu exact 13 cifre fictive. Valoarea nu părăsește browserul.',
   purposeLabel: 'An școlar și clasa solicitată',
   deliveryTitle: 'Cum vrei să primești confirmarea?',
   deliveryDigitalLabel: 'Confirmare digitală',

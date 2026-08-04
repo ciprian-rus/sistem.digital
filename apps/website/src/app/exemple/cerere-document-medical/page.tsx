@@ -27,6 +27,7 @@ const cerereDocumentMedicalConfig: ReferenceServiceConfig = {
   requestTitle: 'Despre cine este documentul medical?',
   subjectLabel: 'Nume complet',
   personalIdLabel: 'CNP demonstrativ',
+  personalIdHint: 'Introdu exact 13 cifre fictive. Valoarea nu părăsește browserul.',
   purposeLabel: 'Tipul documentului solicitat (de exemplu, bilet de ieșire sau scrisoare medicală)',
   deliveryTitle: 'Cum vrei să primești documentul?',
   deliveryDigitalLabel: 'Document digital, în cont',

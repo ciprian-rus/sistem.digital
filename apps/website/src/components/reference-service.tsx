@@ -24,6 +24,8 @@ export interface ReferenceServiceConfig {
   requestTitle: string;
   subjectLabel: string;
   personalIdLabel: string;
+  personalIdHint: string;
+  personalIdRequired?: boolean;
   purposeLabel: string;
   deliveryTitle: string;
   deliveryDigitalLabel: string;
@@ -47,6 +49,7 @@ export const adeverintaReferenceServiceConfig: ReferenceServiceConfig = {
   requestTitle: 'Despre cine este adeverința?',
   subjectLabel: 'Nume complet',
   personalIdLabel: 'CNP demonstrativ',
+  personalIdHint: 'Introdu exact 13 cifre fictive. Valoarea nu părăsește browserul.',
   purposeLabel: 'Scopul solicitării',
   deliveryTitle: 'Cum vrei să primești documentul?',
   deliveryDigitalLabel: 'Document digital',
@@ -142,9 +145,20 @@ export function ReferenceService({
     goTo('request');
   };
 
+  const personalIdRequired = config.personalIdRequired !== false;
+
   const continueFromRequest = () => {
-    if (draft.fullName.trim().length < 3 || !/^\d{13}$/u.test(draft.personalId)) {
-      setError('Completează numele și un CNP demonstrativ format din 13 cifre.');
+    const nameValid = draft.fullName.trim().length >= 3;
+    const personalIdValid = personalIdRequired
+      ? /^\d{13}$/u.test(draft.personalId)
+      : draft.personalId.trim().length >= 3;
+
+    if (!nameValid || !personalIdValid) {
+      setError(
+        personalIdRequired
+          ? 'Completează numele și un CNP demonstrativ format din 13 cifre.'
+          : `Completează numele și ${config.personalIdLabel.toLocaleLowerCase('ro')}.`,
+      );
       return;
     }
     goTo('documents');
@@ -399,18 +413,22 @@ export function ReferenceService({
                 {config.personalIdLabel}
               </label>
               <p className="sd-hint" id="reference-cnp-hint">
-                Introdu exact 13 cifre fictive. Valoarea nu părăsește browserul.
+                {config.personalIdHint}
               </p>
               <input
-                className="sd-input sd-input--width-20"
+                className={personalIdRequired ? 'sd-input sd-input--width-20' : 'sd-input'}
                 id="reference-cnp"
-                inputMode="numeric"
-                pattern="[0-9]{13}"
-                maxLength={13}
+                inputMode={personalIdRequired ? 'numeric' : 'text'}
+                pattern={personalIdRequired ? '[0-9]{13}' : undefined}
+                maxLength={personalIdRequired ? 13 : undefined}
                 aria-describedby="reference-cnp-hint"
                 value={draft.personalId}
                 onChange={(event) =>
-                  update({ personalId: event.target.value.replaceAll(/\D/gu, '') })
+                  update({
+                    personalId: personalIdRequired
+                      ? event.target.value.replaceAll(/\D/gu, '')
+                      : event.target.value,
+                  })
                 }
               />
             </div>
@@ -523,8 +541,10 @@ export function ReferenceService({
             />
             <SummaryRow
               label={config.personalIdLabel}
-              value={maskPersonalId(draft.personalId)}
-              provenance="Declarat de tine · valoare mascată"
+              value={personalIdRequired ? maskPersonalId(draft.personalId) : draft.personalId}
+              provenance={
+                personalIdRequired ? 'Declarat de tine · valoare mascată' : 'Declarat de tine'
+              }
               onChange={() => goTo('request')}
             />
             <SummaryRow
