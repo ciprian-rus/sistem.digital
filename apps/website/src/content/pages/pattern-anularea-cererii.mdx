@@ -1,0 +1,79 @@
+---
+title: Anularea unei cereri de către solicitant
+description: Cere confirmare explicită, comunică toate consecințele înainte de acțiune și distinge clar statusul „anulată" de „respinsă".
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 13
+keywords:
+  - anulare
+  - confirmare
+  - consecințe
+  - status
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să retrag cererea — dar vreau să știu ce pierd înainte să apăs butonul."
+
+Folosește pattern-ul pentru retragerea unei cereri deja depuse, distinct de simpla abandonare a unui formular nesalvat, care nu are nevoie de acest pattern.
+
+## Confirmarea intenției
+
+Anularea nu este o acțiune cu un singur click:
+
+1. persoana declanșează intenția de anulare;
+2. pagina de confirmare arată explicit consecințele (vezi mai jos), **înainte** de confirmarea finală;
+3. abia după confirmarea explicită, cererea trece în starea „anulată".
+
+<Callout title="Consecințele se arată înainte, nu după" type="warning">
+  <p>
+    „Cererea a fost anulată. Taxa nu se restituie." vine prea târziu dacă persoana nu putea ști asta
+    înainte de a confirma. Consecințele financiare sau procedurale trebuie vizibile pe ecranul de
+    confirmare, nu doar în mesajul final.
+  </p>
+</Callout>
+
+## Consecințele comunicate
+
+Conform [structurii de decizii administrative](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#decizii-administrative) — chiar dacă anularea nu e o decizie a instituției, ci a persoanei, aceleași reguli de claritate se aplică:
+
+- dacă taxa deja plătită se restituie, parțial sau deloc;
+- dacă e nevoie de o cerere complet nouă pentru a relua procesul, sau se poate continua de unde a rămas;
+- dacă anularea are un termen limită (de exemplu, nu mai e posibilă după ce cererea a intrat în procesare finală).
+
+## Statusul „anulată"
+
+Statusul „anulată" e distinct de „respinsă" în [vocabularul de status](/pattern-uri/status-confirmare-reluare) deja publicat — respingerea e o decizie a instituției, anularea e alegerea persoanei. Cele două nu se contopesc într-un singur status „închisă" fără explicație suplimentară a motivului.
+
+## Fără cont și fără JavaScript
+
+- Ecranul de confirmare cu consecințele afișate este HTML server-rendered.
+- Confirmarea finală funcționează prin submit HTTP normal, nu doar printr-un dialog JavaScript.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                            |
+| ---------- | ------------------------------------------------------------------------------------------- |
+| Conținut   | Scrie clar consecințele anulării, specifice fiecărui tip de cerere, nu un text generic.     |
+| Date       | Definește regula de restituire a taxei și dacă anularea are termen limită.                  |
+| Backend    | Actualizează statusul la „anulată", distinct tehnic de „respinsă", cu jurnalizare separată. |
+| Operațiuni | Menține regulile de restituire actualizate și consecvente cu politica financiară reală.     |
+
+## Criterii de acceptare
+
+- Anularea cere confirmare explicită pe un ecran separat, nu un singur click.
+- Consecințele sunt comunicate înainte de confirmare, nu doar în mesajul final.
+- Statusul cererii reflectă „anulată" distinct de „respinsă".
+- Dacă anularea are termen limită, acesta e afișat explicit înainte de confirmare.
+
+## În aplicația de referință
+
+Serviciul demonstrativ nu oferă încă anularea unei cereri deja depuse — status-ul curent acoperă doar parcursul până la confirmare și reluare. Acest pattern documentează contractul UX pentru servicii cu opțiune reală de retragere.
+
+## Dovezi și limite
+
+Fără o cerere reală cu consecințe financiare sau procedurale de anulare, exemplul rămâne conceptual, construit pe structura deja formalizată pentru comunicarea deciziilor administrative — nu pe observații directe de teren pentru acest pas specific.

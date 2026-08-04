@@ -219,6 +219,33 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['registre', 'once-only', 'date', 'sursa', 'indisponibilitate'],
         status: 'available',
       },
+      {
+        href: '/pattern-uri/anularea-cererii',
+        title: 'Anularea unei cereri de către solicitant',
+        navigationLabel: 'Anularea cererii',
+        description:
+          'Cere confirmare explicită, comunică toate consecințele înainte de acțiune și distinge clar statusul „anulată" de „respinsă".',
+        keywords: ['anulare', 'confirmare', 'consecinte', 'status'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/delegare-reprezentare',
+        title: 'Delegarea sau reprezentarea unei persoane',
+        navigationLabel: 'Delegare și reprezentare',
+        description:
+          'Afișează persistent în numele cui se acționează, cu documentele care dovedesc calitatea de reprezentant.',
+        keywords: ['delegare', 'reprezentare', 'imputernicit', 'context'],
+        status: 'available',
+      },
+      {
+        href: '/pattern-uri/consimtamant',
+        title: 'Acordarea și retragerea consimțământului',
+        navigationLabel: 'Consimțământ',
+        description:
+          'Explică scopul prelucrării în limbaj simplu, înainte de solicitarea consimțământului, cu retragere la fel de accesibilă ca acordarea.',
+        keywords: ['consimtamant', 'date personale', 'retragere', 'prelucrare'],
+        status: 'available',
+      },
     ],
   },
   {

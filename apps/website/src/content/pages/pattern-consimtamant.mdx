@@ -1,0 +1,80 @@
+---
+title: Acordarea și retragerea consimțământului
+description: Explică scopul prelucrării în limbaj simplu, înainte de solicitarea consimțământului, cu retragere la fel de accesibilă ca acordarea.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 15
+keywords:
+  - consimțământ
+  - date personale
+  - retragere
+  - prelucrare
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să știu exact la ce sunt de acord — și să pot să mă răzgândesc oricând, nu doar acum."
+
+Folosește pattern-ul pentru consimțământul de prelucrare a datelor **într-un flux de serviciu** — distinct de bannerul de cookie-uri al site-ului, care acoperă un caz diferit.
+
+## Diferența față de bannerul de cookie-uri
+
+Componenta `cookie-banner` deja publicată acoperă un singur caz: cookie-uri esențiale, fără urmărire sau publicitate, cu un singur buton „Am înțeles" — nu există o alegere reală de făcut, pentru că nu există cookie-uri opționale de acceptat sau refuzat.
+
+<Callout title="Consimțământul de flux nu e un banner de cookie-uri" type="warning">
+  <p>
+    Consimțământul dintr-un flux de serviciu presupune o alegere reală, cu consecințe asupra a ceea
+    ce poate face persoana mai departe — nu doar o confirmare că a văzut un mesaj. Cele două nu
+    folosesc aceeași componentă și nu trebuie confundate în conținut.
+  </p>
+</Callout>
+
+## Prezentarea scopului prelucrării
+
+Înainte de solicitarea consimțământului, în limbaj simplu, nu doar juridic:
+
+1. ce date anume vor fi prelucrate;
+2. în ce scop, concret — nu „pentru procesarea cererii dumneavoastră" fără detaliu;
+3. cine are acces la date (doar instituția, sau și un terț implicat în flux);
+4. cât timp sunt păstrate datele.
+
+## Mecanismul de retragere
+
+Retragerea consimțământului este **la fel de accesibilă** ca acordarea lui — nu ascunsă în setări greu de găsit:
+
+- retragerea rămâne posibilă oricând pe parcursul fluxului, nu doar la momentul acordării inițiale;
+- consecința retragerii este explicată înainte de confirmare (de exemplu, dacă fluxul nu mai poate continua fără acel consimțământ);
+- retragerea are propriul mesaj de confirmare, la fel cum acordarea are unul.
+
+## Fără cont și fără JavaScript
+
+- Ecranul de consimțământ (acordare și retragere) este HTML server-rendered, funcțional prin submit HTTP normal.
+- Retragerea nu depinde de JavaScript pentru a fi accesată sau confirmată.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                      |
+| ---------- | ----------------------------------------------------------------------------------------------------- |
+| Conținut   | Explică scopul prelucrării în limbaj simplu, pentru fiecare tip de consimțământ cerut.                |
+| Date       | Definește exact ce date, cât timp și cu cine sunt partajate, per tip de consimțământ.                 |
+| Backend    | Înregistrează consimțământul și retragerea cu timestamp, verificabil separat de cererea propriu-zisă. |
+| Operațiuni | Menține conformitatea cu cadrul legal de protecție a datelor, actualizat periodic.                    |
+
+## Criterii de acceptare
+
+- Retragerea consimțământului este la fel de accesibilă ca acordarea lui, nu ascunsă.
+- Scopul prelucrării este descris în limbaj simplu, nu doar juridic.
+- Pattern-ul este distinct, documentat explicit, de componenta `cookie-banner` existentă.
+- Consecința retragerii este explicată înainte de confirmare.
+
+## În aplicația de referință
+
+Serviciul demonstrativ nu cere încă un consimțământ separat de prelucrare a datelor în fluxul de solicitare a adeverinței — datele fictive rămân în browser, conform notei deja afișate pe pagina de pattern-uri. Acest pattern documentează contractul UX pentru servicii care presupun prelucrare reală de date personale.
+
+## Dovezi și limite
+
+Fără un flux real cu prelucrare de date personale și obligații legale asociate, exemplul rămâne conceptual, construit pe regulile deja formalizate de limbaj simplu din [ghidul de content design](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md) — nu pe observații directe de teren pentru acest pas specific.
