@@ -291,6 +291,33 @@ export const siteSections: readonly SiteSection[] = [
         keywords: ['inscriere', 'scoala', 'formular', 'demonstratie', 'status'],
         status: 'available',
       },
+      {
+        href: '/exemple/spital-model',
+        title: 'Spitalul Model — model sectorial demonstrativ',
+        navigationLabel: 'Model sectorial: spital',
+        description:
+          'Implementare de referință pentru o unitate sanitară: organizare, informații pentru pacienți și catalog de servicii.',
+        keywords: ['spital', 'unitate sanitara', 'model sectorial', 'organizare', 'incredere'],
+        status: 'available',
+      },
+      {
+        href: '/exemple/spital-model/servicii',
+        title: 'Servicii — Spitalul Model',
+        navigationLabel: 'Servicii Spitalul Model',
+        description:
+          'Catalog demonstrativ de servicii pentru pacienți, organizat după nevoie, nu după structura instituției.',
+        keywords: ['spital', 'servicii', 'catalog', 'eligibilitate'],
+        status: 'available',
+      },
+      {
+        href: '/exemple/cerere-document-medical',
+        title: 'Serviciu demonstrativ — solicită o copie a unui document medical',
+        navigationLabel: 'Copie document medical',
+        description:
+          'Aplicație de referință end-to-end pentru solicitarea unei copii a unui document medical: eligibilitate, formular, documente, verificare și status.',
+        keywords: ['document medical', 'spital', 'formular', 'demonstratie', 'status'],
+        status: 'available',
+      },
     ],
   },
   {
