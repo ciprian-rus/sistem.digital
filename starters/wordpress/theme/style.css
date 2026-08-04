@@ -1,0 +1,22 @@
+/*
+Theme Name: Sistem Digital Starter
+Theme URI: https://sistem.digital
+Author: Sistem Digital
+Author URI: https://sistem.digital
+Description: Temă clasică minimală pentru instituții publice mici, construită cu pachetele publicate @sistem-digital/tokens și @sistem-digital/components — nu copiază sursa internă a componentelor.
+Version: 0.1.0
+License: Apache License 2.0
+License URI: https://www.apache.org/licenses/LICENSE-2.0
+Text Domain: sistem-digital-starter
+Requires at least: 6.4
+Requires PHP: 8.0
+*/
+
+/* Restul stilurilor vin din theme/assets/vendor (populat de
+   `npm run assets:sync`), înregistrate prin wp_enqueue_style în
+   functions.php. Nu adăuga aici stiluri care aparțin componentelor
+   publicate — acest fișier rămâne doar antetul cerut de WordPress. */
+
+body {
+  margin: 0;
+}

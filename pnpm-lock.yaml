@@ -249,6 +249,15 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  starters/wordpress:
+    dependencies:
+      '@sistem-digital/components':
+        specifier: '>=0.1.0-alpha.0 <1.0.0'
+        version: 0.1.0-alpha.0(@sistem-digital/tokens@0.1.0-alpha.0)
+      '@sistem-digital/tokens':
+        specifier: '>=0.1.0-alpha.0 <1.0.0'
+        version: 0.1.0-alpha.0
+
 packages:
 
   '@axe-core/playwright@4.12.1':

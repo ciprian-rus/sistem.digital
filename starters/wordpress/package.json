@@ -1,0 +1,20 @@
+{
+  "name": "sistem-digital-starter-wordpress",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Temă WordPress clasică pentru instituții mici, construită cu pachetele publicate Sistem Digital.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ciprian-rus/sistem.digital.git",
+    "directory": "starters/wordpress"
+  },
+  "scripts": {
+    "assets:sync": "node scripts/sync-assets.mjs",
+    "lint": "node scripts/lint-php.mjs"
+  },
+  "dependencies": {
+    "@sistem-digital/components": ">=0.1.0-alpha.0 <1.0.0",
+    "@sistem-digital/tokens": ">=0.1.0-alpha.0 <1.0.0"
+  }
+}
