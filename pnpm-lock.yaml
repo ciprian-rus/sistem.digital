@@ -209,6 +209,15 @@ importers:
         specifier: 'catalog:'
         version: 4.1.10(@types/node@24.13.3)(vite@8.1.5(@types/node@24.13.3)(yaml@2.9.0))
 
+  starters/html:
+    dependencies:
+      '@sistem-digital/components':
+        specifier: '>=0.1.0-alpha.0 <1.0.0'
+        version: 0.1.0-alpha.0(@sistem-digital/tokens@0.1.0-alpha.0)
+      '@sistem-digital/tokens':
+        specifier: '>=0.1.0-alpha.0 <1.0.0'
+        version: 0.1.0-alpha.0
+
 packages:
 
   '@axe-core/playwright@4.12.1':
@@ -732,6 +741,14 @@ packages:
 
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
+
+  '@sistem-digital/components@0.1.0-alpha.0':
+    resolution: {integrity: sha512-3nyO/O2t1ufxExiz5FkZNvLQIz3rLAchG0ompuLLzRo1069oo8CLn4zdL4Mzy72AgXSvDCdqLxEOwjpvUskZPg==}
+    peerDependencies:
+      '@sistem-digital/tokens': '>=0.1.0-alpha.0 <1.0.0'
+
+  '@sistem-digital/tokens@0.1.0-alpha.0':
+    resolution: {integrity: sha512-UPd9FwwuCcG58pZa7n2Eg5LQQ6faPAMkahmXmGmDscvyAIvCUfTXR5qQOUKKZkhEumoHcle7oiKffuBVH1U00A==}
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -2599,6 +2616,12 @@ snapshots:
     optional: true
 
   '@rolldown/pluginutils@1.0.1': {}
+
+  '@sistem-digital/components@0.1.0-alpha.0(@sistem-digital/tokens@0.1.0-alpha.0)':
+    dependencies:
+      '@sistem-digital/tokens': 0.1.0-alpha.0
+
+  '@sistem-digital/tokens@0.1.0-alpha.0': {}
 
   '@standard-schema/spec@1.1.0': {}
 
