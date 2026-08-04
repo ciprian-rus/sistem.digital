@@ -15,7 +15,48 @@ interface Draft {
   attachmentName: string;
 }
 
-const storageKey = 'sd-reference-service-draft-v1';
+export interface ReferenceServiceConfig {
+  storageKey: string;
+  introTitle: string;
+  introChecklist: readonly string[];
+  eligibilityTitle: string;
+  eligibilityLegend: string;
+  requestTitle: string;
+  subjectLabel: string;
+  personalIdLabel: string;
+  purposeLabel: string;
+  deliveryTitle: string;
+  deliveryDigitalLabel: string;
+  deliveryCounterLabel: string;
+  deliveryFieldLabel: string;
+  attachmentLabel: string;
+  attachmentFieldLabel: string;
+  noJsHref?: string;
+}
+
+export const adeverintaReferenceServiceConfig: ReferenceServiceConfig = {
+  storageKey: 'sd-reference-service-draft-v1',
+  introTitle: 'Solicită o adeverință administrativă',
+  introChecklist: [
+    'ai domiciliul în România;',
+    'ai un document de identitate valabil;',
+    'opțional, ai un document justificativ PDF, PNG sau JPG.',
+  ],
+  eligibilityTitle: 'Poți solicita această adeverință?',
+  eligibilityLegend: 'Ai domiciliul în România și un act de identitate valabil?',
+  requestTitle: 'Despre cine este adeverința?',
+  subjectLabel: 'Nume complet',
+  personalIdLabel: 'CNP demonstrativ',
+  purposeLabel: 'Scopul solicitării',
+  deliveryTitle: 'Cum vrei să primești documentul?',
+  deliveryDigitalLabel: 'Document digital',
+  deliveryCounterLabel: 'Ridicare de la ghișeu',
+  deliveryFieldLabel: 'Livrare',
+  attachmentLabel: 'Document justificativ',
+  attachmentFieldLabel: 'Atașament',
+  noJsHref: '/exemple/adeverinta/fara-javascript',
+};
+
 const initialDraft: Draft = {
   step: 'start',
   eligible: '',
@@ -34,7 +75,9 @@ function maskPersonalId(value: string) {
   return `${value.slice(0, 1)}••••••••${value.slice(-3)}`;
 }
 
-export function ReferenceService() {
+export function ReferenceService({
+  config = adeverintaReferenceServiceConfig,
+}: Readonly<{ config?: ReferenceServiceConfig }>) {
   const titleId = useId();
   const [draft, setDraft] = useState<Draft>(initialDraft);
   const [hydrated, setHydrated] = useState(false);
@@ -45,16 +88,16 @@ export function ReferenceService() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem(storageKey);
+    const saved = window.localStorage.getItem(config.storageKey);
     if (saved) {
       try {
         setDraft(JSON.parse(saved) as Draft);
       } catch {
-        window.localStorage.removeItem(storageKey);
+        window.localStorage.removeItem(config.storageKey);
       }
     }
     setHydrated(true);
-  }, []);
+  }, [config.storageKey]);
 
   const update = (partial: Partial<Draft>) => {
     setDraft((current) => ({ ...current, ...partial }));
@@ -68,12 +111,12 @@ export function ReferenceService() {
   };
 
   const save = () => {
-    window.localStorage.setItem(storageKey, JSON.stringify(draft));
+    window.localStorage.setItem(config.storageKey, JSON.stringify(draft));
     setSavedNotice('Progresul a fost salvat numai în acest browser.');
   };
 
   const restart = () => {
-    window.localStorage.removeItem(storageKey);
+    window.localStorage.removeItem(config.storageKey);
     setDraft(initialDraft);
     setError('');
     setSavedNotice('');
@@ -107,6 +150,9 @@ export function ReferenceService() {
     goTo('documents');
   };
 
+  const describeDelivery = (delivery: string) =>
+    delivery === 'digital' ? config.deliveryDigitalLabel : config.deliveryCounterLabel;
+
   const submit = () => {
     if (submitting) return;
     if (!declarationAccepted) {
@@ -119,25 +165,25 @@ export function ReferenceService() {
       setSubmitting(false);
       return;
     }
-    window.localStorage.removeItem(storageKey);
+    window.localStorage.removeItem(config.storageKey);
     goTo('done');
   };
 
   if (!hydrated) {
     return (
       <section aria-labelledby={titleId}>
-        <h1 id={titleId}>Solicită o adeverință administrativă</h1>
+        <h1 id={titleId}>{config.introTitle}</h1>
         <p role="status">Se încarcă serviciul demonstrativ…</p>
       </section>
     );
   }
 
   if (draft.step === 'start') {
-    const hasDraft = window.localStorage.getItem(storageKey) !== null;
+    const hasDraft = window.localStorage.getItem(config.storageKey) !== null;
     return (
       <section className="sd-reference-intro" aria-labelledby={titleId}>
         <p className="section-kicker">Aplicație de referință · M4</p>
-        <h1 id={titleId}>Solicită o adeverință administrativă</h1>
+        <h1 id={titleId}>{config.introTitle}</h1>
         <p className="sd-reference-lead">
           Parcurge un serviciu public complet, de la verificarea eligibilității până la urmărirea
           cererii. Durează aproximativ 5 minute.
@@ -151,9 +197,9 @@ export function ReferenceService() {
         </div>
         <h2>Înainte să începi</h2>
         <ul className="sd-reference-checklist">
-          <li>ai domiciliul în România;</li>
-          <li>ai un document de identitate valabil;</li>
-          <li>opțional, ai un document justificativ PDF, PNG sau JPG.</li>
+          {config.introChecklist.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
         </ul>
         <div className="sd-button-group">
           <button
@@ -196,8 +242,8 @@ export function ReferenceService() {
             <dd>2 zile lucrătoare</dd>
           </div>
           <div className="sd-summary-list__row">
-            <dt>Livrare</dt>
-            <dd>{draft.delivery === 'digital' ? 'Document digital' : 'Ridicare de la ghișeu'}</dd>
+            <dt>{config.deliveryFieldLabel}</dt>
+            <dd>{describeDelivery(draft.delivery)}</dd>
           </div>
           <div className="sd-summary-list__row">
             <dt>Canal de notificare</dt>
@@ -243,11 +289,9 @@ export function ReferenceService() {
       {draft.step === 'eligibility' ? (
         <>
           <p className="section-kicker">Eligibilitate</p>
-          <h1 id={titleId}>Poți solicita această adeverință?</h1>
+          <h1 id={titleId}>{config.eligibilityTitle}</h1>
           <fieldset className="sd-fieldset">
-            <legend className="sd-legend sd-legend--large">
-              Ai domiciliul în România și un act de identitate valabil?
-            </legend>
+            <legend className="sd-legend sd-legend--large">{config.eligibilityLegend}</legend>
             <div className="sd-choice-list">
               {[
                 ['yes', 'Da'],
@@ -336,11 +380,11 @@ export function ReferenceService() {
       {draft.step === 'request' ? (
         <>
           <p className="section-kicker">Datele cererii</p>
-          <h1 id={titleId}>Despre cine este adeverința?</h1>
+          <h1 id={titleId}>{config.requestTitle}</h1>
           <div className="sd-form">
             <div className="sd-form-group">
               <label className="sd-label sd-label--large" htmlFor="reference-name">
-                Nume complet
+                {config.subjectLabel}
               </label>
               <input
                 className="sd-input"
@@ -352,7 +396,7 @@ export function ReferenceService() {
             </div>
             <div className="sd-form-group">
               <label className="sd-label sd-label--large" htmlFor="reference-cnp">
-                CNP demonstrativ
+                {config.personalIdLabel}
               </label>
               <p className="sd-hint" id="reference-cnp-hint">
                 Introdu exact 13 cifre fictive. Valoarea nu părăsește browserul.
@@ -372,7 +416,7 @@ export function ReferenceService() {
             </div>
             <div className="sd-form-group">
               <label className="sd-label sd-label--large" htmlFor="reference-purpose">
-                Scopul solicitării <span className="sd-required">(opțional)</span>
+                {config.purposeLabel} <span className="sd-required">(opțional)</span>
               </label>
               <textarea
                 className="sd-textarea"
@@ -394,9 +438,9 @@ export function ReferenceService() {
       {draft.step === 'documents' ? (
         <>
           <p className="section-kicker">Documente și livrare</p>
-          <h1 id={titleId}>Cum vrei să primești documentul?</h1>
+          <h1 id={titleId}>{config.deliveryTitle}</h1>
           <fieldset className="sd-fieldset">
-            <legend className="sd-legend sd-legend--large">Modalitate de livrare</legend>
+            <legend className="sd-legend sd-legend--large">{config.deliveryFieldLabel}</legend>
             <div className="sd-choice-list">
               <label className="sd-choice">
                 <input
@@ -407,7 +451,7 @@ export function ReferenceService() {
                   checked={draft.delivery === 'digital'}
                   onChange={(event) => update({ delivery: event.target.value })}
                 />
-                <span className="sd-choice__label">Document digital</span>
+                <span className="sd-choice__label">{config.deliveryDigitalLabel}</span>
               </label>
               <label className="sd-choice">
                 <input
@@ -418,13 +462,13 @@ export function ReferenceService() {
                   checked={draft.delivery === 'counter'}
                   onChange={(event) => update({ delivery: event.target.value })}
                 />
-                <span className="sd-choice__label">Ridicare de la ghișeu</span>
+                <span className="sd-choice__label">{config.deliveryCounterLabel}</span>
               </label>
             </div>
           </fieldset>
           <div className="sd-form-group">
             <label className="sd-label sd-label--large" htmlFor="reference-file">
-              Document justificativ <span className="sd-required">(opțional)</span>
+              {config.attachmentLabel} <span className="sd-required">(opțional)</span>
             </label>
             <p className="sd-hint" id="reference-file-hint">
               Pentru demonstrație memorăm doar numele fișierului, nu conținutul.
@@ -472,20 +516,20 @@ export function ReferenceService() {
           <h2>Date declarate de tine</h2>
           <dl className="sd-summary-list">
             <SummaryRow
-              label="Nume"
+              label={config.subjectLabel}
               value={draft.fullName}
               provenance="Declarat de tine"
               onChange={() => goTo('request')}
             />
             <SummaryRow
-              label="CNP"
+              label={config.personalIdLabel}
               value={maskPersonalId(draft.personalId)}
               provenance="Declarat de tine · valoare mascată"
               onChange={() => goTo('request')}
             />
             <SummaryRow
-              label="Livrare"
-              value={draft.delivery === 'digital' ? 'Document digital' : 'Ridicare de la ghișeu'}
+              label={config.deliveryFieldLabel}
+              value={describeDelivery(draft.delivery)}
               provenance="Alegerea ta"
               onChange={() => goTo('documents')}
             />
@@ -493,7 +537,7 @@ export function ReferenceService() {
           <h2>Documente încărcate</h2>
           <dl className="sd-summary-list">
             <SummaryRow
-              label="Atașament"
+              label={config.attachmentFieldLabel}
               value={draft.attachmentName || 'Niciun document'}
               provenance={
                 draft.attachmentName ? 'Document încărcat de tine' : 'Nu ai încărcat un document'
@@ -557,11 +601,11 @@ export function ReferenceService() {
             Într-o implementare reală, backend-ul folosește o cheie idempotentă. Dezactivarea
             butonului nu este suficientă pentru prevenirea duplicatelor.
           </p>
-          <p>
-            <a href="/exemple/adeverinta/fara-javascript">
-              Vezi varianta server-rendered fără JavaScript
-            </a>
-          </p>
+          {config.noJsHref ? (
+            <p>
+              <a href={config.noJsHref}>Vezi varianta server-rendered fără JavaScript</a>
+            </p>
+          ) : null}
         </>
       ) : null}
 
