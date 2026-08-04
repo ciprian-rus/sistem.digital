@@ -1087,4 +1087,565 @@ export const componentPageContent = [
       },
     ],
   },
+  {
+    id: 'content-link',
+    purpose:
+      'Descrie destinația printr-un text clar și păstrează comportamentul nativ al unei ancore.',
+    whenToUse: [
+      'pentru orice navigare internă către altă pagină sau resursă — alegerea implicită pentru navigare;',
+    ],
+    whenNotToUse: [
+      'pentru declanșarea unei acțiuni care nu navighează — acolo se folosește `button`, nu un link stilizat ca acțiune;',
+      'decorat vizual ca buton fără să funcționeze ca unul — confuzia de rol induce în eroare tehnologiile asistive.',
+    ],
+    anatomy:
+      'Un `<a class="sd-link">`, cu stiluri de subliniere reglate independent (`text-decoration-thickness`, `text-underline-offset`).',
+    variants: ['implicit', '`sd-link--external` — adaugă simbolul „↗" prin `::after`, decorativ'],
+    states: ['implicit', ':visited', ':hover (subliniere mai groasă)', ':active'],
+    behavior:
+      'Element `<a>` HTML nativ; stilul de subliniere e generat prin CSS, textul rămâne complet funcțional fără el.',
+    contentGuidelines: [
+      'textul descrie destinația („Vezi condițiile de eligibilitate"), niciodată „click aici" sau „aici".',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-external-link',
+    purpose:
+      'Semnalează vizual și pentru tehnologiile asistive că un link duce către un domeniu diferit de cel curent.',
+    whenToUse: ['pentru orice link care duce către un alt domeniu decât cel al site-ului curent.'],
+    whenNotToUse: [
+      'pentru linkuri interne, chiar dacă se deschid într-un tab nou — deschiderea într-un tab nou nu e echivalentă cu „extern".',
+    ],
+    anatomy:
+      'Modificatorul `sd-link--external` pe `<a class="sd-link sd-link--external">`, cu simbolul „↗" adăugat prin `::after`.',
+    variants: ['n/a — e un modificator al `link`, nu o componentă vizuală separată'],
+    states: ['aceleași ca `link`'],
+    behavior:
+      'Simbolul „↗" e generat prin CSS (`content`) — dispare dacă stilurile nu se încarcă, de aceea textul propriu nu se bazează exclusiv pe el pentru a comunica ieșirea din site.',
+    contentGuidelines: [
+      'adaugă un indiciu textual explicit (de exemplu „(site extern)", vizual ascuns) — nu te baza doar pe simbolul „↗" pentru cititoarele de ecran.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-alert',
+    purpose:
+      'Comunică informații importante, specifice unei pagini, printr-un titlu, un text și un semnal non-cromatic.',
+    whenToUse: [
+      'pentru mesaje importante, specifice conținutului unei pagini — nu întregului serviciu.',
+    ],
+    whenNotToUse: [
+      'pentru situații critice la nivelul întregului serviciu — acolo se folosește `major-alert` (familia Navigație);',
+      'pentru confirmarea unei acțiuni reușite — acolo se folosește `notification-banner`.',
+    ],
+    anatomy:
+      'Un `<section class="sd-alert sd-alert--info|success|warning|danger">` cu `__symbol` (cerc decorativ) și `__content` (`__title` + text).',
+    variants: [
+      '`sd-alert--info`',
+      '`sd-alert--success`',
+      '`sd-alert--warning`',
+      '`sd-alert--danger`',
+    ],
+    states: ['nu are stări interactive proprii'],
+    behavior: 'Element static, fără JavaScript.',
+    contentGuidelines: [
+      'titlul rezumă mesajul într-o propoziție scurtă; textul detaliază, fără să repete titlul cuvânt cu cuvânt.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'alege varianta de culoare (`info`/`success`/`warning`/`danger`) potrivită mesajului real — culoarea e un supliment, nu singurul semnal, dar trebuie totuși coerentă cu conținutul.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-notification-banner',
+    purpose:
+      'Confirmă rezultatul unei acțiuni sau o schimbare de status, de obicei la începutul conținutului, după o redirecționare.',
+    whenToUse: [
+      'imediat după o acțiune reușită (trimitere, salvare) sau o schimbare de status a unei cereri.',
+    ],
+    whenNotToUse: [
+      'pentru mesaje persistente sau context general — acelea folosesc `alert` sau `inset-text`.',
+    ],
+    anatomy:
+      'Similar cu `alert`, dar cu padding mai mare și fără chenar lateral (`border-inline: 0`) — gândit ca prim element vizibil după o redirecționare.',
+    variants: [
+      '`sd-notification-banner--info`',
+      '`sd-notification-banner--success`',
+      '`sd-notification-banner--warning`',
+      '`sd-notification-banner--danger`',
+    ],
+    states: ['nu are stări interactive proprii'],
+    behavior: 'Element static, fără JavaScript.',
+    contentGuidelines: [
+      'urmează structura recomandată: ce s-a întâmplat, ce urmează, unde verifici starea — conform docs/content/content-style-guide.md#confirmări-și-notificări.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-inset-text',
+    purpose:
+      'Evidențiază o notă sau o precizare fără să-i atribuie o stare de sistem (spre deosebire de `alert`).',
+    whenToUse: ['pentru o notă relevantă, fără conotație de eroare, succes sau avertisment.'],
+    whenNotToUse: [
+      'pentru mesaje cu stare reală — `inset-text` nu are variante de culoare; folosește `alert` pentru acelea.',
+    ],
+    anatomy: 'Un `<div class="sd-inset-text">`, cu bordură laterală simplă, fără simbol decorativ.',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii'],
+    behavior: 'Element static, fără JavaScript.',
+    contentGuidelines: [
+      'nu simulează o stare prin conținut — dacă mesajul are o stare reală (eroare, succes), componenta corectă e `alert`, nu `inset-text`.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-card',
+    purpose:
+      'Grupează conținut asociat (titlu, descriere, metadate) și păstrează o singură acțiune principală neambiguă.',
+    whenToUse: [
+      'pentru a prezenta un obiect (serviciu, componentă, resursă) cu titlu, descriere și, opțional, acțiuni, într-un `sd-card-grid`.',
+    ],
+    whenNotToUse: [
+      'pentru text simplu, fără un obiect clar sau o acțiune de reprezentat — un card fără scop practic e doar decor.',
+    ],
+    anatomy:
+      'Un `<article class="sd-card">` cu `__heading` (conținând `__link`, a cărui zonă clicabilă acoperă tot cardul prin `::after`), `__description`, opțional `__metadata` și `__actions`.',
+    variants: [
+      'implicit — zonă clicabilă completă',
+      '`sd-card--actions` — dezactivează zona clicabilă completă când cardul are acțiuni suplimentare',
+    ],
+    states: [
+      'implicit',
+      ':hover (bordură mai închisă)',
+      'focus pe link, propagat vizual la tot cardul prin `:has()`',
+    ],
+    behavior:
+      'Fără JavaScript: zona clicabilă extinsă e un singur `<a>` cu `::after` acoperind tot cardul — restul textului rămâne text simplu, nu linkuri suplimentare care ar crea ținte ambigue.',
+    contentGuidelines: [
+      'un singur link clar per card — mai multe ținte concurente confuzează scopul cardului.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'când cardul are `__actions` (butoane suplimentare), adaugă `sd-card--actions` ca să elimini zona clicabilă completă — altfel acțiunile devin inaccesibile sub link-ul care acoperă tot cardul.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-status-tag',
+    purpose: 'Exprimă starea unui obiect în text, niciodată doar prin culoare.',
+    whenToUse: [
+      'pentru starea unui obiect real (cerere, componentă, serviciu) — „Activ", „În verificare", „Indisponibil".',
+    ],
+    whenNotToUse: [
+      'ca etichetă generică de categorisire fără o stare reală — un text simplu e suficient în acel caz.',
+    ],
+    anatomy: 'Un `<span class="sd-tag sd-tag--info|success|warning|danger">`, text simplu.',
+    variants: [
+      'implicit',
+      '`sd-tag--info`',
+      '`sd-tag--success`',
+      '`sd-tag--warning`',
+      '`sd-tag--danger`',
+    ],
+    states: ['nu are stări interactive proprii'],
+    behavior:
+      'Element static; culoarea e un supliment — textul rămâne mereu prezent și citibil, inclusiv fără CSS.',
+    contentGuidelines: [
+      'textul stării e clar și specific („În verificare"), niciodată un cod tehnic („Status 2").',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-responsive-table',
+    purpose:
+      'Păstrează relațiile tabulare intacte pe ecrane înguste, prin derulare locală, nu prin ascunderea coloanelor.',
+    whenToUse: ['pentru orice tabel de date care poate depăși lățimea unui ecran îngust.'],
+    whenNotToUse: [
+      'pentru date care nu sunt cu adevărat tabulare — un tabel folosit doar pentru layout, fără date reale, e greșit semantic.',
+    ],
+    anatomy:
+      'Un `<div class="sd-table-container" role="region" aria-label="…" tabindex="0">` care încadrează un `<table class="sd-table">` cu `<caption>` și antete `<th scope>`.',
+    variants: [
+      'implicit',
+      '`sd-table--numeric` — aliniază coloanele numerice la dreapta, cu `white-space: nowrap`',
+    ],
+    states: [':focus-visible pe container'],
+    behavior:
+      'Fără JavaScript. Overflow-ul orizontal e local, prin `.sd-table-container` (`overflow-x: auto`), nu la nivelul întregii pagini — exact bug-ul opus a fost identificat și corectat în PR #175, unde un tabel neîncadrat forța overflow pe toată pagina. La tipărire, containerul devine `overflow: visible` și tabelul `min-width: 0`, ca să încapă pe pagină.',
+    contentGuidelines: ['caption-ul descrie conținutul tabelului, chiar dacă e vizual ascuns.'],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'orice tabel nou trebuie încadrat în `.sd-table-container` cu `role="region"` și `aria-label` descriptiv — omiterea lui produce exact bug-ul de overflow corectat în PR #175.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-summary-list',
+    purpose:
+      'Prezintă relații cheie–valoare printr-o description list, cu acțiuni opționale per rând.',
+    whenToUse: [
+      'pentru rezumate de tip cheie-valoare — revizuirea unei cereri, detaliile unui obiect.',
+    ],
+    whenNotToUse: [
+      'pentru date tabulare cu multe rânduri similare — acolo `responsive-table` e mai potrivit.',
+    ],
+    anatomy:
+      'Un `<dl class="sd-summary-list">` cu rânduri `__row` (grid pe 3 coloane: cheie/valoare/acțiuni), `__key`, `__value`, opțional `__actions`.',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii, dincolo de linkurile din `__actions`'],
+    behavior:
+      'Sub 40rem lățime, gridul de 3 coloane devine o singură coloană, printr-un media query, fără JavaScript. Valoarea (`__value`) se rupe pe orice caracter (`overflow-wrap: anywhere`), deci nu produce overflow chiar și cu text lung, nespațiat.',
+    contentGuidelines: [
+      'cheia e scurtă și stabilă; acțiunea de schimbare spune exact ce se schimbă („Schimbă numele"), nu doar „Editează".',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-details',
+    purpose:
+      'Ascunde informații suplimentare implicit, prin disclosure nativ, dezvăluite la cerere.',
+    whenToUse: [
+      'pentru informații suplimentare, utile doar unei părți din cititori (întrebări frecvente, detalii tehnice).',
+    ],
+    whenNotToUse: [
+      'pentru informații esențiale înțelegerii principale — acelea rămân vizibile implicit, nu ascunse într-un disclosure.',
+    ],
+    anatomy:
+      'Un `<details class="sd-details">` cu `<summary>` (indicator „+"/„−" prin `::before`, comutat de `[open]`) și `__content`.',
+    variants: ['implicit — elemente consecutive (`+ .sd-details`) își elimină bordura dublă'],
+    states: ['închis (implicit)', 'deschis (`[open]`)'],
+    behavior:
+      'Complet nativ: `<details>`/`<summary>` gestionează deschiderea fără JavaScript; indicatorul „+"/„−" e generat exclusiv prin CSS. La tipărire, conținutul închis devine vizibil (`display: block`), ca informația să nu se piardă pe hârtie.',
+    contentGuidelines: [
+      'textul din `<summary>` e o întrebare sau afirmație clară, nu „Detalii" generic.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-pagination',
+    purpose:
+      'Oferă URL-uri stabile pentru fiecare pagină de rezultate și indică textual pagina curentă.',
+    whenToUse: ['pentru liste de rezultate împărțite pe mai multe pagini.'],
+    whenNotToUse: ['pentru derulare infinită sau liste scurte care încap pe o singură pagină.'],
+    anatomy:
+      'Un `<nav class="sd-pagination">` cu `__list` și linkuri (`<a>` pentru paginile navigabile, `<span aria-current="page">` pentru cea curentă), plus `__label` vizual ascuns pentru context.',
+    variants: ['implicit — o singură variantă'],
+    states: ['pagina curentă (`aria-current="page"`, fundal plin)'],
+    behavior:
+      'Linkuri native `<a href>`, fiecare pagină o adresă reală, distribuibilă. Sub 40rem lățime, lista devine verticală, printr-un media query. Dispare la tipărire (`display: none`), fără sens pe hârtie.',
+    contentGuidelines: [
+      'fiecare link e un URL real către acea pagină, nu doar un handler JavaScript fără `href`.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-metadata',
+    purpose:
+      'Prezintă atribute editoriale scurte (sursă, versiune, licență) ca listă inline, etichetată.',
+    whenToUse: [
+      'pentru atribute scurte, gata de scanat — sursă, versiune, licență — nu pentru conținut narativ.',
+    ],
+    whenNotToUse: [
+      'pentru text descriptiv lung — acela rămâne paragraf simplu, nu listă de metadate.',
+    ],
+    anatomy: 'Un `<ul class="sd-metadata">` cu `__item` (`__label` + valoare).',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii'],
+    behavior:
+      'Element static; se aranjează pe mai multe rânduri prin `flex-wrap` când nu încape pe unul singur.',
+    contentGuidelines: ['eticheta e scurtă și consecventă între pagini („Sursă:", „Versiune:").'],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-last-updated',
+    purpose: 'Asociază o dată vizibilă, lizibilă, cu valoarea tehnică din elementul `<time>`.',
+    whenToUse: ['la finalul unei pagini sau secțiuni de conținut care se poate schimba în timp.'],
+    whenNotToUse: ['pentru conținut static, fără o dată de relevanță reală.'],
+    anatomy: 'Un `<p class="sd-last-updated">` cu `<time datetime="AAAA-LL-ZZ">`.',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii'],
+    behavior: 'Element static.',
+    contentGuidelines: [
+      'data vizibilă e în format românesc lizibil („23 iulie 2026"), în timp ce atributul `datetime` rămâne ISO 8601.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/51'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a componentelor de conținut și afișare a datelor (PR #51).',
+      },
+    ],
+  },
+  {
+    id: 'content-spinner',
+    purpose:
+      'Indică o operație în curs printr-o regiune de status text, nu doar printr-o animație vizuală.',
+    whenToUse: [
+      'pentru operații scurte, în desfășurare (trimitere, încărcare), unde starea trebuie comunicată și celor care nu văd animația.',
+    ],
+    whenNotToUse: [
+      'pentru operații suficient de lungi încât ar avea nevoie de un indicator de progres real (procent), nu de un spinner nedeterminat.',
+    ],
+    anatomy:
+      'Un `<span class="sd-spinner" role="status">` cu `__icon` (decorativ, animat) și text vizual ascuns (de exemplu „Se încarcă…").',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii'],
+    behavior:
+      'Animația e CSS pur (`@keyframes sd-spinner-rotate`), redusă de la 0.8s la 2.4s per rotație sub `prefers-reduced-motion: reduce`. `role="status"` anunță textul (nu doar rotația vizuală) către cititoarele de ecran.',
+    contentGuidelines: [
+      'textul spune ce se întâmplă („Se trimite cererea…"), nu doar generic „Se încarcă".',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/88'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-07-26',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu segmented-control, cookie-banner, chip și avatar (PR #88).',
+      },
+    ],
+  },
+  {
+    id: 'content-chip',
+    purpose: 'Afișează o selecție sau un filtru activ, eliminabil printr-un link real.',
+    whenToUse: ['pentru filtre sau selecții active, eliminabile individual.'],
+    whenNotToUse: [
+      'pentru stări necesare doar informativ, fără acțiune de eliminare — acolo `status-tag` e suficient.',
+    ],
+    anatomy:
+      'Un `<span class="sd-chip">` cu textul filtrului și `__remove` (link real, cu `aria-label` descriptiv al filtrului eliminat).',
+    variants: ['implicit — o singură variantă'],
+    states: ['`__remove` :hover (fundal)', '`__remove` :focus-visible'],
+    behavior:
+      '`__remove` e un `<a href="?...">` real — elimină filtrul prin navigare la un URL fără acel parametru, nu doar printr-un handler JavaScript.',
+    contentGuidelines: [
+      '`aria-label`-ul link-ului de eliminare spune exact ce se elimină („Elimină filtrul Cluj-Napoca"), nu doar „Elimină".',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/88'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-07-26',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu segmented-control, cookie-banner, spinner și avatar (PR #88).',
+      },
+    ],
+  },
+  {
+    id: 'content-avatar',
+    purpose: 'Reprezintă o identitate prin inițiale sau imagine, cu text alternativ real.',
+    whenToUse: [
+      'pentru identitatea unei persoane sau entități, când o reprezentare vizuală compactă ajută recunoașterea.',
+    ],
+    whenNotToUse: ['ca decor fără legătură reală cu o identitate anume.'],
+    anatomy:
+      'Un `<span class="sd-avatar" aria-hidden="true">` cu inițiale, sau, cu imagine, un `<img>` cu `alt` real în interior — inițialele singure rămân `aria-hidden`, pentru că nu înlocuiesc numele real, deja prezent în context.',
+    variants: ['implicit (inițiale)', 'cu imagine'],
+    states: ['nu are stări interactive proprii'],
+    behavior:
+      'Element static; imaginea se decupează circular prin `object-fit: cover`, fără procesare suplimentară.',
+    contentGuidelines: [
+      'dacă avatarul e singura reprezentare a unei persoane într-un context fără nume vizibil alăturat, textul alternativ trebuie să conțină numele real, nu doar inițialele.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/88'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-07-26',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu segmented-control, cookie-banner, spinner și chip (PR #88).',
+      },
+    ],
+  },
+  {
+    id: 'content-warning-text',
+    purpose:
+      'Atrage atenția asupra unei consecințe importante, adesea ireversibile, cu un simbol non-cromatic.',
+    whenToUse: [
+      'înaintea unei acțiuni cu consecințe serioase sau ireversibile (ștergere, trimitere finală).',
+    ],
+    whenNotToUse: [
+      'pentru avertismente minore sau informații generale — folosirea excesivă tocește impactul avertismentelor reale.',
+    ],
+    anatomy:
+      'Un `<div class="sd-warning-text">` cu `__icon` (cerc decorativ) și text îngroșat, cu „Avertisment:" vizual ascuns înaintea textului — convenție similară cu `error-message`.',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii'],
+    behavior: 'Element static.',
+    contentGuidelines: [
+      'textul spune explicit consecința („Această acțiune nu poate fi anulată"), nu doar „Atenție".',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/89'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-07-28',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu phase-banner, back-to-top-link și exit-this-page (PR #89).',
+      },
+    ],
+  },
+  {
+    id: 'content-sortable-table',
+    purpose:
+      'Adaugă sortare pe coloane și filtrare live peste un tabel obișnuit, rămânând un tabel complet, static, fără JavaScript.',
+    whenToUse: [
+      'pentru tabele cu suficiente rânduri încât sortarea sau filtrarea chiar ajută (liste extinse, cataloage).',
+    ],
+    whenNotToUse: [
+      'pentru tabele scurte, unde sortarea sau filtrarea nu aduc valoare reală — complexitatea suplimentară nu se justifică.',
+    ],
+    anatomy:
+      'Un `<div class="sd-sortable-table" data-sd-sortable-table>` care încadrează un `.sd-table-container`/`.sd-table` obișnuit, cu `th[data-sd-sort="text|numeric"]` pe coloanele sortabile.',
+    variants: ['implicit — o singură variantă'],
+    states: [
+      '`aria-sort="none|ascending|descending"` pe antetele sortabile, gestionat de enhancement',
+    ],
+    behavior:
+      'Fără JavaScript: rămâne un tabel complet, static, complet citibil — nu există input de filtrare sau butoane de sortare fără el, deci niciodată un control mort. Cu JavaScript (`enhanceSortableTables`): adaugă un input de filtrare live (normalizează diacriticele la comparare) și butoane de sortare pe fiecare antet marcat, cu un status text (`role="status"`) care anunță rezultatul fiecărei acțiuni.',
+    contentGuidelines: [
+      'coloanele marcate sortabile (`data-sd-sort`) au sens real de ordonare — nu marca o coloană descriptivă, fără ordine naturală, ca sortabilă.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/98'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'marchează `data-sd-sort="numeric"` doar pe coloane cu valori cu adevărat numerice — extragerea valorii sortează incorect o coloană textuală marcată greșit ca numerică.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-08-03',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu vocea tipografică editorială (PR #98).',
+      },
+    ],
+  },
 ];
