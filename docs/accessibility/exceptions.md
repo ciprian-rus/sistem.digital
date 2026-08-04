@@ -1,5 +1,7 @@
 # Excepții și probleme cunoscute de accesibilitate
 
+Acest model este reluat, la nivel de adopție instituțională (nu de componentă), în [politica excepțiilor din nivelurile de adopție](../governance/adoption-levels.md#politica-excepțiilor-de-conformitate).
+
 ## Principiu
 
 Excepțiile sunt mecanisme temporare pentru riscuri documentate, nu modalități de a ocoli standardul. Nu se acceptă excepții generale pentru o componentă, un criteriu WCAG sau o regulă axe.
