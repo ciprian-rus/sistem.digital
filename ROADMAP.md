@@ -50,7 +50,9 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - confirmarea depunerii;
 - autentificare;
 - urmărirea unei solicitări;
-- serviciu public demonstrativ end-to-end.
+- serviciu public demonstrativ end-to-end;
+- zece pattern-uri publicate pentru servicii publice recurente;
+- primul model sectorial de referință (primărie), cu catalog de servicii locale.
 
 ## M5 — Startere și distribuție
 
