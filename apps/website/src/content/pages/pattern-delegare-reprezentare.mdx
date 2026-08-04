@@ -1,0 +1,78 @@
+---
+title: Delegarea sau reprezentarea unei persoane
+description: Afișează persistent în numele cui se acționează, cu documentele care dovedesc calitatea de reprezentant.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 14
+keywords:
+  - delegare
+  - reprezentare
+  - împuternicit
+  - context
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Depun cererea pentru altcineva — vreau să fie clar, tot timpul, în numele cui acționez."
+
+Folosește pattern-ul oriunde o cerere poate fi depusă de un reprezentant legal sau un împuternicit, nu direct de persoana vizată de rezultat.
+
+## Selectarea persoanei reprezentate
+
+La începutul fluxului, persoana confirmă explicit în numele cui acționează — nu se presupune implicit „în numele meu" fără o alegere activă acolo unde reprezentarea e o opțiune reală.
+
+<Callout title="Contextul rămâne vizibil pe tot parcursul, nu doar la început" type="warning">
+  <p>
+    „Acționezi în numele lui Ion Popescu” trebuie să apară pe fiecare ecran al fluxului — în antet
+    sau lângă titlu — nu doar pe primul ecran, unde persoana îl poate uita rapid dacă fluxul are mai
+    mulți pași.
+  </p>
+</Callout>
+
+## Documentele care dovedesc calitatea de reprezentant
+
+- încărcarea documentului (procură, act de tutelă, împuternicire) urmează regulile deja stabilite pentru [prezentarea documentelor necesare](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#prezentarea-documentelor-necesare);
+- verificarea calității de reprezentant rămâne conceptuală în acest pattern — contractul UX presupune un pas de verificare, fără să implementeze validarea juridică reală;
+- unde e posibil, verificarea se leagă de [completarea datelor din registre](/pattern-uri/completarea-din-registre), dacă un registru relevant confirmă calitatea de reprezentant.
+
+## Cele două cazuri principale
+
+Pattern-ul acoperă explicit două situații, cu conținut diferit pentru fiecare:
+
+- **persoană fizică → persoană fizică** — de exemplu, un părinte care acționează pentru un minor sau un tutore legal;
+- **persoană juridică → reprezentant** — de exemplu, un angajat care depune o cerere în numele firmei, cu dovada calității (delegație, funcție în firmă).
+
+Pattern-ul începe cu cazul cel mai comun pentru serviciile publice curente, nu încearcă să acopere toate variantele juridice de la prima implementare.
+
+## Fără cont și fără JavaScript
+
+- Contextul „în numele cui" este randat server-side în antetul paginii, nu injectat doar prin JavaScript.
+- Încărcarea documentului de reprezentare funcționează prin submit HTTP normal.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                              |
+| ---------- | --------------------------------------------------------------------------------------------- |
+| Conținut   | Explică ce documente dovedesc calitatea de reprezentant, per tip de reprezentare.             |
+| Date       | Păstrează separat identitatea reprezentantului și a persoanei reprezentate, în toată cererea. |
+| Backend    | Asociază cererea cu ambele identități; nu suprascrie una cu cealaltă.                         |
+| Operațiuni | Menține lista de documente acceptate ca dovadă, actualizată cu cadrul legal.                  |
+
+## Criterii de acceptare
+
+- Contextul „în numele cui" este vizibil constant, nu doar la începutul fluxului.
+- Pattern-ul este legat de completarea datelor din registre pentru verificare, unde e cazul.
+- Există exemplu documentat pentru persoană fizică → persoană fizică și persoană juridică → reprezentant.
+- Documentul de reprezentare urmează regulile existente de prezentare a documentelor necesare.
+
+## În aplicația de referință
+
+Serviciul demonstrativ nu oferă încă depunerea în numele altei persoane — solicitarea de adeverință presupune că solicitantul acționează direct pentru sine. Acest pattern documentează contractul UX pentru servicii care permit reprezentarea.
+
+## Dovezi și limite
+
+Fără acces la o verificare juridică reală a calității de reprezentant, exemplul rămâne conceptual. Complexitatea juridică a diferitelor tipuri de reprezentare (tutelă, curatelă, împuternicire notarială, delegație de firmă) necesită consultanță juridică pentru o implementare reală, nu doar decizie de design — riscul e semnalat explicit, nu rezolvat aici.
