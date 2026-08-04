@@ -127,7 +127,7 @@ Proiecte minimale, gata de clonat, care consumă pachetele publicate (nu sursa
 internă) pentru a porni rapid un serviciu nou.
 
 - [Starter HTML](starters/html/README.md) — fără build, fără framework.
-- Starter Next.js — planificat, urmează starterul HTML.
+- [Starter Next.js](starters/nextjs/README.md) — App Router, fără `@sistem-digital/react` (încă nepublicat).
 - Integrare WordPress — planificat.
 
 ## Integrare continuă
