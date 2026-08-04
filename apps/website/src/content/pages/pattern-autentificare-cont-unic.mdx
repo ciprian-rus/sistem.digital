@@ -1,0 +1,80 @@
+---
+title: Autentificarea prin mecanism unic de autentificare sau cont unic
+description: Explică transferul către furnizorul extern de identitate, gestionează erorile tipice și oferă variantă fără autentificare completă unde e posibil.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 11
+keywords:
+  - autentificare
+  - cont unic
+  - identitate
+  - sesiune
+  - eroare
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să mă conectez o singură dată, cu un cont pe care îl recunosc, nu cu încă o parolă nouă."
+
+Folosește pattern-ul oriunde un serviciu cere autentificare printr-un mecanism unic guvernamental (echivalentul unui cont unic/SSO), legat de „Platformele comune" din arhitectura de referință.
+
+## Parcursul de autentificare
+
+Autentificarea prin cont unic este, tehnic, un caz specific de [transfer extern sigur](/pattern-uri/transfer-extern) — se aplică aceleași reguli: numele furnizorului de identitate și motivul transferului sunt explicite înainte de redirect.
+
+1. persoana vede, înainte de redirect, ce furnizor de identitate va folosi și de ce e necesară autentificarea pentru acest serviciu;
+2. la revenire, sesiunea e confirmată și fluxul continuă exact de unde a rămas;
+3. datele de identitate primite sunt afișate persoanei pentru confirmare, nu doar folosite silențios.
+
+<Callout title="Nu orice serviciu are nevoie de autentificare completă" type="success">
+  <p>
+    Unde serviciul permite, oferă explicit o variantă fără cont — de exemplu, o verificare de status
+    prin număr de înregistrare, fără login. Autentificarea completă e cerută doar unde e cu adevărat
+    necesară.
+  </p>
+</Callout>
+
+## Erorile tipice
+
+Documentează separat, cu mesaj și remediere specifice:
+
+- sesiunea a expirat înainte de finalizarea autentificării;
+- contul nu este activat sau nu are datele necesare completate la furnizorul de identitate;
+- furnizorul de identitate e temporar indisponibil;
+- persoana anulează autentificarea și revine fără rezultat.
+
+Fiecare eroare spune ce s-a păstrat din fluxul inițial (dacă persoana a completat deja pași înainte de a fi trimisă la autentificare) și oferă fie reîncercarea, fie alternativa fără cont, dacă există.
+
+## Fără cont și fără JavaScript
+
+- Unde serviciul are variantă fără autentificare completă, aceasta funcționează integral prin HTML și submit normal.
+- Linkul către autentificare este un element HTML real, la fel ca la transferul extern.
+- Mesajele de eroare de autentificare sunt randate server-side, nu doar afișate prin JavaScript client.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                         |
+| ---------- | -------------------------------------------------------------------------------------------------------- |
+| Conținut   | Explică ce furnizor de identitate e folosit și de ce, plus mesajele pentru fiecare eroare tipică.        |
+| Date       | Definește ce date de identitate sunt cerute de la furnizor și scopul lor minim necesar.                  |
+| Backend    | Validează token-ul de autentificare, gestionează expirarea sesiunii și starea anti-CSRF.                 |
+| Operațiuni | Menține relația cu platforma comună de autentificare și contactele de incident pentru indisponibilitate. |
+
+## Criterii de acceptare
+
+- Pattern-ul documentează explicit legătura cu platforma comună de autentificare, fără dependență de un furnizor specific în cod.
+- Erorile tipice de autentificare sunt documentate separat, cu mesaj și remediere.
+- Există variantă „fără autentificare completă" pentru servicii care nu o cer, unde e cazul.
+- Datele de identitate primite sunt afișate persoanei pentru confirmare, nu doar folosite silențios.
+
+## În aplicația de referință
+
+Serviciul demonstrativ oferă deja acces opțional, fără cont, pentru solicitarea de adeverință — varianta „fără autentificare completă" este deja implementată acolo. Autentificarea printr-un furnizor real de identitate nu este încă integrată; alegerea autentificării în exemplul curent arată doar locul unde acest pattern se va aplica.
+
+## Dovezi și limite
+
+Lecția confirmată din Mosaico (Portugalia), documentată în [auditul comparativ](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/comparative-audit.md), susține construirea explicită a pattern-urilor peste platformele comune, nu independent de ele. Fără un furnizor real de identitate disponibil din acest mediu, testarea end-to-end a acestui pattern rămâne simulată.

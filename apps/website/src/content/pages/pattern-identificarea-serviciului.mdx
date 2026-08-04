@@ -1,0 +1,76 @@
+---
+title: Identificarea serviciului potrivit
+description: Pornește de la nevoia utilizatorului, nu de la structura instituțională, pentru a duce persoana la serviciul corect.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 10
+keywords:
+  - căutare
+  - servicii
+  - nevoie
+  - eligibilitate
+  - catalog
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Nu știu cum se numește oficial ce am nevoie — vreau doar să rezolv o problemă."
+
+Folosește pattern-ul înaintea oricărui alt pattern din această listă — e primul pas, nu un pattern tranzacțional în sine.
+
+## De la nevoie la serviciu
+
+Catalogul de servicii nu se organizează după structura instituțională (departamente, direcții), ci după nevoia care aduce persoana acolo — conform regulii deja stabilite de a [scrie pentru nevoia utilizatorului](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#scrie-pentru-nevoia-utilizatorului): denumirea unui serviciu spune ce obține persoana, nu cum se numește procedura intern.
+
+Parcursul tipic:
+
+1. persoana descrie nevoia, în cuvinte proprii sau prin [căutare](/cautare);
+2. rezultatele arată servicii, nu departamente — cu titlu orientat spre nevoie și rezumat scurt;
+3. fiecare rezultat indică eligibilitatea (cine poate folosi serviciul) înainte de a intra în flux;
+4. serviciul greșit oferă o alternativă, nu doar „niciun rezultat".
+
+<Callout title="Eligibilitatea se vede înainte de a intra în flux" type="warning">
+  <p>
+    Un serviciu cu condiții de eligibilitate (vârstă, domiciliu, statut) trebuie să spună asta
+    înainte ca persoana să investească timp completând un formular la care nu e eligibilă.
+  </p>
+</Callout>
+
+## Componentele folosite
+
+- căutarea deja livrată (`/cautare`), care indexează servicii și ghiduri;
+- cardul de serviciu (`card`), cu titlu orientat spre nevoie și rezumat;
+- eticheta de status (`status-tag`), pentru disponibilitate sau condiții speciale (de exemplu „necesită programare").
+
+## Fără cont și fără JavaScript
+
+- Căutarea și catalogul de servicii funcționează prin submit HTTP normal (query params), fără dependență de JavaScript pentru rezultate de bază.
+- Filtrele suplimentare pot folosi JavaScript pentru comoditate, dar rezultatele rămân accesibile fără el.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                    |
+| ---------- | --------------------------------------------------------------------------------------------------- |
+| Conținut   | Denumește serviciile după nevoie, nu după structura instituțională; scrie eligibilitatea clar.      |
+| Date       | Menține catalogul de servicii sincronizat cu eligibilitatea și disponibilitatea reală.              |
+| Backend    | Indexează serviciile pentru căutare, inclusiv sinonime pentru termenii pe care îi folosesc oamenii. |
+| Operațiuni | Revizuiește periodic termenii de căutare fără rezultate, ca semnal de gol în catalog.               |
+
+## Criterii de acceptare
+
+- Rezultatele căutării și ale catalogului sunt organizate după nevoie, nu după structura instituțională.
+- Eligibilitatea unui serviciu e vizibilă înainte de a intra în flux, nu doar în formular.
+- Un termen de căutare fără rezultat oferă o alternativă sau o cale de contact, nu un ecran gol.
+- Componentele folosite (căutare, card, status-tag) sunt identificate explicit în implementare.
+
+## În aplicația de referință
+
+[Solicită o adeverință](/exemple/adeverinta) e accesibilă direct din pagina de pattern-uri, dar nu există încă un catalog demonstrativ cu mai multe servicii printre care persoana alege. Acest pattern documentează contractul UX pentru momentul în care există mai multe servicii demonstrative.
+
+## Dovezi și limite
+
+Relația conceptuală cu modelul federat de servicii al Mosaico (Portugalia), confirmat direct din sursă în [auditul comparativ](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/comparative-audit.md), susține alegerea de a organiza după nevoie, nu după instituție. Fără un catalog real de servicii publice, exemplul rămâne demonstrativ, nu validat cu date reale sau cu utilizatori.
