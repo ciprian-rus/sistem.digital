@@ -163,27 +163,34 @@ export function CatalogPageContent({ item }: Readonly<{ item: CatalogItem }>) {
       {content.history && content.history.length > 0 ? (
         <>
           <h3>Istoric</h3>
-          <table className="sd-table">
-            <caption className="sd-visually-hidden">Istoricul modificărilor relevante</caption>
-            <thead>
-              <tr>
-                <th scope="col">Versiune</th>
-                <th scope="col">Dată</th>
-                <th scope="col">Modificare</th>
-              </tr>
-            </thead>
-            <tbody>
-              {content.history.map((entry) => (
-                <tr key={`${entry.version}-${entry.date}`}>
-                  <td>{entry.version}</td>
-                  <td>
-                    <time dateTime={entry.date}>{entry.date}</time>
-                  </td>
-                  <td>{entry.change}</td>
+          <div
+            className="sd-table-container"
+            role="region"
+            aria-label="Istoricul modificărilor relevante; tabel derulabil orizontal"
+            tabIndex={0}
+          >
+            <table className="sd-table">
+              <caption className="sd-visually-hidden">Istoricul modificărilor relevante</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Versiune</th>
+                  <th scope="col">Dată</th>
+                  <th scope="col">Modificare</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {content.history.map((entry) => (
+                  <tr key={`${entry.version}-${entry.date}`}>
+                    <td>{entry.version}</td>
+                    <td>
+                      <time dateTime={entry.date}>{entry.date}</time>
+                    </td>
+                    <td>{entry.change}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       ) : null}
       <p>
