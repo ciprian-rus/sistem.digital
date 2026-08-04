@@ -200,6 +200,19 @@ importers:
 
   packages/tokens: {}
 
+  packages/validator:
+    dependencies:
+      axe-core:
+        specifier: 4.12.1
+        version: 4.12.1
+      playwright-core:
+        specifier: 1.61.1
+        version: 1.61.1
+    devDependencies:
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.13.3)(vite@8.1.5(@types/node@24.13.3)(yaml@2.9.0))
+
   packages/web-components:
     devDependencies:
       '@sistem-digital/components':
