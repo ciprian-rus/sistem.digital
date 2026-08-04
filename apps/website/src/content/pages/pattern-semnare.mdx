@@ -1,0 +1,83 @@
+---
+title: Semnarea unei cereri sau a unui document
+description: Explică în limbaj simplu ce înseamnă semnarea, oferă o cale de rezervă la eșec și leagă semnarea de confirmarea depunerii.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 6
+keywords:
+  - semnătură
+  - semnătură electronică
+  - declarație pe propria răspundere
+  - eșec
+  - confirmare
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să știu ce înseamnă că semnez, ce mă obligă și ce fac dacă nu merge.”
+
+Folosește pattern-ul oriunde o cerere sau un document cere confirmarea identității și asumarea conținutului — semnătură electronică calificată, semnătură simplă sau declarație pe propria răspundere, acolo unde legea permite.
+
+## Ce explici înainte de semnare
+
+1. ce document sau cerere este semnat/ă, exact — nu „documentul de mai sus";
+2. ce înseamnă „semnezi" în acest context: confirmi identitatea, asumi conținutul, sau ambele;
+3. consecința juridică, în limbaj simplu, cu temeiul legal disponibil ca detaliu secundar (conform [regulii de temeiuri legale](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#temeiuri-legale) — explicația simplă conduce, temeiul rămâne accesibil, nu dominant);
+4. metoda disponibilă (certificat calificat, semnătură simplă, declarație pe propria răspundere) și ce anume determină care metodă e permisă pentru acest document.
+
+<Callout title="Semnătura nu e un detaliu tehnic" type="warning">
+  <p>
+    „Semnează aici” fără explicație lasă persoana să confirme ceva ce nu înțelege pe deplin.
+    Consecința juridică a semnării trebuie spusă explicit, înainte de acțiune, nu doar în textul
+    legal atașat.
+  </p>
+</Callout>
+
+## Eșecul semnării
+
+Documentează separat, cu remediere pentru fiecare:
+
+- certificatul digital a expirat sau nu este instalat;
+- dispozitivul de semnare nu este disponibil sau nu este recunoscut de browser;
+- sesiunea a expirat în timpul semnării;
+- documentul s-a modificat între afișare și semnare (integritate).
+
+Fiecare eșec spune ce s-a păstrat din cerere și oferă fie reîncercarea, fie o alternativă (declarație pe propria răspundere, dacă e permisă legal pentru acel document) — niciodată doar „a eșuat, încearcă din nou" fără context.
+
+## Legătura cu confirmarea depunerii
+
+Semnarea reușită duce direct la [confirmarea depunerii](/pattern-uri/status-confirmare-reluare) — nu la un ecran separat, deconectat. Numărul de înregistrare și dovada semnării apar împreună, nu în pagini diferite pe care persoana trebuie să le coreleze singură.
+
+## Fără cont și fără JavaScript
+
+- Unde legea permite declarație pe propria răspundere, fluxul funcționează prin submit HTTP normal, fără dependență de un dispozitiv de semnare.
+- Verificarea integrității documentului semnat trebuie să fie posibilă și fără JavaScript client (link către verificare server-side).
+- Mesajele de eșec sunt randate server-side, nu doar afișate printr-un handler JavaScript care poate eșua silențios.
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                   |
+| ---------- | -------------------------------------------------------------------------------------------------- |
+| Conținut   | Explică în limbaj simplu ce înseamnă semnarea și consecința ei, pentru fiecare metodă disponibilă. |
+| Date       | Definește ce se păstrează ca dovadă a semnării (timestamp, metodă, identitate) și cât timp.        |
+| Backend    | Verifică integritatea documentului, validează certificatul, jurnalizează evenimentul de semnare.   |
+| Operațiuni | Menține lista actualizată a metodelor de semnare permise legal, per tip de document.               |
+
+## Criterii de acceptare
+
+- Consecința juridică a semnării este explicată înainte de acțiune, în limbaj simplu.
+- Fiecare tip de eșec are un mesaj specific și o cale de remediere sau alternativă.
+- Semnarea reușită duce direct la confirmarea depunerii, cu dovada semnării vizibilă.
+- Fluxul de declarație pe propria răspundere (unde e permis legal) funcționează fără JavaScript.
+
+## În aplicația de referință
+
+Serviciul demonstrativ nu implementează încă semnarea electronică — cererea demonstrativă se încheie la confirmare, fără pas de semnare separat. Acest pattern documentează contractul UX pentru integrarea viitoare a unui furnizor real de semnătură.
+
+## Dovezi și limite
+
+Observația OBS-015 din [auditul comparativ românesc](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/romania-audit-2026/observations.csv) confirmă că cel puțin o instituție cere încă semnătură olografă pe copii, fără o cale digitală completă prezentată alături de listă — motivul direct pentru care acest pattern documentează explicit varianta „declarație pe propria răspundere" ca alternativă, nu doar semnătura electronică calificată. Cadrul legal exact al semnăturii electronice în România necesită consultanță juridică pentru fiecare integrare reală, nu doar decizie de design.

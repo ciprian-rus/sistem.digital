@@ -1,0 +1,79 @@
+---
+title: Notificarea unei decizii administrative
+description: Comunică ce s-a decis, temeiul, consecința practică și pașii următori — separat pentru aprobare, respingere și aprobare parțială.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 8
+keywords:
+  - decizie
+  - aprobare
+  - respingere
+  - notificare
+  - temei legal
+  - contestare
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să știu clar ce s-a decis, de ce și ce pot face în continuare.”
+
+Folosește pattern-ul pentru rezultatul final al unei cereri — distinct de statusul intermediar „în verificare" din [pattern-ul de status, confirmare și reluare](/pattern-uri/status-confirmare-reluare).
+
+## Structura mesajului de decizie
+
+Conform [structurii de decizii administrative](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#decizii-administrative), în această ordine:
+
+1. ce s-a decis;
+2. temeiul (link sau secțiune „detalii", nu paragraful principal — vezi [temeiuri legale](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#temeiuri-legale));
+3. consecința practică;
+4. pașii următori, inclusiv [contestarea](/pattern-uri/contestarea-deciziei), dacă e cazul.
+
+Aprobarea, respingerea și aprobarea parțială sunt **trei mesaje diferite**, nu un singur șablon generic cu un câmp de status schimbat:
+
+<Callout title="Respingerea nu e o eroare" type="warning">
+  <p>
+    O cerere respinsă nu e un eșec tehnic — e un rezultat administrativ valid, cu motiv și cale de
+    contestare. Tonul rămâne neutru și respectuos, nu de eroare de sistem.
+  </p>
+</Callout>
+
+- **Aprobare** — ce a fost aprobat, valabilitatea, cum se ridică/descarcă rezultatul.
+- **Respingere** — motivul exact, ce poate face persoana (cerere nouă cu ce lipsește, sau contestare), termenul de contestare.
+- **Aprobare parțială** — ce parte a fost aprobată și ce parte nu, cu motiv separat pentru partea respinsă, și calea de contestare doar pentru partea respinsă.
+
+## Canalul de notificare
+
+Notificarea (email, in-app) anunță schimbarea — la fel ca la statusul intermediar, sursa de adevăr rămâne pagina cererii, nu mesajul în sine. Notificarea nu conține date sensibile, doar un link către pagina autentificată a cererii.
+
+## Fără cont și fără JavaScript
+
+- Pagina cu decizia este HTML server-rendered, tipărită de la primul răspuns, fără dependență de JavaScript pentru a fi citită complet.
+- Documentul deciziei există ca HTML complet pe pagină; un PDF descărcabil e opțiune suplimentară, nu sursă unică (conform [principiului documentelor descărcabile ca formate complementare](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#documente-descărcabile-ca-formate-complementare)).
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                                    |
+| ---------- | --------------------------------------------------------------------------------------------------- |
+| Conținut   | Scrie separat mesajele de aprobare, respingere și aprobare parțială, fiecare cu pasul următor.      |
+| Date       | Definește sursa de adevăr a deciziei, data, temeiul legal și legătura cu cererea originală.         |
+| Backend    | Garantează că decizia notificată corespunde exact deciziei înregistrate (fără divergență de stare). |
+| Operațiuni | Menține termenul de contestare actualizat și corect per tip de decizie.                             |
+
+## Criterii de acceptare
+
+- Mesajul de decizie urmează structura ce s-a decis / temei / consecință / pași următori, în această ordine.
+- Aprobarea, respingerea și aprobarea parțială sunt documentate ca mesaje separate, nu un șablon generic.
+- Este legat explicit de pattern-ul de contestare, cu termenul afișat clar.
+- Notificarea (email/in-app) nu conține date sensibile, doar direcționează spre pagina autentificată.
+
+## În aplicația de referință
+
+Serviciul demonstrativ confirmă depunerea și afișează status, dar nu emite încă o decizie finală distinctă (aprobare/respingere) — cererea de adeverință se soluționează implicit la confirmare. Acest pattern documentează contractul UX pentru servicii cu o etapă reală de evaluare și decizie.
+
+## Dovezi și limite
+
+Fără integrare reală cu un sistem de notificări sau cu procese de decizie ale unei instituții, exemplul rămâne conceptual, construit pe structura deja formalizată în [ghidul de content design](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#decizii-administrative), nu pe observații directe de teren pentru acest pas specific.

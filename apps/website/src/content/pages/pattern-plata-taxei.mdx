@@ -1,0 +1,81 @@
+---
+title: Plata unei taxe sau a unui tarif asociat cererii
+description: Arată suma, motivul și scutirile înainte de plată, apoi redirecționează spre platforma comună de plăți și confirmă rezultatul.
+section: patterns
+status: alpha
+version: 0.1.0-alpha.0
+updated: 2026-08-04
+order: 7
+keywords:
+  - plată
+  - taxă
+  - tarif
+  - scutire
+  - redirect
+  - eșec
+---
+
+<ComponentStatus status="alpha" version="0.1.0-alpha.0" />
+
+## Nevoia utilizatorului
+
+„Vreau să știu cât plătesc, de ce, dacă sunt scutit și ce se întâmplă dacă plata nu merge.”
+
+Folosește pattern-ul oriunde o cerere presupune o plată către instituție — direct sau prin platforma comună de plăți din arhitectura de referință.
+
+## Ce arăți înainte de plată
+
+Conform [regulii de prezentare a taxelor](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/content/content-style-guide.md#prezentarea-taxelor), suma exactă, motivul, scutirile și consecința neplății apar **înainte** de redirectul către plată, nu doar pe pagina externă:
+
+1. suma exactă și moneda;
+2. motivul taxei — ce anume acoperă;
+3. cine este scutit și cum solicită scutirea;
+4. ce se întâmplă dacă taxa nu e plătită în termenul indicat.
+
+<Callout title="Suma se vede înainte de redirect" type="warning">
+  <p>
+    O redirecționare fără sumă vizibilă în avans forțează persoana să afle costul pe un domeniu
+    extern, unde poate ezita să continue. Suma, motivul și scutirile rămân pe pagina instituției,
+    înainte de orice transfer.
+  </p>
+</Callout>
+
+## Parcursul de plată
+
+- Redirectul urmează [pattern-ul de transfer extern sigur](/pattern-uri/transfer-extern) — operatorul de plăți și domeniul sunt numite explicit înainte de transfer.
+- La revenire, rezultatul plății (succes, eșec, în procesare) e confirmat pe pagina instituției, nu doar pe pagina procesatorului.
+- Un eșec de plată nu anulează cererea deja începută — persoana revine exact la pasul de plată, cu progresul păstrat, și poate reîncerca sau alege alt canal.
+
+## Canale multiple de plată
+
+Unde există mai multe canale (platformă proprie, aplicație, platformă comună, ghișeu fizic), acestea sunt prezentate comparativ — eligibilitate, cost, timp de procesare — nu ascunse unul după altul.
+
+## Fără cont și fără JavaScript
+
+- Pagina cu suma și motivul taxei este HTML server-rendered, vizibilă fără cont și fără JavaScript.
+- Linkul către plată e un element HTML real; JavaScript poate îmbunătăți experiența, nu poate fi singura cale de a iniția plata.
+- Rezultatul plății la revenire trebuie confirmat și verificabil independent de JavaScript client (verificare server-side a stării plății).
+
+## Responsabilități
+
+| Rol        | Responsabilitate                                                                              |
+| ---------- | --------------------------------------------------------------------------------------------- |
+| Conținut   | Explică suma, motivul, scutirile și consecința neplății, înainte de redirect.                 |
+| Date       | Definește sursa de adevăr a sumei datorate și modul de sincronizare cu procesatorul de plăți. |
+| Backend    | Verifică rezultatul plății prin callback/webhook semnat, nu doar prin revenirea browserului.  |
+| Operațiuni | Menține relația cu platforma comună de plăți și canalul de escaladare pentru plăți blocate.   |
+
+## Criterii de acceptare
+
+- Suma, motivul și scutirile sunt afișate înainte de redirect, nu doar după.
+- Eșecul de plată nu șterge progresul cererii și oferă o cale clară de reîncercare.
+- Rezultatul plății este confirmat pe pagina instituției, verificat server-side, nu doar declarat de browser.
+- Pattern-ul referențiază explicit „Platformele comune — plăți" din arhitectura de referință.
+
+## În aplicația de referință
+
+Serviciul demonstrativ nu presupune încă o taxă reală — solicitarea de adeverință este gratuită în exemplul curent. Acest pattern documentează contractul UX pentru servicii viitoare care presupun plată.
+
+## Dovezi și limite
+
+Observațiile OBS-009 și OBS-019 din [auditul comparativ românesc](https://github.com/ciprian-rus/sistem.digital/blob/main/docs/research/romania-audit-2026/observations.csv) confirmă, direct din surse publice românești, două practici pozitive deja existente: dezvăluirea progresivă a cerințelor de autentificare înainte de plată (Ghișeul.ro) și prezentarea comparativă a canalelor de plată disponibile (Primăria Ciugud). Fără acces la un procesator real de plăți, testarea end-to-end a acestui pattern rămâne simulată.
