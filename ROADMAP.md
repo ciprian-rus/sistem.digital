@@ -67,8 +67,11 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - starter Next.js — livrat (`starters/nextjs`), App Router, consumă aceleași
   pachete publicate; `@sistem-digital/react` nu e încă publicat, deci
   enhancement-ul JS apelează direct `@sistem-digital/components`;
-- integrare WordPress — următorul, în ordine;
-- kit Figma.
+- integrare WordPress — livrată (`starters/wordpress`), temă clasică;
+  netestată într-un WordPress viu (mediul de dezvoltare nu are acces la
+  wordpress.org și nici Docker) — vezi limitarea documentată în
+  `starters/wordpress/README.md`;
+- kit Figma — următorul, în ordine.
 
 ## M6 — Comunitate și guvernanță publică
 
