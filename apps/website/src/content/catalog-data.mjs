@@ -255,7 +255,7 @@ function markupFor(name) {
     'button-group':
       '<div class="sd-button-group"><button class="sd-button sd-button--primary" type="button">Trimite cererea</button><a class="sd-link" href="#">Salvează și revino</a></div>',
     'file-upload':
-      '<label class="sd-label" for="catalog-file">Document justificativ</label><input class="sd-file-upload" id="catalog-file" type="file">',
+      '<label class="sd-label" for="catalog-file">Document justificativ</label><input class="sd-file-input" id="catalog-file" type="file">',
     'official-banner':
       '<section class="sd-official-banner" aria-label="Informație despre autenticitate"><div class="sd-official-banner__inner"><span class="sd-official-banner__mark" aria-hidden="true">RO</span><p>Domeniul oficial este <a href="#">institutie.ro</a>.</p></div></section>',
     'major-alert':
@@ -311,7 +311,7 @@ function markupFor(name) {
     autocomplete:
       '<div class="sd-autocomplete" data-sd-autocomplete><label class="sd-label" for="catalog-institution">Instituție</label><input class="sd-input" id="catalog-institution" list="catalog-options" data-sd-autocomplete-input><datalist id="catalog-options"><option value="Primăria Cluj-Napoca"></option><option value="Primăria Brașov"></option></datalist><div data-sd-autocomplete-menu hidden></div><p class="sd-visually-hidden" aria-live="polite" data-sd-autocomplete-status></p></div>',
     'file-upload-advanced':
-      '<div class="sd-file-upload-advanced" data-sd-file-upload data-sd-file-dropzone><label class="sd-label" for="catalog-files">Documente</label><input class="sd-file-upload" id="catalog-files" type="file" multiple><ul class="sd-file-upload__list" data-sd-file-list></ul><p class="sd-visually-hidden" aria-live="polite" data-sd-file-status></p></div>',
+      '<div class="sd-file-upload-advanced" data-sd-file-upload data-sd-file-dropzone><label class="sd-label" for="catalog-files">Documente</label><input id="catalog-files" type="file" multiple><ul class="sd-file-upload__list" data-sd-file-list></ul><p class="sd-visually-hidden" aria-live="polite" data-sd-file-status></p></div>',
     switch:
       '<label class="sd-switch"><input class="sd-switch__input" type="checkbox" role="switch" checked><span class="sd-switch__track"><span class="sd-switch__thumb"></span></span><span class="sd-switch__label">Notificări prin e-mail</span></label>',
     tooltip:
