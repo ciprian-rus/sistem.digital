@@ -639,4 +639,452 @@ export const componentPageContent = [
       },
     ],
   },
+  {
+    id: 'navigation-official-banner',
+    purpose:
+      'Indică natura oficială a serviciului și domeniul corect, ca primă informație de pe pagină — o ancoră de încredere înaintea oricărui alt conținut.',
+    whenToUse: [
+      'ca prima secțiune vizibilă a fiecărei pagini publice, deasupra header-ului instituțional;',
+      'ori de câte ori identitatea și autenticitatea domeniului trebuie confirmate explicit, nu presupuse.',
+    ],
+    whenNotToUse: [
+      'pentru alerte sau situații critice — acelea folosesc `major-alert`, nu bannerul de autenticitate;',
+      'de mai multe ori pe aceeași pagină — rămâne un singur banner, o singură dată.',
+    ],
+    anatomy:
+      'Un `<section class="sd-official-banner">` cu `.sd-official-banner__inner` (flex), o marcă circulară decorativă `.sd-official-banner__mark` și un `<p>` cu textul despre domeniul oficial.',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii'],
+    behavior:
+      'Element static, fără JavaScript; textul rămâne singura sursă de adevăr pentru domeniul oficial — marca circulară e strict decorativă.',
+    contentGuidelines: [
+      'afirmă direct domeniul oficial, fără ambiguitate — conform aceluiași principiu folosit în footer-ul public al sistem.digital.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'marca circulară (`__mark`) rămâne `aria-hidden`, dacă textul propriu-zis exprimă deja complet informația.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-major-alert',
+    purpose:
+      'Comunică o situație critică la nivelul întregului serviciu — de exemplu o indisponibilitate temporară — vizibil pe fiecare pagină, nu doar pe una.',
+    whenToUse: [
+      'pentru situații care afectează întregul serviciu, nu un singur câmp sau o singură pagină;',
+      'când persoana trebuie să afle imediat, înainte de a continua orice interacțiune.',
+    ],
+    whenNotToUse: [
+      'pentru erori locale, specifice unei pagini sau unui formular — acelea folosesc `alert` sau `notification-banner` (familia Conținut și date);',
+      'pentru informații necritice — folosirea lui pentru orice mesaj îi tocește urgența reală.',
+    ],
+    anatomy:
+      'Un `<section class="sd-major-alert">` cu `__inner` (grid), un simbol circular decorativ `__symbol` și `__content` cu titlu (`<strong>`) și text.',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii'],
+    behavior:
+      'Element static, fără JavaScript; rămâne vizibil identic pe orice pagină pe care e inclus.',
+    contentGuidelines: [
+      'începe cu impactul practic, nu cu termenul tehnic — „Serviciul este indisponibil temporar" înainte de detalii, nu invers;',
+      'menționează orizontul de rezolvare dacă e cunoscut, în loc să lase persoana fără reper de timp.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'afișează `major-alert` doar pentru situații reale, la nivel de serviciu — nu ca substitut pentru gestionarea erorilor de pagină.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-institution-header',
+    purpose:
+      'Prezintă împreună identitatea instituției și numele serviciului, ca element de branding constant în fruntea fiecărei pagini.',
+    whenToUse: [
+      'o singură dată per pagină, ca element cel mai de sus după bannerele de autenticitate/alertă.',
+    ],
+    whenNotToUse: [
+      'pentru conținut secundar sau de marketing — header-ul rămâne strict identitate și acces la instrumentele principale (căutare, navigație).',
+    ],
+    anatomy:
+      'Un `<header class="sd-header">` cu `.sd-header__identity-row` (flex) care conține `.sd-identity` (link, cu `__mark` decorativ și `__text` — `__name` + `__service`) și `.sd-header__tools`, pentru căutare sau alte instrumente.',
+    variants: ['implicit — o singură variantă'],
+    states: [
+      'nu are stări interactive proprii, dincolo de cele ale copiilor focusabili (link, căutare)',
+    ],
+    behavior:
+      'Fără JavaScript: layout complet funcțional. Sub 48rem lățime, `__identity-row` și `__tools` trec din flex orizontal în coloană verticală, printr-un media query, nu prin JavaScript.',
+    contentGuidelines: [
+      'numele instituției apare înaintea numelui serviciului — ambele reale, niciodată text de tip „Instituția exemplu" în producție.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-desktop-navigation',
+    purpose:
+      'Oferă acces direct la categoriile principale ale site-ului, vizibil integral pe ecrane largi.',
+    whenToUse: ['pe ecrane mai late de 48rem, ca navigație principală, întotdeauna vizibilă.'],
+    whenNotToUse: [
+      'sub 48rem lățime — e ascunsă automat prin CSS și înlocuită de `mobile-navigation`, nu ambele simultan.',
+    ],
+    anatomy:
+      'Un `<nav class="sd-primary-navigation">` cu `__list` (flex) și linkuri directe; pagina curentă e marcată prin `aria-current="page"`.',
+    variants: ['implicit — o singură variantă'],
+    states: [
+      'implicit',
+      'pagina curentă (`aria-current="page"`, bordură inferioară colorată)',
+      ':hover',
+      ':focus-visible',
+    ],
+    behavior:
+      'Fără JavaScript: `<nav>` cu linkuri native, complet funcțională. Ascunderea sub 48rem (`display: none`) e strict CSS — conținutul din `mobile-navigation` conține aceleași linkuri, nu o listă redusă.',
+    contentGuidelines: [
+      'etichetele categoriilor rămân scurte și stabile — schimbarea lor frecventă strică orientarea repetată a utilizatorilor.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'lista de linkuri trebuie să rămână identică între `desktop-navigation` și `mobile-navigation` — cele două sunt aceeași navigație, afișată diferit pe breakpoint, nu două navigații separate.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-mobile-navigation',
+    purpose:
+      'Oferă acces la aceleași categorii principale ca `desktop-navigation`, printr-un disclosure nativ, pe ecrane înguste.',
+    whenToUse: [
+      'sub 48rem lățime, ca înlocuitor al `desktop-navigation`, niciodată alături de ea.',
+    ],
+    whenNotToUse: [
+      'peste 48rem lățime — rămâne ascunsă implicit (`display: none`) până la media query.',
+    ],
+    anatomy:
+      'Un `<details class="sd-mobile-navigation">` cu `<summary>` (indicator „+"/„−" generat prin `::after`, nu imagine) și `__list` cu linkuri.',
+    variants: ['implicit — o singură variantă'],
+    states: [
+      'închis (implicit)',
+      'deschis (`[open]`, indicatorul devine „−")',
+      'pagina curentă (`aria-current="page"`, bordură laterală colorată)',
+    ],
+    behavior:
+      'Complet nativă: `<details>`/`<summary>` gestionează deschiderea/închiderea fără nicio linie de JavaScript. Indicatorul vizual „+"/„−" e generat exclusiv prin CSS (`content` pe `::after`, comutat de selectorul `[open]`).',
+    contentGuidelines: [
+      'conține exact aceleași linkuri ca `desktop-navigation` — niciodată un subset „simplificat" pentru mobil.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-breadcrumb',
+    purpose:
+      'Arată poziția paginii curente în ierarhia site-ului și permite revenirea directă la orice nivel anterior.',
+    whenToUse: ['pe orice pagină aflată la mai mult de un nivel sub pagina principală.'],
+    whenNotToUse: [
+      'pe pagina principală sau pe pagini de nivel superior, unde nu există o ierarhie reală de arătat.',
+    ],
+    anatomy:
+      'Un `<nav class="sd-breadcrumb" aria-label="Breadcrumb">` cu `<ol class="sd-breadcrumb__list">`; fiecare `<li class="sd-breadcrumb__item">` conține un link, cu excepția ultimului, care e un `<span aria-current="page">`. Separatorul „/" e generat prin `::after` pe toate elementele, mai puțin ultimul.',
+    variants: ['implicit — o singură variantă'],
+    states: ['pagina curentă (`aria-current="page"`, fără link)'],
+    behavior:
+      'Element static; separatorul „/" e strict decorativ (CSS `content`) — ordinea semantică a listei `<ol>` rămâne corectă și fără el, inclusiv pentru cititoarele de ecran.',
+    contentGuidelines: [
+      'folosește titlurile reale ale paginilor, nu etichete scurtate sau tehnice, ca să rămână recognoscibile.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-service-navigation',
+    purpose:
+      'Oferă navigare locală între paginile aceleiași secțiuni sau ale aceluiași serviciu, distinctă de navigația globală a site-ului.',
+    whenToUse: [
+      'când o secțiune sau un serviciu are mai multe pagini surori între care persoana ar putea vrea să treacă direct.',
+    ],
+    whenNotToUse: [
+      'pentru navigația globală a site-ului — aceea rămâne `desktop-navigation`/`mobile-navigation`;',
+      'pentru o secțiune cu o singură pagină, unde o navigație locală nu adaugă nimic.',
+    ],
+    anatomy:
+      'Un `<nav class="sd-service-navigation">` cu `__title` (titlu vizibil, de exemplu „În această secțiune") și `__list`, ale cărei linkuri au `aria-current="page"` pentru pagina activă.',
+    variants: ['implicit — o singură variantă'],
+    states: [
+      'implicit',
+      'pagina curentă (`aria-current="page"`, fundal și bordură laterală distincte, nu doar culoare de text)',
+    ],
+    behavior: 'Element static, fără JavaScript.',
+    contentGuidelines: [
+      'titlul secțiunii orientează („În această secțiune"), nu doar decorează — omiterea lui lasă lista fără context.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-search',
+    purpose:
+      'Permite găsirea conținutului printr-un formular GET simplu, al cărui rezultat produce un URL distribuibil și marcabil la favorite.',
+    whenToUse: ['prezent în header-ul fiecărei pagini, ca acces constant la căutare.'],
+    whenNotToUse: [
+      'ca unică metodă de a găsi conținut — căutarea completează navigația, nu o înlocuiește.',
+    ],
+    anatomy:
+      'Un `<form class="sd-search" role="search" method="get">` cu `__label` (vizual ascuns, dar prezent), `__input` și `__button` de trimitere.',
+    variants: ['implicit — o singură variantă'],
+    states: ['implicit', ':hover pe buton', ':focus-visible pe input și buton'],
+    behavior:
+      'Fără JavaScript: formular GET nativ; rezultatul e o navigare normală către o adresă cu parametrul de căutare în URL, complet distribuibilă.',
+    contentGuidelines: [
+      'label-ul rămâne vizual ascuns, nu eliminat — „Caută" trebuie să existe pentru tehnologiile asistive.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'păstrează `method="get"` — un `POST` ar face rezultatele căutării nedistribuibile prin URL.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-footer',
+    purpose:
+      'Grupează resurse, guvernanță, licență și informații de versiune la finalul fiecărei pagini.',
+    whenToUse: ['o singură dată per pagină, ca ultimul element înaintea sfârșitului documentului.'],
+    whenNotToUse: [
+      'de mai multe ori pe aceeași pagină — un singur footer, la final, nu unul repetat între secțiuni.',
+    ],
+    anatomy:
+      'Un `<footer class="sd-footer">` cu `__main` (grid, 3 coloane pe desktop, o coloană sub 48rem) conținând secțiuni cu `__heading`+`__list`, plus un rând `__meta` pentru informații suplimentare.',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii, dincolo de linkurile din interior'],
+    behavior:
+      'Fără JavaScript: grid CSS complet funcțional, colapsat la o coloană sub 48rem prin media query. Nu apare deloc la tipărire (`display: none` în `@media print`) — resursele din footer nu au sens pe hârtie.',
+    contentGuidelines: [
+      'linkurile sunt resurse reale (accesibilitate, licență, contact), nu umplutură generică.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-skip-link',
+    purpose:
+      'Permite utilizatorilor de tastatură să sară direct la conținutul principal, fără să parcurgă din nou toată navigația repetitivă a fiecărei pagini.',
+    whenToUse: ['ca primul element focusabil al fiecărei pagini, fără excepție.'],
+    whenNotToUse: [
+      'ascuns permanent sau eliminat din tab order — scopul lui e exact să fie primul element accesibil de la tastatură.',
+    ],
+    anatomy:
+      'Un `<a class="sd-skip-link" href="#continut">`, poziționat fix, ascuns vizual (`translateY(-180%)`) până la primire de focus.',
+    variants: ['implicit — o singură variantă'],
+    states: ['ascuns (implicit)', 'vizibil (`:focus`, `translateY(0)`)'],
+    behavior:
+      'Fără CSS: link real, funcțional, doar permanent vizibil (fără animația de apariție). Fără JavaScript: comportamentul de salt la focus e nativ browserului, prin `href="#id"`.',
+    contentGuidelines: [
+      'textul spune exact destinația („Sari la conținut"), nu un generic „Skip".',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/50'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      '`id`-ul țintă (de exemplu `continut`) trebuie să existe cu adevărat pe pagină, pe elementul `main` — verificat automat de testele de accesibilitate existente.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.0',
+        date: '2026-07-22',
+        change:
+          'Publicare inițială în @sistem-digital/components, ca parte a shell-ului de navigație instituțională și a căutării server-rendered (PR #50).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-cookie-banner',
+    purpose:
+      'Informează despre folosirea cookie-urilor și păstrează consimțământul înregistrat, rămânând vizibil până când persoana îl acordă explicit.',
+    whenToUse: ['pe fiecare pagină, până la înregistrarea unui consimțământ real.'],
+    whenNotToUse: [
+      'dacă site-ul nu folosește deloc cookie-uri opționale — un banner fără scop real induce în eroare.',
+    ],
+    anatomy:
+      'Un `<section class="sd-cookie-banner" data-sd-cookie-banner>` (poziționat sticky, la baza ecranului) cu `__inner` (flex) → `__content` și un buton de acceptare (`data-sd-cookie-accept`).',
+    variants: ['implicit — o singură variantă'],
+    states: ['vizibil (implicit, fără JS)', 'ascuns (`[hidden]`, doar după acceptare, cu JS)'],
+    behavior:
+      'Fără JavaScript: bannerul rămâne vizibil la fiecare încărcare de pagină — alegere sigură, nu un fals negativ. Cu JavaScript (`enhanceCookieBanner`): la accept, consimțământul se salvează în `localStorage` (cheie implicită `sd-cookie-consent`) și bannerul se ascunde; dacă `localStorage` nu e disponibil, bannerul reapare la vizita următoare, fără eroare.',
+    contentGuidelines: [
+      'spune explicit ce tip de cookie-uri sunt folosite (esențiale/urmărire), nu doar formula generică „acest site folosește cookie-uri".',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/88'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'nu ascunde bannerul din markup-ul implicit — starea vizibilă e cea corectă până la un consimțământ real, înregistrat de utilizator.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-07-26',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu segmented-control, spinner, chip și avatar (PR #88).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-phase-banner',
+    purpose:
+      'Semnalează stadiul de maturitate al serviciului (alfa/beta) și oferă o cale directă către feedback.',
+    whenToUse: ['pe fiecare pagină a unui serviciu aflat în stadiul alfa sau beta.'],
+    whenNotToUse: [
+      'după ce serviciul devine stabil — eliminarea bannerului e chiar semnalul de „absolvire", nu ceva de lăsat permanent.',
+    ],
+    anatomy:
+      'Un `<div class="sd-phase-banner">` cu `__inner` (flex) conținând o etichetă de stadiu (`sd-tag`) și un `<p>` cu link către feedback.',
+    variants: ['implicit — o singură variantă'],
+    states: ['nu are stări interactive proprii'],
+    behavior: 'Element static, fără JavaScript.',
+    contentGuidelines: [
+      'link-ul de feedback duce la un canal real, monitorizat, niciodată la o adresă generică sau moartă.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/89'],
+    knownIssues: [],
+    implementerResponsibilities: [],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-07-28',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu back-to-top-link și exit-this-page (PR #89).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-back-to-top-link',
+    purpose:
+      'Oferă o cale reală, printr-o ancoră HTML, de revenire la începutul unei pagini lungi.',
+    whenToUse: ['la finalul conținutului lung, unde derularea manuală înapoi ar fi incomodă.'],
+    whenNotToUse: ['pe pagini scurte, unde revenirea sus nu aduce niciun beneficiu real.'],
+    anatomy:
+      'Un `<a class="sd-back-to-top" href="#catalog-top">` cu `__icon` decorativ, rotit prin CSS.',
+    variants: ['implicit — o singură variantă'],
+    states: ['implicit', ':hover (subliniere text)'],
+    behavior:
+      'Link real cu `href="#id"` — funcționează identic fără CSS sau JavaScript, doar fără rotația iconiței decorative. Dispare la tipărire (`display: none` în `@media print`).',
+    contentGuidelines: ['textul spune „Înapoi sus", nu doar o săgeată fără text alternativ.'],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/89'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      '`href`-ul trebuie să indice un `id` real, existent pe pagină, nu doar `#top` generic fără element țintă.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-07-28',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu phase-banner și exit-this-page (PR #89).',
+      },
+    ],
+  },
+  {
+    id: 'navigation-exit-this-page',
+    purpose:
+      'Permite părăsirea imediată a paginii într-o situație de urgență, fără să lase o urmă ușor de găsit în istoricul browserului.',
+    whenToUse: [
+      'pe pagini cu conținut sensibil, unde o ieșire rapidă și discretă contează (de exemplu servicii legate de siguranța personală).',
+    ],
+    whenNotToUse: [
+      'pe pagini obișnuite — prezența nejustificată a acestui link ar induce o falsă senzație de urgență sau pericol.',
+    ],
+    anatomy:
+      'Un `<a class="sd-exit-page" data-sd-exit-this-page href="...">`, stilizat ca acțiune de avertizare.',
+    variants: ['implicit — o singură variantă'],
+    states: ['implicit', ':hover'],
+    behavior:
+      'Fără JavaScript: link real; ieșirea funcționează ca orice navigare obișnuită, către adresa din `href`. Cu JavaScript (`enhanceExitThisPage`): click-ul înlocuiește intrarea curentă din istoric (`location.replace`), astfel încât butonul „înapoi" al browserului nu poate reveni la această pagină; apăsarea tastei Shift de trei ori consecutiv, în mai puțin de o secundă, declanșează aceeași ieșire, fără să fie nevoie de mouse.',
+    contentGuidelines: [
+      'destinația (`href`) e un site neutru, real — niciodată un placeholder lăsat necompletat.',
+    ],
+    research: ['https://github.com/ciprian-rus/sistem.digital/pull/89'],
+    knownIssues: [],
+    implementerResponsibilities: [
+      'setează un `href` real către un site neutru — enhancement-ul JavaScript navighează exact la acea adresă, nu la una hardcodată separat în cod.',
+    ],
+    history: [
+      {
+        version: '0.1.0-alpha.3',
+        date: '2026-07-28',
+        change:
+          'Adăugat în @sistem-digital/components, împreună cu phase-banner și back-to-top-link (PR #89).',
+      },
+    ],
+  },
 ];
