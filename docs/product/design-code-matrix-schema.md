@@ -24,16 +24,16 @@ interface DesignCodeMatrixEntry {
 
 ## Sursa fiecărui câmp
 
-| Câmp | Derivare | Stare curentă |
-|---|---|---|
-| `figma` | manual, până la publicarea kitului Figma ([#22](https://github.com/ciprian-rus/sistem.digital/issues/22)) | `false` pentru toate componentele |
-| `html` | automat — orice intrare `kind: 'component'` din catalogul versionat este HTML semantic prin definiție | `true` pentru toate componentele |
-| `webComponents` | automat — `sd-{componentName}` există în `webComponentNames` din `@sistem-digital/web-components` | derivat la build |
-| `react` | automat — `use{PascalCase(componentName)}` există ca export din `@sistem-digital/react` | derivat la build |
-| `docs` | automat — fiecare intrare are `documentationHref`, deja verificat de `scripts/check-catalog.mjs` | `true` pentru toate componentele |
-| `automatedTests` | automat — fiecare familie are teste de inventar/contract în pachet, verificate de `pnpm test` | `true` pentru toate componentele |
-| `keyboardTested` | **manual**, condiționat de auditul din [#53](https://github.com/ciprian-rus/sistem.digital/issues/53) | `false` pentru toate componentele, până la finalizarea auditului |
-| `screenReaderTested` | **manual**, condiționat de auditul din [#53](https://github.com/ciprian-rus/sistem.digital/issues/53) | `false` pentru toate componentele, până la finalizarea auditului |
+| Câmp                 | Derivare                                                                                                  | Stare curentă                                                    |
+| -------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `figma`              | manual, până la publicarea kitului Figma ([#22](https://github.com/ciprian-rus/sistem.digital/issues/22)) | `false` pentru toate componentele                                |
+| `html`               | automat — orice intrare `kind: 'component'` din catalogul versionat este HTML semantic prin definiție     | `true` pentru toate componentele                                 |
+| `webComponents`      | automat — `sd-{componentName}` există în `webComponentNames` din `@sistem-digital/web-components`         | derivat la build                                                 |
+| `react`              | automat — `use{PascalCase(componentName)}` există ca export din `@sistem-digital/react`                   | derivat la build                                                 |
+| `docs`               | automat — fiecare intrare are `documentationHref`, deja verificat de `scripts/check-catalog.mjs`          | `true` pentru toate componentele                                 |
+| `automatedTests`     | automat — fiecare familie are teste de inventar/contract în pachet, verificate de `pnpm test`             | `true` pentru toate componentele                                 |
+| `keyboardTested`     | **manual**, condiționat de auditul din [#53](https://github.com/ciprian-rus/sistem.digital/issues/53)     | `false` pentru toate componentele, până la finalizarea auditului |
+| `screenReaderTested` | **manual**, condiționat de auditul din [#53](https://github.com/ciprian-rus/sistem.digital/issues/53)     | `false` pentru toate componentele, până la finalizarea auditului |
 
 `keyboardTested` și `screenReaderTested` nu sunt aproximate din testele automate axe-core sau din interacțiunile Playwright existente. Testarea automată nu înlocuiește testarea reală cu tehnologii asistive — exact lecția transversală „Accesibilitate declarativă” din auditul comparativ. Aceste două câmpuri rămân `false` până când există dovadă publicată din #53.
 
@@ -42,6 +42,8 @@ interface DesignCodeMatrixEntry {
 Convenția: numele unei componente în kitul Figma trebuie să fie identic cu `componentName` din catalogul versionat (kebab-case), astfel încât `id`-ul catalogului (`{familie}-{componentName}`) să poată fi derivat direct și din partea de design. Nu se introduc alias-uri sau denumiri paralele.
 
 Această convenție trebuie respectată de la prima publicare a kitului Figma ([#22](https://github.com/ciprian-rus/sistem.digital/issues/22)) — redenumirea ulterioară a componentelor din Figma pentru a se alinia ar fi costisitoare și ar rupe legătura istorică.
+
+Mapping-ul echivalent pentru **token-uri** (nu componente) este documentat separat în [`figma-token-mapping.md`](figma-token-mapping.md).
 
 ## Verificarea consistenței
 
