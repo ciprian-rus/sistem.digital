@@ -78,7 +78,8 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - raport de conformitate;
 - badge versionat;
 - proiecte pilot;
-- ghid de achiziție și adopție instituțională.
+- ghid de achiziție și adopție instituțională;
+- patru niveluri de adopție (`aligned`/`compatible`/`conformant`/`verified`), cu schemă de raportare, politică de excepții și expirare a certificării.
 
 ## Principiul de livrare
 

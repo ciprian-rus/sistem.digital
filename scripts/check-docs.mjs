@@ -109,6 +109,33 @@ failures.push(
   ]),
 );
 
+// Validează structura nivelurilor de adopție instituțională (Epic H, 4 august 2026).
+failures.push(
+  ...checkRequiredSections('docs/governance/adoption-levels.md', [
+    '### `aligned`',
+    '### `compatible`',
+    '### `conformant`',
+    '### `verified`',
+    '## Schema de raportare',
+    '## Badge-uri versionate',
+    '## Politica excepțiilor de conformitate',
+    '## Expirarea certificării',
+    '## Planurile de remediere pentru neconformitate',
+    '## Punct de legătură conceptual cu PNIDP',
+  ]),
+);
+
+failures.push(
+  ...checkRequiredSections('docs/governance/pnidp-schema-draft.md', [
+    'document de backlog, nu o implementare',
+    'application:',
+    'institution:',
+    'servicesProvided:',
+    'sistemDigitalVersion:',
+    'adoptionLevel:',
+  ]),
+);
+
 for (const file of listMarkdownFiles()) {
   const absoluteFile = resolve(repositoryRoot, file);
   const markdown = removeFencedCode(readFileSync(absoluteFile, 'utf8'));
