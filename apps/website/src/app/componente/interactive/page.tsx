@@ -344,7 +344,6 @@ export default function InteractiveComponentsPage() {
               fiecare.
             </p>
             <input
-              className="sd-file-upload"
               id="supporting-files"
               name="supporting-files"
               type="file"
