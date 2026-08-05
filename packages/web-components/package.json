@@ -1,6 +1,7 @@
 {
   "name": "@sistem-digital/web-components",
   "version": "0.1.0-alpha.0",
+  "private": true,
   "description": "Custom elements care înregistrează progressive enhancements din @sistem-digital/components pentru orice framework.",
   "license": "Apache-2.0",
   "type": "module",

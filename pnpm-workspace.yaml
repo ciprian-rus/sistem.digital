@@ -33,9 +33,10 @@ overrides:
   # Next.js still resolves an older PostCSS release; 8.5.18 patches GHSA-r28c-9q8g-f849
   # (source map path traversal) in addition to GHSA-6g55-p6wh-862q.
   postcss: 8.5.18
-  # eslint's minimatch chain resolves a vulnerable brace-expansion; 5.0.8 patches
-  # GHSA-mh99-v99m-4gvg (unbounded expansion DoS).
-  brace-expansion: 5.0.8
+  # eslint's minimatch chain resolves a vulnerable brace-expansion. 5.0.8 patched
+  # GHSA-mh99-v99m-4gvg (unbounded expansion DoS), but GHSA-rgw5-rvv9-x895 later
+  # found a bypass of that mitigation; 5.0.9 is the actual patched floor.
+  brace-expansion: 5.0.9
   # Next.js resolves sharp 0.34.x; 0.35.3 contains the reviewed libvips security fixes.
   sharp: 0.35.3
 
