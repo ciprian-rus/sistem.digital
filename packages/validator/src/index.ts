@@ -1,4 +1,16 @@
-export { renderBadgeSvg } from './badge.js';
+export {
+  assessAdoptionLevel,
+  buildAdoptionReport,
+  isCertificationExpired,
+  type AdoptionAttestations,
+  type AdoptionCriterion,
+  type AdoptionException,
+  type AdoptionLevel,
+  type AdoptionLevelAssessment,
+  type AdoptionLevelOptions,
+  type InstitutionalAdoptionReport,
+} from './adoption.js';
+export { renderAdoptionBadgeSvg, renderBadgeSvg } from './badge.js';
 export { type BrowserOptions } from './browser-utils.js';
 export { renderHtmlReport } from './html-report.js';
 export { buildReport } from './report.js';

@@ -96,6 +96,65 @@ chiar e gata de publicare.
 
 Toate categoriile inițiale din #25 au acum cel puțin o regulă MVP.
 
+## Niveluri de adopție instituțională
+
+`assessAdoptionLevel`/`buildAdoptionReport` implementează partea automatizabilă
+a celor patru niveluri documentate în
+[`docs/governance/adoption-levels.md`](../../docs/governance/adoption-levels.md)
+(`aligned`/`compatible`/`conformant`/`verified`, progresie monotonă). Doar
+criteriile verificabile dintr-un raport al validatorului sunt automate —
+content design, punctul de contact instituțional, urmarea unui pattern
+documentat și auditul manual de accesibilitate rămân, deliberat,
+neautomatizabile; fără o atestare explicită prin `options.attestations`,
+sunt tratate ca **neîntrunite**, nu ca implicit adevărate — la fel ca
+principiul „nu se pretinde conformare completă doar din teste automate”
+respectat de restul acestui pachet. Excepțiile active (`options.activeExceptions`,
+cu termen limită obligatoriu, ca în politica documentată) pot acoperi un
+criteriu neîntrunit fără să blocheze nivelul.
+
+Verificat empiric, nu doar teoretic: rulat împotriva unui raport real
+(`starters/html`, server local) — chiar cu toate atestările date, nivelul
+rezultat rămâne `none`, pentru că pagina are o violare WCAG reală
+(`sd-a11y-axe-wcag: fail`), care blochează inclusiv nivelul de intrare
+`aligned`. Comportamentul e intenționat: funcția nu certifică niciodată
+un nivel mai optimist decât dovezile reale.
+
+```ts
+import { assessAdoptionLevel, buildAdoptionReport } from '@sistem-digital/validator';
+
+const assessment = assessAdoptionLevel(report, {
+  attestations: {
+    contentDesignReviewed: true,
+    contactPointDesignated: true,
+    usesDesignTokens: true,
+    followsDocumentedPattern: true,
+    manualAccessibilityAuditEvidence: 'https://exemplu-institutie.ro/audit-2026.pdf',
+  },
+  activeExceptions: [
+    {
+      ruleId: 'verified-no-undocumented-failures',
+      reason: 'Link extern temporar indisponibil, în afara controlului instituției.',
+      responsible: 'echipa IT',
+      deadline: '2026-12-31',
+    },
+  ],
+});
+
+const institutionalReport = buildAdoptionReport(
+  'Primăria Exemplu',
+  'Portal cereri online',
+  report,
+  { attestations: { contentDesignReviewed: true, contactPointDesignated: true } },
+);
+
+const badge = renderAdoptionBadgeSvg('conformant', '0.1.0-alpha.3', '2026-08-04', false);
+```
+
+`renderAdoptionBadgeSvg` produce exact formatul documentat
+(`[Sistem Digital: conformant · v0.1.0-alpha.3 · evaluat 2026-08-04]`), cu
+o culoare vizual distinctă (avertisment, nu verde) când certificarea a
+expirat — verificabil separat cu `isCertificationExpired`.
+
 ## Acest pachet nu instalează Chromium
 
 `playwright-core` (nu `playwright`) e folosit deliberat — nu descarcă
@@ -199,10 +258,12 @@ doar când un executabil Chromium e disponibil (verificat automat la
 Pentru `sd-seo-required-pages`, doar verificarea `<link rel="canonical">`
 are nevoie de browser; verificările pentru sitemap/robots/manifest
 folosesc `fetch()` simplu. Testele pentru `sd-a11y-contrast`, formatul
-de raport și badge-ul SVG (`renderBadgeSvg`) rulează mereu (logică
-pură, fără browser). Testele pentru `sd-package-version` rulează mereu,
-împotriva unui server local care imită rutele `/<pachet>/latest` ale
-registrului npm — nu ating `registry.npmjs.org` real.
+de raport, badge-urile SVG (`renderBadgeSvg`, `renderAdoptionBadgeSvg`)
+și nivelurile de adopție (`assessAdoptionLevel`, `buildAdoptionReport`,
+`isCertificationExpired`) rulează mereu (logică pură, fără browser).
+Testele pentru `sd-package-version` rulează mereu, împotriva unui
+server local care imită rutele `/<pachet>/latest` ale registrului npm
+— nu ating `registry.npmjs.org` real.
 
 ## Integrare GitHub Actions
 
