@@ -24,6 +24,14 @@ un produs finit.
   `packages/tokens/scripts/build-themes.mjs`), disponibilă ca funcție de
   bibliotecă, nu încă parte a CLI-ului (nu poate fi derivată automat doar
   dintr-un URL).
+- `sd-seo-required-pages` — verifică prezența și forma minimă a
+  `sitemap.xml`, `robots.txt`, a unui manifest web
+  (`manifest.webmanifest` sau `manifest.json`) și a unui
+  `<link rel="canonical">` pe pagina randată; `fail` dacă oricare dintre
+  cele patru lipsește sau e malformată, cu fiecare verificare raportată
+  separat în `evidence`. Verifică doar căile convenționale — un proiect
+  care le publică în altă locație are nevoie de căi configurabile,
+  neimplementate încă.
 - formatul de raport JSON și un randator HTML minimal, ambele fără scor
   agregat unic (vezi principiul „nu se pretinde conformare completă”).
 
@@ -51,8 +59,10 @@ node dist/cli.js https://exemplu-institutie.ro --format html --executable-path /
 node dist/cli.js https://exemplu-institutie.ro --skip-external-links
 ```
 
-CLI-ul rulează `sd-a11y-axe-wcag` și `sd-content-broken-links` în paralel
-(fiecare pornește propriul Chromium — neoptimizat pentru MVP, dar corect).
+CLI-ul rulează `sd-a11y-axe-wcag`, `sd-content-broken-links` și
+`sd-seo-required-pages` în paralel (fiecare regulă care are nevoie de
+Chromium își pornește propria instanță — neoptimizat pentru MVP, dar
+corect).
 
 ## Utilizare ca bibliotecă
 
@@ -62,20 +72,25 @@ import {
   checkAccessibility,
   checkContrast,
   checkLinks,
+  checkRequiredPages,
 } from '@sistem-digital/validator';
 
 const accessibility = await checkAccessibility('https://exemplu-institutie.ro');
 const links = await checkLinks('https://exemplu-institutie.ro', { checkExternal: false });
+const seo = await checkRequiredPages('https://exemplu-institutie.ro');
 const contrast = checkContrast([
   { id: 'text/page', foreground: '#17202a', background: '#ffffff', required: 4.5 },
 ]);
-const report = buildReport('https://exemplu-institutie.ro', [accessibility, links, contrast]);
+const report = buildReport('https://exemplu-institutie.ro', [accessibility, links, seo, contrast]);
 ```
 
 ## Teste
 
-Testele pentru `sd-a11y-axe-wcag` și `sd-content-broken-links` rulează
-integral doar când un executabil Chromium e disponibil (verificat automat
-la `/opt/pw-browsers/chromium` sau prin `SISTEM_DIGITAL_VALIDATOR_CHROMIUM`)
-— altfel se omit cu un mesaj explicit. Testele pentru `sd-a11y-contrast` și
-formatul de raport rulează mereu (logică pură, fără browser).
+Testele pentru `sd-a11y-axe-wcag`, `sd-content-broken-links` și
+`sd-seo-required-pages` rulează integral doar când un executabil Chromium
+e disponibil (verificat automat la `/opt/pw-browsers/chromium` sau prin
+`SISTEM_DIGITAL_VALIDATOR_CHROMIUM`) — altfel se omit cu un mesaj explicit.
+Pentru `sd-seo-required-pages`, doar verificarea `<link rel="canonical">`
+are nevoie de browser; verificările pentru sitemap/robots/manifest
+folosesc `fetch()` simplu. Testele pentru `sd-a11y-contrast` și formatul
+de raport rulează mereu (logică pură, fără browser).
