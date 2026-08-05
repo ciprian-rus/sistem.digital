@@ -1,0 +1,103 @@
+name: Validator self-check
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validator-self-check-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  self-check:
+    name: Validator self-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm --filter @sistem-digital/website exec playwright install --with-deps chromium
+
+      - name: Build website and workspace dependencies
+        run: pnpm --filter @sistem-digital/website... build
+
+      - name: Build validator
+        run: pnpm --filter @sistem-digital/validator build
+
+      - name: Run validator against the built website, and generate its badge
+        id: validator
+        shell: bash
+        run: |
+          set +e
+
+          # Rezolvă explicit calea executabilului Chromium instalat, în loc
+          # să ne bazăm pe rezoluția implicită a playwright-core (care poate
+          # alege varianta "headless shell" în loc de Chromium standard) —
+          # același contract documentat în README-ul pachetului, respectat
+          # de toate testele lui.
+          chromium_path="$(cd packages/validator && node -e "console.log(require('playwright-core').chromium.executablePath())")"
+
+          pnpm --filter @sistem-digital/website start &
+          server_pid=$!
+
+          ready=0
+          for _ in $(seq 1 60); do
+            if curl -sf http://127.0.0.1:3000/ > /dev/null; then
+              ready=1
+              break
+            fi
+            sleep 2
+          done
+
+          if [ "${ready}" -ne 1 ]; then
+            echo "Website server did not become ready in time." >&2
+            kill "${server_pid}" 2>/dev/null
+            exit 1
+          fi
+
+          node packages/validator/dist/cli.js http://127.0.0.1:3000/ --format json --executable-path "${chromium_path}" > validator-report.json
+          validator_status=$?
+
+          node packages/validator/scripts/generate-badge.mjs validator-report.json validator-badge.svg
+
+          kill "${server_pid}" 2>/dev/null
+          echo "status=${validator_status}" >> "${GITHUB_OUTPUT}"
+          exit 0
+
+      - name: Upload validator report and badge
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validator-self-check
+          path: |
+            validator-report.json
+            validator-badge.svg
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Fail if the validator found blocking issues
+        if: steps.validator.outputs.status != '0'
+        run: exit 1
