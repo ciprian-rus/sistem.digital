@@ -27,11 +27,6 @@ un produs finit.
   reală (HEAD, cu fallback GET); linkurile interne stricate dau `fail`,
   cele externe stricate dau `warn` (pot fi în afara controlului
   proiectului).
-- `sd-a11y-contrast` — verificarea raportului de contrast WCAG pentru
-  perechi text/fundal furnizate explicit (algoritm identic cu
-  `packages/tokens/scripts/build-themes.mjs`), disponibilă ca funcție de
-  bibliotecă, nu încă parte a CLI-ului (nu poate fi derivată automat doar
-  dintr-un URL).
 - `sd-seo-required-pages` — verifică prezența și forma minimă a
   `sitemap.xml`, `robots.txt`, a unui manifest web
   (`manifest.webmanifest` sau `manifest.json`) și a unui
@@ -40,11 +35,22 @@ un produs finit.
   separat în `evidence`. Verifică doar căile convenționale — un proiect
   care le publică în altă locație are nevoie de căi configurabile,
   neimplementate încă.
+- `sd-package-version` — compară versiunea instalată a fiecărui pachet
+  `@sistem-digital/*` dintr-un proiect local (citită din
+  `node_modules/@sistem-digital/<pachet>/package.json`) cu ultima
+  versiune publicată pe npm (dist-tag `latest`); `warn` pentru pachete
+  în urmă, niciodată `fail` (severitate `warning` — nu blochează CI
+  implicit). Singura regulă care nu operează pe un URL, ci pe o cale de
+  proiect local — de aceea e disponibilă doar ca funcție de bibliotecă.
+- `sd-a11y-contrast` — verificarea raportului de contrast WCAG pentru
+  perechi text/fundal furnizate explicit (algoritm identic cu
+  `packages/tokens/scripts/build-themes.mjs`), disponibilă ca funcție de
+  bibliotecă, nu încă parte a CLI-ului (nu poate fi derivată automat doar
+  dintr-un URL).
 - formatul de raport JSON și un randator HTML minimal, ambele fără scor
   agregat unic (vezi principiul „nu se pretinde conformare completă”).
 
-Restul regulilor din inventar (performanță, versiunea pachetelor ș.a.)
-rămân neimplementate.
+Restul regulilor din inventar (performanța) rămâne neimplementat.
 
 ## Acest pachet nu instalează Chromium
 
@@ -82,6 +88,7 @@ import {
   checkHeadingOrder,
   checkLandmarks,
   checkLinks,
+  checkPackageVersions,
   checkRequiredPages,
 } from '@sistem-digital/validator';
 
@@ -90,6 +97,7 @@ const headingOrder = await checkHeadingOrder('https://exemplu-institutie.ro');
 const landmarks = await checkLandmarks('https://exemplu-institutie.ro');
 const links = await checkLinks('https://exemplu-institutie.ro', { checkExternal: false });
 const seo = await checkRequiredPages('https://exemplu-institutie.ro');
+const packageVersions = await checkPackageVersions('/cale/către/proiectul-verificat');
 const contrast = checkContrast([
   { id: 'text/page', foreground: '#17202a', background: '#ffffff', required: 4.5 },
 ]);
@@ -99,6 +107,7 @@ const report = buildReport('https://exemplu-institutie.ro', [
   landmarks,
   links,
   seo,
+  packageVersions,
   contrast,
 ]);
 ```
@@ -113,4 +122,7 @@ automat la `/opt/pw-browsers/chromium` sau prin
 Pentru `sd-seo-required-pages`, doar verificarea `<link rel="canonical">`
 are nevoie de browser; verificările pentru sitemap/robots/manifest
 folosesc `fetch()` simplu. Testele pentru `sd-a11y-contrast` și formatul
-de raport rulează mereu (logică pură, fără browser).
+de raport rulează mereu (logică pură, fără browser). Testele pentru
+`sd-package-version` rulează mereu, împotriva unui server local care
+imită rutele `/<pachet>/latest` ale registrului npm — nu ating
+`registry.npmjs.org` real.
