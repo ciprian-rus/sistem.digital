@@ -22,6 +22,14 @@ un produs finit.
   (`<main>`, `<nav>`, `<header>` etc.), extrasă separat din axe-core
   (`region`, `landmark-one-main`, `landmark-unique` ș.a.), din același
   motiv ca mai sus.
+- `sd-a11y-form-labels` — etichetarea câmpurilor de formular (`label`,
+  `label-title-only`, `aria-input-field-name`, `aria-toggle-field-name`)
+  — rezervată în convenția de identificatori din
+  `docs/product/validator-rules-inventory.md` de la început, dar
+  neimplementată până acum. Exclude deliberat
+  `form-field-multiple-labels`: axe o raportează mereu ca „incomplete”
+  (necesită verificare manuală), niciodată ca „violation”, deci n-ar
+  detecta nimic automat — confirmat empiric, nu doar presupus din tag-uri.
 - `sd-content-broken-links` — extrage linkurile din pagina randată (inclusiv
   cele injectate prin JavaScript) și verifică fiecare cu o cerere HTTP
   reală (HEAD, cu fallback GET); linkurile interne stricate dau `fail`,
@@ -91,8 +99,8 @@ node dist/cli.js https://exemplu-institutie.ro --skip-external-links
 ```
 
 CLI-ul rulează `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
-`sd-a11y-landmarks`, `sd-content-broken-links`, `sd-seo-required-pages`,
-`sd-perf-js-budget`, `sd-perf-css-budget` și
+`sd-a11y-landmarks`, `sd-a11y-form-labels`, `sd-content-broken-links`,
+`sd-seo-required-pages`, `sd-perf-js-budget`, `sd-perf-css-budget` și
 `sd-content-component-structure` în paralel (fiecare regulă își
 pornește propria instanță de Chromium — neoptimizat pentru MVP, dar
 corect).
@@ -106,6 +114,7 @@ import {
   checkComponentStructure,
   checkContrast,
   checkCssBudget,
+  checkFormLabels,
   checkHeadingOrder,
   checkJsBudget,
   checkLandmarks,
@@ -118,6 +127,7 @@ import {
 const accessibility = await checkAccessibility('https://exemplu-institutie.ro');
 const headingOrder = await checkHeadingOrder('https://exemplu-institutie.ro');
 const landmarks = await checkLandmarks('https://exemplu-institutie.ro');
+const formLabels = await checkFormLabels('https://exemplu-institutie.ro');
 const links = await checkLinks('https://exemplu-institutie.ro', { checkExternal: false });
 const seo = await checkRequiredPages('https://exemplu-institutie.ro');
 const jsBudget = await checkJsBudget('https://exemplu-institutie.ro');
@@ -131,6 +141,7 @@ const report = buildReport('https://exemplu-institutie.ro', [
   accessibility,
   headingOrder,
   landmarks,
+  formLabels,
   links,
   seo,
   jsBudget,
@@ -145,8 +156,8 @@ const badge = renderBadgeSvg(report);
 ## Teste
 
 Testele pentru `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
-`sd-a11y-landmarks`, `sd-content-broken-links`, `sd-seo-required-pages`,
-`sd-perf-js-budget`, `sd-perf-css-budget` și
+`sd-a11y-landmarks`, `sd-a11y-form-labels`, `sd-content-broken-links`,
+`sd-seo-required-pages`, `sd-perf-js-budget`, `sd-perf-css-budget` și
 `sd-content-component-structure` rulează integral doar când un
 executabil Chromium e disponibil (verificat automat la
 `/opt/pw-browsers/chromium` sau prin
@@ -185,5 +196,6 @@ Fiecare rulare:
    CLI-ului însuși, nu pe `warn`.
 
 Fiind declanșat doar pe push la `main`, acest workflow nu rulează pe
-pull request-uri (inclusiv cel care l-a introdus) — nu există încă o
-rulare reală, verificată, a lui în producție.
+pull request-uri. Prima lui rulare reală (push-ul de merge al PR-ului
+care l-a introdus) a trecut cu succes — job complet, artefact publicat,
+pasul de eșec omis corect (fără reguli `fail`).
