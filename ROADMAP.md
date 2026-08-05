@@ -81,7 +81,7 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 
 - RFC-uri publice;
 - propuneri și vot consultativ;
-- grupuri de lucru;
+- grupuri de lucru, roluri publice și onboarding documentate (`docs/governance/community.md`, `docs/governance/onboarding.md`, Epic #23) — activarea GitHub Discussions și testarea onboarding-ului cu contributori reali rămân neexecutate;
 - calendar comunitar;
 - registrul deciziilor;
 - program de contributori și maintainers.
