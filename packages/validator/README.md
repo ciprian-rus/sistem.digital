@@ -38,10 +38,12 @@ un produs finit.
   `docs/product/validator-rules-inventory.md`. Nu înlocuiește testarea
   manuală cu tastatura.
 - `sd-content-broken-links` — extrage linkurile din pagina randată (inclusiv
-  cele injectate prin JavaScript) și verifică fiecare cu o cerere HTTP
-  reală (HEAD, cu fallback GET); linkurile interne stricate dau `fail`,
-  cele externe stricate dau `warn` (pot fi în afara controlului
-  proiectului).
+  cele injectate prin JavaScript, și cele ascunse vizual, de exemplu în
+  `<details>` necolapsate — verificarea citește DOM-ul, nu ce e vizibil pe
+  ecran, confirmat empiric pe navigarea mobilă a acestui site) și verifică
+  fiecare cu o cerere HTTP reală (HEAD, cu fallback GET); linkurile interne
+  stricate dau `fail`, cele externe stricate dau `warn` (pot fi în afara
+  controlului proiectului).
 - `sd-seo-required-pages` — verifică prezența și forma minimă a
   sitemap-ului, robots.txt, a unui manifest web și a unui
   `<link rel="canonical">` pe pagina randată; `fail` dacă oricare dintre

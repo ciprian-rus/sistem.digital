@@ -34,6 +34,17 @@ describeIfChromium('checkLinks', () => {
         );
         return;
       }
+      if (request.url === '/meniu-mobil-colapsat') {
+        response.setHeader('content-type', 'text/html; charset=utf-8');
+        response.end(
+          '<!doctype html><html lang="ro"><body>' +
+            '<details class="sd-mobile-navigation"><summary>Meniu</summary>' +
+            '<nav><a href="/pagina-inexistenta">Colapsat, dar tot în DOM</a></nav>' +
+            '</details>' +
+            '</body></html>',
+        );
+        return;
+      }
       response.statusCode = 404;
       response.end('Not found');
     });
@@ -56,6 +67,21 @@ describeIfChromium('checkLinks', () => {
 
   it('fails when an internal link is broken, with evidence', async () => {
     const result = await checkLinks(`${baseUrl}/`, { executablePath, checkExternal: false });
+    expect(result.status).toBe('fail');
+    expect(result.evidence).toEqual([
+      expect.objectContaining({
+        href: `${baseUrl}/pagina-inexistenta`,
+        internal: true,
+        status: 404,
+      }),
+    ]);
+  }, 30_000);
+
+  it('checks links inside a collapsed <details> element (real sd-mobile-navigation pattern) — DOM presence, not visibility, is what matters', async () => {
+    const result = await checkLinks(`${baseUrl}/meniu-mobil-colapsat`, {
+      executablePath,
+      checkExternal: false,
+    });
     expect(result.status).toBe('fail');
     expect(result.evidence).toEqual([
       expect.objectContaining({
