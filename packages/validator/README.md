@@ -67,9 +67,6 @@ un produs finit.
   verde altfel); vezi principiul „nu se pretinde conformare completă”.
 
 Toate categoriile inițiale din #25 au acum cel puțin o regulă MVP.
-Integrarea propriu-zisă în GitHub Actions (rulare programată, publicare
-artefact, gate pe `severity: error`) rămâne neimplementată — vezi
-[„Ce nu include acest pachet”](#ce-nu-include-acest-pachet-încă) mai jos.
 
 ## Acest pachet nu instalează Chromium
 
@@ -162,13 +159,31 @@ pură, fără browser). Testele pentru `sd-package-version` rulează mereu,
 împotriva unui server local care imită rutele `/<pachet>/latest` ale
 registrului npm — nu ating `registry.npmjs.org` real.
 
-## Ce nu include acest pachet încă
+## Integrare GitHub Actions
 
-Din secțiunea „Livrabile” a #25: integrarea propriu-zisă în GitHub
-Actions (un job programat care rulează CLI-ul împotriva unei
-previzualizări deployate, publică raportul JSON și badge-ul ca artefact,
-și eșuează build-ul doar pe reguli `severity: error`) nu există încă —
-doar piesele de care ar avea nevoie (`--format badge`, `renderBadgeSvg`).
-Adăugarea unui workflow nou de CI e o decizie separată de infrastructură
-(rulează recurent, consumă minute de Actions), nu doar cod de pachet —
-tratată distinct de restul regulilor din acest fișier.
+[`.github/workflows/validator-self-check.yml`](../../.github/workflows/validator-self-check.yml)
+rulează validatorul împotriva site-ului propriu al acestui repo
+(`apps/website`, construit și pornit local în job) — dogfooding, nu o
+previzualizare externă, pentru că acesta e singurul țintă reală
+disponibilă azi. Se declanșează la push pe `main` și manual
+(`workflow_dispatch`), **nu** pe fiecare pull request — un workflow nou,
+recurent, e o decizie de infrastructură distinctă de restul acestui
+pachet, tratată separat de regulile de mai sus.
+
+Fiecare rulare:
+
+1. construiește site-ul și validatorul;
+2. pornește site-ul local (`next start`) și așteaptă să răspundă;
+3. rulează CLI-ul (`--format json`) împotriva lui;
+4. generează badge-ul din raportul deja produs, fără să ruleze regulile
+   a doua oară (`scripts/generate-badge.mjs`, disponibil și ca
+   `pnpm --filter @sistem-digital/validator badge <raport.json> [ieșire.svg]`
+   pentru uz local);
+5. publică `validator-report.json` și `validator-badge.svg` ca artefact
+   (30 de zile);
+6. eșuează job-ul doar dacă `summary.fail > 0` — la fel ca exit code-ul
+   CLI-ului însuși, nu pe `warn`.
+
+Fiind declanșat doar pe push la `main`, acest workflow nu rulează pe
+pull request-uri (inclusiv cel care l-a introdus) — nu există încă o
+rulare reală, verificată, a lui în producție.
