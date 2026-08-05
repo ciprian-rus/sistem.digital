@@ -4,6 +4,7 @@ import { renderHtmlReport } from './html-report.js';
 import { checkAccessibility } from './rules/accessibility.js';
 import { checkHeadingOrder, checkLandmarks } from './rules/heading-landmarks.js';
 import { checkLinks } from './rules/links.js';
+import { checkCssBudget, checkJsBudget } from './rules/performance.js';
 import { checkRequiredPages } from './rules/seo.js';
 
 function printHelp(): void {
@@ -17,11 +18,12 @@ Opțiuni:
 
 MVP: rulează sd-a11y-axe-wcag (accesibilitate automată),
 sd-a11y-heading-order (ierarhia titlurilor), sd-a11y-landmarks (regiuni
-ARIA), sd-content-broken-links (linkuri stricate) și
-sd-seo-required-pages (sitemap/robots/manifest/canonical). Celelalte
-reguli din docs/product/validator-rules-inventory.md — inclusiv
-sd-a11y-contrast și sd-package-version, disponibile ca funcții de
-bibliotecă (\`import { checkContrast, checkPackageVersions } from
+ARIA), sd-content-broken-links (linkuri stricate), sd-seo-required-pages
+(sitemap/robots/manifest/canonical), sd-perf-js-budget și
+sd-perf-css-budget (buget de JavaScript/CSS la randarea inițială).
+Celelalte reguli din docs/product/validator-rules-inventory.md —
+inclusiv sd-a11y-contrast și sd-package-version, disponibile ca funcții
+de bibliotecă (\`import { checkContrast, checkPackageVersions } from
 '@sistem-digital/validator'\`) — nu sunt încă parte a CLI-ului, care cere
 doar un URL, nu perechile de culori ale temei sau o cale de proiect local.`);
 }
@@ -49,20 +51,31 @@ async function main(): Promise<void> {
   }
 
   const options = executablePath ? { executablePath } : {};
-  const [accessibilityResult, headingOrderResult, landmarksResult, linksResult, seoResult] =
-    await Promise.all([
-      checkAccessibility(url, options),
-      checkHeadingOrder(url, options),
-      checkLandmarks(url, options),
-      checkLinks(url, { ...options, checkExternal }),
-      checkRequiredPages(url, options),
-    ]);
+  const [
+    accessibilityResult,
+    headingOrderResult,
+    landmarksResult,
+    linksResult,
+    seoResult,
+    jsBudgetResult,
+    cssBudgetResult,
+  ] = await Promise.all([
+    checkAccessibility(url, options),
+    checkHeadingOrder(url, options),
+    checkLandmarks(url, options),
+    checkLinks(url, { ...options, checkExternal }),
+    checkRequiredPages(url, options),
+    checkJsBudget(url, options),
+    checkCssBudget(url, options),
+  ]);
   const report = buildReport(url, [
     accessibilityResult,
     headingOrderResult,
     landmarksResult,
     linksResult,
     seoResult,
+    jsBudgetResult,
+    cssBudgetResult,
   ]);
 
   if (format === 'html') {
