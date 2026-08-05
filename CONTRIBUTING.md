@@ -2,6 +2,8 @@
 
 Mulțumim pentru interes. Sistem Digital este construit public, iar contribuțiile sunt evaluate după nevoia utilizatorilor, accesibilitate, coerență și mentenabilitate.
 
+Pentru o primă contribuție, vezi [`docs/governance/onboarding.md`](docs/governance/onboarding.md) — un traseu recomandat, pas cu pas. Rolurile, grupurile de lucru și modul de participare sunt publice în [`docs/governance/community.md`](docs/governance/community.md).
+
 ## Modalități de contribuție
 
 - raportează o problemă;
