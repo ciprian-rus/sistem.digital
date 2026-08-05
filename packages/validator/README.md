@@ -23,13 +23,12 @@ un produs finit.
   (`region`, `landmark-one-main`, `landmark-unique` ș.a.), din același
   motiv ca mai sus.
 - `sd-a11y-form-labels` — etichetarea câmpurilor de formular (`label`,
-  `label-title-only`, `aria-input-field-name`, `aria-toggle-field-name`)
-  — rezervată în convenția de identificatori din
-  `docs/product/validator-rules-inventory.md` de la început, dar
-  neimplementată până acum. Exclude deliberat
-  `form-field-multiple-labels`: axe o raportează mereu ca „incomplete”
-  (necesită verificare manuală), niciodată ca „violation”, deci n-ar
-  detecta nimic automat — confirmat empiric, nu doar presupus din tag-uri.
+  `label-title-only`, `aria-input-field-name`, `aria-toggle-field-name`,
+  via axe-core), plus `form-field-multiple-labels` prin inspecție directă
+  a DOM-ului (numărarea label-urilor asociate unui control, explicit prin
+  `for`/`id` și implicit prin încadrare) — axe o raportează mereu ca
+  „incomplete”, niciodată ca „violation”, deci nu poate fi detectată prin
+  axe; verificarea proprie e deterministică, nu o euristică.
 - `sd-a11y-focus-visible` — euristică **best-effort** pentru indicatorul
   vizibil de focus: focusează programatic fiecare element interactiv și
   compară stilul calculat (outline, box-shadow, bordură, fundal, culoare
@@ -44,13 +43,15 @@ un produs finit.
   cele externe stricate dau `warn` (pot fi în afara controlului
   proiectului).
 - `sd-seo-required-pages` — verifică prezența și forma minimă a
-  `sitemap.xml`, `robots.txt`, a unui manifest web
-  (`manifest.webmanifest` sau `manifest.json`) și a unui
+  sitemap-ului, robots.txt, a unui manifest web și a unui
   `<link rel="canonical">` pe pagina randată; `fail` dacă oricare dintre
   cele patru lipsește sau e malformată, cu fiecare verificare raportată
-  separat în `evidence`. Verifică doar căile convenționale — un proiect
-  care le publică în altă locație are nevoie de căi configurabile,
-  neimplementate încă.
+  separat în `evidence`. Implicit verifică căile convenționale
+  (`/sitemap.xml`, `/robots.txt`, `/manifest.webmanifest` sau
+  `/manifest.json`), dar acceptă și căi personalizate prin
+  `sitemapPath`/`robotsPath`/`manifestPaths` (nu doar din bibliotecă —
+  și CLI-ul le poate primi, vezi mai jos), pentru proiectele care le
+  publică în altă locație.
 - `sd-package-version` — compară versiunea instalată a fiecărui pachet
   `@sistem-digital/*` dintr-un proiect local (citită din
   `node_modules/@sistem-digital/<pachet>/package.json`) cu ultima

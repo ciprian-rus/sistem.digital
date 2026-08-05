@@ -5,6 +5,16 @@ import type { RuleResult } from '../types.js';
 export interface SeoCheckOptions {
   executablePath?: string;
   requestTimeoutMs?: number;
+  /** Calea sitemap-ului, relativă la origine. Implicit `/sitemap.xml`. */
+  sitemapPath?: string;
+  /** Calea robots.txt, relativă la origine. Implicit `/robots.txt`. */
+  robotsPath?: string;
+  /**
+   * Căile candidate pentru manifestul web, verificate în ordine — prima care
+   * răspunde e folosită. Implicit `/manifest.webmanifest` și
+   * `/manifest.json`.
+   */
+  manifestPaths?: string[];
 }
 
 interface CheckItem {
@@ -25,13 +35,13 @@ async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Respons
   }
 }
 
-async function checkSitemap(origin: string, timeoutMs: number): Promise<CheckItem> {
-  const response = await fetchWithTimeout(`${origin}/sitemap.xml`, timeoutMs);
+async function checkSitemap(origin: string, timeoutMs: number, path: string): Promise<CheckItem> {
+  const response = await fetchWithTimeout(`${origin}${path}`, timeoutMs);
   if (!response || !response.ok) {
     return {
       id: 'sitemap.xml',
       ok: false,
-      detail: `negăsit (${response?.status ?? 'eroare de rețea'})`,
+      detail: `negăsit la ${path} (${response?.status ?? 'eroare de rețea'})`,
     };
   }
   const body = await response.text();
@@ -39,17 +49,17 @@ async function checkSitemap(origin: string, timeoutMs: number): Promise<CheckIte
   return {
     id: 'sitemap.xml',
     ok,
-    detail: ok ? 'valid' : 'răspunde, dar nu conține <urlset>/<sitemapindex>',
+    detail: ok ? `valid la ${path}` : `${path} răspunde, dar nu conține <urlset>/<sitemapindex>`,
   };
 }
 
-async function checkRobots(origin: string, timeoutMs: number): Promise<CheckItem> {
-  const response = await fetchWithTimeout(`${origin}/robots.txt`, timeoutMs);
+async function checkRobots(origin: string, timeoutMs: number, path: string): Promise<CheckItem> {
+  const response = await fetchWithTimeout(`${origin}${path}`, timeoutMs);
   if (!response || !response.ok) {
     return {
       id: 'robots.txt',
       ok: false,
-      detail: `negăsit (${response?.status ?? 'eroare de rețea'})`,
+      detail: `negăsit la ${path} (${response?.status ?? 'eroare de rețea'})`,
     };
   }
   const body = await response.text();
@@ -57,12 +67,18 @@ async function checkRobots(origin: string, timeoutMs: number): Promise<CheckItem
   return {
     id: 'robots.txt',
     ok,
-    detail: ok ? 'valid, conține Sitemap:' : 'răspunde, dar nu conține o directivă Sitemap:',
+    detail: ok
+      ? `valid la ${path}, conține Sitemap:`
+      : `${path} răspunde, dar nu conține o directivă Sitemap:`,
   };
 }
 
-async function checkManifest(origin: string, timeoutMs: number): Promise<CheckItem> {
-  for (const path of ['/manifest.webmanifest', '/manifest.json']) {
+async function checkManifest(
+  origin: string,
+  timeoutMs: number,
+  paths: string[],
+): Promise<CheckItem> {
+  for (const path of paths) {
     const response = await fetchWithTimeout(`${origin}${path}`, timeoutMs);
     if (!response || !response.ok) continue;
     try {
@@ -80,7 +96,7 @@ async function checkManifest(origin: string, timeoutMs: number): Promise<CheckIt
   return {
     id: 'manifest',
     ok: false,
-    detail: 'negăsit la /manifest.webmanifest sau /manifest.json',
+    detail: `negăsit la ${paths.join(' sau ')}`,
   };
 }
 
@@ -107,21 +123,25 @@ async function checkCanonical(url: string, executablePath: string | undefined): 
 
 /**
  * Regula sd-seo-required-pages: verifică prezența paginilor și declarațiilor
- * standard (sitemap, robots, manifest, canonical), configurabile per
- * proiect în versiunea completă — MVP verifică doar căile convenționale.
- * Vezi docs/product/validator-rules-inventory.md pentru limitările regulii.
+ * standard (sitemap, robots, manifest, canonical). Implicit verifică căile
+ * convenționale (/sitemap.xml, /robots.txt, /manifest.webmanifest sau
+ * /manifest.json) — un proiect care le publică în altă locație poate indica
+ * propriile căi prin sitemapPath/robotsPath/manifestPaths.
  */
 export async function checkRequiredPages(
   url: string,
   options: SeoCheckOptions = {},
 ): Promise<RuleResult> {
   const timeoutMs = options.requestTimeoutMs ?? 10_000;
+  const sitemapPath = options.sitemapPath ?? '/sitemap.xml';
+  const robotsPath = options.robotsPath ?? '/robots.txt';
+  const manifestPaths = options.manifestPaths ?? ['/manifest.webmanifest', '/manifest.json'];
   const origin = new URL(url).origin;
 
   const items = await Promise.all([
-    checkSitemap(origin, timeoutMs),
-    checkRobots(origin, timeoutMs),
-    checkManifest(origin, timeoutMs),
+    checkSitemap(origin, timeoutMs, sitemapPath),
+    checkRobots(origin, timeoutMs, robotsPath),
+    checkManifest(origin, timeoutMs, manifestPaths),
     checkCanonical(url, options.executablePath),
   ]);
 
@@ -137,13 +157,13 @@ export async function checkRequiredPages(
         ? `${failing.length} din ${items.length} verificări SEO obligatorii au eșuat: ${failing.map((item) => item.id).join(', ')}.`
         : `Toate cele ${items.length} verificări SEO obligatorii trec.`,
     explanation:
-      'Verifică prezența și forma minimă a sitemap.xml, robots.txt, manifestului web și a link-ului canonical de pe pagină, la căile convenționale.',
+      'Verifică prezența și forma minimă a sitemap.xml, robots.txt, manifestului web și a link-ului canonical de pe pagină, la căile convenționale (configurabile prin sitemapPath/robotsPath/manifestPaths).',
     remediation:
       failing.length > 0
         ? failing.map((item) => `${item.id}: ${item.detail}`).join(' | ')
         : 'Nicio acțiune necesară.',
     evidence: items,
     limitations:
-      'MVP verifică doar căile convenționale (/sitemap.xml, /robots.txt, /manifest.webmanifest sau /manifest.json) — un proiect care le publică în altă locație are nevoie de căi configurabile, neimplementate încă (vezi inventarul).',
+      'Verifică o singură cale per declarație (sau, pentru manifest, prima din lista de căi candidate care răspunde) — nu detectează automat unde sunt publicate, ci necesită indicarea lor explicită dacă diferă de convenție.',
   };
 }
