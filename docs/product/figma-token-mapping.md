@@ -27,7 +27,9 @@ Figma sunt **generate din** ea, nu invers — orice diferență constatată
 între Figma și cod se rezolvă întotdeauna în favoarea DTCG. Acest principiu
 e explicit și în scope-ul Epic G ([#145](https://github.com/ciprian-rus/sistem.digital/issues/145)),
 care urmărește separat procesul de verificare a deviațiilor; acest document
-pregătește terenul pentru el, fără să-l implementeze.
+pregătește terenul pentru el, fără să-l implementeze — planul tehnic
+propriu-zis e documentat în
+[`docs/architecture/figma-token-sync.md`](../architecture/figma-token-sync.md).
 
 Modelul de referință e cel deja confirmat prin auditul comparativ (PR #99):
 Figma (Tokens Studio) → JSON → Style Dictionary → CSS. Sistem Digital
@@ -161,8 +163,10 @@ consumate direct de alte componente decât cea care le declară.
    de denumire de mai sus.
 3. Notează versiunea sincronizată (din `packages/tokens/package.json`) în
    descrierea fișierului Figma — nu există azi un mecanism automat de
-   verificare a acestei sincronizări (vezi Epic G, [#145](https://github.com/ciprian-rus/sistem.digital/issues/145),
-   pentru planul viitor).
+   verificare a acestei sincronizări (vezi
+   [`docs/architecture/figma-token-sync.md`](../architecture/figma-token-sync.md)
+   pentru planul tehnic, care așteaptă publicarea kitului din #22 pentru a
+   putea fi implementat).
 
 Acest proces manual e temporar și explicit inferior unei sincronizări
 automate (Tokens Studio → JSON → import direct) — dar e singurul realist
