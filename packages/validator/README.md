@@ -55,6 +55,11 @@ un produs finit.
   generic). `warn`, niciodată `fail`, peste bugetul implicit (600 KiB
   JS / 180 KiB CSS, preluate din bugetele acestui site) — configurabil
   prin `budgetBytes`.
+- `sd-content-component-structure` — verifică prezența claselor CSS
+  `sd-*` și a atributelor `data-sd-*` în markup-ul randat, ca dovadă
+  indirectă că proiectul chiar randează componente Sistem Digital, nu
+  doar are pachetele instalate ca dependență neutilizată; `fail` dacă
+  pagina nu conține niciun marker.
 - formatul de raport JSON și un randator HTML minimal, ambele fără scor
   agregat unic (vezi principiul „nu se pretinde conformare completă”).
 
@@ -83,8 +88,9 @@ node dist/cli.js https://exemplu-institutie.ro --skip-external-links
 
 CLI-ul rulează `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
 `sd-a11y-landmarks`, `sd-content-broken-links`, `sd-seo-required-pages`,
-`sd-perf-js-budget` și `sd-perf-css-budget` în paralel (fiecare regulă
-își pornește propria instanță de Chromium — neoptimizat pentru MVP, dar
+`sd-perf-js-budget`, `sd-perf-css-budget` și
+`sd-content-component-structure` în paralel (fiecare regulă își
+pornește propria instanță de Chromium — neoptimizat pentru MVP, dar
 corect).
 
 ## Utilizare ca bibliotecă
@@ -93,6 +99,7 @@ corect).
 import {
   buildReport,
   checkAccessibility,
+  checkComponentStructure,
   checkContrast,
   checkCssBudget,
   checkHeadingOrder,
@@ -110,6 +117,7 @@ const links = await checkLinks('https://exemplu-institutie.ro', { checkExternal:
 const seo = await checkRequiredPages('https://exemplu-institutie.ro');
 const jsBudget = await checkJsBudget('https://exemplu-institutie.ro');
 const cssBudget = await checkCssBudget('https://exemplu-institutie.ro');
+const componentStructure = await checkComponentStructure('https://exemplu-institutie.ro');
 const packageVersions = await checkPackageVersions('/cale/către/proiectul-verificat');
 const contrast = checkContrast([
   { id: 'text/page', foreground: '#17202a', background: '#ffffff', required: 4.5 },
@@ -122,6 +130,7 @@ const report = buildReport('https://exemplu-institutie.ro', [
   seo,
   jsBudget,
   cssBudget,
+  componentStructure,
   packageVersions,
   contrast,
 ]);
@@ -131,8 +140,9 @@ const report = buildReport('https://exemplu-institutie.ro', [
 
 Testele pentru `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
 `sd-a11y-landmarks`, `sd-content-broken-links`, `sd-seo-required-pages`,
-`sd-perf-js-budget` și `sd-perf-css-budget` rulează integral doar când
-un executabil Chromium e disponibil (verificat automat la
+`sd-perf-js-budget`, `sd-perf-css-budget` și
+`sd-content-component-structure` rulează integral doar când un
+executabil Chromium e disponibil (verificat automat la
 `/opt/pw-browsers/chromium` sau prin
 `SISTEM_DIGITAL_VALIDATOR_CHROMIUM`) — altfel se omit cu un mesaj explicit.
 Pentru `sd-seo-required-pages`, doar verificarea `<link rel="canonical">`

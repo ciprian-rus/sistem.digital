@@ -1,6 +1,10 @@
 export { renderHtmlReport } from './html-report.js';
 export { buildReport } from './report.js';
 export { checkAccessibility, type AccessibilityCheckOptions } from './rules/accessibility.js';
+export {
+  checkComponentStructure,
+  type ComponentStructureCheckOptions,
+} from './rules/component-structure.js';
 export { checkContrast, contrastRatio, type ContrastPair } from './rules/contrast.js';
 export {
   checkHeadingOrder,
