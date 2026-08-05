@@ -1,15 +1,7 @@
-import { chromium } from 'playwright-core';
-
+import { withPage, type BrowserOptions } from '../browser-utils.js';
 import type { RuleResult } from '../types.js';
 
-export interface FocusVisibleCheckOptions {
-  /**
-   * Cale către un executabil Chromium existent. Acest pachet nu descarcă
-   * browsere — utilizatorul trebuie să aibă unul disponibil (de exemplu prin
-   * `npx playwright install chromium`) și să indice calea, sau să seteze
-   * variabila de mediu SISTEM_DIGITAL_VALIDATOR_CHROMIUM.
-   */
-  executablePath?: string;
+export interface FocusVisibleCheckOptions extends BrowserOptions {
   /** Numărul maxim de elemente verificate, pentru pagini foarte mari. Implicit 50. */
   maxElements?: number;
 }
@@ -25,12 +17,10 @@ const DEFAULT_MAX_ELEMENTS = 50;
 
 async function collectFocusIndicators(
   url: string,
-  executablePath: string | undefined,
+  options: BrowserOptions,
   maxElements: number,
 ): Promise<FocusCheckItem[]> {
-  const browser = await chromium.launch(executablePath ? { executablePath } : {});
-  try {
-    const page = await browser.newPage();
+  return withPage(options, async (page) => {
     await page.goto(url, { waitUntil: 'networkidle' });
 
     return await page.evaluate(
@@ -82,9 +72,7 @@ async function collectFocusIndicators(
       },
       { selector: FOCUSABLE_SELECTOR, cap: maxElements },
     );
-  } finally {
-    await browser.close();
-  }
+  });
 }
 
 /**
@@ -99,9 +87,8 @@ export async function checkFocusVisible(
   url: string,
   options: FocusVisibleCheckOptions = {},
 ): Promise<RuleResult> {
-  const executablePath = options.executablePath ?? process.env.SISTEM_DIGITAL_VALIDATOR_CHROMIUM;
   const maxElements = options.maxElements ?? DEFAULT_MAX_ELEMENTS;
-  const items = await collectFocusIndicators(url, executablePath, maxElements);
+  const items = await collectFocusIndicators(url, options, maxElements);
   const withoutIndicator = items.filter((item) => !item.hasVisibleIndicator);
 
   return {

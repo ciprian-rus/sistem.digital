@@ -110,9 +110,13 @@ node dist/cli.js https://exemplu-institutie.ro --skip-external-links
 CLI-ul rulează `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
 `sd-a11y-landmarks`, `sd-a11y-form-labels`, `sd-a11y-focus-visible`,
 `sd-content-broken-links`, `sd-seo-required-pages`, `sd-perf-js-budget`,
-`sd-perf-css-budget` și `sd-content-component-structure` în paralel
-(fiecare regulă își pornește propria instanță de Chromium — neoptimizat
-pentru MVP, dar corect).
+`sd-perf-css-budget` și `sd-content-component-structure` în paralel,
+partajând o singură instanță de Chromium între ele (fiecare regulă tot
+deschide și închide propria pagină, dar nu mai pornește propriul proces
+de browser) — verificat empiric: ~43% mai rapid împotriva unei ținte
+reale (`starters/html`), cu rezultate identice. Folosind fiecare regulă
+direct, ca funcție de bibliotecă, fără opțiunea `browser`, comportamentul
+rămâne neschimbat — fiecare apel își lansează și închide propriul browser.
 
 ## Utilizare ca bibliotecă
 
@@ -164,6 +168,13 @@ const report = buildReport('https://exemplu-institutie.ro', [
 ]);
 const badge = renderBadgeSvg(report);
 ```
+
+Toate regulile bazate pe Chromium acceptă și o opțiune `browser` (o
+instanță `playwright-core.Browser` deja lansată) — dacă e furnizată, regula
+o folosește direct, în loc să-și lanseze propriul browser, și n-o închide
+la final (rămâne în grija apelantului). Așa rulează CLI-ul intern; pentru
+uz direct ca bibliotecă, e opțional — fără ea, fiecare regulă rămâne
+independentă, ca înainte.
 
 ## Teste
 

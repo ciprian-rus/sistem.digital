@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { chromium } from 'playwright-core';
+
 import { renderBadgeSvg } from './badge.js';
 import { buildReport } from './report.js';
 import { renderHtmlReport } from './html-report.js';
@@ -76,58 +78,68 @@ async function main(): Promise<void> {
     return;
   }
 
-  const options = executablePath ? { executablePath } : {};
-  const seoOptions = {
-    ...options,
-    ...(sitemapPath ? { sitemapPath } : {}),
-    ...(robotsPath ? { robotsPath } : {}),
-    ...(manifestPaths.length > 0 ? { manifestPaths } : {}),
-  };
-  const [
-    accessibilityResult,
-    headingOrderResult,
-    landmarksResult,
-    formLabelsResult,
-    focusVisibleResult,
-    linksResult,
-    seoResult,
-    jsBudgetResult,
-    cssBudgetResult,
-    componentStructureResult,
-  ] = await Promise.all([
-    checkAccessibility(url, options),
-    checkHeadingOrder(url, options),
-    checkLandmarks(url, options),
-    checkFormLabels(url, options),
-    checkFocusVisible(url, options),
-    checkLinks(url, { ...options, checkExternal }),
-    checkRequiredPages(url, seoOptions),
-    checkJsBudget(url, options),
-    checkCssBudget(url, options),
-    checkComponentStructure(url, options),
-  ]);
-  const report = buildReport(url, [
-    accessibilityResult,
-    headingOrderResult,
-    landmarksResult,
-    formLabelsResult,
-    focusVisibleResult,
-    linksResult,
-    seoResult,
-    jsBudgetResult,
-    cssBudgetResult,
-    componentStructureResult,
-  ]);
+  // O singură instanță Chromium, partajată de toate regulile de mai jos —
+  // fiecare regulă tot deschide și închide propria pagină, dar nu mai
+  // pornește propriul proces de browser (cel mai costisitor pas), spre
+  // deosebire de utilizarea directă ca bibliotecă a fiecărei funcții, unde
+  // fiecare apel rămâne independent.
+  const browser = await chromium.launch(executablePath ? { executablePath } : {});
+  try {
+    const options = { browser };
+    const seoOptions = {
+      ...options,
+      ...(sitemapPath ? { sitemapPath } : {}),
+      ...(robotsPath ? { robotsPath } : {}),
+      ...(manifestPaths.length > 0 ? { manifestPaths } : {}),
+    };
+    const [
+      accessibilityResult,
+      headingOrderResult,
+      landmarksResult,
+      formLabelsResult,
+      focusVisibleResult,
+      linksResult,
+      seoResult,
+      jsBudgetResult,
+      cssBudgetResult,
+      componentStructureResult,
+    ] = await Promise.all([
+      checkAccessibility(url, options),
+      checkHeadingOrder(url, options),
+      checkLandmarks(url, options),
+      checkFormLabels(url, options),
+      checkFocusVisible(url, options),
+      checkLinks(url, { ...options, checkExternal }),
+      checkRequiredPages(url, seoOptions),
+      checkJsBudget(url, options),
+      checkCssBudget(url, options),
+      checkComponentStructure(url, options),
+    ]);
+    const report = buildReport(url, [
+      accessibilityResult,
+      headingOrderResult,
+      landmarksResult,
+      formLabelsResult,
+      focusVisibleResult,
+      linksResult,
+      seoResult,
+      jsBudgetResult,
+      cssBudgetResult,
+      componentStructureResult,
+    ]);
 
-  if (format === 'html') {
-    console.log(renderHtmlReport(report));
-  } else if (format === 'badge') {
-    console.log(renderBadgeSvg(report));
-  } else {
-    console.log(JSON.stringify(report, null, 2));
+    if (format === 'html') {
+      console.log(renderHtmlReport(report));
+    } else if (format === 'badge') {
+      console.log(renderBadgeSvg(report));
+    } else {
+      console.log(JSON.stringify(report, null, 2));
+    }
+
+    process.exitCode = report.summary.fail > 0 ? 1 : 0;
+  } finally {
+    await browser.close();
   }
-
-  process.exitCode = report.summary.fail > 0 ? 1 : 0;
 }
 
 main().catch((error: unknown) => {

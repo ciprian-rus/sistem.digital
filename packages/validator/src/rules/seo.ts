@@ -1,9 +1,7 @@
-import { chromium } from 'playwright-core';
-
+import { withPage, type BrowserOptions } from '../browser-utils.js';
 import type { RuleResult } from '../types.js';
 
-export interface SeoCheckOptions {
-  executablePath?: string;
+export interface SeoCheckOptions extends BrowserOptions {
   requestTimeoutMs?: number;
   /** Calea sitemap-ului, relativă la origine. Implicit `/sitemap.xml`. */
   sitemapPath?: string;
@@ -100,10 +98,8 @@ async function checkManifest(
   };
 }
 
-async function checkCanonical(url: string, executablePath: string | undefined): Promise<CheckItem> {
-  const browser = await chromium.launch(executablePath ? { executablePath } : {});
-  try {
-    const page = await browser.newPage();
+async function checkCanonical(url: string, options: BrowserOptions): Promise<CheckItem> {
+  return withPage(options, async (page) => {
     await page.goto(url, { waitUntil: 'networkidle' });
     const canonical = page.locator('link[rel="canonical"]').first();
     // .getAttribute() pe un locator fără potriviri așteaptă timeout-ul
@@ -116,9 +112,7 @@ async function checkCanonical(url: string, executablePath: string | undefined): 
       ok,
       detail: ok ? `prezent (${href})` : 'lipsește <link rel="canonical"> pe pagină',
     };
-  } finally {
-    await browser.close();
-  }
+  });
 }
 
 /**
@@ -142,7 +136,7 @@ export async function checkRequiredPages(
     checkSitemap(origin, timeoutMs, sitemapPath),
     checkRobots(origin, timeoutMs, robotsPath),
     checkManifest(origin, timeoutMs, manifestPaths),
-    checkCanonical(url, options.executablePath),
+    checkCanonical(url, options),
   ]);
 
   const failing = items.filter((item) => !item.ok);

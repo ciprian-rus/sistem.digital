@@ -1,9 +1,7 @@
-import { chromium } from 'playwright-core';
-
+import { withPage, type BrowserOptions } from '../browser-utils.js';
 import type { RuleResult } from '../types.js';
 
-export interface LinkCheckOptions {
-  executablePath?: string;
+export interface LinkCheckOptions extends BrowserOptions {
   /** Timeout per link, în milisecunde. */
   requestTimeoutMs?: number;
   /** Verifică și linkurile către alte domenii, nu doar cele interne. */
@@ -50,21 +48,15 @@ async function checkOneLink(
  * docs/product/validator-rules-inventory.md pentru limitările regulii.
  */
 export async function checkLinks(url: string, options: LinkCheckOptions = {}): Promise<RuleResult> {
-  const executablePath = options.executablePath ?? process.env.SISTEM_DIGITAL_VALIDATOR_CHROMIUM;
   const timeoutMs = options.requestTimeoutMs ?? 10_000;
   const checkExternal = options.checkExternal ?? true;
 
-  const browser = await chromium.launch(executablePath ? { executablePath } : {});
-  let hrefs: string[];
-  try {
-    const page = await browser.newPage();
+  const hrefs = await withPage(options, async (page) => {
     await page.goto(url, { waitUntil: 'networkidle' });
-    hrefs = await page.$$eval('a[href]', (anchors) =>
+    return page.$$eval('a[href]', (anchors) =>
       anchors.map((anchor) => (anchor as HTMLAnchorElement).href),
     );
-  } finally {
-    await browser.close();
-  }
+  });
 
   const targetOrigin = new URL(url).origin;
   const uniqueHrefs = [...new Set(hrefs)].filter((href) => href.startsWith('http'));

@@ -1,17 +1,9 @@
 import axeCore from 'axe-core';
-import { chromium } from 'playwright-core';
 
+import { withPage, type BrowserOptions } from '../browser-utils.js';
 import type { RuleResult } from '../types.js';
 
-export interface HeadingLandmarksCheckOptions {
-  /**
-   * Cale către un executabil Chromium existent. Acest pachet nu descarcă
-   * browsere — utilizatorul trebuie să aibă unul disponibil (de exemplu prin
-   * `npx playwright install chromium`) și să indice calea, sau să seteze
-   * variabila de mediu SISTEM_DIGITAL_VALIDATOR_CHROMIUM.
-   */
-  executablePath?: string;
-}
+export type HeadingLandmarksCheckOptions = BrowserOptions;
 
 interface AxeViolation {
   id: string;
@@ -39,12 +31,10 @@ const LANDMARK_RULES = [
 
 async function runAxeRules(
   url: string,
-  executablePath: string | undefined,
+  options: BrowserOptions,
   ruleIds: readonly string[],
 ): Promise<AxeViolation[]> {
-  const browser = await chromium.launch(executablePath ? { executablePath } : {});
-  try {
-    const page = await browser.newPage();
+  return withPage(options, async (page) => {
     await page.goto(url, { waitUntil: 'networkidle' });
     await page.addScriptTag({ content: axeCore.source });
 
@@ -59,9 +49,7 @@ async function runAxeRules(
           .then((results) => results.violations),
       ruleIds,
     )) as AxeViolation[];
-  } finally {
-    await browser.close();
-  }
+  });
 }
 
 function buildRuleResult(
@@ -107,8 +95,7 @@ export async function checkHeadingOrder(
   url: string,
   options: HeadingLandmarksCheckOptions = {},
 ): Promise<RuleResult> {
-  const executablePath = options.executablePath ?? process.env.SISTEM_DIGITAL_VALIDATOR_CHROMIUM;
-  const violations = await runAxeRules(url, executablePath, HEADING_ORDER_RULES);
+  const violations = await runAxeRules(url, options, HEADING_ORDER_RULES);
   return buildRuleResult(
     'sd-a11y-heading-order',
     `Verifică ierarhia titlurilor (h1-h6) pe pagina randată, via axe-core (regulile ${HEADING_ORDER_RULES.join(', ')}).`,
@@ -126,8 +113,7 @@ export async function checkLandmarks(
   url: string,
   options: HeadingLandmarksCheckOptions = {},
 ): Promise<RuleResult> {
-  const executablePath = options.executablePath ?? process.env.SISTEM_DIGITAL_VALIDATOR_CHROMIUM;
-  const violations = await runAxeRules(url, executablePath, LANDMARK_RULES);
+  const violations = await runAxeRules(url, options, LANDMARK_RULES);
   return buildRuleResult(
     'sd-a11y-landmarks',
     `Verifică prezența și unicitatea regiunilor ARIA (landmark-uri) pe pagina randată, via axe-core (regulile ${LANDMARK_RULES.join(', ')}).`,
