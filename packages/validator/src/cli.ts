@@ -4,6 +4,7 @@ import { buildReport } from './report.js';
 import { renderHtmlReport } from './html-report.js';
 import { checkAccessibility } from './rules/accessibility.js';
 import { checkComponentStructure } from './rules/component-structure.js';
+import { checkFormLabels } from './rules/form-labels.js';
 import { checkHeadingOrder, checkLandmarks } from './rules/heading-landmarks.js';
 import { checkLinks } from './rules/links.js';
 import { checkCssBudget, checkJsBudget } from './rules/performance.js';
@@ -26,7 +27,8 @@ de stare (roșu la eșecuri, galben la avertismente, verde altfel).
 
 MVP: rulează sd-a11y-axe-wcag (accesibilitate automată),
 sd-a11y-heading-order (ierarhia titlurilor), sd-a11y-landmarks (regiuni
-ARIA), sd-content-broken-links (linkuri stricate), sd-seo-required-pages
+ARIA), sd-a11y-form-labels (etichetarea câmpurilor de formular),
+sd-content-broken-links (linkuri stricate), sd-seo-required-pages
 (sitemap/robots/manifest/canonical), sd-perf-js-budget,
 sd-perf-css-budget (buget de JavaScript/CSS la randarea inițială) și
 sd-content-component-structure (prezența claselor/atributelor Sistem
@@ -65,6 +67,7 @@ async function main(): Promise<void> {
     accessibilityResult,
     headingOrderResult,
     landmarksResult,
+    formLabelsResult,
     linksResult,
     seoResult,
     jsBudgetResult,
@@ -74,6 +77,7 @@ async function main(): Promise<void> {
     checkAccessibility(url, options),
     checkHeadingOrder(url, options),
     checkLandmarks(url, options),
+    checkFormLabels(url, options),
     checkLinks(url, { ...options, checkExternal }),
     checkRequiredPages(url, options),
     checkJsBudget(url, options),
@@ -84,6 +88,7 @@ async function main(): Promise<void> {
     accessibilityResult,
     headingOrderResult,
     landmarksResult,
+    formLabelsResult,
     linksResult,
     seoResult,
     jsBudgetResult,
