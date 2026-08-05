@@ -13,7 +13,7 @@ Mulțumim pentru interes. Sistem Digital este construit public, iar contribuții
 
 ## Înainte de implementare
 
-Pentru schimbări semnificative, deschide mai întâi un issue sau un RFC. O componentă nouă trebuie să demonstreze:
+Pentru schimbări semnificative, deschide mai întâi un issue sau un RFC, conform fluxului public de propuneri documentat în [`docs/governance/proposal-process.md`](docs/governance/proposal-process.md). O componentă nouă trebuie să demonstreze:
 
 1. o nevoie reală și repetabilă;
 2. imposibilitatea rezolvării adecvate printr-o componentă existentă;

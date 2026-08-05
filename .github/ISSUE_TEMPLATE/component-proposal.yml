@@ -1,6 +1,6 @@
 name: Propunere componentă sau pattern
 description: Propune o nevoie reutilizabilă pentru sistem
-title: "[Propunere]: "
+title: '[Propunere]: '
 labels: []
 body:
   - type: textarea
@@ -39,3 +39,8 @@ body:
     id: adoption
     attributes:
       label: Unde ar putea fi reutilizată?
+  - type: textarea
+    id: conflicts-of-interest
+    attributes:
+      label: Conflicte de interes
+      description: Declară orice interes direct (angajator, furnizor, contract) legat de această propunere.

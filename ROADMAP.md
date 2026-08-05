@@ -79,7 +79,7 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 
 ## M6 — Comunitate și guvernanță publică
 
-- RFC-uri publice;
+- RFC-uri publice: flux de admitere, praguri, ciclu de decizie, vot consultativ, registru public de decizii și căi de contestare documentate (`docs/governance/proposal-process.md`), testate pe două propuneri pilot reale (#202, #203, Epic #24);
 - propuneri și vot consultativ;
 - grupuri de lucru;
 - calendar comunitar;
