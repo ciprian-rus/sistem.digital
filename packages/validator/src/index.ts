@@ -7,6 +7,7 @@ export {
   type ComponentStructureCheckOptions,
 } from './rules/component-structure.js';
 export { checkContrast, contrastRatio, type ContrastPair } from './rules/contrast.js';
+export { checkFocusVisible, type FocusVisibleCheckOptions } from './rules/focus-visible.js';
 export { checkFormLabels, type FormLabelsCheckOptions } from './rules/form-labels.js';
 export {
   checkHeadingOrder,
