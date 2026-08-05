@@ -3,6 +3,7 @@ import { buildReport } from './report.js';
 import { renderHtmlReport } from './html-report.js';
 import { checkAccessibility } from './rules/accessibility.js';
 import { checkLinks } from './rules/links.js';
+import { checkRequiredPages } from './rules/seo.js';
 
 function printHelp(): void {
   console.log(`Utilizare: sistem-digital-validator <url> [opțiuni]
@@ -13,8 +14,9 @@ Opțiuni:
   --skip-external-links         Nu verifica linkurile către alte domenii
   --help                        Afișează acest mesaj
 
-MVP: rulează sd-a11y-axe-wcag (accesibilitate automată) și
-sd-content-broken-links (linkuri stricate). Celelalte reguli din
+MVP: rulează sd-a11y-axe-wcag (accesibilitate automată),
+sd-content-broken-links (linkuri stricate) și sd-seo-required-pages
+(sitemap/robots/manifest/canonical). Celelalte reguli din
 docs/product/validator-rules-inventory.md — inclusiv sd-a11y-contrast,
 disponibilă ca funcție de bibliotecă
 (\`import { checkContrast } from '@sistem-digital/validator'\`) — nu sunt
@@ -45,11 +47,12 @@ async function main(): Promise<void> {
   }
 
   const options = executablePath ? { executablePath } : {};
-  const [accessibilityResult, linksResult] = await Promise.all([
+  const [accessibilityResult, linksResult, seoResult] = await Promise.all([
     checkAccessibility(url, options),
     checkLinks(url, { ...options, checkExternal }),
+    checkRequiredPages(url, options),
   ]);
-  const report = buildReport(url, [accessibilityResult, linksResult]);
+  const report = buildReport(url, [accessibilityResult, linksResult, seoResult]);
 
   if (format === 'html') {
     console.log(renderHtmlReport(report));
