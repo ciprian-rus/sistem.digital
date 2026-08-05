@@ -47,10 +47,18 @@ un produs finit.
   `packages/tokens/scripts/build-themes.mjs`), disponibilă ca funcție de
   bibliotecă, nu încă parte a CLI-ului (nu poate fi derivată automat doar
   dintr-un URL).
+- `sd-perf-js-budget` și `sd-perf-css-budget` — dimensiunea totală a
+  JavaScript-ului, respectiv CSS-ului, încărcate la randarea inițială a
+  paginii (Chromium, măsurate la runtime — spre deosebire de
+  `apps/website/scripts/check-performance-budget.mjs`, care citește
+  manifestul de build Next.js, inexistent pentru un proiect extern
+  generic). `warn`, niciodată `fail`, peste bugetul implicit (600 KiB
+  JS / 180 KiB CSS, preluate din bugetele acestui site) — configurabil
+  prin `budgetBytes`.
 - formatul de raport JSON și un randator HTML minimal, ambele fără scor
   agregat unic (vezi principiul „nu se pretinde conformare completă”).
 
-Restul regulilor din inventar (performanța) rămâne neimplementat.
+Toate categoriile inițiale din #25 au acum cel puțin o regulă MVP.
 
 ## Acest pachet nu instalează Chromium
 
@@ -74,9 +82,10 @@ node dist/cli.js https://exemplu-institutie.ro --skip-external-links
 ```
 
 CLI-ul rulează `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
-`sd-a11y-landmarks`, `sd-content-broken-links` și
-`sd-seo-required-pages` în paralel (fiecare regulă își pornește propria
-instanță de Chromium — neoptimizat pentru MVP, dar corect).
+`sd-a11y-landmarks`, `sd-content-broken-links`, `sd-seo-required-pages`,
+`sd-perf-js-budget` și `sd-perf-css-budget` în paralel (fiecare regulă
+își pornește propria instanță de Chromium — neoptimizat pentru MVP, dar
+corect).
 
 ## Utilizare ca bibliotecă
 
@@ -85,7 +94,9 @@ import {
   buildReport,
   checkAccessibility,
   checkContrast,
+  checkCssBudget,
   checkHeadingOrder,
+  checkJsBudget,
   checkLandmarks,
   checkLinks,
   checkPackageVersions,
@@ -97,6 +108,8 @@ const headingOrder = await checkHeadingOrder('https://exemplu-institutie.ro');
 const landmarks = await checkLandmarks('https://exemplu-institutie.ro');
 const links = await checkLinks('https://exemplu-institutie.ro', { checkExternal: false });
 const seo = await checkRequiredPages('https://exemplu-institutie.ro');
+const jsBudget = await checkJsBudget('https://exemplu-institutie.ro');
+const cssBudget = await checkCssBudget('https://exemplu-institutie.ro');
 const packageVersions = await checkPackageVersions('/cale/către/proiectul-verificat');
 const contrast = checkContrast([
   { id: 'text/page', foreground: '#17202a', background: '#ffffff', required: 4.5 },
@@ -107,6 +120,8 @@ const report = buildReport('https://exemplu-institutie.ro', [
   landmarks,
   links,
   seo,
+  jsBudget,
+  cssBudget,
   packageVersions,
   contrast,
 ]);
@@ -115,9 +130,10 @@ const report = buildReport('https://exemplu-institutie.ro', [
 ## Teste
 
 Testele pentru `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
-`sd-a11y-landmarks`, `sd-content-broken-links` și `sd-seo-required-pages`
-rulează integral doar când un executabil Chromium e disponibil (verificat
-automat la `/opt/pw-browsers/chromium` sau prin
+`sd-a11y-landmarks`, `sd-content-broken-links`, `sd-seo-required-pages`,
+`sd-perf-js-budget` și `sd-perf-css-budget` rulează integral doar când
+un executabil Chromium e disponibil (verificat automat la
+`/opt/pw-browsers/chromium` sau prin
 `SISTEM_DIGITAL_VALIDATOR_CHROMIUM`) — altfel se omit cu un mesaj explicit.
 Pentru `sd-seo-required-pages`, doar verificarea `<link rel="canonical">`
 are nevoie de browser; verificările pentru sitemap/robots/manifest

@@ -9,6 +9,11 @@ export {
 } from './rules/heading-landmarks.js';
 export { checkLinks, type LinkCheckOptions } from './rules/links.js';
 export { checkPackageVersions, type PackageVersionCheckOptions } from './rules/package-version.js';
+export {
+  checkCssBudget,
+  checkJsBudget,
+  type PerformanceBudgetCheckOptions,
+} from './rules/performance.js';
 export { checkRequiredPages, type SeoCheckOptions } from './rules/seo.js';
 export type {
   RuleResult,
