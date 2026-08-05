@@ -1,15 +1,7 @@
-import { chromium } from 'playwright-core';
-
+import { withPage, type BrowserOptions } from '../browser-utils.js';
 import type { RuleResult } from '../types.js';
 
-export interface ComponentStructureCheckOptions {
-  /**
-   * Cale către un executabil Chromium existent. Acest pachet nu descarcă
-   * browsere — utilizatorul trebuie să aibă unul disponibil (de exemplu prin
-   * `npx playwright install chromium`) și să indice calea, sau să seteze
-   * variabila de mediu SISTEM_DIGITAL_VALIDATOR_CHROMIUM.
-   */
-  executablePath?: string;
+export interface ComponentStructureCheckOptions extends BrowserOptions {
   /** Prefixul claselor CSS ale sistemului. Implicit "sd-". */
   classPrefix?: string;
 }
@@ -23,12 +15,10 @@ const DEFAULT_CLASS_PREFIX = 'sd-';
 
 async function collectComponentMarkers(
   url: string,
-  executablePath: string | undefined,
+  options: BrowserOptions,
   classPrefix: string,
 ): Promise<ComponentMarkers> {
-  const browser = await chromium.launch(executablePath ? { executablePath } : {});
-  try {
-    const page = await browser.newPage();
+  return withPage(options, async (page) => {
     await page.goto(url, { waitUntil: 'networkidle' });
     return await page.evaluate((prefix) => {
       const classRootSet = new Set<string>();
@@ -55,9 +45,7 @@ async function collectComponentMarkers(
         dataAttributes: [...dataAttributeSet].sort(),
       };
     }, classPrefix);
-  } finally {
-    await browser.close();
-  }
+  });
 }
 
 /**
@@ -71,13 +59,8 @@ export async function checkComponentStructure(
   url: string,
   options: ComponentStructureCheckOptions = {},
 ): Promise<RuleResult> {
-  const executablePath = options.executablePath ?? process.env.SISTEM_DIGITAL_VALIDATOR_CHROMIUM;
   const classPrefix = options.classPrefix ?? DEFAULT_CLASS_PREFIX;
-  const { classRoots, dataAttributes } = await collectComponentMarkers(
-    url,
-    executablePath,
-    classPrefix,
-  );
+  const { classRoots, dataAttributes } = await collectComponentMarkers(url, options, classPrefix);
   const totalMarkers = classRoots.length + dataAttributes.length;
 
   return {

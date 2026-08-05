@@ -1,15 +1,7 @@
-import { chromium } from 'playwright-core';
-
+import { withPage, type BrowserOptions } from '../browser-utils.js';
 import type { RuleResult } from '../types.js';
 
-export interface PerformanceBudgetCheckOptions {
-  /**
-   * Cale către un executabil Chromium existent. Acest pachet nu descarcă
-   * browsere — utilizatorul trebuie să aibă unul disponibil (de exemplu prin
-   * `npx playwright install chromium`) și să indice calea, sau să seteze
-   * variabila de mediu SISTEM_DIGITAL_VALIDATOR_CHROMIUM.
-   */
-  executablePath?: string;
+export interface PerformanceBudgetCheckOptions extends BrowserOptions {
   /** Buget în octeți. Implicit, bugetele acestui site — vezi mai jos. */
   budgetBytes?: number;
 }
@@ -25,12 +17,10 @@ const LIMITATIONS =
 
 async function collectResourceBytes(
   url: string,
-  executablePath: string | undefined,
+  options: BrowserOptions,
   resourceType: 'script' | 'stylesheet',
 ): Promise<number> {
-  const browser = await chromium.launch(executablePath ? { executablePath } : {});
-  try {
-    const page = await browser.newPage();
+  return withPage(options, async (page) => {
     const bodySizes: Array<Promise<number>> = [];
     page.on('response', (response) => {
       if (response.request().resourceType() !== resourceType) return;
@@ -44,9 +34,7 @@ async function collectResourceBytes(
     await page.goto(url, { waitUntil: 'networkidle' });
     const sizes = await Promise.all(bodySizes);
     return sizes.reduce((total, size) => total + size, 0);
-  } finally {
-    await browser.close();
-  }
+  });
 }
 
 function buildBudgetResult(
@@ -88,9 +76,8 @@ export async function checkJsBudget(
   url: string,
   options: PerformanceBudgetCheckOptions = {},
 ): Promise<RuleResult> {
-  const executablePath = options.executablePath ?? process.env.SISTEM_DIGITAL_VALIDATOR_CHROMIUM;
   const budgetBytes = options.budgetBytes ?? DEFAULT_JS_BUDGET_BYTES;
-  const totalBytes = await collectResourceBytes(url, executablePath, 'script');
+  const totalBytes = await collectResourceBytes(url, options, 'script');
   return buildBudgetResult(
     'sd-perf-js-budget',
     'performance',
@@ -108,8 +95,7 @@ export async function checkCssBudget(
   url: string,
   options: PerformanceBudgetCheckOptions = {},
 ): Promise<RuleResult> {
-  const executablePath = options.executablePath ?? process.env.SISTEM_DIGITAL_VALIDATOR_CHROMIUM;
   const budgetBytes = options.budgetBytes ?? DEFAULT_CSS_BUDGET_BYTES;
-  const totalBytes = await collectResourceBytes(url, executablePath, 'stylesheet');
+  const totalBytes = await collectResourceBytes(url, options, 'stylesheet');
   return buildBudgetResult('sd-perf-css-budget', 'performance', 'CSS', totalBytes, budgetBytes);
 }

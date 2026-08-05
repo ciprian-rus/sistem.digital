@@ -1,4 +1,5 @@
 export { renderBadgeSvg } from './badge.js';
+export { type BrowserOptions } from './browser-utils.js';
 export { renderHtmlReport } from './html-report.js';
 export { buildReport } from './report.js';
 export { checkAccessibility, type AccessibilityCheckOptions } from './rules/accessibility.js';

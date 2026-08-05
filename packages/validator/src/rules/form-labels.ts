@@ -1,17 +1,10 @@
 import axeCore from 'axe-core';
-import { chromium, type Page } from 'playwright-core';
+import type { Page } from 'playwright-core';
 
+import { withPage, type BrowserOptions } from '../browser-utils.js';
 import type { RuleResult } from '../types.js';
 
-export interface FormLabelsCheckOptions {
-  /**
-   * Cale către un executabil Chromium existent. Acest pachet nu descarcă
-   * browsere — utilizatorul trebuie să aibă unul disponibil (de exemplu prin
-   * `npx playwright install chromium`) și să indice calea, sau să seteze
-   * variabila de mediu SISTEM_DIGITAL_VALIDATOR_CHROMIUM.
-   */
-  executablePath?: string;
-}
+export type FormLabelsCheckOptions = BrowserOptions;
 
 interface AxeViolation {
   id: string;
@@ -101,16 +94,11 @@ export async function checkFormLabels(
   url: string,
   options: FormLabelsCheckOptions = {},
 ): Promise<RuleResult> {
-  const executablePath = options.executablePath ?? process.env.SISTEM_DIGITAL_VALIDATOR_CHROMIUM;
-  const browser = await chromium.launch(executablePath ? { executablePath } : {});
-  let violations: AxeViolation[];
-  let multipleLabels: MultipleLabelsItem[];
-  try {
-    const page = await browser.newPage();
+  const { violations, multipleLabels } = await withPage(options, async (page) => {
     await page.goto(url, { waitUntil: 'networkidle' });
     await page.addScriptTag({ content: axeCore.source });
 
-    violations = (await page.evaluate(
+    const pageViolations = (await page.evaluate(
       (rules) =>
         (
           window as unknown as {
@@ -122,10 +110,9 @@ export async function checkFormLabels(
       FORM_LABEL_RULES,
     )) as AxeViolation[];
 
-    multipleLabels = await checkMultipleLabels(page);
-  } finally {
-    await browser.close();
-  }
+    const pageMultipleLabels = await checkMultipleLabels(page);
+    return { violations: pageViolations, multipleLabels: pageMultipleLabels };
+  });
 
   const evidence: EvidenceItem[] = violations.map((violation) => ({
     id: violation.id,
