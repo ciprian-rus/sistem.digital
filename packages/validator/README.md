@@ -14,6 +14,14 @@ un produs finit.
 - `sd-a11y-axe-wcag` — accesibilitate automată, prin axe-core rulat
   împotriva unei pagini randate reale (Chromium, via `playwright-core`),
   cu același set de taguri WCAG folosit de testele acestui monorepo.
+- `sd-a11y-heading-order` — ierarhia titlurilor (h1-h6), extrasă separat
+  din axe-core (regulile `heading-order`, `page-has-heading-one`) — sunt
+  marcate „best-practice” în axe, nu fac parte din tagurile WCAG rulate
+  de `sd-a11y-axe-wcag`, de aceea au propria regulă explicabilă.
+- `sd-a11y-landmarks` — prezența și unicitatea regiunilor ARIA
+  (`<main>`, `<nav>`, `<header>` etc.), extrasă separat din axe-core
+  (`region`, `landmark-one-main`, `landmark-unique` ș.a.), din același
+  motiv ca mai sus.
 - `sd-content-broken-links` — extrage linkurile din pagina randată (inclusiv
   cele injectate prin JavaScript) și verifică fiecare cu o cerere HTTP
   reală (HEAD, cu fallback GET); linkurile interne stricate dau `fail`,
@@ -35,8 +43,8 @@ un produs finit.
 - formatul de raport JSON și un randator HTML minimal, ambele fără scor
   agregat unic (vezi principiul „nu se pretinde conformare completă”).
 
-Restul regulilor din inventar (performanță, versiunea pachetelor,
-heading hierarchy/landmarks ca reguli separate ș.a.) rămân neimplementate.
+Restul regulilor din inventar (performanță, versiunea pachetelor ș.a.)
+rămân neimplementate.
 
 ## Acest pachet nu instalează Chromium
 
@@ -59,10 +67,10 @@ node dist/cli.js https://exemplu-institutie.ro --format html --executable-path /
 node dist/cli.js https://exemplu-institutie.ro --skip-external-links
 ```
 
-CLI-ul rulează `sd-a11y-axe-wcag`, `sd-content-broken-links` și
-`sd-seo-required-pages` în paralel (fiecare regulă care are nevoie de
-Chromium își pornește propria instanță — neoptimizat pentru MVP, dar
-corect).
+CLI-ul rulează `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
+`sd-a11y-landmarks`, `sd-content-broken-links` și
+`sd-seo-required-pages` în paralel (fiecare regulă își pornește propria
+instanță de Chromium — neoptimizat pentru MVP, dar corect).
 
 ## Utilizare ca bibliotecă
 
@@ -71,24 +79,36 @@ import {
   buildReport,
   checkAccessibility,
   checkContrast,
+  checkHeadingOrder,
+  checkLandmarks,
   checkLinks,
   checkRequiredPages,
 } from '@sistem-digital/validator';
 
 const accessibility = await checkAccessibility('https://exemplu-institutie.ro');
+const headingOrder = await checkHeadingOrder('https://exemplu-institutie.ro');
+const landmarks = await checkLandmarks('https://exemplu-institutie.ro');
 const links = await checkLinks('https://exemplu-institutie.ro', { checkExternal: false });
 const seo = await checkRequiredPages('https://exemplu-institutie.ro');
 const contrast = checkContrast([
   { id: 'text/page', foreground: '#17202a', background: '#ffffff', required: 4.5 },
 ]);
-const report = buildReport('https://exemplu-institutie.ro', [accessibility, links, seo, contrast]);
+const report = buildReport('https://exemplu-institutie.ro', [
+  accessibility,
+  headingOrder,
+  landmarks,
+  links,
+  seo,
+  contrast,
+]);
 ```
 
 ## Teste
 
-Testele pentru `sd-a11y-axe-wcag`, `sd-content-broken-links` și
-`sd-seo-required-pages` rulează integral doar când un executabil Chromium
-e disponibil (verificat automat la `/opt/pw-browsers/chromium` sau prin
+Testele pentru `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
+`sd-a11y-landmarks`, `sd-content-broken-links` și `sd-seo-required-pages`
+rulează integral doar când un executabil Chromium e disponibil (verificat
+automat la `/opt/pw-browsers/chromium` sau prin
 `SISTEM_DIGITAL_VALIDATOR_CHROMIUM`) — altfel se omit cu un mesaj explicit.
 Pentru `sd-seo-required-pages`, doar verificarea `<link rel="canonical">`
 are nevoie de browser; verificările pentru sitemap/robots/manifest
