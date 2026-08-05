@@ -60,10 +60,16 @@ un produs finit.
   indirectă că proiectul chiar randează componente Sistem Digital, nu
   doar are pachetele instalate ca dependență neutilizată; `fail` dacă
   pagina nu conține niciun marker.
-- formatul de raport JSON și un randator HTML minimal, ambele fără scor
-  agregat unic (vezi principiul „nu se pretinde conformare completă”).
+- formatul de raport JSON, un randator HTML minimal și un badge SVG
+  static (`--format badge`), toate fără scor agregat unic — badge-ul
+  afișează numărul de reguli pass/fail/warn, nu un procent, cu o
+  culoare-indicator de stare (roșu la eșecuri, galben la avertismente,
+  verde altfel); vezi principiul „nu se pretinde conformare completă”.
 
 Toate categoriile inițiale din #25 au acum cel puțin o regulă MVP.
+Integrarea propriu-zisă în GitHub Actions (rulare programată, publicare
+artefact, gate pe `severity: error`) rămâne neimplementată — vezi
+[„Ce nu include acest pachet”](#ce-nu-include-acest-pachet-încă) mai jos.
 
 ## Acest pachet nu instalează Chromium
 
@@ -83,6 +89,7 @@ mediu `SISTEM_DIGITAL_VALIDATOR_CHROMIUM`.
 ```sh
 node dist/cli.js https://exemplu-institutie.ro --format json
 node dist/cli.js https://exemplu-institutie.ro --format html --executable-path /path/to/chromium
+node dist/cli.js https://exemplu-institutie.ro --format badge > badge.svg
 node dist/cli.js https://exemplu-institutie.ro --skip-external-links
 ```
 
@@ -108,6 +115,7 @@ import {
   checkLinks,
   checkPackageVersions,
   checkRequiredPages,
+  renderBadgeSvg,
 } from '@sistem-digital/validator';
 
 const accessibility = await checkAccessibility('https://exemplu-institutie.ro');
@@ -134,6 +142,7 @@ const report = buildReport('https://exemplu-institutie.ro', [
   packageVersions,
   contrast,
 ]);
+const badge = renderBadgeSvg(report);
 ```
 
 ## Teste
@@ -147,8 +156,19 @@ executabil Chromium e disponibil (verificat automat la
 `SISTEM_DIGITAL_VALIDATOR_CHROMIUM`) — altfel se omit cu un mesaj explicit.
 Pentru `sd-seo-required-pages`, doar verificarea `<link rel="canonical">`
 are nevoie de browser; verificările pentru sitemap/robots/manifest
-folosesc `fetch()` simplu. Testele pentru `sd-a11y-contrast` și formatul
-de raport rulează mereu (logică pură, fără browser). Testele pentru
-`sd-package-version` rulează mereu, împotriva unui server local care
-imită rutele `/<pachet>/latest` ale registrului npm — nu ating
-`registry.npmjs.org` real.
+folosesc `fetch()` simplu. Testele pentru `sd-a11y-contrast`, formatul
+de raport și badge-ul SVG (`renderBadgeSvg`) rulează mereu (logică
+pură, fără browser). Testele pentru `sd-package-version` rulează mereu,
+împotriva unui server local care imită rutele `/<pachet>/latest` ale
+registrului npm — nu ating `registry.npmjs.org` real.
+
+## Ce nu include acest pachet încă
+
+Din secțiunea „Livrabile” a #25: integrarea propriu-zisă în GitHub
+Actions (un job programat care rulează CLI-ul împotriva unei
+previzualizări deployate, publică raportul JSON și badge-ul ca artefact,
+și eșuează build-ul doar pe reguli `severity: error`) nu există încă —
+doar piesele de care ar avea nevoie (`--format badge`, `renderBadgeSvg`).
+Adăugarea unui workflow nou de CI e o decizie separată de infrastructură
+(rulează recurent, consumă minute de Actions), nu doar cod de pachet —
+tratată distinct de restul regulilor din acest fișier.
