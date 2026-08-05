@@ -20,10 +20,10 @@ sd-a11y-heading-order (ierarhia titlurilor), sd-a11y-landmarks (regiuni
 ARIA), sd-content-broken-links (linkuri stricate) și
 sd-seo-required-pages (sitemap/robots/manifest/canonical). Celelalte
 reguli din docs/product/validator-rules-inventory.md — inclusiv
-sd-a11y-contrast, disponibilă ca funcție de bibliotecă
-(\`import { checkContrast } from '@sistem-digital/validator'\`) — nu sunt
-încă parte a CLI-ului, care cere doar un URL, nu perechile de culori ale
-temei.`);
+sd-a11y-contrast și sd-package-version, disponibile ca funcții de
+bibliotecă (\`import { checkContrast, checkPackageVersions } from
+'@sistem-digital/validator'\`) — nu sunt încă parte a CLI-ului, care cere
+doar un URL, nu perechile de culori ale temei sau o cale de proiect local.`);
 }
 
 async function main(): Promise<void> {
