@@ -99,6 +99,6 @@ export async function checkLinks(url: string, options: LinkCheckOptions = {}): P
       error: link.error,
     })),
     limitations:
-      'Verifică doar linkurile prezente în HTML la momentul randării inițiale — linkuri afișate condiționat, după o interacțiune a utilizatorului, nu sunt acoperite. Linkurile externe stricate pot reflecta o problemă temporară a altui server, nu a proiectului verificat.',
+      'Verifică linkurile prezente în DOM la randare, indiferent dacă sunt ascunse vizual (de exemplu în <details> necolapsate sau elemente cu atributul hidden/display:none) — document.querySelectorAll găsește orice element din DOM, nu doar cele vizibile; confirmat empiric pe navigarea mobilă a acestui site, ascunsă implicit prin <details>, dar deja detectată corect. Nu acoperă linkuri care nu există deloc în DOM până la o interacțiune (de exemplu conținut adăugat printr-o cerere declanșată de un click, ca „încarcă mai multe”) — nu simulează click-uri, ca să nu declanșeze acțiuni neintenționate pe un site necunoscut (trimiterea unui formular, navigare neașteptată). Linkurile externe stricate pot reflecta o problemă temporară a altui server, nu a proiectului verificat.',
   };
 }
