@@ -30,6 +30,14 @@ un produs finit.
   `form-field-multiple-labels`: axe o raportează mereu ca „incomplete”
   (necesită verificare manuală), niciodată ca „violation”, deci n-ar
   detecta nimic automat — confirmat empiric, nu doar presupus din tag-uri.
+- `sd-a11y-focus-visible` — euristică **best-effort** pentru indicatorul
+  vizibil de focus: focusează programatic fiecare element interactiv și
+  compară stilul calculat (outline, box-shadow, bordură, fundal, culoare
+  text, transform) înainte/după. `warn`, niciodată `fail` (severitate
+  `warning`) — singura sub-categorie din lista inițială a #25 documentată
+  explicit ca neautomatizabilă robust în
+  `docs/product/validator-rules-inventory.md`. Nu înlocuiește testarea
+  manuală cu tastatura.
 - `sd-content-broken-links` — extrage linkurile din pagina randată (inclusiv
   cele injectate prin JavaScript) și verifică fiecare cu o cerere HTTP
   reală (HEAD, cu fallback GET); linkurile interne stricate dau `fail`,
@@ -99,11 +107,11 @@ node dist/cli.js https://exemplu-institutie.ro --skip-external-links
 ```
 
 CLI-ul rulează `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
-`sd-a11y-landmarks`, `sd-a11y-form-labels`, `sd-content-broken-links`,
-`sd-seo-required-pages`, `sd-perf-js-budget`, `sd-perf-css-budget` și
-`sd-content-component-structure` în paralel (fiecare regulă își
-pornește propria instanță de Chromium — neoptimizat pentru MVP, dar
-corect).
+`sd-a11y-landmarks`, `sd-a11y-form-labels`, `sd-a11y-focus-visible`,
+`sd-content-broken-links`, `sd-seo-required-pages`, `sd-perf-js-budget`,
+`sd-perf-css-budget` și `sd-content-component-structure` în paralel
+(fiecare regulă își pornește propria instanță de Chromium — neoptimizat
+pentru MVP, dar corect).
 
 ## Utilizare ca bibliotecă
 
@@ -114,6 +122,7 @@ import {
   checkComponentStructure,
   checkContrast,
   checkCssBudget,
+  checkFocusVisible,
   checkFormLabels,
   checkHeadingOrder,
   checkJsBudget,
@@ -128,6 +137,7 @@ const accessibility = await checkAccessibility('https://exemplu-institutie.ro');
 const headingOrder = await checkHeadingOrder('https://exemplu-institutie.ro');
 const landmarks = await checkLandmarks('https://exemplu-institutie.ro');
 const formLabels = await checkFormLabels('https://exemplu-institutie.ro');
+const focusVisible = await checkFocusVisible('https://exemplu-institutie.ro');
 const links = await checkLinks('https://exemplu-institutie.ro', { checkExternal: false });
 const seo = await checkRequiredPages('https://exemplu-institutie.ro');
 const jsBudget = await checkJsBudget('https://exemplu-institutie.ro');
@@ -142,6 +152,7 @@ const report = buildReport('https://exemplu-institutie.ro', [
   headingOrder,
   landmarks,
   formLabels,
+  focusVisible,
   links,
   seo,
   jsBudget,
@@ -156,10 +167,10 @@ const badge = renderBadgeSvg(report);
 ## Teste
 
 Testele pentru `sd-a11y-axe-wcag`, `sd-a11y-heading-order`,
-`sd-a11y-landmarks`, `sd-a11y-form-labels`, `sd-content-broken-links`,
-`sd-seo-required-pages`, `sd-perf-js-budget`, `sd-perf-css-budget` și
-`sd-content-component-structure` rulează integral doar când un
-executabil Chromium e disponibil (verificat automat la
+`sd-a11y-landmarks`, `sd-a11y-form-labels`, `sd-a11y-focus-visible`,
+`sd-content-broken-links`, `sd-seo-required-pages`, `sd-perf-js-budget`,
+`sd-perf-css-budget` și `sd-content-component-structure` rulează integral
+doar când un executabil Chromium e disponibil (verificat automat la
 `/opt/pw-browsers/chromium` sau prin
 `SISTEM_DIGITAL_VALIDATOR_CHROMIUM`) — altfel se omit cu un mesaj explicit.
 Pentru `sd-seo-required-pages`, doar verificarea `<link rel="canonical">`
