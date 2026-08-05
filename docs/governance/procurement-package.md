@@ -80,4 +80,5 @@ Clauzele 8 și 9 nu cer un proces nou — reutilizează exact ce Sistem Digital 
 
 - negocierea sau adaptarea legală per instituție — rămâne responsabilitatea instituției și a consilierului juridic;
 - un șablon YAML sau checklist executabil (poate fi adăugat separat, dacă programul pilot #26 identifică nevoia concretă);
+- parcursul complet de achiziție (ce clauze alegi pentru ce nivel de conformitate, cum se leagă recepția de validator) — vezi [`docs/governance/pilot-program.md`](pilot-program.md);
 - verificarea automată a clauzei anti-lock-in ca parte a validatorului (#25) — rămâne un candidat pentru scope-ul acelui epic, nu implementat aici.

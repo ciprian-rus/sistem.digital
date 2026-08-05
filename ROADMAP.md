@@ -92,7 +92,7 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - verificări automate de accesibilitate și conformare;
 - raport de conformitate;
 - badge versionat;
-- proiecte pilot;
+- proiecte pilot: criterii de selecție, metodologie de baseline și indicatori pregătiți (`docs/governance/pilot-program.md`), execuția rămâne blocată de parteneri instituționali reali (#26);
 - ghid de achiziție și adopție instituțională;
 - patru niveluri de adopție (`aligned`/`compatible`/`conformant`/`verified`), cu schemă de raportare, politică de excepții și expirare a certificării.
 

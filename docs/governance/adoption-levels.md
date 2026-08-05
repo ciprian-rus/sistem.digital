@@ -78,7 +78,7 @@ interface InstitutionalAdoptionReport {
 }
 ```
 
-Schema e compatibilă conceptual cu schema PNIDP propusă în [`docs/governance/pnidp-schema-draft.md`](pnidp-schema-draft.md) — vezi maparea explicită mai jos — dar nu depinde de ea; poate fi folosită independent, de exemplu într-un registru intern al programului pilot (#26).
+Schema e compatibilă conceptual cu schema PNIDP propusă în [`docs/governance/pnidp-schema-draft.md`](pnidp-schema-draft.md) — vezi maparea explicită mai jos — dar nu depinde de ea; poate fi folosită independent, de exemplu într-un registru intern al programului pilot (#26, vezi [`docs/governance/pilot-program.md`](pilot-program.md) pentru schema propusă a registrului).
 
 ## Badge-uri versionate
 
