@@ -64,10 +64,15 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - bundle CSS/JS pentru site-uri legacy;
 - CDN cu versiuni imutabile și SRI;
 - starter HTML — livrat (`starters/html`), consumă pachetele npm publicate,
-  fără build;
+  fără build; deployat public la
+  [sistem-digital-starter-html.vercel.app](https://sistem-digital-starter-html.vercel.app/)
+  (#22);
 - starter Next.js — livrat (`starters/nextjs`), App Router, consumă aceleași
   pachete publicate; `@sistem-digital/react` nu e încă publicat, deci
-  enhancement-ul JS apelează direct `@sistem-digital/components`;
+  enhancement-ul JS apelează direct `@sistem-digital/components`; deployat
+  public la
+  [sistem-digital-starter-nextjs.vercel.app](https://sistem-digital-starter-nextjs.vercel.app/)
+  (#22);
 - integrare WordPress — livrată (`starters/wordpress`), temă clasică;
   netestată într-un WordPress viu (mediul de dezvoltare nu are acces la
   wordpress.org și nici Docker) — vezi limitarea documentată în
