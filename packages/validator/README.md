@@ -5,9 +5,18 @@ Implementarea inițială a validatorului din
 pe inventarul de reguli și formatul de raport din
 [`docs/product/validator-rules-inventory.md`](../../docs/product/validator-rules-inventory.md).
 
-Pachet privat (`"private": true`) — nu este publicat pe npm. Rămâne un
-punct de plecare pentru implementarea completă planificată pentru M7, nu
-un produs finit.
+Pachet privat (`"private": true`) — nu este publicat pe npm, deliberat, până
+implementarea e completă, nu parțială. Configurația pachetului (`files`,
+`exports`, `bin`, `publishConfig`) e deja aliniată cu convenția celorlalte
+pachete publice ale monorepo-ului și verificată real: `pnpm pack` produce
+un tarball minimal (doar `dist/`, `README.md`, `package.json`, `LICENSE`
+— fără teste sau surse TypeScript), instalat într-un proiect consumator
+gol confirmă că atât importul ESM (`import { ... } from
+'@sistem-digital/validator'`, toate cele 14 exporturi publice prezente),
+cât și CLI-ul (`bin`) funcționează corect. Rămâne exclus intenționat din
+`scripts/pack-public-packages.mjs`/`release-readiness.yml` (care filtrează
+`private !== true`) — nu declanșează fluxul real de release până pachetul
+chiar e gata de publicare.
 
 ## Ce include azi
 
