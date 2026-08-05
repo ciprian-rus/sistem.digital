@@ -18,6 +18,11 @@ Opțiuni:
   --format <json|html|badge>    Formatul raportului (implicit: json)
   --executable-path <cale>      Calea către un executabil Chromium existent
   --skip-external-links         Nu verifica linkurile către alte domenii
+  --sitemap-path <cale>         Calea sitemap-ului (implicit: /sitemap.xml)
+  --robots-path <cale>          Calea robots.txt (implicit: /robots.txt)
+  --manifest-path <cale>        Calea manifestului web; poate fi repetată
+                                 (implicit: /manifest.webmanifest,
+                                 /manifest.json)
   --help                        Afișează acest mesaj
 
 Formatul "badge" produce un SVG static, în stilul shields.io, cu numărul
@@ -57,6 +62,13 @@ async function main(): Promise<void> {
   const executablePathIndex = args.indexOf('--executable-path');
   const executablePath = executablePathIndex >= 0 ? args[executablePathIndex + 1] : undefined;
   const checkExternal = !args.includes('--skip-external-links');
+  const sitemapPathIndex = args.indexOf('--sitemap-path');
+  const sitemapPath = sitemapPathIndex >= 0 ? args[sitemapPathIndex + 1] : undefined;
+  const robotsPathIndex = args.indexOf('--robots-path');
+  const robotsPath = robotsPathIndex >= 0 ? args[robotsPathIndex + 1] : undefined;
+  const manifestPaths = args
+    .flatMap((arg, index) => (arg === '--manifest-path' ? [args[index + 1]] : []))
+    .filter((value): value is string => value !== undefined);
 
   if (format !== 'json' && format !== 'html' && format !== 'badge') {
     console.error(`Format necunoscut: ${format}. Folosește "json", "html" sau "badge".`);
@@ -65,6 +77,12 @@ async function main(): Promise<void> {
   }
 
   const options = executablePath ? { executablePath } : {};
+  const seoOptions = {
+    ...options,
+    ...(sitemapPath ? { sitemapPath } : {}),
+    ...(robotsPath ? { robotsPath } : {}),
+    ...(manifestPaths.length > 0 ? { manifestPaths } : {}),
+  };
   const [
     accessibilityResult,
     headingOrderResult,
@@ -83,7 +101,7 @@ async function main(): Promise<void> {
     checkFormLabels(url, options),
     checkFocusVisible(url, options),
     checkLinks(url, { ...options, checkExternal }),
-    checkRequiredPages(url, options),
+    checkRequiredPages(url, seoOptions),
     checkJsBudget(url, options),
     checkCssBudget(url, options),
     checkComponentStructure(url, options),
