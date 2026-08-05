@@ -19,7 +19,8 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
 - spațiere, dimensiuni, grile și breakpoints;
 - focus, motion, elevation și iconografie;
 - teme light, dark și high contrast;
-- export CSS variables și JSON.
+- export CSS variables și JSON;
+- proces de sincronizare Figma–tokeni–cod: identificator comun între design și cod, mapping token→Figma și plan tehnic de verificare a deviațiilor (Epic G, #145).
 
 ## M2 — Componente MVP
 
