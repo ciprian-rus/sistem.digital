@@ -2,6 +2,7 @@
 import { buildReport } from './report.js';
 import { renderHtmlReport } from './html-report.js';
 import { checkAccessibility } from './rules/accessibility.js';
+import { checkHeadingOrder, checkLandmarks } from './rules/heading-landmarks.js';
 import { checkLinks } from './rules/links.js';
 import { checkRequiredPages } from './rules/seo.js';
 
@@ -15,10 +16,11 @@ Opțiuni:
   --help                        Afișează acest mesaj
 
 MVP: rulează sd-a11y-axe-wcag (accesibilitate automată),
-sd-content-broken-links (linkuri stricate) și sd-seo-required-pages
-(sitemap/robots/manifest/canonical). Celelalte reguli din
-docs/product/validator-rules-inventory.md — inclusiv sd-a11y-contrast,
-disponibilă ca funcție de bibliotecă
+sd-a11y-heading-order (ierarhia titlurilor), sd-a11y-landmarks (regiuni
+ARIA), sd-content-broken-links (linkuri stricate) și
+sd-seo-required-pages (sitemap/robots/manifest/canonical). Celelalte
+reguli din docs/product/validator-rules-inventory.md — inclusiv
+sd-a11y-contrast, disponibilă ca funcție de bibliotecă
 (\`import { checkContrast } from '@sistem-digital/validator'\`) — nu sunt
 încă parte a CLI-ului, care cere doar un URL, nu perechile de culori ale
 temei.`);
@@ -47,12 +49,21 @@ async function main(): Promise<void> {
   }
 
   const options = executablePath ? { executablePath } : {};
-  const [accessibilityResult, linksResult, seoResult] = await Promise.all([
-    checkAccessibility(url, options),
-    checkLinks(url, { ...options, checkExternal }),
-    checkRequiredPages(url, options),
+  const [accessibilityResult, headingOrderResult, landmarksResult, linksResult, seoResult] =
+    await Promise.all([
+      checkAccessibility(url, options),
+      checkHeadingOrder(url, options),
+      checkLandmarks(url, options),
+      checkLinks(url, { ...options, checkExternal }),
+      checkRequiredPages(url, options),
+    ]);
+  const report = buildReport(url, [
+    accessibilityResult,
+    headingOrderResult,
+    landmarksResult,
+    linksResult,
+    seoResult,
   ]);
-  const report = buildReport(url, [accessibilityResult, linksResult, seoResult]);
 
   if (format === 'html') {
     console.log(renderHtmlReport(report));
