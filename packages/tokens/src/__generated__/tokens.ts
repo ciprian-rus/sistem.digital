@@ -1,5 +1,5 @@
 /* Generated from DTCG sources. Do not edit manually. */
-export const tokenVersion = "0.1.0-alpha.3" as const;
+export const tokenVersion = "0.1.0-alpha.4" as const;
 export const tokenFormat = "DTCG 2025.10" as const;
 export const tokens = {
   "component": {

@@ -1,6 +1,7 @@
 {
   "name": "@sistem-digital/react",
   "version": "0.1.0-alpha.0",
+  "private": true,
   "description": "Hook-uri React pentru progressive enhancements din @sistem-digital/components.",
   "license": "Apache-2.0",
   "type": "module",

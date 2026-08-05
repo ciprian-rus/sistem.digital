@@ -105,6 +105,59 @@ try {
     }
   }
 
+  // Deep API assertions beyond "it imports" - only run for a package if it's
+  // actually part of this release candidate. A package not being released
+  // (e.g. still private, unpublished) must not fail an unrelated release.
+  const deepChecksEsm = {
+    '@sistem-digital/tokens': `
+if (tokens.tokenVersion !== expectedTokenVersion || tokens.tokens?.core?.color?.blue?.[900] !== '#002a59') {
+  throw new Error('ESM tokens API does not match the release candidate.');
+}
+if (!tokens.themeNames.includes('light')) {
+  throw new Error('ESM tokens public API is incomplete.');
+}`,
+    '@sistem-digital/components': `
+if (typeof components.enhanceDialogs !== 'function') {
+  throw new Error('ESM components public API is incomplete.');
+}`,
+    '@sistem-digital/web-components': `
+if (!webComponents.webComponentNames?.includes('sd-dialog') || typeof webComponents.defineWebComponents !== 'function') {
+  throw new Error('ESM web-components API does not match the release candidate.');
+}`,
+    '@sistem-digital/react': `
+if (typeof reactAdapter.useDialog !== 'function' || typeof reactAdapter.GlobalEnhancements !== 'function') {
+  throw new Error('ESM react API does not match the release candidate.');
+}`,
+  };
+  const deepChecksCjs = {
+    '@sistem-digital/tokens': `
+if (tokens.tokenVersion !== expectedTokenVersion || tokens.tokens?.core?.color?.blue?.[900] !== '#002a59') {
+  throw new Error('CommonJS tokens API does not match the release candidate.');
+}
+if (!tokens.themeNames.includes('light')) {
+  throw new Error('CommonJS tokens public API is incomplete.');
+}`,
+    '@sistem-digital/components': `
+if (typeof components.enhanceDialogs !== 'function') {
+  throw new Error('CommonJS components public API is incomplete.');
+}`,
+    '@sistem-digital/web-components': `
+if (!webComponents.webComponentNames?.includes('sd-dialog') || typeof webComponents.defineWebComponents !== 'function') {
+  throw new Error('CommonJS web-components API does not match the release candidate.');
+}`,
+    '@sistem-digital/react': `
+if (typeof reactAdapter.useDialog !== 'function' || typeof reactAdapter.GlobalEnhancements !== 'function') {
+  throw new Error('CommonJS react API does not match the release candidate.');
+}`,
+  };
+  const releasedNames = new Set(manifests.map(({ name }) => name));
+  const varNames = {
+    '@sistem-digital/tokens': 'tokens',
+    '@sistem-digital/components': 'components',
+    '@sistem-digital/web-components': 'webComponents',
+    '@sistem-digital/react': 'reactAdapter',
+  };
+
   const serializedManifests = JSON.stringify(manifests);
   writeFileSync(
     resolve(consumerRoot, 'smoke-esm.mjs'),
@@ -115,23 +168,11 @@ for (const manifest of manifests) {
     throw new Error(\`ESM import failed for \${manifest.name}.\`);
   }
 }
-const tokens = await import('@sistem-digital/tokens');
-const components = await import('@sistem-digital/components');
-const webComponents = await import('@sistem-digital/web-components');
-const reactAdapter = await import('@sistem-digital/react');
 const expectedTokenVersion = manifests.find(({ name }) => name === '@sistem-digital/tokens')?.version;
-if (tokens.tokenVersion !== expectedTokenVersion || tokens.tokens?.core?.color?.blue?.[900] !== '#002a59') {
-  throw new Error('ESM tokens API does not match the release candidate.');
-}
-if (!tokens.themeNames.includes('light') || typeof components.enhanceDialogs !== 'function') {
-  throw new Error('ESM public APIs are incomplete.');
-}
-if (!webComponents.webComponentNames?.includes('sd-dialog') || typeof webComponents.defineWebComponents !== 'function') {
-  throw new Error('ESM web-components API does not match the release candidate.');
-}
-if (typeof reactAdapter.useDialog !== 'function' || typeof reactAdapter.GlobalEnhancements !== 'function') {
-  throw new Error('ESM react API does not match the release candidate.');
-}
+${Object.keys(deepChecksEsm)
+  .filter((name) => releasedNames.has(name))
+  .map((name) => `const ${varNames[name]} = await import('${name}');\n${deepChecksEsm[name]}`)
+  .join('\n')}
 `,
   );
   writeFileSync(
@@ -143,23 +184,11 @@ for (const manifest of manifests) {
     throw new Error(\`CommonJS require failed for \${manifest.name}.\`);
   }
 }
-const tokens = require('@sistem-digital/tokens');
-const components = require('@sistem-digital/components');
-const webComponents = require('@sistem-digital/web-components');
-const reactAdapter = require('@sistem-digital/react');
 const expectedTokenVersion = manifests.find(({ name }) => name === '@sistem-digital/tokens')?.version;
-if (tokens.tokenVersion !== expectedTokenVersion || tokens.tokens?.core?.color?.blue?.[900] !== '#002a59') {
-  throw new Error('CommonJS tokens API does not match the release candidate.');
-}
-if (!tokens.themeNames.includes('light') || typeof components.enhanceDialogs !== 'function') {
-  throw new Error('CommonJS public APIs are incomplete.');
-}
-if (!webComponents.webComponentNames?.includes('sd-dialog') || typeof webComponents.defineWebComponents !== 'function') {
-  throw new Error('CommonJS web-components API does not match the release candidate.');
-}
-if (typeof reactAdapter.useDialog !== 'function' || typeof reactAdapter.GlobalEnhancements !== 'function') {
-  throw new Error('CommonJS react API does not match the release candidate.');
-}
+${Object.keys(deepChecksCjs)
+  .filter((name) => releasedNames.has(name))
+  .map((name) => `const ${varNames[name]} = require('${name}');\n${deepChecksCjs[name]}`)
+  .join('\n')}
 `,
   );
 

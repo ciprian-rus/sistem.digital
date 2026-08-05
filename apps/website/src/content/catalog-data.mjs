@@ -1,4 +1,4 @@
-const packageVersion = '0.1.0-alpha.3';
+const packageVersion = '0.1.0-alpha.4';
 
 const familyDefinitions = {
   forms: {

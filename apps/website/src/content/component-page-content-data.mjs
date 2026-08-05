@@ -40,7 +40,7 @@ export const componentPageContent = [
     ],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-31',
         change: 'Publicare inițială în @sistem-digital/components, stadiu alpha.',
       },
@@ -596,7 +596,7 @@ export const componentPageContent = [
     ],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-26',
         change:
           'Adăugat în @sistem-digital/components, împreună cu cookie-banner, spinner, chip și avatar (PR #88).',
@@ -632,7 +632,7 @@ export const componentPageContent = [
     ],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-28',
         change:
           'Adăugat în @sistem-digital/components, împreună cu alte patru componente noi și pachetul @sistem-digital/web-components (PR #89).',
@@ -992,7 +992,7 @@ export const componentPageContent = [
     ],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-26',
         change:
           'Adăugat în @sistem-digital/components, împreună cu segmented-control, spinner, chip și avatar (PR #88).',
@@ -1020,7 +1020,7 @@ export const componentPageContent = [
     implementerResponsibilities: [],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-28',
         change:
           'Adăugat în @sistem-digital/components, împreună cu back-to-top-link și exit-this-page (PR #89).',
@@ -1047,7 +1047,7 @@ export const componentPageContent = [
     ],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-28',
         change:
           'Adăugat în @sistem-digital/components, împreună cu phase-banner și exit-this-page (PR #89).',
@@ -1080,7 +1080,7 @@ export const componentPageContent = [
     ],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-28',
         change:
           'Adăugat în @sistem-digital/components, împreună cu phase-banner și back-to-top-link (PR #89).',
@@ -1520,7 +1520,7 @@ export const componentPageContent = [
     implementerResponsibilities: [],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-26',
         change:
           'Adăugat în @sistem-digital/components, împreună cu segmented-control, cookie-banner, chip și avatar (PR #88).',
@@ -1548,7 +1548,7 @@ export const componentPageContent = [
     implementerResponsibilities: [],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-26',
         change:
           'Adăugat în @sistem-digital/components, împreună cu segmented-control, cookie-banner, spinner și avatar (PR #88).',
@@ -1576,7 +1576,7 @@ export const componentPageContent = [
     implementerResponsibilities: [],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-26',
         change:
           'Adăugat în @sistem-digital/components, împreună cu segmented-control, cookie-banner, spinner și chip (PR #88).',
@@ -1606,7 +1606,7 @@ export const componentPageContent = [
     implementerResponsibilities: [],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-07-28',
         change:
           'Adăugat în @sistem-digital/components, împreună cu phase-banner, back-to-top-link și exit-this-page (PR #89).',
@@ -1641,7 +1641,7 @@ export const componentPageContent = [
     ],
     history: [
       {
-        version: '0.1.0-alpha.3',
+        version: '0.1.0-alpha.4',
         date: '2026-08-03',
         change:
           'Adăugat în @sistem-digital/components, împreună cu vocea tipografică editorială (PR #98).',
