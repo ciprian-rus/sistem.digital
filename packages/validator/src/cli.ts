@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { renderBadgeSvg } from './badge.js';
 import { buildReport } from './report.js';
 import { renderHtmlReport } from './html-report.js';
 import { checkAccessibility } from './rules/accessibility.js';
@@ -12,10 +13,16 @@ function printHelp(): void {
   console.log(`Utilizare: sistem-digital-validator <url> [opțiuni]
 
 Opțiuni:
-  --format <json|html>          Formatul raportului (implicit: json)
+  --format <json|html|badge>    Formatul raportului (implicit: json)
   --executable-path <cale>      Calea către un executabil Chromium existent
   --skip-external-links         Nu verifica linkurile către alte domenii
   --help                        Afișează acest mesaj
+
+Formatul "badge" produce un SVG static, în stilul shields.io, cu numărul
+de reguli pass/fail/warn — niciodată un scor agregat unic (vezi
+principiul „nu se pretinde conformare completă” din
+docs/product/validator-rules-inventory.md). Culoarea e doar un indicator
+de stare (roșu la eșecuri, galben la avertismente, verde altfel).
 
 MVP: rulează sd-a11y-axe-wcag (accesibilitate automată),
 sd-a11y-heading-order (ierarhia titlurilor), sd-a11y-landmarks (regiuni
@@ -47,8 +54,8 @@ async function main(): Promise<void> {
   const executablePath = executablePathIndex >= 0 ? args[executablePathIndex + 1] : undefined;
   const checkExternal = !args.includes('--skip-external-links');
 
-  if (format !== 'json' && format !== 'html') {
-    console.error(`Format necunoscut: ${format}. Folosește "json" sau "html".`);
+  if (format !== 'json' && format !== 'html' && format !== 'badge') {
+    console.error(`Format necunoscut: ${format}. Folosește "json", "html" sau "badge".`);
     process.exitCode = 1;
     return;
   }
@@ -86,6 +93,8 @@ async function main(): Promise<void> {
 
   if (format === 'html') {
     console.log(renderHtmlReport(report));
+  } else if (format === 'badge') {
+    console.log(renderBadgeSvg(report));
   } else {
     console.log(JSON.stringify(report, null, 2));
   }
