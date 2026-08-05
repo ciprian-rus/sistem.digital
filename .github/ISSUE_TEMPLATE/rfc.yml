@@ -1,6 +1,6 @@
 name: RFC
 description: Propune o schimbare arhitecturală, de guvernanță sau incompatibilă
-title: "[RFC]: "
+title: '[RFC]: '
 labels: []
 body:
   - type: textarea
@@ -37,3 +37,8 @@ body:
     id: evidence
     attributes:
       label: Dovezi, prototipuri sau cercetare
+  - type: textarea
+    id: conflicts-of-interest
+    attributes:
+      label: Conflicte de interes
+      description: Declară orice interes direct (angajator, furnizor, contract) legat de această propunere.
