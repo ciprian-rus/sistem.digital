@@ -331,6 +331,12 @@ h3 {
 .button-secondary:hover {
   border-color: currentColor;
   background: transparent;
+  color: var(--sd-color-text);
+}
+
+.hero .button-secondary,
+.hero .button-secondary:visited,
+.hero .button-secondary:hover {
   color: var(--sd-color-text-inverse);
 }
 
