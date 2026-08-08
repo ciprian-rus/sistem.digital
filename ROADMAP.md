@@ -2,6 +2,10 @@
 
 Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după validarea echipei și a capacității de livrare.
 
+## Context legislativ
+
+PL-x nr. 300/2026 (Aplicația Mobilă Unică), adoptat de Senat pe 29 iunie 2026 și aflat la Camera Deputaților, cere exact genul de infrastructură de design și pattern-uri unitare pe care sistem.digital le construiește deja. Vezi maparea detaliată în [`docs/governance/pl-x-300-2026-alignment.md`](docs/governance/pl-x-300-2026-alignment.md) — legea nu e încă promulgată, iar sistem.digital rămâne un proiect open-source independent, nu unul oficial al ADR.
+
 ## M0 — Fundația proiectului
 
 - viziune, principii și limite de produs;

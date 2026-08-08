@@ -1,6 +1,8 @@
 # Schema PNIDP — backlog și contract preliminar
 
-> **Acesta este un document de backlog, nu o implementare.** Definește exclusiv o schemă de date preliminară pentru o eventuală inventariere prin PNIDP (Platforma Națională de Interoperabilitate a Datelor Publice). Nu există, în acest document sau în codul asociat, niciun API, nicio integrare reală și niciun acces la sisteme PNIDP — nu există acces disponibil pentru verificare din acest mediu de lucru. Orice implementare viitoare trebuie validată cu proprietarii reali ai PNIDP înainte de a fi construită.
+> **Acesta este un document de backlog, nu o implementare.** Definește exclusiv o schemă de date preliminară pentru o eventuală inventariere prin PNIDP. Nu există, în acest document sau în codul asociat, niciun API, nicio integrare reală și niciun acces la sisteme PNIDP — nu există acces disponibil pentru verificare din acest mediu de lucru. Orice implementare viitoare trebuie validată cu proprietarii reali ai PNIDP înainte de a fi construită.
+>
+> **Actualizare:** la momentul acestui document, un PNIDP (Platforma Națională de Infrastructură Publică Digitală) real este în curs de legiferare — Senatul a adoptat pachetul de digitalizare aferent (inclusiv PL-x nr. 300/2026, privind Aplicația Mobilă Unică) în prima jumătate a lui 2026, aflat acum la Camera Deputaților ca for decizional, nepromulgat încă. Vezi maparea la nivel de propunere legislativă în [`docs/governance/pl-x-300-2026-alignment.md`](pl-x-300-2026-alignment.md). Denumirea exactă întâlnită în presă ("Platforma Națională de Infrastructură Publică Digitală") diferă ușor de cea folosită mai jos ("Interoperabilitate a Datelor Publice") — schema rămâne, pentru moment, o ipoteză proprie, nu o transcriere a specificației reale, care nu a fost încă verificată din acest mediu de lucru.
 
 ## Obiectiv
 
