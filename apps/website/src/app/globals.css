@@ -115,9 +115,15 @@ h3 {
 
 .hero {
   padding-block: clamp(4.5rem, 10vw, 8rem);
-  border-top: 0.25rem solid var(--sd-color-brand);
+  border-top: 0.35rem solid var(--sd-color-brand);
   background: var(--sd-color-surface-strong);
   color: var(--sd-color-text-inverse);
+}
+
+.hero h1 {
+  font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Noto Serif', serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .hero-grid,
@@ -325,6 +331,12 @@ h3 {
 .button-secondary:hover {
   border-color: currentColor;
   background: transparent;
+  color: var(--sd-color-text);
+}
+
+.hero .button-secondary,
+.hero .button-secondary:visited,
+.hero .button-secondary:hover {
   color: var(--sd-color-text-inverse);
 }
 
