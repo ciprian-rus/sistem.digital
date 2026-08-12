@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+:root {
+  /* Engineered-precision elevation: a crisp 1px edge carries the depth cue,
+     the shadow only adds separation from the page behind it - overrides the
+     soft, blurred default fallbacks baked into interactive.css. */
+  --sd-elevation-overlay:
+    0 0 0 1px var(--sd-color-border-strong), 0 16px 32px -12px rgb(20 34 51 / 0.28);
+  --sd-elevation-raised: 0 0 0 1px var(--sd-color-border), 0 8px 20px -10px rgb(20 34 51 / 0.18);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -61,6 +70,9 @@ p {
 
 h1 {
   margin-bottom: var(--sd-space-6);
+  font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Noto Serif', serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 h2 {
@@ -118,12 +130,6 @@ h3 {
   border-top: 0.35rem solid var(--sd-color-brand);
   background: var(--sd-color-surface-strong);
   color: var(--sd-color-text-inverse);
-}
-
-.hero h1 {
-  font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Noto Serif', serif;
-  font-weight: 600;
-  letter-spacing: -0.01em;
 }
 
 .hero-grid,
