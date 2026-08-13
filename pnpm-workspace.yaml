@@ -39,6 +39,14 @@ overrides:
   brace-expansion: 5.0.9
   # Next.js resolves sharp 0.34.x; 0.35.3 contains the reviewed libvips security fixes.
   sharp: 0.35.3
+  # GHSA-5p4m-2wfm-xmqj (js-yaml quadratic CPU consumption in !!omap resolution)
+  # affects both js-yaml majors changesets pulls in. Scoped per consumer since the
+  # 3.x and 4.x lines aren't drop-in compatible with each other.
+  'read-yaml-file>js-yaml': 3.15.1
+  '@changesets/parse>js-yaml': 4.3.1
+  # GHSA-2v37-7h3g-55p8 (nanoid: custom generators loop indefinitely at size 0),
+  # pulled in transitively via postcss.
+  'postcss>nanoid': 3.3.17
 
 # pnpm 11 blocks dependency build scripts unless they are explicitly reviewed.
 # sharp is required by Next.js for production image processing.

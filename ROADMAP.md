@@ -2,6 +2,10 @@
 
 Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după validarea echipei și a capacității de livrare.
 
+## Context legislativ
+
+PL-x nr. 300/2026 (SUDD — Sistemul Unic de Design Digital), adoptat de Senat și aflat la Camera Deputaților, cere exact genul de set comun de reguli și componente pe care sistem.digital îl construiește deja. Vezi maparea detaliată în [`docs/governance/pl-x-300-2026-alignment.md`](docs/governance/pl-x-300-2026-alignment.md) — legea nu e încă promulgată, iar sistem.digital rămâne un proiect open-source independent, nu sistemul oficial desemnat prin lege.
+
 ## M0 — Fundația proiectului
 
 - viziune, principii și limite de produs;
