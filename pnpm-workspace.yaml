@@ -44,9 +44,10 @@ overrides:
   # 3.x and 4.x lines aren't drop-in compatible with each other.
   'read-yaml-file>js-yaml': 3.15.1
   '@changesets/parse>js-yaml': 4.3.1
-  # GHSA-2v37-7h3g-55p8 (nanoid: custom generators loop indefinitely at size 0),
-  # pulled in transitively via postcss.
-  'postcss>nanoid': 3.3.17
+  # GHSA-2v37-7h3g-55p8 (nanoid: custom generators loop indefinitely at size 0).
+  # 3.3.17 patched the original report, but a later revision lowered the floor
+  # to 3.3.18 - pulled in transitively via postcss.
+  'postcss>nanoid': 3.3.18
 
 # pnpm 11 blocks dependency build scripts unless they are explicitly reviewed.
 # sharp is required by Next.js for production image processing.
