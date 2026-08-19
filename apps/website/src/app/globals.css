@@ -127,7 +127,7 @@ h3 {
 
 .hero {
   padding-block: clamp(4.5rem, 10vw, 8rem);
-  border-top: 0.35rem solid var(--sd-color-brand);
+  border-top: 0.25rem solid var(--sd-color-brand);
   background: var(--sd-color-surface-strong);
   color: var(--sd-color-text-inverse);
 }
