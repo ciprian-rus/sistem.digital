@@ -1,18 +1,41 @@
 # Mapping-ul token-urilor către un kit Figma
 
+## Status — actualizare
+
+Fișierul Figma există acum: **„Sistem Digital — Design System"**
+(`https://www.figma.com/design/oDysCLx6dhwPIa2satziNh`), construit prin
+serverul MCP Figma — un canal separat de `figma.com`/`api.figma.com`
+directe, care rămân blocate de politica de rețea a mediului de dezvoltare.
+Conține variabilele (straturile `core`, `semantic`, `component`, plus
+culorile pe cele patru teme și accentele instituționale — vezi secțiunile
+de mai jos pentru numărul exact). Stilurile de text și Effect Styles
+(umbre) rămân nelivrate — sesiunea MCP s-a întrerupt înainte de acel pas,
+neterminat la data acestei actualizări.
+
+**Abatere reală față de planul de mai jos, descoperită la construire**:
+planul Figma disponibil la construire limitează o colecție de variabile la
+**un singur mod** (`"Limited to 1 modes only"`), nu la patru cum presupune
+secțiunea „Moduri" mai jos. Adaptare aplicată: în loc de o colecție
+`semantic` cu patru moduri de temă, există patru colecții separate,
+`color-light`/`color-dark`/`color-high-contrast-light`/`color-high-contrast-dark`,
+fiecare cu un singur mod și aceleași 39 de roluri. La fel pentru accent:
+patru colecții `accent-blue`/`accent-teal`/`accent-burgundy`/`accent-purple`,
+nu o colecție `accent` cu patru moduri. Funcțional identic pentru cine
+consumă variabilele; diferă doar organizarea în panoul Variables. Dacă un
+plan cu mai multe moduri devine disponibil, colecțiile pot fi consolidate
+fără să schimbe vreo valoare.
+
 ## Scop și limită
 
 Acest document specifică, exact, cum se traduce sursa canonică de token-uri
 (`packages/tokens/src/tokens.dtcg.json` + `themes.json`) într-un kit Figma —
 ca oricine cu acces la Figma să poată construi kitul fără decizii ad-hoc.
 
-**Acest document nu este kitul Figma.** Construirea efectivă a fișierului
-`.fig` rămâne un livrabil separat al [#22](https://github.com/ciprian-rus/sistem.digital/issues/22)
-și necesită acces la Figma, indisponibil în mediul de dezvoltare al acestui
-monorepo la data scrierii (atât `figma.com`, cât și `api.figma.com` sunt
-blocate de politica de rețea a mediului — verificat direct, `CONNECT`
-întoarce `403`). Acest document e livrabilul realist posibil fără acel
-acces: mapping-ul, nu execuția lui.
+**Acest document nu este kitul Figma** — vezi „Status" mai sus pentru
+fișierul real. Rămâne, totuși, sursa de adevăr pentru convențiile de
+denumire și conversie folosite la construirea lui, inclusiv pentru munca
+neterminată (stiluri de text, Effect Styles) sau viitoare (Epic G,
+[#145](https://github.com/ciprian-rus/sistem.digital/issues/145)).
 
 Convenția de denumire a **componentelor** în Figma (identică, kebab-case, cu
 `componentName` din catalogul versionat) este deja stabilită în
