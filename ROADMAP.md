@@ -78,9 +78,17 @@ Roadmap-ul este organizat pe milestones logice. Datele vor fi stabilite după va
   wordpress.org și nici Docker) — vezi limitarea documentată în
   `starters/wordpress/README.md`;
 - kit Figma — mapping-ul token→Figma documentat
-  (`docs/product/figma-token-mapping.md`); kitul propriu-zis (fișierul
-  `.fig`) rămâne nelivrat — figma.com și api.figma.com sunt ambele blocate
-  de politica de rețea a mediului de dezvoltare, la fel ca wordpress.org.
+  (`docs/product/figma-token-mapping.md`); fișierul propriu-zis există acum
+  („Sistem Digital — Design System”, prin serverul MCP Figma, care nu trece
+  prin blocajul de rețea figma.com/api.figma.com al mediului de dezvoltare)
+  și conține peste 320 de variabile — cele 78 de primitive `core`, cele 69
+  de tokeni `semantic` non-culoare, 156 de culori pe patru colecții per temă
+  și 12 pe patru colecții de accent instituțional, plus cei 19 tokeni de
+  componentă; planul Figma disponibil limitează colecțiile la un singur mod
+  fiecare, deci temele/accentele sunt colecții separate, nu moduri multiple
+  ale aceleiași colecții, cum propunea inițial documentul de mapping —
+  abatere documentată, nu ascunsă. Stilurile de text și umbrele (Effect
+  Styles) rămân nelivrate — sesiunea MCP s-a întrerupt înainte de acel pas.
 
 ## M6 — Comunitate și guvernanță publică
 

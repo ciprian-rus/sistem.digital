@@ -1,18 +1,54 @@
 # Mapping-ul token-urilor către un kit Figma
 
+## Status — actualizare
+
+Fișierul Figma există acum: **„Sistem Digital — Design System"**
+(`https://www.figma.com/design/oDysCLx6dhwPIa2satziNh`), construit prin
+serverul MCP Figma — un canal separat de `figma.com`/`api.figma.com`
+directe, care rămân blocate de politica de rețea a mediului de dezvoltare.
+Conține variabilele (straturile `core`, `semantic`, `component`, plus
+culorile pe cele patru teme și accentele instituționale — vezi secțiunile
+de mai jos pentru numărul exact). Stilurile de text și Effect Styles
+(umbre) rămân nelivrate — sesiunea MCP s-a întrerupt înainte de acel pas,
+neterminat la data acestei actualizări.
+
+**Abatere reală față de planul de mai jos, descoperită la construire**:
+planul Figma disponibil la construire limitează o colecție de variabile la
+**un singur mod** (`"Limited to 1 modes only"`), nu la patru cum presupune
+secțiunea „Moduri" mai jos. Adaptare aplicată: în loc de o colecție
+`semantic` cu patru moduri de temă, există patru colecții separate,
+`color-light`/`color-dark`/`color-high-contrast-light`/`color-high-contrast-dark`,
+fiecare cu un singur mod și aceleași 39 de roluri. La fel pentru accent:
+patru colecții `accent-blue`/`accent-teal`/`accent-burgundy`/`accent-purple`,
+nu o colecție `accent` cu patru moduri.
+
+Această adaptare **nu e echivalentă funcțional** cu moduri multiple, doar
+similară ca organizare a valorilor. Diferența contează pentru fluxul de
+lucru al unui designer: cu moduri multiple reale,
+`setExplicitVariableModeForCollection` re-rezolvă dintr-o dată _toate_
+proprietățile legate de colecția respectivă, pentru orice frame — un
+singur switch schimbă tema peste tot. Cu colecții separate, o proprietate
+legată de exemplu de `color-light/text/default` rămâne legată de acea
+variabilă specifică; nu „comută" automat spre `color-dark/text/default`
+doar fiindcă altă colecție e selectată undeva — schimbarea temei pe un
+frame construit așa necesită **relegarea manuală** a fiecărei proprietăți
+către variabila din cealaltă colecție (secțiunea „Moduri" de mai jos
+descrie exact acest flux). Dacă un plan cu mai multe moduri devine
+disponibil, colecțiile pot fi consolidate fără să schimbe vreo valoare —
+dar până atunci, „Moduri" de mai jos nu descrie un mode-switch, ci un
+proces de relegare manuală.
+
 ## Scop și limită
 
 Acest document specifică, exact, cum se traduce sursa canonică de token-uri
 (`packages/tokens/src/tokens.dtcg.json` + `themes.json`) într-un kit Figma —
 ca oricine cu acces la Figma să poată construi kitul fără decizii ad-hoc.
 
-**Acest document nu este kitul Figma.** Construirea efectivă a fișierului
-`.fig` rămâne un livrabil separat al [#22](https://github.com/ciprian-rus/sistem.digital/issues/22)
-și necesită acces la Figma, indisponibil în mediul de dezvoltare al acestui
-monorepo la data scrierii (atât `figma.com`, cât și `api.figma.com` sunt
-blocate de politica de rețea a mediului — verificat direct, `CONNECT`
-întoarce `403`). Acest document e livrabilul realist posibil fără acel
-acces: mapping-ul, nu execuția lui.
+**Acest document nu este kitul Figma** — vezi „Status" mai sus pentru
+fișierul real. Rămâne, totuși, sursa de adevăr pentru convențiile de
+denumire și conversie folosite la construirea lui, inclusiv pentru munca
+neterminată (stiluri de text, Effect Styles) sau viitoare (Epic G,
+[#145](https://github.com/ciprian-rus/sistem.digital/issues/145)).
 
 Convenția de denumire a **componentelor** în Figma (identică, kebab-case, cu
 `componentName` din catalogul versionat) este deja stabilită în
@@ -123,7 +159,7 @@ valorile DTCG:
 - `core.shadow.*` → Effect Styles (`Drop Shadow`), cu valorile de offset,
   blur și culoare citite direct din `$value` al fiecărui token.
 
-## Moduri: temă și accent institutional, ca două colecții independente
+## Moduri: temă și accent instituțional
 
 Sistem Digital are **patru teme** (`light`, `dark`, `high-contrast-light`,
 `high-contrast-dark`, din `themes.json`) și **patru accente instituționale**
@@ -131,21 +167,53 @@ Sistem Digital are **patru teme** (`light`, `dark`, `high-contrast-light`,
 39 de roluri semantice rezolvate per temă și 3 valori per accent (implicit/
 hover/activ).
 
-Figma Variables suportă mai multe moduri per colecție. Mapping-ul propus:
+### Plan inițial (multi-mod) — neconstruit, din cauza limitei de plan Figma
 
-- colecția `semantic` capătă **patru moduri**, numite identic cu numele
-  temelor (`light`, `dark`, `high-contrast-light`, `high-contrast-dark`),
-  cu valorile fiecărei variabile de culoare preluate direct din
-  `themes.json → themes[].roles`;
-- accentul instituțional (`themes.json → accents`) devine o **a doua
-  colecție**, `accent`, cu patru moduri (`blue`, `teal`, `burgundy`,
+Figma Variables suportă, în principiu, mai multe moduri per colecție.
+Mapping-ul propus inițial, înainte de a descoperi limita de plan (vezi
+„Status" de la începutul documentului):
+
+- colecția `semantic` ar fi căpătat **patru moduri**, numite identic cu
+  numele temelor (`light`, `dark`, `high-contrast-light`,
+  `high-contrast-dark`), cu valorile fiecărei variabile de culoare preluate
+  direct din `themes.json → themes[].roles`;
+- accentul instituțional (`themes.json → accents`) ar fi devenit o **a
+  doua colecție**, `accent`, cu patru moduri (`blue`, `teal`, `burgundy`,
   `purple`) — separată de `semantic`, fiindcă în cod cele două se rezolvă
   independent (`themeStorageKey` vs. selecția de accent), nu ca produs
   cartezian într-un singur token.
 
-Rezultatul: un designer schimbă modul colecției `semantic` pentru a
-previzualiza tema, și modul colecției `accent` pentru a previzualiza
-personalizarea instituțională — fără să dubleze 16 variante complete.
+Cu acest plan, un designer ar fi schimbat modul colecției `semantic`
+pentru a previzualiza tema, și modul colecției `accent` pentru a
+previzualiza personalizarea instituțională, fără să dubleze 16 variante
+complete — dar **acest plan nu e ce există azi** în fișierul Figma real.
+
+### Ce există azi: colecții separate, relegare manuală
+
+Fișierul Figma actual are, în loc de `semantic` cu patru moduri, patru
+colecții cu un singur mod fiecare (`color-light`, `color-dark`,
+`color-high-contrast-light`, `color-high-contrast-dark`) — și, în loc de
+`accent` cu patru moduri, patru colecții (`accent-blue`, `accent-teal`,
+`accent-burgundy`, `accent-purple`).
+
+Nu există un „switch" de temă. Pentru un designer care lucrează azi în
+fișier, previzualizarea unei alte teme pe un frame construit înseamnă:
+
+1. selectează proprietatea (fill, stroke, text) legată de o variabilă din
+   `color-light`;
+2. în panoul de legare a variabilei, alege manual variabila cu același
+   nume din colecția temei dorite (de exemplu `color-dark/text/default`
+   în loc de `color-light/text/default`);
+3. repetă pentru fiecare proprietate afectată — nu există o acțiune unică,
+   la nivel de frame sau document, care să re-rezolve toate legăturile
+   dintr-o dată, așa cum ar face `setExplicitVariableModeForCollection`
+   pentru moduri reale.
+
+Practic, kitul documentează azi valorile corecte per temă și per accent,
+dar nu oferă fluxul rapid de previzualizare pe care moduri multiple l-ar
+fi permis. Dacă planul Figma disponibil permite în viitor mai multe moduri
+per colecție, colecțiile separate pot fi consolidate (fără să schimbe
+nicio valoare), iar acest flux manual dispare.
 
 ## Straturi component: scop local, nu global
 
